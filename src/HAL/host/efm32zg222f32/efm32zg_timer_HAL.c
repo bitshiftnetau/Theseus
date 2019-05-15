@@ -19,8 +19,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "efm32zg_timer_HPI.h"
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_timer_HAL.h"
+#include "efm32zg_types_HAL.h"
 
 /*
  * Registers

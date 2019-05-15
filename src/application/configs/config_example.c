@@ -29,13 +29,15 @@
 // example_type_1 example_data_1 = { /* Any data initialization that needs doing */ };
 // example_type_2 example_config_1 = { /* Any boot config data that needs doing */ };
 
+/*
 MPI_ext_dev example_device = {
   .MPI_data = {
     &example_data_1,
     NULL
   },
-  .MPI_config = {
+  .MPI_conf = {
     &example_config_1,
     NULL
   }
 }
+*/

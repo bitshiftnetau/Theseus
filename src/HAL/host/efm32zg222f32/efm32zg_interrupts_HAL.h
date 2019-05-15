@@ -1,5 +1,5 @@
-#ifndef _EFM32ZG_INT_CONFIG_H_
-#define _EFM32ZG_INT_CONFIG_H_
+#ifndef _EFM32ZG_INT_HAL_H_
+#define _EFM32ZG_INT_HAL_H_
 
 #include <stdbool.h>
 

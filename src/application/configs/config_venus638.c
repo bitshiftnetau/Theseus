@@ -15,14 +15,15 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  */
-   
+  
+#include <stddef.h>
 
 #include "mpi_port.h"
 #include "mpi_types.h"
 #include "config_venus638.h"
 
 #include "venus638.h"
-#include "venus_adaptor.h"
+#include "venus638_adaptor.h"
 
 VENUS_message_io venus_message; 
 VENUS_response_store venus_response;

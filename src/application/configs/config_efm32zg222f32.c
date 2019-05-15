@@ -22,7 +22,7 @@
 #include "config_efm32zg222f32.h"
 
 #include "efm32zg222f32.h"
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_types_HAL.h"
 #include "efm32zg222f32_adaptor.h"
 
 USART_data usart_data;
@@ -35,7 +35,10 @@ GPIO_periphconf gpio_periphconf;
 CMU_periphconf cmu_periphconf;
 TIMER_periphconf timer_periphconf;
 
-MPI_host efm3zg222f32_host = {
+MPI_host efm32zg222f32_host = { 
+  ._periph_periphconf = {
+    ._cmu_config_reg = cmu_ConfigReg
+  },
   .MPI_data = {
     &usart_data, &usart_periphconf, &usart_error,  &usart_frameconf, &usart_status,
     &gpio_data, &gpio_periphconf,

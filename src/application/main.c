@@ -36,14 +36,32 @@ int main(void)
   /* Chip errata */
   CHIP_Init();
 
-  //SPI mode = lpha-lpol
+
+  /*
+   * Here is a rather contrived example of initializing a peripheral.
+   * Obviously I would set struct values for a bootup configuration such
+   * as this, in the configuration layer but you I think you get the point.
+   *
+   * If we were using an RTOS we could wrap a function call within a task
+   * i.e. a USART read and write cycle.
+   *
+   */
+
+  //
+  uint32_t cmu_oscencmd_mask = CMU_OSCENCMD_HFRCOEN;
+  
+  //Initialize the data in the host object (again, for a CMU I would do this in the config layer)
+  //(yes I realise that the config struct should be in the MPI_conf array, need to refactor) 
+  CMU_periphconf* cmu_periphconf = efm32zg222f32_host.MPI_data[CMU_PERIPHCONF_INDEX];
+  cmu_periphconf->oscencmd = cmu_oscencmd_mask;
+  efm32zg222f32_host.config_register = CMU_OSCENCMD;
+
+  //initialize the peripheral via the middleware interface
+  int(* efm32zg_cmu_fn)() = efm32zg222f32_host._periph_periphconf._cmu_config_reg;
+  mpi_cmuConfigReg(&efm32zg222f32_host, WRITE, efm32zg_cmu_fn); 
 
   /* Infinite loop */
   while (1);
-
-  DW_nodelist* dw_nodelist = dw1000.MPI_data[0];
-  DW_data dw_data = dw_nodelist->list[0];
-  dw_data.dev_index = 5; 
 
 }
 

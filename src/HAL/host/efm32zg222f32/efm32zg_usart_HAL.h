@@ -6,18 +6,18 @@
  */
 
 
-#ifndef EFM32ZG_USART_HPI_H_
-#define EFM32ZG_USART_HPI_H_
+#ifndef EFM32ZG_USART_HAL_H_
+#define EFM32ZG_USART_HAL_H_
 
 #include <stdbool.h>
 
 #include "efm32zg222f32.h"
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_types_HAL.h"
 
 
 
 /*
- * fns for usart HPI
+ * fns for usart HAL
  *
  * ctrl: 				RWC
  * frame: 				RWC
@@ -63,13 +63,5 @@
  **/
 
 int (*const *const usart_config_table[PERIPH_REGISTER_TABLE_MEMBERS])();
-
-/*
-int zg_usartPeriperalRWC(uint32_t RWC,
-						USART_periphconf *usart_periphconf,
-						int (*const *const usart_register_table[])(),
-						int peripheral,
-						uint32_t bitmask);
-*/
 
 #endif /* EFM32ZG_SPI_H_ */

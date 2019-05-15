@@ -26,8 +26,8 @@
 #include <stdbool.h>
 
 #include "efm32zg222f32.h"
-#include "efm32zg_interrupts_HPI.h"
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_interrupts_HAL.h"
+#include "efm32zg_types_HAL.h"
 
 
 

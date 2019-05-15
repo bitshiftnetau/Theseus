@@ -184,6 +184,24 @@ typedef struct MPI_PERIPH_PERIPHCONF{
   int_callback _aes_io;
   int_callback _gpio_io;
 
+  int_callback _rmu_config_reg;
+  int_callback _emu_config_reg;
+  int_callback _cmu_config_reg;
+  int_callback _wdog_config_reg;
+  int_callback _prs_config_reg;
+  int_callback _i2c_config_reg;
+  int_callback _usart_config_reg;
+  int_callback _leuart_config_reg;
+  int_callback _timer_config_reg;
+  int_callback _rtc_config_reg;
+  int_callback _pcnt_config_reg;
+  int_callback _acmp_config_reg;
+  int_callback _vcmp_config_reg;
+  int_callback _adc_config_reg;
+  int_callback _idac_config_reg;
+  int_callback _aes_config_reg;
+  int_callback _gpio_config_reg;
+
 }MPI_periph_periphconf;
 
 
@@ -246,7 +264,7 @@ typedef struct MPI_HOST{
   MPI_core_mcuconf _core_mcuconf;
   MPI_core_periphconf _core_periphconf;
   MPI_periph_periphconf _periph_periphconf;
-  void* MPI_data[255]; // middleware layer data struct as defined as standard
+  void* MPI_data[256]; // middleware layer data struct as defined as standard
   uint32_t config_register;
 
 }MPI_host;
@@ -260,7 +278,7 @@ typedef struct MPI_SLAVE{
   MPI_core_mcuconf _core_mcuconf;
   MPI_core_periphconf _core_periphconf;
   MPI_periph_periphconf _periph_periphconf;
-  void* MPI_data[255]; // middleware layer data struct as defined as standard
+  void* MPI_data[256]; // middleware layer data struct as defined as standard
   uint32_t config_register;
 
 }MPI_slave;
@@ -270,8 +288,8 @@ typedef struct MPI_EXT_DEV{
 
   char model[16];
   char revision[8];
-  void* MPI_data[255];
-  void* MPI_conf[255];
+  void* MPI_data[1024];
+  void* MPI_conf[1024];
   
 }MPI_ext_dev;
 

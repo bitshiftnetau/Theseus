@@ -5,8 +5,8 @@
  *      Author: access
  */
 
-#ifndef EFM32ZG_TYPES_HPI_H_
-#define EFM32ZG_TYPES_HPI_H_
+#ifndef EFM32ZG_TYPES_HAL_H_
+#define EFM32ZG_TYPES_HAL_H_
 
 #include <stdbool.h>
 #include "efm32zg222f32.h"
@@ -37,32 +37,33 @@ extern TIMER_TypeDef* timer0;
  * CMU TABLE INDEXES
  ********************/
 
-#define CMU_CTRL 			0
-#define CMU_HFCORECLKDIV 1
-#define CMU_HFRCOCTRL 2
-#define CMU_LFCROCTRL 3
-#define CMU_AUXHFRCOCTRL 4
-#define CMU_CALCTRL 5
-#define CMU_CALCNT 6
-#define CMU_OSCENCMD 7
-#define CMU_CMD 8 
-#define CMU_LFCLKSEL 9
-#define CMU_STATUS 10
-#define CMU_IF 11
-#define CMU_IFS 12
-#define CMU_IFC 13
-#define CMU_IEN 14
-#define CMU_HFCORECLKEN0 15
-#define CMU_HFPERCLKEN0 16
-#define CMU_SYNCBUSY 17
-#define CMU_FREEZE 18
-#define CMU_LFACLKEN0 19
-#define CMU_LFBCLKEN0 20
-#define CMU_LFAPRESC0 21
-#define CMU_LFBPRESC0 22
-#define CMU_PCNTCTRL 23
-#define CMU_ROUTE 24
-#define CMU_LOCK 25
+#define CMU_CTRL 			    0
+#define CMU_HFCORECLKDIV  1
+#define CMU_HFPERCLKDIV   2
+#define CMU_HFRCOCTRL     3
+#define CMU_LFCROCTRL     4
+#define CMU_AUXHFRCOCTRL  5
+#define CMU_CALCTRL       6
+#define CMU_CALCNT        7
+#define CMU_OSCENCMD      8
+#define CMU_CMD           9
+#define CMU_LFCLKSEL      10
+#define CMU_STATUS        11
+#define CMU_IF            12
+#define CMU_IFS           13
+#define CMU_IFC           14
+#define CMU_IEN           15
+#define CMU_HFCORECLKEN0  16
+#define CMU_HFPERCLKEN0   17
+#define CMU_SYNCBUSY      18
+#define CMU_FREEZE        19
+#define CMU_LFACLKEN0     20 
+#define CMU_LFBCLKEN0     21
+#define CMU_LFAPRESC0     22 
+#define CMU_LFBPRESC0     23
+#define CMU_PCNTCTRL      24
+#define CMU_ROUTE         25
+#define CMU_LOCK          26
 
 /**********************
  *      USART
@@ -126,7 +127,7 @@ extern TIMER_TypeDef* timer0;
 #define timer1 	8
 #define usart1  9
 #define vcmp   	10
-*/
+
 typedef struct {
 	bool acmp0_on;
 	bool adc0_on;
@@ -139,7 +140,7 @@ typedef struct {
 	bool usart1_on;
 	bool vcmp_on;
 }EFM32ZG_peripherals;
-
+*/
 
 /***********************************************************************
  *                              USART 

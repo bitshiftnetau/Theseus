@@ -24,8 +24,8 @@
  ***************************************************************************************************/
 
 #include "efm32zg222f32.h"
-#include "efm32zg_cmu_HPI.h"
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_cmu_HAL.h"
+#include "efm32zg_types_HAL.h"
 
 
 //struct hfclktuning s_hfrco = {.tuningPtr = NULL};

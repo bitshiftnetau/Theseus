@@ -1,16 +1,16 @@
 /*
- * efm32zg_global_HPI.h
+ * efm32zg_global_HAL.h
  *
  *  Created on: Dec 5, 2018
  *      Author: access
  */
 
-#ifndef EFM32ZG_GLOBAL_HPI_H_
-#define EFM32ZG_GLOBAL_HPI_H_
+#ifndef EFM32ZG_GLOBAL_HAL_H_
+#define EFM32ZG_GLOBAL_HAL_H_
 
-#include "efm32zg_gpio_HPI.h"
-#include "efm32zg_gpio_IO_HPI.h"
-#include "efm32zg_usart_HPI.h"
+#include "efm32zg_gpio_HAL.h"
+#include "efm32zg_gpio_IO_HAL.h"
+#include "efm32zg_usart_HAL.h"
 
 /********************
  *      CMU 
@@ -35,4 +35,4 @@ int gpio_Init(void* host_ptr, uint32_t RWC);
 int gpio_ConfigReg(void* host_ptr, uint32_t RWC);
 int gpio_IO_Tgl(void* host_ptr, uint32_t RWC, void* ext_dev_array, uint32_t array_len);
 
-#endif /* EFM32ZG_GLOBAL_HPI_H_ */
+#endif /* EFM32ZG_GLOBAL_HAL_H_ */

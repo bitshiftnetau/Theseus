@@ -16,8 +16,8 @@
  *
  */
  
-#include "efm32zg_types_HPI.h"
-#include "efm32zg_gpio_IO_HPI.h"
+#include "efm32zg_types_HAL.h"
+#include "efm32zg_gpio_IO_HAL.h"
 
 
 int zg_gpioReadIn(GPIO_data* MPI_data)

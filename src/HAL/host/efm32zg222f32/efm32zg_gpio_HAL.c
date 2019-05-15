@@ -20,8 +20,8 @@
 #include <stdint.h>
 #include "efm32zg222f32.h"
 
-#include "efm32zg_types_HPI.h"
-#include "efm32zg_gpio_HPI.h"
+#include "efm32zg_types_HAL.h"
+#include "efm32zg_gpio_HAL.h"
 
 
 int zg_gpioExtIntRiseEdgeClr(GPIO_periphconf* MPI_conf);

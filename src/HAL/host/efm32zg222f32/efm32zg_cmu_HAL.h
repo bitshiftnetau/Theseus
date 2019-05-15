@@ -1,5 +1,5 @@
-#ifndef _EFM32ZG_CMU_CONFIG_H_
-#define _EFM32ZG_CMU_CONFIG_H_
+#ifndef _EFM32ZG_CMU_HAL_H_
+#define _EFM32ZG_CMU_HAL_H_
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -13,5 +13,10 @@
 #define PERIPH_REGISTER_TABLE_MEMBERS 32
 
 int (*const *const cmu_config_table[PERIPH_REGISTER_TABLE_MEMBERS])();
+
+/*
+ * Index defines for cmu_config_table are in the efm32zg_types_HAL.h file
+ */
+
 
 #endif

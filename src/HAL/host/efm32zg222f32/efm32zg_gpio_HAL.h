@@ -1,16 +1,16 @@
 /*
- * efm32zg_gpio_config.h
+ * efm32zg_gpio_HAL.h
  *
  *  Created on: Oct 5, 2018
  *      Author: access
  */
 
 
-#ifndef EFM32ZG_GPIO_CONFIG_H_
-#define EFM32ZG_GPIO_CONFIG_H_
+#ifndef EFM32ZG_GPIO_HAL_H_
+#define EFM32ZG_GPIO_HAL_H_
 
 #include <stdint.h>
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_types_HAL.h"
 
 #define GPIO_PERIPH_REGISTERS 			32
 
@@ -49,4 +49,4 @@
 
 int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])();
 
-#endif /* EFM32ZG_GPIO_CONFIG_H_ */
+#endif /* EFM32ZG_GPIO_HAL_H_ */

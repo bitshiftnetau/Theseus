@@ -22,11 +22,9 @@
 
 #include "mpi_port.h"
 
+#include "dw1000_adaptor.h"
 #include "dw1000_types.h"
-#include "dw1000_param_types.h"
 #include "dw1000_regs.h"
-#include "dw1000_device_api.h"
-#include "dw1000_mutex.h"
 
 #include "dw1000_nodeMgmt.h"
 #include "dw1000_buildMAC.h"

@@ -22,8 +22,8 @@
 
 #include "efm32zg222f32.h" 
 
-#include "efm32zg_usart_HPI.h"
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_usart_HAL.h"
+#include "efm32zg_types_HAL.h"
 
 int (*const usart_ctrl_table[USART_READ_WRITE_CLEAR])();
 int (*const usart_frame_table[USART_READ_WRITE_CLEAR])();

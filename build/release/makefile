@@ -57,13 +57,13 @@ STK3200_INCLUDE= \
 -I$(STK3200_DIR)/config
 
 PROJECT_INCLUDE= \
--I$(SOURCE_DIR)/HPI/host/efm32zg222f32 \
--I$(SOURCE_DIR)/HPI/slave/dw1000 \
--I$(SOURCE_DIR)/HPI/slave/venus638 \
+-I$(SOURCE_DIR)/HAL/host/efm32zg222f32 \
+-I$(SOURCE_DIR)/HAL/slave/dw1000 \
+-I$(SOURCE_DIR)/HAL/slave/venus638 \
+-I$(SOURCE_DIR)/application/configs \
 -I$(SOURCE_DIR)/port_adaptors \
 -I$(SOURCE_DIR)/middleware \
 -I$(SOURCE_DIR)/board/STK3200 \
--I$(SOURCE_DIR)/application/configs
 
 #FREERTOS_INCLUDE= \
 #-I$(FREERTOS_DIR)/include
@@ -86,14 +86,14 @@ $(PROJECT_INCLUDE)
 $(FREERTOS_DIR)/Source/*.c
 
 PROJECT_SOURCES= \
-$(wildcard $(SOURCE_DIR)/HPI/host/efm32zg222f32/*.c) \
-$(wildcard $(SOURCE_DIR)/HPI/slave/dw1000/ext_interface/spi/*.c) \
-$(wildcard $(SOURCE_DIR)/HPI/slave/dw1000/*.c) \
-$(wildcard $(SOURCE_DIR)/HPI/slave/venus638/*.c) \
+$(wildcard $(SOURCE_DIR)/HAL/host/efm32zg222f32/*.c) \
+$(wildcard $(SOURCE_DIR)/HAL/slave/dw1000/*.c) \
+$(wildcard $(SOURCE_DIR)/HAL/slave/venus638/*.c) \
 $(wildcard $(SOURCE_DIR)/middleware/*.c) \
 $(wildcard $(SOURCE_DIR)/board/STK3200/*.c) \
+$(wildcard $(SOURCE_DIR)/application/configs/*.c) \
 $(wildcard $(SOURCE_DIR)/application/*.c) \
-$(wildcard $(SOURCE_DIR)/application/*.c)
+$(wildcard $(SOURCE_DIR)/port_adaptors/*.c)
 
 SOURCES= \
 $(PROJECT_SOURCES)

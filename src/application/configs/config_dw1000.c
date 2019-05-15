@@ -19,28 +19,27 @@
 
 #include "mpi_port.h"
 #include "mpi_types.h"
-
 #include "config_dw1000.h"
 
-#include "dw1000_device_api.h"
+#include "dw1000_adaptor.h"
 #include "dw1000_types.h"
 #include "dw1000_tofCalcs.h"
 
 DW_config dw_devconf;
 
 DW_nodelist dw_list = {
-  .list[0 ... NODELIST_LEN].dev_status = DW_DISABLED,
-  .list[0 ... NODELIST_LEN].dev_index = 0,
-  .list[0 ... NODELIST_LEN].sequence_number = 0, 
-  .list[0 ... NODELIST_LEN].handler_index = RANGE_INDEX,
-  .list[0 ... NODELIST_LEN].pan_id = {0},
-  .list[0 ... NODELIST_LEN].tag_id = {0},
-  .list[0 ... NODELIST_LEN].short_addr = {0},
-  .list[0 ... NODELIST_LEN].resp_delay = {0},
-  .list[0 ... NODELIST_LEN].build_message = {0},
-  .list[0 ... NODELIST_LEN].frame_len = 0,
-  .list[0 ... NODELIST_LEN].frame_in = {0},
-  .list[0 ... NODELIST_LEN].frame_out = {0}
+  .list[0 ... NODELIST_LEN -1].dev_status = DW_DEV_DISABLED,
+  .list[0 ... NODELIST_LEN -1].dev_index = 0,
+  .list[0 ... NODELIST_LEN -1].sequence_num = 0, 
+  .list[0 ... NODELIST_LEN -1].handler_index = RANGE_INDEX,
+  .list[0 ... NODELIST_LEN -1].pan_id = {0},
+  .list[0 ... NODELIST_LEN -1].tag_id = {0},
+  .list[0 ... NODELIST_LEN -1].short_addr = {0},
+  .list[0 ... NODELIST_LEN -1].resp_delay = {0},
+  .list[0 ... NODELIST_LEN -1].build_message = {0},
+  .list[0 ... NODELIST_LEN -1].frame_len = 0,
+  .list[0 ... NODELIST_LEN -1].frame_in = {0},
+  .list[0 ... NODELIST_LEN -1].frame_out = {0}
 };
 
 MPI_ext_dev dw1000 = {

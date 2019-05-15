@@ -23,16 +23,15 @@
 #include "mpi_port.h"
 
 #include "efm32zg222f32.h"
-#include "efm32zg_usart_IO_HPI.h"
-#include "efm32zg_cmu_HPI.h"
-#include "efm32zg_gpio_HPI.h"
-#include "efm32zg_interrupts_HPI.h"
-#include "efm32zg_types_HPI.h"
-#include "efm32zg_usart_HPI.h"
-#include "efm32zg_device_api.h"
-#include "efm32zg_gpio_IO_HPI.h"
-#include "efm32zg_timer_HPI.h"
-
+#include "efm32zg_usart_IO_HAL.h"
+#include "efm32zg_cmu_HAL.h"
+#include "efm32zg_gpio_HAL.h"
+#include "efm32zg_interrupts_HAL.h"
+#include "efm32zg_types_HAL.h"
+#include "efm32zg_usart_HAL.h"
+#include "efm32zg_gpio_IO_HAL.h"
+#include "efm32zg_timer_HAL.h"
+#include "efm32zg222f32_adaptor.h"
 
 /**************** USART *******************/
 

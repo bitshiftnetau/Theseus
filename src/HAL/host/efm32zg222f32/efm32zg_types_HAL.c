@@ -16,7 +16,7 @@
  *
  */
  
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_types_HAL.h"
 #include "efm32zg222f32.h"
 
 CMU_TypeDef * cmu 		= CMU;

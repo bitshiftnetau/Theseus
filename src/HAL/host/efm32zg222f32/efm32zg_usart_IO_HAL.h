@@ -5,10 +5,10 @@
  *      Author: access
  */
 
-#ifndef EFM32ZG_USART_IO_HPI_H_
-#define EFM32ZG_USART_IO_HPI_H_
+#ifndef EFM32ZG_USART_IO_HAL_H_
+#define EFM32ZG_USART_IO_HAL_H_
 
-#include "efm32zg_types_HPI.h"
+#include "efm32zg_types_HAL.h"
 
 #define USART_LOCATION_VARIANTS 	4
 #define USART_POL_PHA_VARIANTS 		4
@@ -61,31 +61,31 @@
  */
 
 
-#define USART_RXDATAX_BUFFERSIZE 	(sizeof(HPI_usart_data.rxdatax)) 	/ (sizeof(HPI_usart_data.rxdatax) 	/ sizeof(uint16_t))	//16
-#define USART_RXDATAXP_BUFFERSIZE 	(sizeof(HPI_usart_data.rxdatax)) 	/ (sizeof(HPI_usart_data.rxdatax) 	/ sizeof(uint16_t))	//16
-#define USART_RXDATA_BUFFERSIZE 		(sizeof(HPI_usart_data.rxdata)) 	/ (sizeof(HPI_usart_data.rxdata)    / sizeof(uint8_t))  //8
-#define USART_RXDOUBLEX_BUFFERSIZE 	(sizeof(HPI_usart_data.rxdoublex)) 	* (sizeof(HPI_usart_data.rxdata)    / sizeof(uint32_t)) //32
-#define USART_RXDOUBLE_BUFFERSIZE	(sizeof(HPI_usart_data.rxdouble)) 	/ (sizeof(HPI_usart_data.rxdouble) 	/ sizeof(uint16_t))	//16
-#define USART_RXDOUBLEXP_BUFFERSIZE 	(sizeof(HPI_usart_data.rxdoublex))	* (sizeof(HPI_usart_data.rxdoublex)	/ sizeof(uint32_t))	//32
+#define USART_RXDATAX_BUFFERSIZE 	16
+#define USART_RXDATAXP_BUFFERSIZE 	16
+#define USART_RXDATA_BUFFERSIZE 		8
+#define USART_RXDOUBLEX_BUFFERSIZE 	32
+#define USART_RXDOUBLE_BUFFERSIZE	16
+#define USART_RXDOUBLEXP_BUFFERSIZE 	32
 
-#define USART_TXDATAX_BUFFERSIZE 	(sizeof(HPI_usart_data.txdatax)) 	/ (sizeof(HPI_usart_data.txdatax) 	/ sizeof(uint16_t)) //16
-#define USART_TXDATA_BUFFERSIZE 		(sizeof(HPI_usart_data.txdata)) 	/ (sizeof(HPI_usart_data.txdata) 	/ sizeof(uint8_t)) 	//8
-#define USART_TXDOUBLEX_BUFFERSIZE 	(sizeof(HPI_usart_data.txdoublex))	* (sizeof(HPI_usart_data.txdoublex)	/ sizeof(uint32_t))	//32
-#define USART_TXDOUBLE_BUFFERSIZE	(sizeof(HPI_usart_data.txdouble))	/ (sizeof(HPI_usart_data.txdouble)	/ sizeof(uint16_t)) //16
+#define USART_TXDATAX_BUFFERSIZE 	16
+#define USART_TXDATA_BUFFERSIZE 		8
+#define USART_TXDOUBLEX_BUFFERSIZE 	32
+#define USART_TXDOUBLE_BUFFERSIZE	16
 
 /*
-#define USART_RXDATAX_LOOP 			sizeof(HPI_usart_data.rxdatax) 		/ sizeof(uint32_t)	//4
-#define USART_RXDATAXP_LOOP 			sizeof(HPI_usart_data.rxdataxp) 	/ sizeof(uint32_t)	//4
-#define USART_RXDATA_LOOP 			sizeof(HPI_usart_data.rxdata) 		/ sizeof(uint32_t)	//4
+#define USART_RXDATAX_LOOP 			4
+#define USART_RXDATAXP_LOOP 		4
+#define USART_RXDATA_LOOP 			4
 
-#define USART_RXDOUBLEX_LOOP 		(sizeof(HPI_usart_data.rxdoublex) 	/ sizeof(uint16_t))	//2
-#define USART_RXDOUBLE_LOOP			(sizeof(HPI_usart_data.rxdouble) 	/ sizeof(uint16_t))	//2
-#define USART_RXDOUBLEXP_LOOP 		(sizeof(HPI_usart_data.rxdoublex)	/ sizeof(uint16_t))	//2
+#define USART_RXDOUBLEX_LOOP 		2
+#define USART_RXDOUBLE_LOOP			2
+#define USART_RXDOUBLEXP_LOOP 	2
 
-#define USART_TXDATAX_LOOP 			sizeof(HPI_usart_data.txdatax) 		/ sizeof(uint32_t)	//4
-#define USART_TXDATA_LOOP 			sizeof(HPI_usart_data.txdata) 		/ sizeof(uint32_t)	//4
-#define USART_TXDOUBLEX_LOOP 		(sizeof(HPI_usart_data.txdoublex)	/ sizeof(uint16_t))	//2
-#define USART_TXDOUBLE_LOOP			(sizeof(HPI_usart_data.txdouble)	/ sizeof(uint16_t))	//2
+#define USART_TXDATAX_LOOP 			4
+#define USART_TXDATA_LOOP 		  4
+#define USART_TXDOUBLEX_LOOP 		2
+#define USART_TXDOUBLE_LOOP			2
 */
 
 #define _USART_RXDATAX_DATABITS  0b0000000011111111
