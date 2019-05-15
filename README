@@ -49,7 +49,7 @@ I also wished to account for changing requirements with external devices, imagin
 This project is not just about a design pattern, but a proposal toward a sensible approach to programming embedded systems. 
 
 
-Understanding the code layout
+# Understanding the code layout
 
 The best way to explain this design is that each section is theoretically decoupled from the next. The data and config struct prototypes are defined at various different layers for code maintainability, ease of arrangement, and code distribution. 
 
@@ -64,13 +64,6 @@ Config layer: The configuration layer houses compiler flags for any desired devi
 RTOS/Application layer: This layer houses main() and any arrangement of RTOS API calls.
 
 In this way a clear separation of concerns is achieved between the respective HALs, RTOS’, middleware, and external devices. 
-
-
-
-
-
-
-
 
 
 Across the public interface (port adaptor) and middleware layers, there are a small set of uniform functions and parameters:
@@ -101,10 +94,6 @@ If you decide to expand or alter these guidelines, then changes should be reflec
 For example, you may have one set of parameters (A) for host controllers (at middleware and public interface), but another set of parameters (B) for the external devices (at middleware and public interface). However, you may NOT have one set (B) for one external device and another set (C) for another device. The idea is that the middleware layer enables generic connection between layers to ease maintenance and updates for device versioning. Further, you may NOT have one set (A) for the public interface and another set (B) for the middleware. It simply will not compile. 
 
 
-
-
-
-
 ‘Boomerang’ V ‘All roads lead to Rome’ fns
 
 This is an interesting concept. Something I came across when comparing libraries I built for two different devices. A boomerang style is where you have a device that needs a spi transaction header or a message frame builder, instead of the interface fn calling that builder and then having that child function call through to the spi interface, you return and the interface calls back to the spi. 
@@ -114,9 +103,9 @@ Look at this basic flow:
 Boomerang example:
 
 (XX_Init() ) -> (XX_buildFrame() )
-                             |
-(XX_Init() ) <-------------|
-       |
+                      |
+(XX_Init() ) <--------|
+      |
       V        
 (XX_spi() )
 
@@ -125,21 +114,21 @@ Is much better than:
 
 (XX_Init() ) -> (XX_buildFrame() ) -> (XX_spi() )
 
-The ‘all roads lead to Rome’ approach usually means passing around more than you need to and your code ends up littered with unnecessary callbacks. Not very DRY.
+The ‘all roads lead to Rome’ approach usually means passing around more than you need to and your code ends up littered with unnecessary callbacks. Not very DRY. Some may disagree and that's fine, I look forward to discussing advantages and disadvantages to both.
 
 Whereas the Boomerang approach promotes a neater set of functions that perform a task and return when the job is complete, ready for transmission/reception of data. 
 
 
 Now that we have understood more about our general design approach. Let’s move on to the actual building of code:
 
-Preparation
+# Preparation
 
 As per usual, decide on the peripherals that you will require to fulfill the needs of this project i.e. VCMP, ACMP, i2C, DMA etc. These may or may not have been chosen in the requirements phase. 
 When we begin actually coding, the initial focus should be on the following basic peripherals: CMU, USART/i2C, TIMER, GPIO. Without at least the CMU and TIMER, you cannot hope to achieve much at all and in fact, as you know: the chip won’t even work without the CMU. 
 Note all the registers in these peripherals, along with their ability to perform read, write and clear functionality i.e. RW, R, W1. To do this go to your reference manual and, within each peripheral, find the section titled “Register Map”. Every peripheral should have one. You don’t need to write them down, just have a look over this section. It will tell you basically everything you need to know about this peripheral at this point in time. 
 
 
-HAL layer:
+# HAL layer:
 
 Host devices: 
 
@@ -161,10 +150,7 @@ External device layers are merely glorified message builders and runtime calcula
 Simply create your message builders, along with public Rx and Tx functions for device communication (utilizing callbacks to host hardware)
 
 
-
-
-
-Port Adaptors:
+# Port Adaptors:
 
 As previously stated, the port adaptors layer should be a set of public interface functions that access the relevant jump tables, according to the values pre-defined in our MPI_host and MPI_slave objects. //more on these later 
 Each host and slave device should have a port adaptor file, which (for the hsot devices) encapsulates the following functions for each peripheral. 
@@ -180,7 +166,7 @@ Wakeup: wakeup the device from sleep or off
 ModeLevel: if your device adheres to certain power levels, control them here
 
 
-Middleware:
+# Middleware:
 
 Host devices:
 
@@ -215,7 +201,7 @@ communication.
 
 
 
-Config Layer:
+# Config Layer:
 
 Declare any instances of data / config structs, and include headers for relevant devices, inside compiler flags i.e. #ifdefs
 Initialize data structures with values as needed
@@ -223,13 +209,13 @@ All pointer aliases should be assigned at this level
 All device-native interface functions should be assigned to the relevant object at this level (see MPI_host object members for details)
 It should be noted at this point that all struct member configuration should be initialized at struct instance declaration. Any values that require calculation should be in a lookup table, if possible. Further, any values that are desired to change at runtime should be considered for the GUI level, at which point we will be writing setters and getters which alter the struct values followed by a write cycle. 
 
-RTOS/Application layer
+# RTOS/Application layer
 
 This should be fairly self-explanatory. As per usual, RTOS API calls (or a super loop if you opt for that design) reside at this level. 
 
 
 
-A few words on data layers
+# A few words on data layers
 
 Data objects (peripherals)
 
