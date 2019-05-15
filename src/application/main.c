@@ -47,16 +47,18 @@ int main(void)
    *
    */
 
-  //
+  //get cmu_periphconf struct from host object
+  CMU_periphconf* cmu_periphconf = efm32zg222f32_host.MPI_data[CMU_PERIPHCONF_INDEX];
+  
+  //setup mask with define (preferably found in the device's CMSIS files)
   uint32_t cmu_oscencmd_mask = CMU_OSCENCMD_HFRCOEN;
   
   //Initialize the data in the host object (again, for a CMU I would do this in the config layer)
-  //(yes I realise that the config struct should be in the MPI_conf array, need to refactor) 
-  CMU_periphconf* cmu_periphconf = efm32zg222f32_host.MPI_data[CMU_PERIPHCONF_INDEX];
+  //(also yes I realise that the config struct should be in the MPI_conf array, need to refactor) 
   cmu_periphconf->oscencmd = cmu_oscencmd_mask;
   efm32zg222f32_host.config_register = CMU_OSCENCMD;
 
-  //initialize the peripheral via the middleware interface
+  //Configure a single register
   int(* efm32zg_cmu_fn)() = efm32zg222f32_host._periph_periphconf._cmu_config_reg;
   mpi_cmuConfigReg(&efm32zg222f32_host, WRITE, efm32zg_cmu_fn); 
 
