@@ -12,6 +12,8 @@
 #include "efm32zg_gpio_IO_HAL.h"
 #include "efm32zg_usart_HAL.h"
 
+
+
 /********************
  *      CMU 
  ********************/
@@ -28,11 +30,19 @@ int usart_ConfigReg(void* host_ptr, uint32_t RWC);
 int usart_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len);
 
 /*********************
- *       GPIO 
+ *      GPIO 
  *********************/
 
 int gpio_Init(void* host_ptr, uint32_t RWC);
 int gpio_ConfigReg(void* host_ptr, uint32_t RWC);
-int gpio_IO_Tgl(void* host_ptr, uint32_t RWC, void* ext_dev_array, uint32_t array_len);
+int gpio_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len);
+int gpio_Tgl(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len);
+
+/*********************
+ *      TIMER 
+ *********************/
+
+int timer_Init(void* host_ptr, uint32_t RWC);
+int timer_ConfigReg(void* host_ptr, uint32_t RWC);
 
 #endif /* EFM32ZG_GLOBAL_HAL_H_ */

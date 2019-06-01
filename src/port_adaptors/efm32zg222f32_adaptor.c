@@ -247,8 +247,8 @@ int gpio_ConfigReg(void* host_ptr, uint32_t RWC){
 
 /*******************************************************************************
  *
- * @brief gpio_in_out_tgl
- *
+ * @brief gpio_IO 
+ * 
  * Call to read, write or clear child jump table in the din, dout, or toggle 
  * parent jump table 
  *
@@ -259,7 +259,7 @@ int gpio_ConfigReg(void* host_ptr, uint32_t RWC){
  *    in_read: [r]    [NULL] [NULL],
  *    out_rwc: [NULL] [w]    [NULL],
  *    out_tgl: [NULL] [NULL] [tgl]
-*
+ *
  *  }
  *
  *
@@ -286,33 +286,42 @@ int gpio_ConfigReg(void* host_ptr, uint32_t RWC){
  */
 
 
-int gpio_IO_Tgl(void* host_ptr, uint32_t RWT, void* ext_dev_array, uint32_t array_len){
+int gpio_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   GPIO_data* gpio_data = (GPIO_data*)efm32zg_host_ptr->MPI_data[GPIO_DATA_INDEX];
 
-  void(*const transfer_data_host_slave_ptr)() = gpio_IO_host_slave_transfer[RWT]; 
-  int(*const gpio_IO_ptr)() = gpio_I_O_TGL[RWT][RWT];
+  void(*const transfer_data_host_slave_ptr)() = gpio_IO_host_slave_transfer[RW]; 
+  int(*const gpio_IO_ptr)() = gpio_I_O_TGL[RW][RW];
   
-  if(RWT == 0){
+  if(RW == READ){
     for(int slave_obj_buffer_index = 0; slave_obj_buffer_index < array_len ;slave_obj_buffer_index++){
       gpio_IO_ptr(gpio_data);
       transfer_data_host_slave_ptr(gpio_data, ext_dev_array, slave_obj_buffer_index);    
     }
-  } else if(RWT == 1){
-    for(int slave_obj_buffer_index = 0; slave_obj_buffer_index < array_len; slave_obj_buffer_index++){
-      transfer_data_host_slave_ptr(gpio_data, ext_dev_array, slave_obj_buffer_index); 
-	    gpio_IO_ptr(gpio_data);
-    }
-  } else if(RWT == 2){
+  } else if(RW == WRITE){
     for(int slave_obj_buffer_index = 0; slave_obj_buffer_index < array_len; slave_obj_buffer_index++){
       transfer_data_host_slave_ptr(gpio_data, ext_dev_array, slave_obj_buffer_index); 
 	    gpio_IO_ptr(gpio_data);
     }
   }
+  return 0;
+}
 
+int gpio_Tgl(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
 
+  RW = WRITE;
+  
+  MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
+  GPIO_data* gpio_data = (GPIO_data*)efm32zg_host_ptr->MPI_data[GPIO_DATA_INDEX];
+  
+  void(*const transfer_data_host_slave_ptr)() = gpio_IO_host_slave_transfer[RW]; 
+  int(*const gpio_IO_ptr)() = gpio_I_O_TGL[RW][RW];
 
+  for(int slave_obj_buffer_index = 0; slave_obj_buffer_index < array_len; slave_obj_buffer_index++){
+    transfer_data_host_slave_ptr(gpio_data, ext_dev_array, slave_obj_buffer_index); 
+    gpio_IO_ptr(gpio_data);
+  }
   return 0;
 }
 
@@ -364,13 +373,16 @@ int cmu_Init(void* host_ptr, uint32_t	RWC){
   int ret = 0;
 	int i = 0;
 
+  cmu_periphconf->hfrcoctrl |= *DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in config layer
+  cmu_periphconf->tuningval = DEFAULT_BOOT_TUNE;
+
 	while(cmu_config_table[i] != NULL){
 		fn_ptr = cmu_config_table[i][RWC];
 		ret = fn_ptr(cmu_periphconf);
     	if(ret > 0){
         return 1;
       }
-  i+=1;
+    i+=1;
 	}
 	return 0;
 }
