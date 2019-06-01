@@ -81,7 +81,8 @@ typedef struct MPI_CORE_MCU{
  *
  * @brief MPI_INTERRUPT
  *
- * @description struct for interrupt handlers
+ * @description struct for holding interrupt handler tasks - use 
+ * with RTOS when creating tasks for interrupts. 
  *
  * @param _*_handler - point to the relevant handlers
  *
@@ -183,6 +184,7 @@ typedef struct MPI_PERIPH_PERIPHCONF{
   int_callback _idac_io;
   int_callback _aes_io;
   int_callback _gpio_io;
+  int_callback _gpio_tgl;
 
   int_callback _rmu_config_reg;
   int_callback _emu_config_reg;
@@ -196,7 +198,7 @@ typedef struct MPI_PERIPH_PERIPHCONF{
   int_callback _rtc_config_reg;
   int_callback _pcnt_config_reg;
   int_callback _acmp_config_reg;
-  int_callback _vcmp_config_reg;
+  int_callback _vcmp_config_reg;  
   int_callback _adc_config_reg;
   int_callback _idac_config_reg;
   int_callback _aes_config_reg;
@@ -245,15 +247,7 @@ typedef struct MPI_PERIPH_PERIPHCONF{
  *
  *****************************************/
 
-/*
-typedef struct UNIVERSAL_MPI_DATA {
-
-  uint32_t* uint32_array;
-  int32_t*  int32_array;
-  float*    float_array;
-
-}UNI_mpi_data;
-*/
+#define PERIPH_TABLE_LEN  32
 
 typedef struct MPI_HOST{
 
