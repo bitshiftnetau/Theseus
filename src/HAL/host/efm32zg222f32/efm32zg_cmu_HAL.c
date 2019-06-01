@@ -15,7 +15,13 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  */
-   
+
+#include <stdint.h>
+
+#include "efm32zg222f32.h"
+#include "efm32zg_types_HAL.h"
+#include "efm32zg_cmu_HAL.h"
+
 
 int (*const cmu_ctrl_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_hfcoreclkdiv_table[CMU_READ_WRITE_CLEAR])();
