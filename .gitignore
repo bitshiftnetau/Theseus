@@ -1,0 +1,9 @@
+build
+build/*
+CMSIS
+CMSIS/*
+FreeRTOS
+FreeRTOS/*
+tools
+tools/*
+tags
