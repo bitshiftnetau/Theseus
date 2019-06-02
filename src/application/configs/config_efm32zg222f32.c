@@ -176,6 +176,7 @@ USART_frameconf usart_frameconf = {
 /**************
  *    GPIO 
  **************/
+
 /*
 typedef struct {
 	uint32_t ctrl;
