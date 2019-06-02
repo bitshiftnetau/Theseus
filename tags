@@ -4,7 +4,7 @@
 !_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
-!_TAG_PROGRAM_VERSION	0.0.0	/45968eff/
+!_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
 $(OBJECTS)	build/release/makefile	/^$(OBJECTS): $(SRC_DIR)$/;"	t
 $(TARGET)	build/release/makefile	/^$(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)$/;"	t
 ACC_MEM_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define ACC_MEM_ID /;"	d
@@ -176,6 +176,11 @@ CMSIS/efm32zg/system_efm32zg.o	build/debug/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm3
 CMSIS/efm32zg/system_efm32zg.o	build/release/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm32zg\/system_efm32zg.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/Device\//;"	t
 CMSIS_DIR	build/release/makefile	/^CMSIS_DIR=$(SDK_DIR)\/platform\/CMSIS$/;"	m
 CMSIS_INCLUDE	build/release/makefile	/^CMSIS_INCLUDE= \\$/;"	m
+CMU_11MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_11MHZ_TUNE_ADDR /;"	d
+CMU_14MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_14MHZ_TUNE_ADDR /;"	d
+CMU_1MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_1MHZ_TUNE_ADDR /;"	d
+CMU_21MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_21MHZ_TUNE_ADDR /;"	d
+CMU_7MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_7MHZ_TUNE_ADDR /;"	d
 CMU_AUXHFRCOCTRL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define CMU_AUXHFRCOCTRL /;"	d
 CMU_CALCNT	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define CMU_CALCNT /;"	d
 CMU_CALCTRL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define CMU_CALCTRL /;"	d
@@ -316,6 +321,7 @@ DECA_MAX_SPI_HEADER_LENGTH	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECA_MA
 DECODE_FRAME_CTRL_TABLE_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECODE_FRAME_CTRL_TABLE_LEN /;"	d
 DECODE_FRAME_CTRL_TABLE_WIDTH	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECODE_FRAME_CTRL_TABLE_WIDTH /;"	d
 DECODE_TABLE_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECODE_TABLE_LEN /;"	d
+DEFAULT_BOOT_TUNE	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^  #define DEFAULT_BOOT_TUNE /;"	d
 DEPRECATED_DEFINITIONS_H	FreeRTOS/efm32zg/Source/include/deprecated_definitions.h	/^#define DEPRECATED_DEFINITIONS_H$/;"	d
 DEP_LIST_OUT	build/release/makefile	/^DEP_LIST_OUT=.\/CMSIS\/efm32zg\/system_efm32zg.d$/;"	m
 DEVICE_DIR	build/release/makefile	/^DEVICE_DIR=$(SDK_DIR)\/platform\/Device\/SiliconLabs\/EFM32ZG$/;"	m
@@ -1285,6 +1291,7 @@ PCNT0_IRQHandler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^__weak void PCNT0_
 PCNT0_IRQHandler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^PCNT0_IRQHandler$/;"	l
 PERIPH_REGISTER_TABLE_MEMBERS	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define PERIPH_REGISTER_TABLE_MEMBERS /;"	d
 PERIPH_REGISTER_TABLE_MEMBERS	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define PERIPH_REGISTER_TABLE_MEMBERS /;"	d
+PERIPH_TABLE_LEN	src/middleware/mpi_port.h	/^#define PERIPH_TABLE_LEN /;"	d
 PERR0_ERROR	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^#define PERR0_ERROR /;"	d
 PERR1_ERROR	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^#define PERR1_ERROR /;"	d
 PMSC_CTRL0_FACE	src/HAL/slave/dw1000/dw1000_regs.h	/^#define PMSC_CTRL0_FACE /;"	d
@@ -2308,6 +2315,7 @@ _gpio_config_reg	src/middleware/mpi_port.h	/^  int_callback _gpio_config_reg;$/;
 _gpio_handler	src/middleware/mpi_port.h	/^  int_callback _gpio_handler;$/;"	m	struct:MPI_INTERRUPT	typeref:typename:int_callback
 _gpio_init	src/middleware/mpi_port.h	/^  int_callback _gpio_init;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _gpio_io	src/middleware/mpi_port.h	/^  int_callback _gpio_io;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
+_gpio_tgl	src/middleware/mpi_port.h	/^  int_callback _gpio_tgl;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _i2c_config_reg	src/middleware/mpi_port.h	/^  int_callback _i2c_config_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _i2c_handler	src/middleware/mpi_port.h	/^  int_callback _i2c_handler;$/;"	m	struct:MPI_INTERRUPT	typeref:typename:int_callback
 _i2c_init	src/middleware/mpi_port.h	/^  int_callback _i2c_init;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
@@ -2354,7 +2362,7 @@ _usart_config_reg	src/middleware/mpi_port.h	/^  int_callback _usart_config_reg;$
 _usart_handler	src/middleware/mpi_port.h	/^  int_callback _usart_handler;$/;"	m	struct:MPI_INTERRUPT	typeref:typename:int_callback
 _usart_init	src/middleware/mpi_port.h	/^  int_callback _usart_init;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _usart_io	src/middleware/mpi_port.h	/^  int_callback _usart_io;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
-_vcmp_config_reg	src/middleware/mpi_port.h	/^  int_callback _vcmp_config_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
+_vcmp_config_reg	src/middleware/mpi_port.h	/^  int_callback _vcmp_config_reg;  $/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _vcmp_handler	src/middleware/mpi_port.h	/^  int_callback _vcmp_handler;$/;"	m	struct:MPI_INTERRUPT	typeref:typename:int_callback
 _vcmp_init	src/middleware/mpi_port.h	/^  int_callback _vcmp_init;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _vcmp_io	src/middleware/mpi_port.h	/^  int_callback _vcmp_io;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
@@ -2450,7 +2458,7 @@ cmu_oscencmd_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cm
 cmu_oscencmd_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_oscencmd_table[CMU_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
 cmu_pcntctrl_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_pcntctrl_table[CMU_READ_WRITE_CLEAR])() = $/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
 cmu_pcntctrl_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_pcntctrl_table[CMU_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
-cmu_periphconf	src/application/configs/config_efm32zg222f32.c	/^CMU_periphconf cmu_periphconf;$/;"	v	typeref:typename:CMU_periphconf
+cmu_periphconf	src/application/configs/config_efm32zg222f32.c	/^CMU_periphconf cmu_periphconf = {$/;"	v	typeref:typename:CMU_periphconf
 cmu_route_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_route_table[CMU_READ_WRITE_CLEAR])() = $/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
 cmu_route_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_route_table[CMU_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
 cmu_status_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_status_table[CMU_READ_WRITE_CLEAR])() = $/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
@@ -2767,12 +2775,13 @@ frame_type_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^  uint32_t frame_type
 freeze	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t freeze;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
 gpio	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.c	/^GPIO_TypeDef * gpio 	= GPIO;$/;"	v	typeref:typename:GPIO_TypeDef *
 gpio_ConfigReg	src/port_adaptors/efm32zg222f32_adaptor.c	/^int gpio_ConfigReg(void* host_ptr, uint32_t RWC){$/;"	f	typeref:typename:int
-gpio_IO_Tgl	src/port_adaptors/efm32zg222f32_adaptor.c	/^int gpio_IO_Tgl(void* host_ptr, uint32_t RWT, void* ext_dev_array, uint32_t array_len){$/;"	f	typeref:typename:int
+gpio_IO	src/port_adaptors/efm32zg222f32_adaptor.c	/^int gpio_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){$/;"	f	typeref:typename:int
 gpio_IO_host_slave_transfer	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.c	/^void(*const gpio_IO_host_slave_transfer[USART_READ_WRITE])() = $/;"	v	typeref:typename:void (* const[USART_READ_WRITE])()
 gpio_IO_host_slave_transfer	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.h	/^void(*const gpio_IO_host_slave_transfer[GPIO_READ_WRITE])(); $/;"	v	typeref:typename:void (* const[GPIO_READ_WRITE])()
 gpio_I_O_TGL	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.c	/^int(*const *const gpio_I_O_TGL[GPIO_READ_WRITE_CLEAR])() = $/;"	v	typeref:typename:int (* const * const[GPIO_READ_WRITE_CLEAR])()
 gpio_I_O_TGL	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.h	/^int(*const *const gpio_I_O_TGL[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const * const[GPIO_READ_WRITE_CLEAR])()
 gpio_Init	src/port_adaptors/efm32zg222f32_adaptor.c	/^int gpio_Init(void* host_ptr, uint32_t RWC){$/;"	f	typeref:typename:int
+gpio_Tgl	src/port_adaptors/efm32zg222f32_adaptor.c	/^int gpio_Tgl(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){$/;"	f	typeref:typename:int
 gpio_assign_rx_data	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.c	/^void gpio_assign_rx_data(GPIO_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t in/;"	f	typeref:typename:void
 gpio_assign_tx_data	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.c	/^void gpio_assign_tx_data(GPIO_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t in/;"	f	typeref:typename:void
 gpio_conf_lock	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_conf_lock[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
@@ -2812,7 +2821,7 @@ gpio_low_pinmode	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio
 gpio_low_pinmode	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_low_pinmode[GPIO_READ_WRITE_CLEAR])()=$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_out	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_out[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_out	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.c	/^int(*const gpio_out				    [GPIO_READ_WRITE_CLEAR])()= $/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
-gpio_periphconf	src/application/configs/config_efm32zg222f32.c	/^GPIO_periphconf gpio_periphconf;$/;"	v	typeref:typename:GPIO_periphconf
+gpio_periphconf	src/application/configs/config_efm32zg222f32.c	/^GPIO_periphconf gpio_periphconf = {$/;"	v	typeref:typename:GPIO_periphconf
 gpio_pinin_read	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_pinin_read[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_pinin_read	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.c	/^int(*const gpio_pinin_read 		[GPIO_READ_WRITE_CLEAR])()= $/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_pinlock	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_pinlock[GPIO_READ_WRITE_CLEAR])() =$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
@@ -4457,7 +4466,7 @@ usart_data	src/application/configs/config_efm32zg222f32.c	/^USART_data usart_dat
 usart_error	src/application/configs/config_efm32zg222f32.c	/^USART_error usart_error;$/;"	v	typeref:typename:USART_error
 usart_frame_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_frame_table[USART_READ_WRITE_CLEAR])() =$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
 usart_frame_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_frame_table[USART_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
-usart_frameconf	src/application/configs/config_efm32zg222f32.c	/^USART_frameconf usart_frameconf;$/;"	v	typeref:typename:USART_frameconf
+usart_frameconf	src/application/configs/config_efm32zg222f32.c	/^USART_frameconf usart_frameconf = {$/;"	v	typeref:typename:USART_frameconf
 usart_frameconf_rwc	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^int(*const usart_frameconf_rwc[USART_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
 usart_i2s_ctrl_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_i2s_ctrl_table[USART_READ_WRITE_CLEAR])() =$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
 usart_i2s_ctrl_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_i2s_ctrl_table[USART_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
@@ -4467,7 +4476,7 @@ usart_int_flag_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*cons
 usart_int_flag_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_int_flag_table[USART_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
 usart_ir_ctrl_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_ir_ctrl_table[USART_READ_WRITE_CLEAR])() =$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
 usart_ir_ctrl_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_ir_ctrl_table[USART_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
-usart_periphconf	src/application/configs/config_efm32zg222f32.c	/^USART_periphconf usart_periphconf;$/;"	v	typeref:typename:USART_periphconf
+usart_periphconf	src/application/configs/config_efm32zg222f32.c	/^USART_periphconf usart_periphconf = {$/;"	v	typeref:typename:USART_periphconf
 usart_route_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_route_table[USART_READ_WRITE_CLEAR])() =$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
 usart_route_table	src/HAL/host/efm32zg222f32/efm32zg_usart_HAL.c	/^int (*const usart_route_table[USART_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[USART_READ_WRITE_CLEAR])()
 usart_rx_16_xp	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.c	/^int (*const usart_rx_16_xp[USART_SINGLE_MEMBER])() = $/;"	v	typeref:typename:int (* const[USART_SINGLE_MEMBER])()
