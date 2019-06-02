@@ -176,7 +176,6 @@ USART_frameconf usart_frameconf = {
 /**************
  *    GPIO 
  **************/
-
 /*
 typedef struct {
 	uint32_t ctrl;
@@ -187,6 +186,7 @@ typedef struct {
 	uint32_t pinmodeH; //pins 8-15
 	uint32_t pinlockn; //pins 0-15
 }GPIO_data;
+
 
 typedef struct {
   GPIO_data P[GPIO_PORTS];
@@ -206,6 +206,7 @@ typedef struct {
 	uint32_t port;
 }GPIO_periphconf;
 */
+
 
 
 GPIO_data gpio_data = {
