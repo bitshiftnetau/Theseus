@@ -5,8 +5,6 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
-$(OBJECTS)	build/release/makefile	/^$(OBJECTS): $(SRC_DIR)$/;"	t
-$(TARGET)	build/release/makefile	/^$(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)$/;"	t
 ACC_MEM_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define ACC_MEM_ID /;"	d
 ACC_MEM_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define ACC_MEM_LEN /;"	d
 ACK_RESP_T_ACK_TIM_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define ACK_RESP_T_ACK_TIM_MASK /;"	d
@@ -93,9 +91,7 @@ AON_WCFG_ONW_LLDE	src/HAL/slave/dw1000/dw1000_regs.h	/^#define AON_WCFG_ONW_LLDE
 AON_WCFG_ONW_RADC	src/HAL/slave/dw1000/dw1000_regs.h	/^#define AON_WCFG_ONW_RADC /;"	d
 AON_WCFG_ONW_RX	src/HAL/slave/dw1000/dw1000_regs.h	/^#define AON_WCFG_ONW_RX /;"	d
 AON_WCFG_PRES_SLEEP	src/HAL/slave/dw1000/dw1000_regs.h	/^#define AON_WCFG_PRES_SLEEP /;"	d
-ARM_GCC_VERS	build/release/makefile	/^ARM_GCC_VERS=8.3.0$/;"	m
 ASM_SRCS	build/debug/sources.mk	/^ASM_SRCS := $/;"	m
-ASM_SRCS	build/release/sources.mk	/^ASM_SRCS := $/;"	m
 A_BLOCK_LINK	FreeRTOS/efm32zg/Source/portable/MemMang/heap_2.c	/^typedef struct A_BLOCK_LINK$/;"	s	file:
 A_BLOCK_LINK	FreeRTOS/efm32zg/Source/portable/MemMang/heap_4.c	/^typedef struct A_BLOCK_LINK$/;"	s	file:
 A_BLOCK_LINK	FreeRTOS/efm32zg/Source/portable/MemMang/heap_5.c	/^typedef struct A_BLOCK_LINK$/;"	s	file:
@@ -117,10 +113,7 @@ BR_115200	src/HAL/slave/venus638/venus638.h	/^#define BR_115200 /;"	d
 BR_38400	src/HAL/slave/venus638/venus638.h	/^#define BR_38400 /;"	d
 BR_4800	src/HAL/slave/venus638/venus638.h	/^#define BR_4800 /;"	d
 BR_9600	src/HAL/slave/venus638/venus638.h	/^#define BR_9600 /;"	d
-BSP_DIR	build/release/makefile	/^BSP_DIR=$(SDK_DIR)\/hardware\/kit\/common\/bsp$/;"	m
-BSP_INCLUDE	build/release/makefile	/^BSP_INCLUDE = \\$/;"	m
 BUFFERSIZE	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^#define BUFFERSIZE /;"	d
-BUILD_DIR	build/release/makefile	/^BUILD_DIR=.$/;"	m
 BUILD_TABLE_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define BUILD_TABLE_LEN /;"	d
 BaseType_t	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM0/portmacro.h	/^typedef long BaseType_t;$/;"	t	typeref:typename:long
 BaseType_t	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM3/portmacro.h	/^typedef long BaseType_t;$/;"	t	typeref:typename:long
@@ -137,8 +130,6 @@ BaseType_t	FreeRTOS/efm32zg/Source/portable/RVDS/ARM_CM4_MPU/portmacro.h	/^typed
 BlockLink_t	FreeRTOS/efm32zg/Source/portable/MemMang/heap_2.c	/^} BlockLink_t;$/;"	t	typeref:struct:A_BLOCK_LINK	file:
 BlockLink_t	FreeRTOS/efm32zg/Source/portable/MemMang/heap_4.c	/^} BlockLink_t;$/;"	t	typeref:struct:A_BLOCK_LINK	file:
 BlockLink_t	FreeRTOS/efm32zg/Source/portable/MemMang/heap_5.c	/^} BlockLink_t;$/;"	t	typeref:struct:A_BLOCK_LINK	file:
-CC	build/release/makefile	/^CC=arm-none-eabi-gcc$/;"	m
-CFLAGS	build/release/makefile	/^CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DVENUS638=1' '-DDW1000=1'/;"	m
 CHAN_CTRL_DWSFD	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CHAN_CTRL_DWSFD /;"	d
 CHAN_CTRL_DWSFD_SHIFT	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CHAN_CTRL_DWSFD_SHIFT /;"	d
 CHAN_CTRL_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CHAN_CTRL_ID /;"	d
@@ -171,11 +162,7 @@ CLEAR_ALLRXGOOD_EVENTS	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CLEAR_ALLRXG
 CLEAR_ALLTX_EVENTS	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CLEAR_ALLTX_EVENTS /;"	d
 CLEAR_DBLBUFF_EVENTS	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CLEAR_DBLBUFF_EVENTS /;"	d
 CMSIS/efm32zg/startup_efm32zg.o	build/debug/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm32zg\/startup_efm32zg.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/Device\//;"	t
-CMSIS/efm32zg/startup_efm32zg.o	build/release/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm32zg\/startup_efm32zg.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/Device\//;"	t
 CMSIS/efm32zg/system_efm32zg.o	build/debug/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm32zg\/system_efm32zg.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/Device\//;"	t
-CMSIS/efm32zg/system_efm32zg.o	build/release/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm32zg\/system_efm32zg.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/Device\//;"	t
-CMSIS_DIR	build/release/makefile	/^CMSIS_DIR=$(SDK_DIR)\/platform\/CMSIS$/;"	m
-CMSIS_INCLUDE	build/release/makefile	/^CMSIS_INCLUDE= \\$/;"	m
 CMU_11MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_11MHZ_TUNE_ADDR /;"	d
 CMU_14MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_14MHZ_TUNE_ADDR /;"	d
 CMU_1MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_1MHZ_TUNE_ADDR /;"	d
@@ -218,7 +205,7 @@ CMU_READ_WRITE_CLEAR	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define CM
 CMU_ROUTE	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define CMU_ROUTE /;"	d
 CMU_STATUS	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define CMU_STATUS /;"	d
 CMU_SYNCBUSY	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define CMU_SYNCBUSY /;"	d
-CMU_periphconf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}CMU_periphconf;$/;"	t	typeref:struct:__anon484018370808
+CMU_periphconf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}CMU_periphconf;$/;"	t	typeref:struct:__anon484018370a08
 COLD_START_TTFF	src/HAL/slave/venus638/venus638.h	/^#define COLD_START_TTFF /;"	d
 CONFIG_1PPS_MODE_OFF	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_1PPS_MODE_OFF /;"	d
 CONFIG_1PPS_MODE_ON_1SV	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_1PPS_MODE_ON_1SV /;"	d
@@ -305,12 +292,9 @@ CONFIG_WAAS_EN_DISABLE	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_WAAS_E
 CONFIG_WAAS_EN_ENABLE	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_WAAS_EN_ENABLE /;"	d
 CONFIG_WAAS_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_WAAS_PL_LEN /;"	d
 CO_ROUTINE_H	FreeRTOS/efm32zg/Source/include/croutine.h	/^#define CO_ROUTINE_H$/;"	d
-CPPFLAGS	build/release/makefile	/^CPPFLAGS=$(INCLUDE)$/;"	m
 CRCB_t	FreeRTOS/efm32zg/Source/include/croutine.h	/^} CRCB_t; \/* Co-routine control block.  Note must be identical in size down to uxPriority with /;"	t	typeref:struct:corCoRoutineControlBlock
 C_DEPS	build/debug/sources.mk	/^C_DEPS := $/;"	m
-C_DEPS	build/release/sources.mk	/^C_DEPS := $/;"	m
 C_SRCS	build/debug/sources.mk	/^C_SRCS := $/;"	m
-C_SRCS	build/release/sources.mk	/^C_SRCS := $/;"	m
 CallbackParameters_t	FreeRTOS/efm32zg/Source/timers.c	/^} CallbackParameters_t;$/;"	t	typeref:struct:tmrCallbackParameters	file:
 ClearLoop	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^ClearLoop:$/;"	l
 ClearLoopEnd	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^ClearLoopEnd:$/;"	l
@@ -323,9 +307,6 @@ DECODE_FRAME_CTRL_TABLE_WIDTH	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECO
 DECODE_TABLE_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECODE_TABLE_LEN /;"	d
 DEFAULT_BOOT_TUNE	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^  #define DEFAULT_BOOT_TUNE /;"	d
 DEPRECATED_DEFINITIONS_H	FreeRTOS/efm32zg/Source/include/deprecated_definitions.h	/^#define DEPRECATED_DEFINITIONS_H$/;"	d
-DEP_LIST_OUT	build/release/makefile	/^DEP_LIST_OUT=.\/CMSIS\/efm32zg\/system_efm32zg.d$/;"	m
-DEVICE_DIR	build/release/makefile	/^DEVICE_DIR=$(SDK_DIR)\/platform\/Device\/SiliconLabs\/EFM32ZG$/;"	m
-DEVICE_INCLUDE	build/release/makefile	/^DEVICE_INCLUDE= \\$/;"	m
 DEVICE_SPECIFIC_NO_OF_PERIPHERALS	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define DEVICE_SPECIFIC_NO_OF_PERIPHERALS /;"	d
 DEV_ID_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define DEV_ID_ID /;"	d
 DEV_ID_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define DEV_ID_LEN /;"	d
@@ -557,8 +538,6 @@ EFM32_LFXO_FREQ	CMSIS/efm32zg/Source/system_efm32zg.c	/^#define EFM32_LFXO_FREQ 
 EFM32_ULFRCO_FREQ	CMSIS/efm32zg/Source/system_efm32zg.c	/^#define EFM32_ULFRCO_FREQ /;"	d	file:
 EFM_DISP_PWR	src/board/STK3200/STK3200_config.h	/^#define EFM_DISP_PWR /;"	d
 EFM_DISP_SELECT	src/board/STK3200/STK3200_config.h	/^#define EFM_DISP_SELECT /;"	d
-EM_INCLUDE	build/release/makefile	/^EM_INCLUDE= \\$/;"	m
-EM_LIB	build/release/makefile	/^EM_LIB=$(SDK_DIR)\/platform\/emlib\/inc$/;"	m
 ENABLE_ALL_SEQ	src/HAL/slave/dw1000/dw1000_types.h	/^#define ENABLE_ALL_SEQ /;"	d
 EPH_SUB_FRAME_DATA_LEN	src/HAL/slave/venus638/venus638.h	/^#define EPH_SUB_FRAME_DATA_LEN /;"	d
 ERROR	src/HAL/slave/dw1000/dw1000_types.h	/^#define ERROR /;"	d
@@ -606,7 +585,6 @@ EVC_TXFS_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define EVC_TXFS_MASK /;"	d
 EVC_TXFS_OFFSET	src/HAL/slave/dw1000/dw1000_regs.h	/^#define EVC_TXFS_OFFSET /;"	d
 EVENT_GROUPS_H	FreeRTOS/efm32zg/Source/include/event_groups.h	/^#define EVENT_GROUPS_H$/;"	d
 EXECUTABLES	build/debug/sources.mk	/^EXECUTABLES := $/;"	m
-EXECUTABLES	build/release/sources.mk	/^EXECUTABLES := $/;"	m
 EXIT_SUCCESS	src/HAL/slave/dw1000/dw1000_types.h	/^#define EXIT_SUCCESS /;"	d
 EXIT_SUCCESS	src/HAL/slave/venus638/venus638.h	/^#define EXIT_SUCCESS /;"	d
 EXTENDED_ADDRESS_SIZE	src/HAL/slave/dw1000/dw1000_types.h	/^#define EXTENDED_ADDRESS_SIZE /;"	d
@@ -678,7 +656,6 @@ FRAME_CTRL_SRC_ADDR_16	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_CTRL_
 FRAME_CTRL_SRC_ADDR_64	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_CTRL_SRC_ADDR_64 /;"	d
 FRAME_INDEX_TABLE	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_INDEX_TABLE /;"	d
 FRAME_LEN_IEEE_STD	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_LEN_IEEE_STD$/;"	d
-FREERTOS_DIR	build/release/makefile	/^FREERTOS_DIR=$(SDK_DIR)\/util\/third_party\/freertos$/;"	m
 FS_CTRL_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FS_CTRL_ID /;"	d
 FS_CTRL_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FS_CTRL_LEN /;"	d
 FS_PLLCFG_CH1	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FS_PLLCFG_CH1 /;"	d
@@ -707,22 +684,12 @@ FS_XTALT_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FS_XTALT_LEN /;"	d
 FS_XTALT_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FS_XTALT_MASK /;"	d
 FS_XTALT_OFFSET	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FS_XTALT_OFFSET /;"	d
 FreeRTOS/efm32zg/croutine.o	build/debug/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/croutine.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/Fr/;"	t
-FreeRTOS/efm32zg/croutine.o	build/release/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/croutine.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/Fr/;"	t
 FreeRTOS/efm32zg/heap_1.o	build/debug/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/heap_1.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/Free/;"	t
-FreeRTOS/efm32zg/heap_1.o	build/release/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/heap_1.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/Free/;"	t
 FreeRTOS/efm32zg/list.o	build/debug/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/list.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/FreeRT/;"	t
-FreeRTOS/efm32zg/list.o	build/release/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/list.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/FreeRT/;"	t
 FreeRTOS/efm32zg/port.o	build/debug/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/port.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/FreeRT/;"	t
-FreeRTOS/efm32zg/port.o	build/release/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/port.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/FreeRT/;"	t
 FreeRTOS/efm32zg/queue.o	build/debug/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/queue.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/FreeR/;"	t
-FreeRTOS/efm32zg/queue.o	build/release/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/queue.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/FreeR/;"	t
 FreeRTOS/efm32zg/tasks.o	build/debug/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/tasks.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/FreeR/;"	t
-FreeRTOS/efm32zg/tasks.o	build/release/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/tasks.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/FreeR/;"	t
 FreeRTOS/efm32zg/timers.o	build/debug/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/timers.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/Free/;"	t
-FreeRTOS/efm32zg/timers.o	build/release/FreeRTOS/efm32zg/subdir.mk	/^FreeRTOS\/efm32zg\/timers.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/reptile\/Free/;"	t
-GCC_ARM	build/release/makefile	/^GCC_ARM=\/usr\/arm-none-eabi$/;"	m
-GCC_INCLUDE	build/release/makefile	/^GCC_INCLUDE= \\$/;"	m
-GCC_LIB_ARM	build/release/makefile	/^GCC_LIB_ARM=\/usr\/lib\/gcc\/arm-none-eabi\/$(ARM_GCC_VERS)$/;"	m
 GDM0	src/HAL/slave/dw1000/dw1000_regs.h	/^#define GDM0 /;"	d
 GDM1	src/HAL/slave/dw1000/dw1000_regs.h	/^#define GDM1 /;"	d
 GDM2	src/HAL/slave/dw1000/dw1000_regs.h	/^#define GDM2 /;"	d
@@ -889,6 +856,7 @@ GPIO_PIN6_EXTRXE_8	src/HAL/slave/dw1000/dw1000_regs.h	/^#define GPIO_PIN6_EXTRXE
 GPIO_PININ_READ	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define GPIO_PININ_READ	/;"	d
 GPIO_PINLOCK	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define GPIO_PINLOCK	/;"	d
 GPIO_PINOUT_TGL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define GPIO_PINOUT_TGL	/;"	d
+GPIO_PORTS	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define GPIO_PORTS /;"	d
 GPIO_P_PIN_NUMBER_0	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.h	/^#define GPIO_P_PIN_NUMBER_0 /;"	d
 GPIO_P_PIN_NUMBER_1	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.h	/^#define GPIO_P_PIN_NUMBER_1 /;"	d
 GPIO_P_PIN_NUMBER_10	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.h	/^#define GPIO_P_PIN_NUMBER_10 /;"	d
@@ -913,7 +881,9 @@ GPIO_READ_WRITE_CLEAR	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.h	/^#define
 GPIO_READ_WRITE_CLEAR	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define GPIO_READ_WRITE_CLEAR /;"	d
 GPIO_SERIAL_WIRE	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define GPIO_SERIAL_WIRE	/;"	d
 GPIO_data	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}GPIO_data;$/;"	t	typeref:struct:__anon484018370708
-GPIO_periphconf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}GPIO_periphconf;$/;"	t	typeref:struct:__anon484018370608
+GPIO_periphconf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}GPIO_periphconf;$/;"	t	typeref:struct:__anon484018370908
+GPIO_port_data	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}GPIO_port_data;$/;"	t	typeref:struct:__anon484018370608
+GPIO_port_mode	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}GPIO_port_mode;$/;"	t	typeref:struct:__anon484018370808
 GRAWP0	src/HAL/slave/dw1000/dw1000_regs.h	/^#define GRAWP0 /;"	d
 GRAWP1	src/HAL/slave/dw1000/dw1000_regs.h	/^#define GRAWP1 /;"	d
 GRAWP2	src/HAL/slave/dw1000/dw1000_regs.h	/^#define GRAWP2 /;"	d
@@ -1000,7 +970,6 @@ ID_STATUS_SW_CRC	src/HAL/slave/venus638/venus638.h	/^#define ID_STATUS_SW_CRC /;
 ID_STATUS_SW_VERSION	src/HAL/slave/venus638/venus638.h	/^#define ID_STATUS_SW_VERSION /;"	d
 ID_STATUS_WAAS	src/HAL/slave/venus638/venus638.h	/^#define ID_STATUS_WAAS /;"	d
 ID_SYS_RESET	src/HAL/slave/venus638/venus638.h	/^#define ID_SYS_RESET /;"	d
-INCLUDE	build/release/makefile	/^INCLUDE= \\$/;"	m
 INCLUDE_eTaskGetState	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define INCLUDE_eTaskGetState /;"	d
 INCLUDE_uxTaskGetStackHighWaterMark	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define INCLUDE_uxTaskGetStackHighWaterMark /;"	d
 INCLUDE_uxTaskPriorityGet	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define INCLUDE_uxTaskPriorityGet /;"	d
@@ -1022,7 +991,6 @@ INCOMING_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define INCOMING_INDEX /;"	
 INC_FREERTOS_H	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^#define INC_FREERTOS_H$/;"	d
 INC_TASK_H	FreeRTOS/efm32zg/Source/include/task.h	/^#define INC_TASK_H$/;"	d
 InterruptVector	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^InterruptVector:$/;"	l
-LD	build/release/makefile	/^LD=$(CC)$/;"	m
 LDE_CFG1_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_CFG1_LEN /;"	d
 LDE_CFG1_NSTDEV_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_CFG1_NSTDEV_MASK /;"	d
 LDE_CFG1_OFFSET	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_CFG1_OFFSET /;"	d
@@ -1041,7 +1009,6 @@ LDE_RXANTD_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_RXANTD_LEN /;"	d
 LDE_RXANTD_OFFSET	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_RXANTD_OFFSET /;"	d
 LDE_THRESH_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_THRESH_LEN /;"	d
 LDE_THRESH_OFFSET	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_THRESH_OFFSET /;"	d
-LDFLAGS	build/release/makefile	/^LDFLAGS= \\$/;"	m
 LDOTUNE_ADDRESS	src/HAL/slave/dw1000/dw1000_types.h	/^#define LDOTUNE_ADDRESS /;"	d
 LEN_CHECKSUM	src/HAL/slave/venus638/venus638.h	/^#define LEN_CHECKSUM /;"	d
 LEN_MESSAGE_ID	src/HAL/slave/venus638/venus638.h	/^#define LEN_MESSAGE_ID /;"	d
@@ -1052,7 +1019,6 @@ LEUART0_IRQHandler	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^LEUART0_IRQHandl
 LEUART0_IRQHandler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^__weak void LEUART0_IRQHandler(void)$/;"	f	typeref:typename:__weak void
 LEUART0_IRQHandler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^LEUART0_IRQHandler$/;"	l
 LIBS	build/debug/objects.mk	/^LIBS :=$/;"	m
-LIBS	build/release/objects.mk	/^LIBS :=$/;"	m
 LIST_H	FreeRTOS/efm32zg/Source/include/list.h	/^#define LIST_H$/;"	d
 LOTID_ADDRESS	src/HAL/slave/dw1000/dw1000_types.h	/^#define LOTID_ADDRESS /;"	d
 LPHA_HPHA	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define LPHA_HPHA	/;"	d
@@ -1230,15 +1196,11 @@ NODELIST_LEN_COUNT	src/HAL/slave/dw1000/dw1000_types.h	/^#define NODELIST_LEN_CO
 NODE_LIST_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define NODE_LIST_INDEX /;"	d
 NOT_YET_RANGED	src/HAL/slave/dw1000/dw1000_types.h	/^#define NOT_YET_RANGED /;"	d
 NO_BYTE_SHIFT	src/HAL/slave/venus638/venus638.h	/^#define NO_BYTE_SHIFT /;"	d
-OBJECTS	build/release/makefile	/^OBJECTS= \\$/;"	m
 OBJS	build/debug/sources.mk	/^OBJS := $/;"	m
-OBJS	build/release/sources.mk	/^OBJS := $/;"	m
 OBJ_SRCS	build/debug/sources.mk	/^OBJ_SRCS := $/;"	m
-OBJ_SRCS	build/release/sources.mk	/^OBJ_SRCS := $/;"	m
 ORIGIN	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^  FLASH (rx)      : ORIGIN = 0x00000000, LENGTH = 32768$/;"	s
 ORIGIN	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 32768$/;"	s
 ORIGIN	build/debug/efm32zg.ld	/^  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 32768$/;"	s
-ORIGIN	build/release/efm32zg.ld	/^  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 32768$/;"	s
 OTP_ADDR	src/HAL/slave/dw1000/dw1000_regs.h	/^#define OTP_ADDR /;"	d
 OTP_ADDR_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define OTP_ADDR_LEN /;"	d
 OTP_ADDR_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define OTP_ADDR_MASK /;"	d
@@ -1269,7 +1231,8 @@ OTP_STAT_OTPPRGD	src/HAL/slave/dw1000/dw1000_regs.h	/^#define OTP_STAT_OTPPRGD /
 OTP_WDAT	src/HAL/slave/dw1000/dw1000_regs.h	/^#define OTP_WDAT /;"	d
 OTP_WDAT_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define OTP_WDAT_LEN /;"	d
 O_SRCS	build/debug/sources.mk	/^O_SRCS := $/;"	m
-O_SRCS	build/release/sources.mk	/^O_SRCS := $/;"	m
+P	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  GPIO_port_data P[GPIO_PORTS];$/;"	m	struct:__anon484018370708	typeref:typename:GPIO_port_data[]
+P	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  GPIO_port_mode P[GPIO_PORTS];  $/;"	m	struct:__anon484018370908	typeref:typename:GPIO_port_mode[]
 P1PPS_RATE_10MHZ	src/HAL/slave/venus638/venus638.h	/^#define P1PPS_RATE_10MHZ /;"	d
 P1PPS_RATE_20MHZ	src/HAL/slave/venus638/venus638.h	/^#define P1PPS_RATE_20MHZ /;"	d
 P1PPS_RATE_2MHZ	src/HAL/slave/venus638/venus638.h	/^#define P1PPS_RATE_2MHZ /;"	d
@@ -1373,9 +1336,6 @@ PRIVILEGED_FUNCTION	FreeRTOS/efm32zg/Source/include/mpu_wrappers.h	/^		#define P
 PRIVILEGED_FUNCTION	FreeRTOS/efm32zg/Source/include/mpu_wrappers.h	/^		#define PRIVILEGED_FUNCTION$/;"	d
 PRIVILEGED_FUNCTION	FreeRTOS/efm32zg/Source/include/mpu_wrappers.h	/^	#define PRIVILEGED_FUNCTION$/;"	d
 PROJDEFS_H	FreeRTOS/efm32zg/Source/include/projdefs.h	/^#define PROJDEFS_H$/;"	d
-PROJECT_INCLUDE	build/release/makefile	/^PROJECT_INCLUDE= \\$/;"	m
-PROJECT_NAME	build/release/makefile	/^PROJECT_NAME=spongecake$/;"	m
-PROJECT_SOURCES	build/release/makefile	/^PROJECT_SOURCES= \\$/;"	m
 PendSV_Handler	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^PendSV_Handler  PROC$/;"	l
 PendSV_Handler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^__weak void PendSV_Handler(void)$/;"	f	typeref:typename:__weak void
 PendSV_Handler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^PendSV_Handler$/;"	l
@@ -1579,11 +1539,9 @@ Reset_Handler	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^void Reset_Handler(vo
 Reset_Handler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^__weak void Reset_Handler(void)$/;"	f	typeref:typename:__weak void
 Reset_Handler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^Reset_Handler$/;"	l
 S79_SRCS	build/debug/sources.mk	/^S79_SRCS := $/;"	m
-S79_SRCS	build/release/sources.mk	/^S79_SRCS := $/;"	m
 SBAS	src/HAL/slave/venus638/venus638.h	/^#define SBAS /;"	d
 SCL_PIN	src/HAL/slave/venus638/venus638.h	/^#define SCL_PIN /;"	d
 SDA_PIN	src/HAL/slave/venus638/venus638.h	/^#define SDA_PIN /;"	d
-SDK_DIR	build/release/makefile	/^SDK_DIR=\/usr\/include\/sdks\/gecko_sdk$/;"	m
 SEMAPHORE_H	FreeRTOS/efm32zg/Source/include/semphr.h	/^#define SEMAPHORE_H$/;"	d
 SEQUENCE_END_0	src/HAL/slave/venus638/venus638.h	/^#define SEQUENCE_END_0 /;"	d
 SEQUENCE_END_1	src/HAL/slave/venus638/venus638.h	/^#define SEQUENCE_END_1 /;"	d
@@ -1606,14 +1564,11 @@ SINGLE_BYTE_SHIFT	src/HAL/slave/venus638/venus638.h	/^#define SINGLE_BYTE_SHIFT 
 SINGLE_FN_ARRAY	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.h	/^#define SINGLE_FN_ARRAY	/;"	d
 SNIFF_OFFT_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define SNIFF_OFFT_MASK /;"	d
 SNIFF_ONT_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define SNIFF_ONT_MASK /;"	d
-SOURCES	build/release/makefile	/^SOURCES= \\$/;"	m
-SOURCE_DIR	build/release/makefile	/^SOURCE_DIR=..\/..\/src$/;"	m
 SPEED_OF_LIGHT	src/HAL/slave/dw1000/dw1000_tofCalcs.c	/^#define SPEED_OF_LIGHT /;"	d	file:
 SPI_CLK	src/HAL/slave/venus638/venus638.h	/^#define SPI_CLK /;"	d
 SPI_CONNECTED_DEVICES	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^#define SPI_CONNECTED_DEVICES /;"	d
 SPI_CS	src/HAL/slave/venus638/venus638.h	/^#define SPI_CS /;"	d
 SPI_CS_TGL_COMBINATIONS	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^#define SPI_CS_TGL_COMBINATIONS /;"	d
-SRC_DIR	build/release/makefile	/^SRC_DIR = \\$/;"	m
 STACK_MACROS_H	FreeRTOS/efm32zg/Source/include/StackMacros.h	/^#define STACK_MACROS_H$/;"	d
 STATUS_1PPS_MODE_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define STATUS_1PPS_MODE_PL_LEN /;"	d
 STATUS_ACK_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define STATUS_ACK_PL_LEN /;"	d
@@ -1628,10 +1583,7 @@ STATUS_SW_VERSION_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define STATUS_SW_V
 STATUS_WAAS_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define STATUS_WAAS_PL_LEN /;"	d
 STD_NOISE_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define STD_NOISE_MASK /;"	d
 STD_NOISE_SHIFT	src/HAL/slave/dw1000/dw1000_regs.h	/^#define STD_NOISE_SHIFT /;"	d
-STK3200_DIR	build/release/makefile	/^STK3200_DIR=$(SDK_DIR)\/hardware\/kit\/EFM32ZG_STK3200$/;"	m
-STK3200_INCLUDE	build/release/makefile	/^STK3200_INCLUDE= \\$/;"	m
 SUBDIRS	build/debug/sources.mk	/^SUBDIRS := \\$/;"	m
-SUBDIRS	build/release/sources.mk	/^SUBDIRS := \\$/;"	m
 SUB_ADDR_RX_MARKER_0	src/HAL/slave/dw1000/dw1000_types.h	/^#define SUB_ADDR_RX_MARKER_0 /;"	d
 SUB_ADDR_RX_MARKER_1	src/HAL/slave/dw1000/dw1000_types.h	/^#define SUB_ADDR_RX_MARKER_1 /;"	d
 SUB_ADDR_RX_MARKER_2	src/HAL/slave/dw1000/dw1000_types.h	/^#define SUB_ADDR_RX_MARKER_2 /;"	d
@@ -1774,9 +1726,7 @@ SYS_STATUS_reserved	src/HAL/slave/dw1000/dw1000_regs.h	/^#define SYS_STATUS_rese
 SYS_TIME_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define SYS_TIME_ID /;"	d
 SYS_TIME_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define SYS_TIME_LEN /;"	d
 S_SRCS	build/debug/sources.mk	/^S_SRCS := $/;"	m
-S_SRCS	build/release/sources.mk	/^S_SRCS := $/;"	m
 S_UPPER_SRCS	build/debug/sources.mk	/^S_UPPER_SRCS := $/;"	m
-S_UPPER_SRCS	build/release/sources.mk	/^S_UPPER_SRCS := $/;"	m
 SemaphoreHandle_t	FreeRTOS/efm32zg/Source/include/semphr.h	/^typedef QueueHandle_t SemaphoreHandle_t;$/;"	t	typeref:typename:QueueHandle_t
 StackType_t	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM0/portmacro.h	/^typedef portSTACK_TYPE StackType_t;$/;"	t	typeref:typename:portSTACK_TYPE
 StackType_t	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM3/portmacro.h	/^typedef portSTACK_TYPE StackType_t;$/;"	t	typeref:typename:portSTACK_TYPE
@@ -1819,7 +1769,6 @@ SystemLFXOClockGet	CMSIS/efm32zg/Source/system_efm32zg.c	/^uint32_t SystemLFXOCl
 SystemLFXOClockSet	CMSIS/efm32zg/Source/system_efm32zg.c	/^void SystemLFXOClockSet(uint32_t freq)$/;"	f	typeref:typename:void
 SystemMaxCoreClockGet	CMSIS/efm32zg/Source/system_efm32zg.c	/^uint32_t SystemMaxCoreClockGet(void)$/;"	f	typeref:typename:uint32_t
 SystemULFRCOClockGet	CMSIS/efm32zg/Source/system_efm32zg.c	/^uint32_t SystemULFRCOClockGet(void)$/;"	f	typeref:typename:uint32_t
-TARGET	build/release/makefile	/^TARGET=$(PROJECT_NAME).axf $/;"	m
 TCB_t	FreeRTOS/efm32zg/Source/tasks.c	/^typedef tskTCB TCB_t;$/;"	t	typeref:typename:tskTCB	file:
 TC_PGDELAY_CH1	src/HAL/slave/dw1000/dw1000_regs.h	/^#define TC_PGDELAY_CH1 /;"	d
 TC_PGDELAY_CH2	src/HAL/slave/dw1000/dw1000_regs.h	/^#define TC_PGDELAY_CH2 /;"	d
@@ -1851,7 +1800,7 @@ TIMER_CHANNEL_1	src/HAL/host/efm32zg222f32/efm32zg_timer_HAL.h	/^#define TIMER_C
 TIMER_CHANNEL_2	src/HAL/host/efm32zg222f32/efm32zg_timer_HAL.h	/^#define TIMER_CHANNEL_2 /;"	d
 TIMER_PERIPHCONF_INDEX	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define TIMER_PERIPHCONF_INDEX /;"	d
 TIMER_READ_WRITE_CLEAR	src/HAL/host/efm32zg222f32/efm32zg_timer_HAL.h	/^#define TIMER_READ_WRITE_CLEAR /;"	d
-TIMER_periphconf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}TIMER_periphconf;$/;"	t	typeref:struct:__anon484018370908
+TIMER_periphconf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}TIMER_periphconf;$/;"	t	typeref:struct:__anon484018370b08
 TOF_DIST_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define TOF_DIST_INDEX /;"	d
 TOGGLE	src/middleware/mpi_types.h	/^#define TOGGLE /;"	d
 TREK_ANTDLY_1	src/HAL/slave/dw1000/dw1000_types.h	/^#define TREK_ANTDLY_1 /;"	d
@@ -2101,7 +2050,6 @@ USART_frameconf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}USART_framecon
 USART_periphconf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}USART_periphconf;$/;"	t	typeref:struct:__anon484018370508
 USART_status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^}USART_status;$/;"	t	typeref:struct:__anon484018370308
 USER_OBJS	build/debug/objects.mk	/^USER_OBJS :=$/;"	m
-USER_OBJS	build/release/objects.mk	/^USER_OBJS :=$/;"	m
 USR_SFD_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define USR_SFD_ID /;"	d
 USR_SFD_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define USR_SFD_LEN /;"	d
 UUS_TO_DW_TIME	src/HAL/slave/dw1000/dw1000_tofCalcs.c	/^#define UUS_TO_DW_TIME /;"	d	file:
@@ -2166,18 +2114,15 @@ __HEAP_SIZE	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^#define __HEAP_SIZE /;"
 __HeapBase	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __HeapBase = .;$/;"	s
 __HeapBase	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^__HeapBase:$/;"	l
 __HeapBase	build/debug/efm32zg.ld	/^    __HeapBase = .;$/;"	s
-__HeapBase	build/release/efm32zg.ld	/^    __HeapBase = .;$/;"	s
 __HeapLimit	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __HeapLimit = .;$/;"	s
 __HeapLimit	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^__HeapLimit:$/;"	l
 __HeapLimit	build/debug/efm32zg.ld	/^    __HeapLimit = .;$/;"	s
-__HeapLimit	build/release/efm32zg.ld	/^    __HeapLimit = .;$/;"	s
 __STACK_SIZE	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^#define __STACK_SIZE /;"	d	file:
 __START	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^#define __START /;"	d	file:
 __START	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^#define __START /;"	d	file:
 __StackLimit	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^  __StackLimit = __StackTop - SIZEOF(.stack_dummy);$/;"	s
 __StackLimit	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^__StackLimit:$/;"	l
 __StackLimit	build/debug/efm32zg.ld	/^  __StackLimit = __StackTop - SIZEOF(.stack_dummy);$/;"	s
-__StackLimit	build/release/efm32zg.ld	/^  __StackLimit = __StackTop - SIZEOF(.stack_dummy);$/;"	s
 __StackTop	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^__StackTop:$/;"	l
 __Vectors	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__Vectors       DCD     __initial_sp              ; Top of Stack$/;"	l
 __Vectors	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^__Vectors:$/;"	l
@@ -2189,7 +2134,6 @@ __Vectors_Size	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__Vectors_Size  EQU 
 __Vectors_Size	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __Vectors_Size = __Vectors_End - __Vectors;$/;"	s
 __Vectors_Size	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^__Vectors_Size  EQU   __Vectors_End - __Vectors$/;"	d
 __Vectors_Size	build/debug/efm32zg.ld	/^    __Vectors_Size = __Vectors_End - __Vectors;$/;"	s
-__Vectors_Size	build/release/efm32zg.ld	/^    __Vectors_Size = __Vectors_End - __Vectors;$/;"	s
 __anon0073e1db010a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
 __anon0073e1db020a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
 __anon0073e1db030a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
@@ -2207,10 +2151,12 @@ __anon484018370208	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef stru
 __anon484018370308	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
 __anon484018370408	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
 __anon484018370508	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
-__anon484018370608	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct { $/;"	s
+__anon484018370608	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
 __anon484018370708	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
 __anon484018370808	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
 __anon484018370908	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
+__anon484018370a08	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
+__anon484018370b08	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
 __anon74245d9e010a	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	{$/;"	u	struct:xSTATIC_QUEUE
 __anon793e99d30108	src/HAL/slave/venus638/venus638.h	/^typedef struct {$/;"	s
 __anon89f65ef0010a	FreeRTOS/efm32zg/Source/timers.c	/^	{$/;"	u	struct:tmrTimerQueueMessage	file:
@@ -2222,55 +2168,42 @@ __anonf4e68d820103	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^typedef enum {$/;"	g
 __bss_end__	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    __bss_end__ = _ebss;$/;"	s
 __bss_end__	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __bss_end__ = .;$/;"	s
 __bss_end__	build/debug/efm32zg.ld	/^    __bss_end__ = .;$/;"	s
-__bss_end__	build/release/efm32zg.ld	/^    __bss_end__ = .;$/;"	s
 __bss_start__	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    __bss_start__ = _sbss;$/;"	s
 __bss_start__	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __bss_start__ = .;$/;"	s
 __bss_start__	build/debug/efm32zg.ld	/^    __bss_start__ = .;$/;"	s
-__bss_start__	build/release/efm32zg.ld	/^    __bss_start__ = .;$/;"	s
 __data_end__	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __data_end__ = .;$/;"	s
 __data_end__	build/debug/efm32zg.ld	/^    __data_end__ = .;$/;"	s
-__data_end__	build/release/efm32zg.ld	/^    __data_end__ = .;$/;"	s
 __data_start__	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __data_start__ = .;$/;"	s
 __data_start__	build/debug/efm32zg.ld	/^    __data_start__ = .;$/;"	s
-__data_start__	build/release/efm32zg.ld	/^    __data_start__ = .;$/;"	s
 __end__	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __end__ = .;$/;"	s
 __end__	build/debug/efm32zg.ld	/^    __end__ = .;$/;"	s
-__end__	build/release/efm32zg.ld	/^    __end__ = .;$/;"	s
 __etext	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^  __etext = .;$/;"	s
 __etext	build/debug/efm32zg.ld	/^  __etext = .;$/;"	s
-__etext	build/release/efm32zg.ld	/^  __etext = .;$/;"	s
 __exidx_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    __exidx_end = .;$/;"	s
 __exidx_start	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    __exidx_start = .;$/;"	s
 __fini_array_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_end = .);$/;"	s
 __fini_array_end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_end = .);$/;"	s
 __fini_array_end	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_end = .);$/;"	s
-__fini_array_end	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_end = .);$/;"	s
 __fini_array_start	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_start = .);$/;"	s
 __fini_array_start	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_start = .);$/;"	s
 __fini_array_start	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_start = .);$/;"	s
-__fini_array_start	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_start = .);$/;"	s
 __heap_base	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__heap_base$/;"	l
 __heap_limit	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__heap_limit$/;"	l
 __init_array_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_end = .);$/;"	s
 __init_array_end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_end = .);$/;"	s
 __init_array_end	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_end = .);$/;"	s
-__init_array_end	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_end = .);$/;"	s
 __init_array_start	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_start = .);$/;"	s
 __init_array_start	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_start = .);$/;"	s
 __init_array_start	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_start = .);$/;"	s
-__init_array_start	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_start = .);$/;"	s
 __initial_sp	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__initial_sp$/;"	l
 __preinit_array_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_end = .);$/;"	s
 __preinit_array_end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_end = .);$/;"	s
 __preinit_array_end	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_end = .);$/;"	s
-__preinit_array_end	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_end = .);$/;"	s
 __preinit_array_start	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_start = .);$/;"	s
 __preinit_array_start	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_start = .);$/;"	s
 __preinit_array_start	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_start = .);$/;"	s
-__preinit_array_start	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_start = .);$/;"	s
 __stack	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^  PROVIDE(__stack = __StackTop);$/;"	s
 __stack	build/debug/efm32zg.ld	/^  PROVIDE(__stack = __StackTop);$/;"	s
-__stack	build/release/efm32zg.ld	/^  PROVIDE(__stack = __StackTop);$/;"	s
 __user_initial_stackheap	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__user_initial_stackheap PROC$/;"	l
 __vector_table	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^const void * const __vector_table[]=  {$/;"	v	typeref:typename:const void * const[]
 __vector_table	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^__vector_table$/;"	l
@@ -2308,7 +2241,6 @@ _emu_io	src/middleware/mpi_port.h	/^  int_callback _emu_io;$/;"	m	struct:MPI_PER
 _end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE ( _end = . );$/;"	s
 _end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    _end = __end__;$/;"	s
 _end	build/debug/efm32zg.ld	/^    _end = __end__;$/;"	s
-_end	build/release/efm32zg.ld	/^    _end = __end__;$/;"	s
 _estack	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^_estack = 0x20001000;    \/* end of RAM *\/$/;"	s
 _etext	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    _etext = .;        \/* define a global symbols at end of code *\/$/;"	s
 _gpio_config_reg	src/middleware/mpi_port.h	/^  int_callback _gpio_config_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
@@ -2372,39 +2304,37 @@ _wdog_init	src/middleware/mpi_port.h	/^  int_callback _wdog_init;$/;"	m	struct:M
 _wdog_io	src/middleware/mpi_port.h	/^  int_callback _wdog_io;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 ack_message_id	src/HAL/slave/venus638/venus638.h	/^  uint32_t ack_message_id;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 all	build/debug/makefile	/^all: multidrone_prototype.axf$/;"	t
-all	build/release/makefile	/^all: $(TARGET)$/;"	t
 ant_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  ant_delay,$/;"	e	enum:__anon0073e1db0803
 ant_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ant_delay;           \/\/ antenna delay read from otp 64 prf value is in high 16 bits/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
-auxhfrcoctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t auxhfrcoctrl;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+auxhfrcoctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t auxhfrcoctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 bitwidth	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t bitwidth;$/;"	m	struct:__anon484018370408	typeref:typename:uint32_t
 build_message	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t build_message[4];$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t[4]
 cRxLock	FreeRTOS/efm32zg/Source/queue.c	/^	volatile int8_t cRxLock;		\/*< Stores the number of items received from the queue (removed from/;"	m	struct:QueueDefinition	typeref:typename:volatile int8_t	file:
 cTxLock	FreeRTOS/efm32zg/Source/queue.c	/^	volatile int8_t cTxLock;		\/*< Stores the number of items transmitted to the queue (added to th/;"	m	struct:QueueDefinition	typeref:typename:volatile int8_t	file:
-calcnt	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t calcnt;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-calctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t calctrl;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-cc0_ccv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc0_ccv;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc0_ccvb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc0_ccvb;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc0_ccvp	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc0_ccvp;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc0_ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc0_ctrl;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc1_ccv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc1_ccv;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc1_ccvb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc1_ccvb;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc1_ccvp	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc1_ccvp;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc1_ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc1_ctrl;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc2_ccv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccv;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc2_ccvb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccvb;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc2_ccvp	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccvp;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-cc2_ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ctrl;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+calcnt	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t calcnt;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+calctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t calctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+cc0_ccv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc0_ccv;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc0_ccvb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc0_ccvb;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc0_ccvp	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc0_ccvp;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc0_ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc0_ctrl;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc1_ccv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc1_ccv;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc1_ccvb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc1_ccvb;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc1_ccvp	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc1_ccvp;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc1_ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc1_ctrl;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc2_ccv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccv;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc2_ccvb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccvb;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc2_ccvp	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccvp;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+cc2_ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ctrl;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 channel	src/HAL/slave/dw1000/dw1000_types.h	/^  channel,$/;"	e	enum:__anon0073e1db0803
 channel	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t channel;              \/\/ added chan here - used in the reading of acc$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
 char_callback	src/middleware/mpi_types.h	/^typedef char (*char_callback)();$/;"	t	typeref:typename:char (*)()
 char_callback_setter	src/middleware/mpi_types.h	/^typedef char (*char_callback_setter)(char_callback);$/;"	t	typeref:typename:char (*)(char_callback)
 checksum	src/HAL/slave/venus638/venus638.h	/^  uint32_t checksum;$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint32_t
 clean	build/debug/makefile	/^clean:$/;"	t
-clean	build/release/makefile	/^clean:$/;"	t
 clkdiv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t clkdiv;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 cmd	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t cmd;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-cmd	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cmd;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-cmd	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cmd;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+cmd	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cmd;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+cmd	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cmd;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 cmu	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.c	/^CMU_TypeDef * cmu 		= CMU;$/;"	v	typeref:typename:CMU_TypeDef *
 cmu_ConfigReg	src/port_adaptors/efm32zg222f32_adaptor.c	/^int cmu_ConfigReg(void* host_ptr, uint32_t RWC){$/;"	f	typeref:typename:int
 cmu_Init	src/port_adaptors/efm32zg222f32_adaptor.c	/^int cmu_Init(void* host_ptr, uint32_t	RWC){$/;"	f	typeref:typename:int
@@ -2465,7 +2395,7 @@ cmu_status_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_
 cmu_status_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_status_table[CMU_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
 cmu_syncbusy_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_syncbusy_table[CMU_READ_WRITE_CLEAR])() =$/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
 cmu_syncbusy_table	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.c	/^int (*const cmu_syncbusy_table[CMU_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[CMU_READ_WRITE_CLEAR])()
-cnt	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cnt;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+cnt	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cnt;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 configADJUSTED_HEAP_SIZE	FreeRTOS/efm32zg/Source/portable/MemMang/heap_1.c	/^#define configADJUSTED_HEAP_SIZE	/;"	d	file:
 configADJUSTED_HEAP_SIZE	FreeRTOS/efm32zg/Source/portable/MemMang/heap_2.c	/^#define configADJUSTED_HEAP_SIZE	/;"	d	file:
 configAPPLICATION_ALLOCATED_HEAP	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define configAPPLICATION_ALLOCATED_HEAP /;"	d
@@ -2604,9 +2534,9 @@ crSET_STATE1	FreeRTOS/efm32zg/Source/include/croutine.h	/^#define crSET_STATE1(/
 crSTART	FreeRTOS/efm32zg/Source/include/croutine.h	/^#define crSTART(/;"	d
 crc	src/HAL/slave/venus638/venus638.h	/^  uint32_t crc;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t ctrl;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t ctrl;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ctrl;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ctrl;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t ctrl;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ctrl;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 datum_index	src/HAL/slave/venus638/venus638.h	/^  uint32_t datum_index;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 dbl_buff_on	src/HAL/slave/dw1000/dw1000_types.h	/^  dbl_buff_on,$/;"	e	enum:__anon0073e1db0803
 dbl_buff_on	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t dbl_buff_on;          \/\/ double rx buffer mode flag$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
@@ -2633,10 +2563,10 @@ dev_status	src/HAL/slave/dw1000/dw1000_types.h	/^  int dev_status;$/;"	m	struct:
 device_id	src/HAL/slave/dw1000/dw1000_types.h	/^  device_id,$/;"	e	enum:__anon0073e1db0803
 device_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t device_id[EUI_64_LEN]; \/\/ device id (ieee unique 64-bit identifier)$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[]
 devices	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_network_dev devices[ACTIVE_DEVICES_LEN]; $/;"	m	struct:__anon0073e1db0b08	typeref:typename:DW_network_dev[]
-din	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t din;$/;"	m	struct:__anon484018370708	typeref:typename:uint32_t
+din	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t din;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
 distance	src/HAL/slave/dw1000/dw1000_types.h	/^  float distance;$/;"	m	struct:__anon0073e1db0a08	typeref:typename:float
-dout	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t dout;$/;"	m	struct:__anon484018370708	typeref:typename:uint32_t
-douttgl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	const uint32_t douttgl;$/;"	m	struct:__anon484018370708	typeref:typename:const uint32_t
+dout	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t dout;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
+douttgl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t douttgl;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
 dw1000	src/application/configs/config_dw1000.c	/^MPI_ext_dev dw1000 = {$/;"	v	typeref:typename:MPI_ext_dev
 dw_ConfigReg	src/port_adaptors/dw1000_adaptor.c	/^uint32_t dw_ConfigReg(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_/;"	f	typeref:typename:uint32_t
 dw_Data	src/port_adaptors/dw1000_adaptor.c	/^uint32_t dw_Data(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_objec/;"	f	typeref:typename:uint32_t
@@ -2730,14 +2660,13 @@ eTaskGetState	FreeRTOS/efm32zg/Source/tasks.c	/^	eTaskState eTaskGetState( TaskH
 eTaskState	FreeRTOS/efm32zg/Source/include/task.h	/^} eTaskState;$/;"	t	typeref:enum:__anone255dfe70103
 eTaskStateGet	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define eTaskStateGet /;"	d
 efm32zg222f32_host	src/application/configs/config_efm32zg222f32.c	/^MPI_host efm32zg222f32_host = { $/;"	v	typeref:typename:MPI_host
-em4ret	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4ret;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-em4wucause	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wucause;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-em4wuen	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wuen;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-em4wupol	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wupol;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
+em4ret	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4ret;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+em4wucause	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wucause;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+em4wuen	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wuen;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+em4wupol	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wupol;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE ( end = . );$/;"	s
 end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    end = __end__;$/;"	s
 end	build/debug/efm32zg.ld	/^    end = __end__;$/;"	s
-end	build/release/efm32zg.ld	/^    end = __end__;$/;"	s
 err	src/HAL/slave/venus638/venus638.h	/^ int err;$/;"	m	struct:VENUS_ERROR	typeref:typename:int
 errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY	FreeRTOS/efm32zg/Source/include/projdefs.h	/^#define errCOULD_NOT_ALLOCATE_REQUIRED_MEMORY	/;"	d
 errQUEUE_BLOCKED	FreeRTOS/efm32zg/Source/include/projdefs.h	/^#define errQUEUE_BLOCKED	/;"	d
@@ -2749,10 +2678,10 @@ eventEVENT_BITS_CONTROL_BYTES	FreeRTOS/efm32zg/Source/event_groups.c	/^	#define 
 eventUNBLOCKED_DUE_TO_BIT_SET	FreeRTOS/efm32zg/Source/event_groups.c	/^	#define eventUNBLOCKED_DUE_TO_BIT_SET	/;"	d	file:
 eventWAIT_FOR_ALL_BITS	FreeRTOS/efm32zg/Source/event_groups.c	/^	#define eventWAIT_FOR_ALL_BITS	/;"	d	file:
 ext_addr_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ext_addr_index;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
-extifall	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extifall;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-extipselectH	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extipselectH;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-extipselectL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extipselectL;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-extirise	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extirise;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
+extifall	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extifall;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+extipselectH	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extipselectH;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+extipselectL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t extipselectL;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+extirise	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extirise;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 final	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_final_timestamp final;$/;"	m	struct:__anon0073e1db0608	typeref:typename:DW_final_timestamp
 final_distance	src/HAL/slave/dw1000/dw1000_types.h	/^  double final_distance;$/;"	m	struct:__anon0073e1db0608	typeref:typename:double
 final_message_len	src/HAL/slave/venus638/venus638.h	/^  uint32_t final_message_len;$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint32_t
@@ -2772,7 +2701,7 @@ frame_out	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_out[FRAME_BUFFE
 frame_out_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_out_len;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 frame_src_addr_index_start_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint8_t frame_src_addr_index_start_table[FRAME_INDEX_TABLE] = {$/;"	v	typeref:typename:uint8_t[]
 frame_type_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^  uint32_t frame_type_index;$/;"	m	struct:__anon9e779e160108	typeref:typename:uint32_t	file:
-freeze	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t freeze;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+freeze	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t freeze;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 gpio	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.c	/^GPIO_TypeDef * gpio 	= GPIO;$/;"	v	typeref:typename:GPIO_TypeDef *
 gpio_ConfigReg	src/port_adaptors/efm32zg222f32_adaptor.c	/^int gpio_ConfigReg(void* host_ptr, uint32_t RWC){$/;"	f	typeref:typename:int
 gpio_IO	src/port_adaptors/efm32zg222f32_adaptor.c	/^int gpio_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){$/;"	f	typeref:typename:int
@@ -2790,7 +2719,7 @@ gpio_config_table	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const *co
 gpio_config_table	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.h	/^int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])();$/;"	v	typeref:typename:int (* const * const[PERIPH_REGISTER_TABLE_MEMBERS])()
 gpio_ctrl	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_ctrl[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_ctrl	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_ctrl[GPIO_READ_WRITE_CLEAR])()=$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
-gpio_data	src/application/configs/config_efm32zg222f32.c	/^GPIO_data gpio_data;$/;"	v	typeref:typename:GPIO_data
+gpio_data	src/application/configs/config_efm32zg222f32.c	/^GPIO_data gpio_data = {$/;"	v	typeref:typename:GPIO_data
 gpio_em4cause	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_em4cause		[GPIO_READ_WRITE_CLEAR])()= {zg_EM4Cause,NULL,NULL};$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_em4cause	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_em4cause[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_em4clr_all	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_em4clr_all		[GPIO_READ_WRITE_CLEAR])()= {NULL, NULL, zg_gpioClrEm4Request};$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
@@ -2828,8 +2757,8 @@ gpio_pinlock	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_pin
 gpio_pinlock	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_pinlock[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_pinout_tgl	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_pinout_tgl[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_pinout_tgl	src/HAL/host/efm32zg222f32/efm32zg_gpio_IO_HAL.c	/^int(*const gpio_pinout_tgl 		[GPIO_READ_WRITE_CLEAR])()= $/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
-gpio_serial_wire	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_serial_wire[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
-gpio_serial_wire	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_serial_wire[GPIO_READ_WRITE_CLEAR])()=$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
+gpio_route	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_route[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
+gpio_route	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_route[GPIO_READ_WRITE_CLEAR])()=$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gps_1pps_mode	src/HAL/slave/venus638/venus638.h	/^  uint32_t gps_1pps_mode;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 handler_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t handler_index;$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t
 header_read	src/HAL/slave/dw1000/dw1000_types.h	/^uint8_t header_read[150]  =   {0};$/;"	v	typeref:typename:uint8_t[150]
@@ -2841,40 +2770,40 @@ heapMINIMUM_BLOCK_SIZE	FreeRTOS/efm32zg/Source/portable/MemMang/heap_2.c	/^#defi
 heapMINIMUM_BLOCK_SIZE	FreeRTOS/efm32zg/Source/portable/MemMang/heap_4.c	/^#define heapMINIMUM_BLOCK_SIZE	/;"	d	file:
 heapMINIMUM_BLOCK_SIZE	FreeRTOS/efm32zg/Source/portable/MemMang/heap_5.c	/^#define heapMINIMUM_BLOCK_SIZE	/;"	d	file:
 heapSTRUCT_SIZE	FreeRTOS/efm32zg/Source/portable/MemMang/heap_2.c	/^static const uint16_t heapSTRUCT_SIZE	= ( ( sizeof ( BlockLink_t ) + ( portBYTE_ALIGNMENT - 1 ) /;"	v	typeref:typename:const uint16_t	file:
-hfcoreclkdiv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfcoreclkdiv;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-hfcoreclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfcoreclken0;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-hfperclkdiv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfperclkdiv;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-hfperclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfperclken0;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-hfrcoctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfrcoctrl;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+hfcoreclkdiv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfcoreclkdiv;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+hfcoreclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfcoreclken0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+hfperclkdiv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfperclkdiv;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+hfperclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfperclken0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+hfrcoctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t hfrcoctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 i2sctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t i2sctrl;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-ien	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t ien;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-ien	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ien;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-ifc	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ifc;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-ifr	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ifr;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-ifs	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ifs;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+ien	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t ien;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+ien	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ien;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+ifc	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ifc;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+ifr	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ifr;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+ifs	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ifs;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 input	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t input;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-insense	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t insense;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
+insense	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t insense;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 int_callback	src/middleware/mpi_types.h	/^typedef int (*int_callback)();$/;"	t	typeref:typename:int (*)()
 int_callback_setter	src/middleware/mpi_types.h	/^typedef int (*int_callback_setter)(int_callback);$/;"	t	typeref:typename:int (*)(int_callback)
-inten	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t inten;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+inten	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t inten;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 interrupt_handlers	src/middleware/mpi_port.h	/^  int_callback interrupt_handlers;$/;"	m	struct:MPI_HOST	typeref:typename:int_callback
 interupt_handlers	src/middleware/mpi_port.h	/^  int_callback interupt_handlers;$/;"	m	struct:MPI_SLAVE	typeref:typename:int_callback
-intf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t intf;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-intfclear	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t intfclear;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+intf	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t intf;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+intfclear	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t intfclear;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 intflag	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t intflag;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-intfread	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t intfread;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-intfset	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t intfset;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+intfread	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t intfread;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+intfset	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t intfset;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 irctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t irctrl;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 kernel_version	src/HAL/slave/venus638/venus638.h	/^  uint32_t kernel_version;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 last_known	src/HAL/slave/venus638/venus638.h	/^  uint8_t last_known;$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint8_t
 ldo_tune_low32	src/HAL/slave/dw1000/dw1000_types.h	/^  ldo_tune_low32,$/;"	e	enum:__anon0073e1db0803
 ldo_tune_low32	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ldo_tune_low32;      \/\/low 32 bits of ldo tune value$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
-lfaclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfaclken0;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-lfapresc0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfapresc0;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-lfbclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfbclken0;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-lfbpresc0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfbpresc0;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-lfclksel	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfclksel;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-lfrcoctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfrcoctrl;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+lfaclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfaclken0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+lfapresc0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfapresc0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+lfbclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfbclken0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+lfbpresc0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfbpresc0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+lfclksel	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfclksel;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+lfrcoctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfrcoctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 list	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_data list[NODELIST_LEN];$/;"	m	struct:__anon0073e1db0b08	typeref:typename:DW_data[]
 listCURRENT_LIST_LENGTH	FreeRTOS/efm32zg/Source/include/list.h	/^#define listCURRENT_LIST_LENGTH(/;"	d
 listFIRST_LIST_INTEGRITY_CHECK_VALUE	FreeRTOS/efm32zg/Source/include/list.h	/^	#define listFIRST_LIST_INTEGRITY_CHECK_VALUE$/;"	d
@@ -2902,8 +2831,8 @@ listSET_SECOND_LIST_ITEM_INTEGRITY_CHECK_VALUE	FreeRTOS/efm32zg/Source/include/l
 listTEST_LIST_INTEGRITY	FreeRTOS/efm32zg/Source/include/list.h	/^	#define listTEST_LIST_INTEGRITY(/;"	d
 listTEST_LIST_ITEM_INTEGRITY	FreeRTOS/efm32zg/Source/include/list.h	/^	#define listTEST_LIST_ITEM_INTEGRITY(/;"	d
 location	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t location;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-lock	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t lock;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-lock	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lock;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+lock	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t lock;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+lock	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lock;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 long_frames	src/HAL/slave/dw1000/dw1000_types.h	/^  long_frames$/;"	e	enum:__anon0073e1db0803
 long_frames	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t long_frames;  \/\/ flag in non-standard long frame mode$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
 lot_id	src/HAL/slave/dw1000/dw1000_types.h	/^  lot_id,$/;"	e	enum:__anon0073e1db0803
@@ -2948,7 +2877,7 @@ node_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t node_index;$/;"	m	st
 node_list_table	src/HAL/slave/dw1000/dw1000_nodeMgmt.c	/^uint32_t(* node_list_table[DW_NODE_TABLE_LEN])() = {$/;"	v	typeref:typename:uint32_t (* [DW_NODE_TABLE_LEN])()
 node_list_table	src/HAL/slave/dw1000/dw1000_nodeMgmt.h	/^uint32_t(* node_list_table[DW_NODE_TABLE_LEN])();$/;"	v	typeref:typename:uint32_t (* [DW_NODE_TABLE_LEN])()
 odm_version	src/HAL/slave/venus638/venus638.h	/^  uint32_t odm_version;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
-oscencmd	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t oscencmd;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+oscencmd	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t oscencmd;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 otp_rev	src/HAL/slave/dw1000/dw1000_types.h	/^  otp_rev,$/;"	e	enum:__anon0073e1db0803
 otp_rev	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t otp_rev;              \/\/ otp revision number (read during initialisation)$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
 pFunc	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^typedef void( *pFunc )( void );$/;"	t	typeref:typename:void (*)(void)	file:
@@ -2988,7 +2917,7 @@ pcTimerGetName	FreeRTOS/efm32zg/Source/timers.c	/^const char * pcTimerGetName( T
 pcTimerGetTimerName	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define pcTimerGetTimerName /;"	d
 pcTimerName	FreeRTOS/efm32zg/Source/timers.c	/^	const char				*pcTimerName;		\/*<< Text name.  This is not used by the kernel, it is included s/;"	m	struct:tmrTimerControl	typeref:typename:const char *	file:
 pcWriteTo	FreeRTOS/efm32zg/Source/queue.c	/^	int8_t *pcWriteTo;				\/*< Points to the free next place in the storage area. *\/$/;"	m	struct:QueueDefinition	typeref:typename:int8_t *	file:
-pcntctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t pcntctrl;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+pcntctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t pcntctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 pdFAIL	FreeRTOS/efm32zg/Source/include/projdefs.h	/^#define pdFAIL	/;"	d
 pdFALSE	FreeRTOS/efm32zg/Source/include/projdefs.h	/^#define pdFALSE	/;"	d
 pdFREERTOS_BIG_ENDIAN	FreeRTOS/efm32zg/Source/include/projdefs.h	/^#define pdFREERTOS_BIG_ENDIAN	/;"	d
@@ -3039,13 +2968,15 @@ pdPASS	FreeRTOS/efm32zg/Source/include/projdefs.h	/^#define pdPASS	/;"	d
 pdTASK_CODE	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define pdTASK_CODE /;"	d
 pdTASK_HOOK_CODE	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define pdTASK_HOOK_CODE /;"	d
 pdTRUE	FreeRTOS/efm32zg/Source/include/projdefs.h	/^#define pdTRUE	/;"	d
-pinlockn	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pinlockn;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-pinmodeH	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pinmodeH;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-pinmodeL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pinmodeL;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
+pinlockn	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pinlockn; \/\/pins 0-15$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+pinmodeH	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pinmodeH; \/\/pins 8-15$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+pinmodeL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t pinmodeL; \/\/pins 0-7$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
 pins	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pins;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 polalpha	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t polalpha;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 poll	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_poll_timestamp  poll;$/;"	m	struct:__anon0073e1db0608	typeref:typename:DW_poll_timestamp
 poll_resp_final_handler_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint32_t (*poll_resp_final_handler_table[3])() = {$/;"	v	typeref:typename:uint32_t (* [3])()
+port	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t port;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+port	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t port;$/;"	m	struct:__anon484018370708	typeref:typename:uint32_t
 portAIRCR_REG	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM3/port.c	/^#define portAIRCR_REG	/;"	d	file:
 portAIRCR_REG	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM3_MPU/port.c	/^#define portAIRCR_REG	/;"	d	file:
 portAIRCR_REG	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM4F/port.c	/^#define portAIRCR_REG	/;"	d	file:
@@ -3836,8 +3767,6 @@ portYIELD_WITHIN_API	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define portY
 portYIELD_WITHIN_API	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM3_MPU/portmacro.h	/^#define portYIELD_WITHIN_API(/;"	d
 portYIELD_WITHIN_API	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM4_MPU/portmacro.h	/^#define portYIELD_WITHIN_API(/;"	d
 portYIELD_WITHIN_API	FreeRTOS/efm32zg/Source/portable/RVDS/ARM_CM4_MPU/portmacro.h	/^#define portYIELD_WITHIN_API(/;"	d
-ports	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t ports;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-ports	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t ports;$/;"	m	struct:__anon484018370708	typeref:typename:uint32_t
 pos_pin_status	src/HAL/slave/venus638/venus638.h	/^  uint32_t pos_pin_status;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 prf_index	src/HAL/slave/dw1000/dw1000_types.h	/^   int prf_index;               \/\/prf index ???$/;"	m	struct:__anon0073e1db0908	typeref:typename:int
 prf_index	src/HAL/slave/dw1000/dw1000_types.h	/^  prf_index,$/;"	e	enum:__anon0073e1db0803
@@ -4056,9 +3985,10 @@ rf_rx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  rf_rx_delay,$/;"	e	enum:__an
 rf_rx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rf_rx_delay[2];         \/\/ rf delay (delay though the rf blocks before the signal c/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[2]
 rf_tx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  rf_tx_delay,$/;"	e	enum:__anon0073e1db0803
 rf_tx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rf_tx_delay[2];         \/\/ rf delay (delay though the rf blocks before the signal c/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[2]
+route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t route; $/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t route;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t route;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t route;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t route;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t route;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 rx_fctrl	src/HAL/slave/dw1000/dw1000_types.h	/^  rx_fctrl,$/;"	e	enum:__anon0073e1db0803
 rx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rx_marker;$/;"	m	union:__anon0073e1db010a	typeref:typename:uint32_t
 rx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rx_marker;$/;"	m	union:__anon0073e1db020a	typeref:typename:uint32_t
@@ -4113,16 +4043,14 @@ software_version_type	src/HAL/slave/venus638/venus638.h	/^  uint32_t software_ve
 src_addr_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^  uint8_t src_addr_index;$/;"	m	struct:__anon9e779e160108	typeref:typename:uint8_t	file:
 src_addr_index_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint8_t src_addr_index_table[FRAME_INDEX_TABLE] = {$/;"	v	typeref:typename:uint8_t[]
 stack	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^static uint8_t stack[__STACK_SIZE] __attribute__ ((aligned(8), used, section(".stack")));$/;"	v	typeref:typename:uint8_t[]	file:
-startup_efm32zg.o	build/release/makefile	/^startup_efm32zg.o: $(DEVICE_DIR)\/Source\/GCC\/startup_efm32zg.S$/;"	t
 static	FreeRTOS/efm32zg/Source/croutine.c	/^	#define static$/;"	d	file:
 static	FreeRTOS/efm32zg/Source/tasks.c	/^	#define static$/;"	d	file:
 status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t status;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t status;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
-status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t status;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t status;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
+status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t status;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 sub_addr_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t sub_addr_index;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 sv_id	src/HAL/slave/venus638/venus638.h	/^  uint32_t sv_id;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
-swdswc	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t swdswc;$/;"	m	struct:__anon484018370608	typeref:typename:uint32_t
-syncbusy	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t syncbusy;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
+syncbusy	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t syncbusy;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 sys_config_reg	src/HAL/slave/dw1000/dw1000_types.h	/^  sys_config_reg,$/;"	e	enum:__anon0073e1db0803
 sys_config_reg	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t sys_config_reg;     \/\/ local copy of system config register$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
 sys_reset_altitude	src/HAL/slave/venus638/venus638.h	/^  int16_t sys_reset_altitude;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:int16_t
@@ -4135,7 +4063,6 @@ sys_reset_utc_minute	src/HAL/slave/venus638/venus638.h	/^  uint8_t sys_reset_utc
 sys_reset_utc_month	src/HAL/slave/venus638/venus638.h	/^  uint8_t sys_reset_utc_month;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint8_t
 sys_reset_utc_second	src/HAL/slave/venus638/venus638.h	/^  uint8_t sys_reset_utc_second;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint8_t
 sys_reset_utc_year	src/HAL/slave/venus638/venus638.h	/^  uint16_t sys_reset_utc_year;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint16_t
-system_efm32zg.o	build/release/makefile	/^system_efm32zg.o: $(DEVICE_DIR)\/Source\/system_efm32zg.c$/;"	t
 tag_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t tag_id[8]; \/\/ <--- store the tag ID from the initial blink message, in here and re-t/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t[8]
 tag_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t tag_id[BLINK_SHORT_ADDR_LEN];$/;"	m	struct:__anon0073e1db0a08	typeref:typename:uint8_t[]
 taskCHECK_FOR_STACK_OVERFLOW	FreeRTOS/efm32zg/Source/include/StackMacros.h	/^	#define taskCHECK_FOR_STACK_OVERFLOW(/;"	d
@@ -4226,8 +4153,8 @@ tmrTimerControl	FreeRTOS/efm32zg/Source/timers.c	/^typedef struct tmrTimerContro
 tmrTimerParameters	FreeRTOS/efm32zg/Source/timers.c	/^typedef struct tmrTimerParameters$/;"	s	file:
 tmrTimerQueueMessage	FreeRTOS/efm32zg/Source/timers.c	/^typedef struct tmrTimerQueueMessage$/;"	s	file:
 tof	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_TOF  tof; $/;"	m	struct:__anon0073e1db0708	typeref:typename:DW_TOF
-top	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t top;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-topb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t topb;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
+top	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t top;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+topb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t topb;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 traceBLOCKING_ON_QUEUE_RECEIVE	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define traceBLOCKING_ON_QUEUE_RECEIVE(/;"	d
 traceBLOCKING_ON_QUEUE_SEND	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define traceBLOCKING_ON_QUEUE_SEND(/;"	d
 traceCREATE_COUNTING_SEMAPHORE	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define traceCREATE_COUNTING_SEMAPHORE(/;"	d
@@ -4321,7 +4248,7 @@ tskSTATIC_AND_DYNAMIC_ALLOCATION_POSSIBLE	FreeRTOS/efm32zg/Source/tasks.c	/^#def
 tskSUSPENDED_CHAR	FreeRTOS/efm32zg/Source/tasks.c	/^#define tskSUSPENDED_CHAR	/;"	d	file:
 tskTCB	FreeRTOS/efm32zg/Source/tasks.c	/^} tskTCB;$/;"	t	typeref:struct:tskTaskControlBlock	file:
 tskTaskControlBlock	FreeRTOS/efm32zg/Source/tasks.c	/^typedef struct tskTaskControlBlock$/;"	s	file:
-tuningval	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t* tuningval;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t *
+tuningval	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t* tuningval;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t *
 tx_fctrl	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_fctrl;            \/\/ keep tx_fctrl register config$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
 tx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_marker;$/;"	m	union:__anon0073e1db010a	typeref:typename:uint32_t
 tx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_marker;$/;"	m	union:__anon0073e1db020a	typeref:typename:uint32_t
