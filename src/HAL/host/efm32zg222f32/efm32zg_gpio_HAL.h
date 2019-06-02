@@ -12,22 +12,23 @@
 #include <stdint.h>
 #include "efm32zg_types_HAL.h"
 
-#define GPIO_PERIPH_REGISTERS 			32
+#define GPIO_PERIPH_REGISTERS 			    32
 
-#define GPIO_INTERNAL_INT_CTRL_FNS 		5
+#define GPIO_INTERNAL_INT_CTRL_FNS 		  5
 #define GPIO_INTERNAL_INT_ENABLE_FLAG 	2
 
-#define GPIO_EXTERNAL_INT_PIN_FNS 		2
-#define GPIO_EXTERNAL_INT_HIGH_LOW 		2
+#define GPIO_EXTERNAL_INT_PIN_FNS 		  2
+#define GPIO_EXTERNAL_INT_HIGH_LOW 		  2
 
-#define GPIO_HIGH_LOW					2
-#define SINGLE_FN_ARRAY					1
+#define GPIO_HIGH_LOW					          2
+#define SINGLE_FN_ARRAY					        1
 
-#define PORTA 0
-#define PORTB 1
-#define PORTC 2
-#define PORTD 3
-#define PORTE 4
+
+#define PORTA   0
+#define PORTB   1
+#define PORTC   2
+#define PORTD   3
+#define PORTE   4
 
 #define GPIO_P_PIN_NUMBER_0  (1UL << 0)
 #define GPIO_P_PIN_NUMBER_1  (1UL << 1)
