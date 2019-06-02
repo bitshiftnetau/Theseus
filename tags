@@ -138,7 +138,7 @@ BlockLink_t	FreeRTOS/efm32zg/Source/portable/MemMang/heap_2.c	/^} BlockLink_t;$/
 BlockLink_t	FreeRTOS/efm32zg/Source/portable/MemMang/heap_4.c	/^} BlockLink_t;$/;"	t	typeref:struct:A_BLOCK_LINK	file:
 BlockLink_t	FreeRTOS/efm32zg/Source/portable/MemMang/heap_5.c	/^} BlockLink_t;$/;"	t	typeref:struct:A_BLOCK_LINK	file:
 CC	build/release/makefile	/^CC=arm-none-eabi-gcc$/;"	m
-CFLAGS	build/release/makefile	/^CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DVENUS638=1' '-DDW1000=1'/;"	m
+CFLAGS	build/release/makefile	/^CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DDEFAULT_HFRCO_21MHZ' '-D/;"	m
 CHAN_CTRL_DWSFD	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CHAN_CTRL_DWSFD /;"	d
 CHAN_CTRL_DWSFD_SHIFT	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CHAN_CTRL_DWSFD_SHIFT /;"	d
 CHAN_CTRL_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CHAN_CTRL_ID /;"	d

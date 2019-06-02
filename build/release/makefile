@@ -127,7 +127,7 @@ LD=$(CC)
 #VENUS_FLAG='-DVENUS638=1'
 #BUILD_CONFIG_1.1.1.1.1='-DEL_BOM00001_HAL0001_MW0001_A0001_R0001=1'
 
-CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DVENUS638=1' '-DDW1000=1' -Wall -c -fmessage-length=0 -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections 
+CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DDEFAULT_HFRCO_21MHZ' '-DVENUS638=1' '-DDW1000=1' -Wall -c -fmessage-length=0 -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections 
 
 LDFLAGS= \
  -L$(GCC_LIB_ARM)/thumb/v6-m/nofp \
