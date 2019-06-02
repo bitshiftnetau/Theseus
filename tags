@@ -5,6 +5,11 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
+<<<<<<< HEAD
+=======
+$(OBJECTS)	build/release/makefile	/^$(OBJECTS): $(SRC_DIR)$/;"	t
+$(TARGET)	build/release/makefile	/^$(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)$/;"	t
+>>>>>>> revert3
 ACC_MEM_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define ACC_MEM_ID /;"	d
 ACC_MEM_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define ACC_MEM_LEN /;"	d
 ACK_RESP_T_ACK_TIM_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define ACK_RESP_T_ACK_TIM_MASK /;"	d
@@ -163,6 +168,12 @@ CLEAR_ALLTX_EVENTS	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CLEAR_ALLTX_EVEN
 CLEAR_DBLBUFF_EVENTS	src/HAL/slave/dw1000/dw1000_regs.h	/^#define CLEAR_DBLBUFF_EVENTS /;"	d
 CMSIS/efm32zg/startup_efm32zg.o	build/debug/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm32zg\/startup_efm32zg.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/Device\//;"	t
 CMSIS/efm32zg/system_efm32zg.o	build/debug/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm32zg\/system_efm32zg.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/Device\//;"	t
+<<<<<<< HEAD
+=======
+CMSIS/efm32zg/system_efm32zg.o	build/release/CMSIS/efm32zg/subdir.mk	/^CMSIS\/efm32zg\/system_efm32zg.o: \/opt\/simplicitystudio3\/developer\/sdks\/efm32\/v2\/Device\//;"	t
+CMSIS_DIR	build/release/makefile	/^CMSIS_DIR=$(SDK_DIR)\/platform\/CMSIS$/;"	m
+CMSIS_INCLUDE	build/release/makefile	/^CMSIS_INCLUDE= \\$/;"	m
+>>>>>>> revert3
 CMU_11MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_11MHZ_TUNE_ADDR /;"	d
 CMU_14MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_14MHZ_TUNE_ADDR /;"	d
 CMU_1MHZ_TUNE_ADDR	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define CMU_1MHZ_TUNE_ADDR /;"	d
