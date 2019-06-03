@@ -86,6 +86,10 @@ int usart_Init(void* host_ptr, uint32_t RWC){
   USART_frameconf* MPI_frameconf = (USART_frameconf*)efm32zg_host_ptr->MPI_data[USART_FRAMECONF_INDEX];
   USART_periphconf* MPI_usart_periphconf = (USART_periphconf*)efm32zg_host_ptr->MPI_data[USART_PERIPHCONF_INDEX];
 
+
+  zg_TxIntSetup(true);
+  zg_RxIntSetup(true);
+
 	if(MPI_frameconf != NULL){
 		int ret = 0;
 		int(*frame_conf_fn)() = usart_frameconf_rwc[RWC];
@@ -285,7 +289,14 @@ int gpio_ConfigReg(void* host_ptr, uint32_t RWC){
  *
  */
 
-
+/*
+ * ATTN: USE THIS FN FOR BIT-BASHING
+ *
+ *  FEELING USELESS MIGHT SCRAP THIS FN LATER IUNNO 
+ *  I DON'T NEED A TRANSFER FUNCTION, THAT IS ONLY FOR 
+ *  USE BETWEEN DEVICES, BUT THIS FN IS INTERNAL
+ *
+ */ 
 int gpio_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
@@ -308,20 +319,32 @@ int gpio_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len
   return 0;
 }
 
-int gpio_Tgl(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
+/*
+ * USE THIS FN FOR SIMPLE BOOLEAN INDICATORS
+ */
+int gpio_RW(void* host_ptr, uint32_t RW){
 
-  RW = WRITE;
+  MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
+  GPIO_data* gpio_data = (GPIO_data*)efm32zg_host_ptr->MPI_data[GPIO_DATA_INDEX];
+
+  int(*const gpio_IO_ptr)() = gpio_I_O_TGL[RW][RW];
+
+  gpio_IO_ptr(gpio_data);
+  
+  return 0;
+}
+
+int gpio_Tgl(void* host_ptr, uint32_t RW){
+
+  RW = TOGGLE;
   
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   GPIO_data* gpio_data = (GPIO_data*)efm32zg_host_ptr->MPI_data[GPIO_DATA_INDEX];
   
-  void(*const transfer_data_host_slave_ptr)() = gpio_IO_host_slave_transfer[RW]; 
   int(*const gpio_IO_ptr)() = gpio_I_O_TGL[RW][RW];
 
-  for(int slave_obj_buffer_index = 0; slave_obj_buffer_index < array_len; slave_obj_buffer_index++){
-    transfer_data_host_slave_ptr(gpio_data, ext_dev_array, slave_obj_buffer_index); 
-    gpio_IO_ptr(gpio_data);
-  }
+  gpio_IO_ptr(gpio_data);
+ 
   return 0;
 }
 
@@ -373,8 +396,8 @@ int cmu_Init(void* host_ptr, uint32_t	RWC){
   int ret = 0;
 	int i = 0;
 
-  cmu_periphconf->hfrcoctrl |= *DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in config layer
-  cmu_periphconf->tuningval = DEFAULT_BOOT_TUNE;
+  cmu_periphconf->hfrcoctrl |= *CMU_DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in config layer
+  cmu_periphconf->tuningval = CMU_DEFAULT_BOOT_TUNE;
 
 	while(cmu_config_table[i] != NULL){
 		fn_ptr = cmu_config_table[i][RWC];

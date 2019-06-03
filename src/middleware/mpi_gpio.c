@@ -30,16 +30,16 @@ int mpi_gpioConfigReg(void* host_object, uint32_t read_write_clear, int(*host_gp
   return host_gpio_interface_single_reg_fn(host_object, read_write_clear); 
 }
 
-int mpi_gpioRead(void* host_object, int(*host_gpio_interface_spi_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
-	return ext_dev_interface_fn(host_object, READ, host_gpio_interface_spi_fn, ext_dev_object);
+int mpi_gpioRead(void* host_object, int(*host_gpio_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
+	return ext_dev_interface_fn(host_object, READ, host_gpio_interface_fn, ext_dev_object);
 }
 
-int mpi_gpioWrite(void* host_object, int(*host_gpio_interface_spi_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
-	return ext_dev_interface_fn(host_object, WRITE, host_gpio_interface_spi_fn, ext_dev_object);
+int mpi_gpioWrite(void* host_object, int(*host_gpio_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
+	return ext_dev_interface_fn(host_object, WRITE, host_gpio_interface_fn, ext_dev_object);
 }
 
-int mpi_gpioToggle(void* host_object, int(*host_gpio_interface_spi_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
-	return ext_dev_interface_fn(host_object, TOGGLE, host_gpio_interface_spi_fn, ext_dev_object);
+int mpi_gpioToggle(void* host_object, int(*host_gpio_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
+	return ext_dev_interface_fn(host_object, TOGGLE, host_gpio_interface_fn, ext_dev_object);
 }
 
 

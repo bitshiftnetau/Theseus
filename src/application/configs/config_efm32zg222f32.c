@@ -63,12 +63,14 @@ typedef struct {
 // NOTE: 
 // .hfcoreclken0 is for DMA, AES and LEUART
 
+// set the frequency of the hfrco and the tuning value as well
 
 CMU_periphconf cmu_periphconf = {
 
- .hfperclkdiv = CMU_HFPERCLKDIV_HFPERCLKEN, 
+ .ctrl = (CMU_CTRL_HFXOTIMEOUT_1KCYCLES | CMU_CTRL_HFXOGLITCHDETEN),
+ .hfperclkdiv = CMU_HFPERCLKDIV_HFPERCLKEN | _CMU_HFPERCLKDIV_HFPERCLKDIV_HFCLK2, 
  .hfrcoctrl = _CMU_HFRCOCTRL_SUDELAY_DEFAULT | CMU_HFRCOCTRL_BAND_21MHZ,
- .oscencmd = CMU_OSCENCMD_HFRCOEN,
+ .oscencmd = CMU_OSCENCMD_HFRCOEN | _CMU_OSCENCMD_HFXOEN_MASK,
  .cmd = CMU_CMD_HFCLKSEL_HFRCO,
  .hfperclken0 = (CMU_HFPERCLKEN0_USART1 | CMU_HFPERCLKEN0_TIMER0 | CMU_HFPERCLKEN0_GPIO),
  //.intfclear = ???;
@@ -159,30 +161,53 @@ typedef struct {
 }USART_periphconf;
 */
 
+#define USART_BAUD_9600 (0b00000010011001UL << 6)
+#define USART_BAUD_19200 (0b00000010011001UL << 6)
 
 USART_data usart_data;
 USART_error usart_error;
 USART_status usart_status;
 
 USART_periphconf usart_periphconf = {
-   
+  .ctrl = (USART_CTRL_OVS_X16 | USART_CTRL_TXBIL_EMPTY | USART_CTRL_SYNC_DEFAULT | USART_CTRL_TXDELAY_SINGLE | (!USART_CTRL_CLKPOL_IDLEHIGH)),
+  .frame = (USART_FRAME_DATABITS_EIGHT | USART_FRAME_PARITY_NONE | USART_FRAME_STOPBITS_ONE),
+  .cmd = (USART_CMD_TXEN | USART_CMD_RXEN),
+  .clkdiv = USART_BAUD_19200,
+  .route = (USART_ROUTE_LOCATION_LOC3 | USART_ROUTE_TXPEN | USART_ROUTE_RXPEN),
+  .intflag = _USART_IF_RESETVALUE
 };
 
 USART_frameconf usart_frameconf = {
-  
+
 };
 
 
 /**************
  *    GPIO 
  **************/
+
 /*
-typedef struct { 
+typedef struct {
+  uint32_t douttgl;
+	uint32_t dout;
+	uint32_t din;
+}GPIO_port_data;
+
+typedef struct {
+  GPIO_port_data P[GPIO_PORTS];
+  uint32_t port;
+}GPIO_data
+
+typedef struct {
 	uint32_t ctrl;
 	uint32_t pinmodeL;
 	uint32_t pinmodeH;
 	uint32_t pinlockn;
-	uint32_t extipselectL;
+}GPIO_port_conf
+
+typedef struct { 
+  GPIO_port_conf P[GPIO_PORTS];
+  uint32_t extipselectL;
 	uint32_t extipselectH;
 	uint32_t extirise;
 	uint32_t extifall;
@@ -195,20 +220,71 @@ typedef struct {
 	uint32_t em4wuen;
 	uint32_t em4wupol;
 	uint32_t em4wucause;
-	uint32_t ports;
+	uint32_t port;
 }GPIO_periphconf;
-
-typedef struct {
-	const uint32_t douttgl;
-	uint32_t dout;
-	uint32_t din;
-	uint32_t ports;
-}GPIO_data;
 */
 
-GPIO_data gpio_data;
+#define GPIO_P_DOUT_DEFAULT 0x00000001UL
+
+#define GPIO_P_DOUT_1  (GPIO_P_DOUT_DEFAULT << 0) 
+#define GPIO_P_DOUT_2  (GPIO_P_DOUT_DEFAULT << 1)
+#define GPIO_P_DOUT_3  (GPIO_P_DOUT_DEFAULT << 2)
+#define GPIO_P_DOUT_4  (GPIO_P_DOUT_DEFAULT << 3)
+#define GPIO_P_DOUT_5  (GPIO_P_DOUT_DEFAULT << 4)
+#define GPIO_P_DOUT_6  (GPIO_P_DOUT_DEFAULT << 5)
+#define GPIO_P_DOUT_7  (GPIO_P_DOUT_DEFAULT << 6)
+
+#define GPIO_P_DOUT_8  (GPIO_P_DOUT_DEFAULT << 7)
+#define GPIO_P_DOUT_9  (GPIO_P_DOUT_DEFAULT << 8)
+#define GPIO_P_DOUT_10 (GPIO_P_DOUT_DEFAULT << 9)
+#define GPIO_P_DOUT_11 (GPIO_P_DOUT_DEFAULT << 10)
+#define GPIO_P_DOUT_12 (GPIO_P_DOUT_DEFAULT << 11)
+#define GPIO_P_DOUT_13 (GPIO_P_DOUT_DEFAULT << 12)
+#define GPIO_P_DOUT_14 (GPIO_P_DOUT_DEFAULT << 13)
+#define GPIO_P_DOUT_15 (GPIO_P_DOUT_DEFAULT << 14)
+
+
+
+GPIO_data gpio_data = {
+  .P = {
+    [PORTA] = {
+      .dout = 0
+    },
+    [PORTB] = {
+      .dout = 0
+    },
+    [PORTC] = {
+      .dout = GPIO_P_DOUT_10 | GPIO_P_DOUT_11
+    },
+    [PORTD] = {
+      .dout = 0
+    },
+    [PORTE] = {
+      .dout = 0
+    }
+  },
+  .port = PORTC  
+};
+
 GPIO_periphconf gpio_periphconf = {
-  
+  .P = {
+    [PORTA] = {
+      .pinmodeL = (GPIO_P_MODEL_MODE7_PUSHPULL | GPIO_P_MODEL_MODE6_INPUT)
+    },
+    [PORTB] = {
+    
+    },
+    [PORTC] = {
+      .pinmodeH = GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE 
+    },
+    [PORTD] = {
+
+    },
+    [PORTE] = {
+
+    }
+  },
+  .port = PORTC
 };
 
 
@@ -231,7 +307,7 @@ MPI_host efm32zg222f32_host = {
     ._gpio_config_reg = gpio_ConfigReg,
 
     ._usart_io = usart_IO,
-    ._gpio_io = gpio_IO,
+    ._gpio_io = gpio_RW,
     ._gpio_tgl = gpio_Tgl
 
   },

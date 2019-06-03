@@ -80,19 +80,19 @@ int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
 
 int zg_gpioPCtrlRead(GPIO_periphconf* MPI_conf)
 {
-	MPI_conf->ctrl = gpio->P[MPI_conf->ports].CTRL;
+	MPI_conf->P[MPI_conf->port].ctrl = gpio->P[MPI_conf->port].CTRL;
 	return 0;
 }
 
 int zg_gpioPCtrlWrite(GPIO_periphconf* MPI_conf)
 {
-	gpio->P[MPI_conf->ports].CTRL |= MPI_conf->ctrl;
+	gpio->P[MPI_conf->port].CTRL |= MPI_conf->P[MPI_conf->port].ctrl;
 	return 0;
 }
 
 int zg_gpioPCtrlClr(GPIO_periphconf* MPI_conf)
 {
-	gpio->P[MPI_conf->ports].CTRL &= ~MPI_conf->ctrl;
+	gpio->P[MPI_conf->port].CTRL &= ~MPI_conf->P[MPI_conf->port].ctrl;
 	return 0;
 }
 
@@ -102,19 +102,19 @@ int zg_gpioPCtrlClr(GPIO_periphconf* MPI_conf)
 
 int zg_gpioPinModeLowRead(GPIO_periphconf* MPI_conf)
 {
-	MPI_conf->pinmodeL = gpio->P[MPI_conf->ports].MODEL;
+	MPI_conf->P[MPI_conf->port].pinmodeL = gpio->P[MPI_conf->port].MODEL;
 	return 0;
 }
 
 int zg_gpioPinModeLowWrite(GPIO_periphconf* MPI_conf)
 {
-	gpio->P[MPI_conf->ports].MODEL |= MPI_conf->pinmodeL;
+	gpio->P[MPI_conf->port].MODEL |= MPI_conf->P[MPI_conf->port].pinmodeL;
 	return 0;
 }
 
 int zg_gpioPinModeLowClear(GPIO_periphconf* MPI_conf)
 {
-	gpio->P[MPI_conf->ports].MODEL &= ~MPI_conf->pinmodeL;
+	gpio->P[MPI_conf->port].MODEL &= ~MPI_conf->P[MPI_conf->port].pinmodeL;
 	return 0;
 }
 
@@ -123,19 +123,19 @@ int zg_gpioPinModeLowClear(GPIO_periphconf* MPI_conf)
 
 int zg_gpioPinModeHighRead(GPIO_periphconf* MPI_conf)
 {
-	MPI_conf->pinmodeH = gpio->P[MPI_conf->ports].MODEH;
+	MPI_conf->P[MPI_conf->port].pinmodeH = gpio->P[MPI_conf->port].MODEH;
 	return 0;
 }
 
 int zg_gpioPinModeHighWrite(GPIO_periphconf* MPI_conf)
 {
-	gpio->P[MPI_conf->ports].MODEH |= MPI_conf->pinmodeH;
+	gpio->P[MPI_conf->port].MODEH |= MPI_conf->P[MPI_conf->port].pinmodeH;
 	return 0;
 }
 
 int zg_gpioPinModeHighClear(GPIO_periphconf* MPI_conf)
 {
-	gpio->P[MPI_conf->ports].MODEH &= ~MPI_conf->pinmodeH;
+	gpio->P[MPI_conf->port].MODEH &= ~MPI_conf->P[MPI_conf->port].pinmodeH;
 	return 0;
 }
 
@@ -146,21 +146,21 @@ int zg_gpioPinModeHighClear(GPIO_periphconf* MPI_conf)
 int zg_gpioPinLockRead(GPIO_periphconf* MPI_conf)
 {
 	/* Locks pinNumber in gpio port*/
-	MPI_conf->pinlockn = gpio->P[MPI_conf->ports].PINLOCKN;
+	MPI_conf->P[MPI_conf->port].pinlockn = gpio->P[MPI_conf->port].PINLOCKN;
 	return 0;
 }
 
 int zg_gpioPinLockWrite(GPIO_periphconf* MPI_conf)
 {
 	/* Locks pinNumber in gpio port*/
-	gpio->P[MPI_conf->ports].PINLOCKN |= MPI_conf->pinlockn;
+	gpio->P[MPI_conf->port].PINLOCKN |= MPI_conf->P[MPI_conf->port].pinlockn;
 	return 0;
 }
 
 int zg_gpioPinLockClr(GPIO_periphconf* MPI_conf)
 {
 	/* Locks pinNumber in gpio port*/
-	gpio->P[MPI_conf->ports].PINLOCKN &= ~MPI_conf->pinlockn;
+	gpio->P[MPI_conf->port].PINLOCKN &= ~MPI_conf->P[MPI_conf->port].pinlockn;
 	return 0;
 }
 
@@ -310,21 +310,21 @@ int zg_gpioIntFlagClr(GPIO_periphconf* MPI_conf)
 
 int zg_gpioSerialWireEnRead(GPIO_periphconf* MPI_conf)
 {
-	MPI_conf->swdswc = gpio->ROUTE;
+	MPI_conf->route = gpio->ROUTE;
 	return 0;
 
 }
 
 int zg_gpioSerialWireEnWrite(GPIO_periphconf* MPI_conf)
 {
-	gpio->ROUTE |= MPI_conf->swdswc;
+	gpio->ROUTE |= MPI_conf->route;
 	return 0;
 }
 
 int zg_gpioSerialWireEnClr(GPIO_periphconf* MPI_conf)
 {
 	/*enable register &= inverted value*/
-	gpio->ROUTE &= ~MPI_conf->swdswc;
+	gpio->ROUTE &= ~MPI_conf->route;
 	return 0;
 }
 

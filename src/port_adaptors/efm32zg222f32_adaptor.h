@@ -35,8 +35,9 @@ int usart_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_le
 
 int gpio_Init(void* host_ptr, uint32_t RWC);
 int gpio_ConfigReg(void* host_ptr, uint32_t RWC);
+int gpio_RW(void* host_ptr, uint32_t RW);
 int gpio_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len);
-int gpio_Tgl(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len);
+int gpio_Tgl(void* host_ptr, uint32_t RW);
 
 /*********************
  *      TIMER 

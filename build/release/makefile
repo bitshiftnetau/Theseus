@@ -137,23 +137,19 @@ LDFLAGS= \
 
 CPPFLAGS=$(INCLUDE)
 
-# -L$(GCC_LIB_ARM)/thumb/v6-m/nofp -L$(GCC_ARM)/lib/thumb/v6-m/nofp -L$(CMSIS_DIR)/Lib/GCC 
-
 BUILD_DIR=.
 
 #################################
 # 		   BUILD TARGETS 				  
 #################################
 
+assembly: $(SRC_DIR)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -S $^ 
+
 all: $(TARGET)
 	arm-none-eabi-objcopy -O ihex "$(PROJECT_NAME).axf" "$(PROJECT_NAME).hex"
 	arm-none-eabi-objcopy -O binary "$(PROJECT_NAME).axf" "$(PROJECT_NAME).bin"
 	arm-none-eabi-size "$(PROJECT_NAME).axf"
-
-#$(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)
-#	$(LD) -o $@ $^ $(LDFLAGS)
-#$(OBJECTS): $(SRC_DIR)
-#	$(CC) $(CPPFLAGS) $(CFLAGS) $^ -o $@
 
 $(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)
 	$(LD) -o $@ $(wildcard $(BUILD_DIR)/*.o) $(LDFLAGS)
@@ -197,7 +193,7 @@ system_efm32zg.o: $(DEVICE_DIR)/Source/system_efm32zg.c
 
 clean:
 	rm $(TARGET) $(BUILD_DIR)/*.o $(PROJECT_NAME).hex $(PROJECT_NAME).bin ./CMSIS/efm32zg/system_efm32zg.d 
-.PHONY: all clean dependents
+.PHONY: all clean assembly
 
 
 #

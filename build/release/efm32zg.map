@@ -39,7 +39,6 @@ Common symbol       size              file
 dw_devconf          0x124             ./config_dw1000.o
 SystemCoreClock     0x4               ./system_efm32zg.o
 usart_data          0x28              ./config_efm32zg222f32.o
-gpio_data           0x10              ./config_efm32zg222f32.o
 usart_status        0xd               ./config_efm32zg222f32.o
 timer_periphconf    0x5c              ./config_efm32zg222f32.o
 venus_response      0x190             ./config_venus638.o
@@ -245,14 +244,63 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./config_efm32zg222f32.o
  .data          0x0000000000000000        0x0 ./config_efm32zg222f32.o
  .bss           0x0000000000000000        0x0 ./config_efm32zg222f32.o
+ .data.cmu_periphconf
+                0x0000000000000000       0x70 ./config_efm32zg222f32.o
+ .data.usart_periphconf
+                0x0000000000000000       0x38 ./config_efm32zg222f32.o
+ .bss.usart_frameconf
+                0x0000000000000000       0x40 ./config_efm32zg222f32.o
+ .data.gpio_data
+                0x0000000000000000       0x40 ./config_efm32zg222f32.o
+ .data.gpio_periphconf
+                0x0000000000000000       0x88 ./config_efm32zg222f32.o
+ .data.efm32zg222f32_host
+                0x0000000000000000      0x514 ./config_efm32zg222f32.o
+ .debug_info    0x0000000000000000     0x2276 ./config_efm32zg222f32.o
+ .debug_abbrev  0x0000000000000000      0x236 ./config_efm32zg222f32.o
+ .debug_aranges
+                0x0000000000000000       0x18 ./config_efm32zg222f32.o
+ .debug_line    0x0000000000000000      0x2cc ./config_efm32zg222f32.o
+ .debug_str     0x0000000000000000     0x12ec ./config_efm32zg222f32.o
+ .comment       0x0000000000000000       0x1e ./config_efm32zg222f32.o
+ .ARM.attributes
+                0x0000000000000000       0x32 ./config_efm32zg222f32.o
+ COMMON         0x0000000000000000       0xa2 ./config_efm32zg222f32.o
  .text          0x0000000000000000        0x0 ./mpi_cmu.o
  .data          0x0000000000000000        0x0 ./mpi_cmu.o
  .bss           0x0000000000000000        0x0 ./mpi_cmu.o
  .text.mpi_cmuInit
                 0x0000000000000000       0x20 ./mpi_cmu.o
+ .text.mpi_cmuConfigReg
+                0x0000000000000000       0x20 ./mpi_cmu.o
+ .debug_info    0x0000000000000000      0x13f ./mpi_cmu.o
+ .debug_abbrev  0x0000000000000000       0xa4 ./mpi_cmu.o
+ .debug_loc     0x0000000000000000       0x70 ./mpi_cmu.o
+ .debug_aranges
+                0x0000000000000000       0x28 ./mpi_cmu.o
+ .debug_ranges  0x0000000000000000       0x18 ./mpi_cmu.o
+ .debug_line    0x0000000000000000       0xd0 ./mpi_cmu.o
+ .debug_str     0x0000000000000000      0x20d ./mpi_cmu.o
+ .comment       0x0000000000000000       0x1e ./mpi_cmu.o
+ .debug_frame   0x0000000000000000       0x50 ./mpi_cmu.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./mpi_cmu.o
  .text          0x0000000000000000        0x0 ./efm32zg_types_HAL.o
  .data          0x0000000000000000        0x0 ./efm32zg_types_HAL.o
  .bss           0x0000000000000000        0x0 ./efm32zg_types_HAL.o
+ .data.cmu      0x0000000000000000        0x4 ./efm32zg_types_HAL.o
+ .data.usart    0x0000000000000000        0x4 ./efm32zg_types_HAL.o
+ .data.gpio     0x0000000000000000        0x4 ./efm32zg_types_HAL.o
+ .data.timer0   0x0000000000000000        0x4 ./efm32zg_types_HAL.o
+ .debug_info    0x0000000000000000     0x11b5 ./efm32zg_types_HAL.o
+ .debug_abbrev  0x0000000000000000      0x1ee ./efm32zg_types_HAL.o
+ .debug_aranges
+                0x0000000000000000       0x18 ./efm32zg_types_HAL.o
+ .debug_line    0x0000000000000000      0x219 ./efm32zg_types_HAL.o
+ .debug_str     0x0000000000000000      0x88b ./efm32zg_types_HAL.o
+ .comment       0x0000000000000000       0x1e ./efm32zg_types_HAL.o
+ .ARM.attributes
+                0x0000000000000000       0x32 ./efm32zg_types_HAL.o
  .text          0x0000000000000000        0x0 ./config_dw1000.o
  .data          0x0000000000000000        0x0 ./config_dw1000.o
  .bss           0x0000000000000000        0x0 ./config_dw1000.o
@@ -268,11 +316,196 @@ Discarded input sections
  .ARM.attributes
                 0x0000000000000000       0x32 ./config_dw1000.o
  COMMON         0x0000000000000000      0x124 ./config_dw1000.o
+ .text          0x0000000000000000        0x0 ./dw1000_commRxTx.o
+ .data          0x0000000000000000        0x0 ./dw1000_commRxTx.o
+ .bss           0x0000000000000000        0x0 ./dw1000_commRxTx.o
+ .text.dw_Tx    0x0000000000000000       0x2c ./dw1000_commRxTx.o
+ .text.dw_Rx    0x0000000000000000       0x4c ./dw1000_commRxTx.o
+ .text.dw_lpol_lpha_high
+                0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .text.dw_lpol_hpha_high
+                0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .text.dw_hpol_lpha_high
+                0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .text.dw_hpol_hpha_high
+                0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .text.dw_lpol_lpha_low
+                0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .text.dw_lpol_hpha_low
+                0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .text.dw_hpol_lpha_low
+                0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .text.dw_hpol_hpha_low
+                0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .data.dw_PolAlphaAssert
+                0x0000000000000000       0x10 ./dw1000_commRxTx.o
+ .data.dw_PolAlphaDeAssert
+                0x0000000000000000       0x10 ./dw1000_commRxTx.o
+ .debug_info    0x0000000000000000     0x1342 ./dw1000_commRxTx.o
+ .debug_abbrev  0x0000000000000000      0x2a5 ./dw1000_commRxTx.o
+ .debug_loc     0x0000000000000000      0x230 ./dw1000_commRxTx.o
+ .debug_aranges
+                0x0000000000000000       0x68 ./dw1000_commRxTx.o
+ .debug_ranges  0x0000000000000000       0x58 ./dw1000_commRxTx.o
+ .debug_line    0x0000000000000000      0x25b ./dw1000_commRxTx.o
+ .debug_str     0x0000000000000000      0x970 ./dw1000_commRxTx.o
+ .comment       0x0000000000000000       0x1e ./dw1000_commRxTx.o
+ .debug_frame   0x0000000000000000      0x150 ./dw1000_commRxTx.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./dw1000_commRxTx.o
  .text          0x0000000000000000        0x0 ./efm32zg_gpio_HAL.o
  .data          0x0000000000000000        0x0 ./efm32zg_gpio_HAL.o
  .bss           0x0000000000000000        0x0 ./efm32zg_gpio_HAL.o
+ .rodata.gpio_config_table
+                0x0000000000000000       0x80 ./efm32zg_gpio_HAL.o
+ .rodata.gpio_ctrl
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_low_pinmode
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_high_pinmode
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_pinlock
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_int_ctrl
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_extint_low_pins
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_extint_high_pins
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_extint_rise_edge
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_extint_fall_edge
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_int_flag
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_serial_wire
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_insense
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_conf_lock
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_em4retention
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_em4wake
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_em4polarity
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_em4clr_all
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .rodata.gpio_em4cause
+                0x0000000000000000        0xc ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPCtrlRead
+                0x0000000000000000       0x38 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPCtrlWrite
+                0x0000000000000000       0x4c ./efm32zg_gpio_HAL.o
  .text.zg_gpioPCtrlClr
-                0x0000000000000000       0x44 ./efm32zg_gpio_HAL.o
+                0x0000000000000000       0x50 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinModeLowRead
+                0x0000000000000000       0x40 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinModeLowWrite
+                0x0000000000000000       0x58 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinModeLowClear
+                0x0000000000000000       0x5c ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinModeHighRead
+                0x0000000000000000       0x40 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinModeHighWrite
+                0x0000000000000000       0x58 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinModeHighClear
+                0x0000000000000000       0x5c ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinLockRead
+                0x0000000000000000       0x40 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinLockWrite
+                0x0000000000000000       0x58 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioPinLockClr
+                0x0000000000000000       0x5c ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntPinLowRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntPinLowWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntPinLowClr
+                0x0000000000000000       0x34 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntPinHighRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntPinHighWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntPinHighClr
+                0x0000000000000000       0x34 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntRiseEdgeRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntRiseEdgeWrite
+                0x0000000000000000       0x38 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntRiseEdgeClr
+                0x0000000000000000       0x34 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntFallEdgeRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntFallEdgeWrite
+                0x0000000000000000       0x38 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioExtIntFallEdgeClr
+                0x0000000000000000       0x34 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioIntEnRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioIntEnWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioIntClr
+                0x0000000000000000       0x34 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioIntFlagRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioIntFlagWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioIntFlagClr
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioSerialWireEnRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioSerialWireEnWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioSerialWireEnClr
+                0x0000000000000000       0x34 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioSenseRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioSenseWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioSenseClr
+                0x0000000000000000       0x34 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioConfLockRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioConfLockWrite
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioConfLockClr
+                0x0000000000000000       0x28 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioEm4RetRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioEm4RetWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioEm4RetClr
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_EM4WakeRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_EM4WakeWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_EM4WakeClr
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_EM4PolRead
+                0x0000000000000000       0x24 ./efm32zg_gpio_HAL.o
+ .text.zg_EM4PolWrite
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_EM4PolClr
+                0x0000000000000000       0x30 ./efm32zg_gpio_HAL.o
+ .text.zg_gpioClrEm4Request
+                0x0000000000000000       0x1c ./efm32zg_gpio_HAL.o
+ .text.zg_EM4Cause
+                0x0000000000000000       0x28 ./efm32zg_gpio_HAL.o
+ .debug_info    0x0000000000000000     0x1e35 ./efm32zg_gpio_HAL.o
+ .debug_abbrev  0x0000000000000000      0x2cb ./efm32zg_gpio_HAL.o
+ .debug_loc     0x0000000000000000      0xae4 ./efm32zg_gpio_HAL.o
+ .debug_aranges
+                0x0000000000000000      0x1a8 ./efm32zg_gpio_HAL.o
+ .debug_ranges  0x0000000000000000      0x198 ./efm32zg_gpio_HAL.o
+ .debug_line    0x0000000000000000      0x930 ./efm32zg_gpio_HAL.o
+ .debug_str     0x0000000000000000      0xe96 ./efm32zg_gpio_HAL.o
+ .comment       0x0000000000000000       0x1e ./efm32zg_gpio_HAL.o
+ .debug_frame   0x0000000000000000      0x64c ./efm32zg_gpio_HAL.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./efm32zg_gpio_HAL.o
  COMMON         0x0000000000000000        0x0 ./efm32zg_gpio_HAL.o
  .text          0x0000000000000000        0x0 ./dw1000_tofCalcs.o
  .data          0x0000000000000000        0x0 ./dw1000_tofCalcs.o
@@ -304,6 +537,42 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./efm32zg_gpio_IO_HAL.o
  .data          0x0000000000000000        0x0 ./efm32zg_gpio_IO_HAL.o
  .bss           0x0000000000000000        0x0 ./efm32zg_gpio_IO_HAL.o
+ .rodata.gpio_I_O_TGL
+                0x0000000000000000        0xc ./efm32zg_gpio_IO_HAL.o
+ .rodata.gpio_IO_host_slave_transfer
+                0x0000000000000000        0x8 ./efm32zg_gpio_IO_HAL.o
+ .text.zg_gpioReadIn
+                0x0000000000000000       0x40 ./efm32zg_gpio_IO_HAL.o
+ .text.zg_gpioOutTgl
+                0x0000000000000000       0x3c ./efm32zg_gpio_IO_HAL.o
+ .text.zg_gpioOutRead
+                0x0000000000000000       0x40 ./efm32zg_gpio_IO_HAL.o
+ .text.zg_gpioOutWrite
+                0x0000000000000000       0x58 ./efm32zg_gpio_IO_HAL.o
+ .text.zg_gpioOutClr
+                0x0000000000000000       0x5c ./efm32zg_gpio_IO_HAL.o
+ .text.gpio_assign_rx_data
+                0x0000000000000000       0x32 ./efm32zg_gpio_IO_HAL.o
+ .text.gpio_assign_tx_data
+                0x0000000000000000       0x32 ./efm32zg_gpio_IO_HAL.o
+ .rodata.gpio_pinin_read
+                0x0000000000000000        0xc ./efm32zg_gpio_IO_HAL.o
+ .rodata.gpio_out
+                0x0000000000000000        0xc ./efm32zg_gpio_IO_HAL.o
+ .rodata.gpio_pinout_tgl
+                0x0000000000000000        0xc ./efm32zg_gpio_IO_HAL.o
+ .debug_info    0x0000000000000000     0x146d ./efm32zg_gpio_IO_HAL.o
+ .debug_abbrev  0x0000000000000000      0x285 ./efm32zg_gpio_IO_HAL.o
+ .debug_loc     0x0000000000000000      0x188 ./efm32zg_gpio_IO_HAL.o
+ .debug_aranges
+                0x0000000000000000       0x50 ./efm32zg_gpio_IO_HAL.o
+ .debug_ranges  0x0000000000000000       0x40 ./efm32zg_gpio_IO_HAL.o
+ .debug_line    0x0000000000000000      0x347 ./efm32zg_gpio_IO_HAL.o
+ .debug_str     0x0000000000000000      0x9af ./efm32zg_gpio_IO_HAL.o
+ .comment       0x0000000000000000       0x1e ./efm32zg_gpio_IO_HAL.o
+ .debug_frame   0x0000000000000000       0xf0 ./efm32zg_gpio_IO_HAL.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./efm32zg_gpio_IO_HAL.o
  .text          0x0000000000000000        0x0 ./config_venus638.o
  .data          0x0000000000000000        0x0 ./config_venus638.o
  .bss           0x0000000000000000        0x0 ./config_venus638.o
@@ -339,7 +608,7 @@ Discarded input sections
                 0x0000000000000000       0x40 ./mpi_gpio.o
  .debug_ranges  0x0000000000000000       0x30 ./mpi_gpio.o
  .debug_line    0x0000000000000000      0x116 ./mpi_gpio.o
- .debug_str     0x0000000000000000      0x27b ./mpi_gpio.o
+ .debug_str     0x0000000000000000      0x277 ./mpi_gpio.o
  .comment       0x0000000000000000       0x1e ./mpi_gpio.o
  .debug_frame   0x0000000000000000       0xb0 ./mpi_gpio.o
  .ARM.attributes
@@ -347,6 +616,41 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./efm32zg222f32_adaptor.o
  .data          0x0000000000000000        0x0 ./efm32zg222f32_adaptor.o
  .bss           0x0000000000000000        0x0 ./efm32zg222f32_adaptor.o
+ .text.usart_Init
+                0x0000000000000000       0xb8 ./efm32zg222f32_adaptor.o
+ .text.usart_ConfigReg
+                0x0000000000000000       0x48 ./efm32zg222f32_adaptor.o
+ .text.usart_IO
+                0x0000000000000000       0xd8 ./efm32zg222f32_adaptor.o
+ .text.gpio_Init
+                0x0000000000000000       0x70 ./efm32zg222f32_adaptor.o
+ .text.gpio_ConfigReg
+                0x0000000000000000       0x48 ./efm32zg222f32_adaptor.o
+ .text.gpio_IO  0x0000000000000000       0xa4 ./efm32zg222f32_adaptor.o
+ .text.gpio_RW  0x0000000000000000       0x40 ./efm32zg222f32_adaptor.o
+ .text.gpio_Tgl
+                0x0000000000000000       0x44 ./efm32zg222f32_adaptor.o
+ .text.cmu_Init
+                0x0000000000000000       0x84 ./efm32zg222f32_adaptor.o
+ .text.cmu_ConfigReg
+                0x0000000000000000       0x48 ./efm32zg222f32_adaptor.o
+ .text.timer_Init
+                0x0000000000000000       0x6c ./efm32zg222f32_adaptor.o
+ .text.timer_ConfigReg
+                0x0000000000000000       0x48 ./efm32zg222f32_adaptor.o
+ .debug_info    0x0000000000000000     0x2975 ./efm32zg222f32_adaptor.o
+ .debug_abbrev  0x0000000000000000      0x312 ./efm32zg222f32_adaptor.o
+ .debug_loc     0x0000000000000000      0x2a2 ./efm32zg222f32_adaptor.o
+ .debug_aranges
+                0x0000000000000000       0x78 ./efm32zg222f32_adaptor.o
+ .debug_ranges  0x0000000000000000       0x68 ./efm32zg222f32_adaptor.o
+ .debug_line    0x0000000000000000      0x62e ./efm32zg222f32_adaptor.o
+ .debug_str     0x0000000000000000     0x1473 ./efm32zg222f32_adaptor.o
+ .comment       0x0000000000000000       0x1e ./efm32zg222f32_adaptor.o
+ .debug_frame   0x0000000000000000      0x190 ./efm32zg222f32_adaptor.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./efm32zg222f32_adaptor.o
+ COMMON         0x0000000000000000       0x13 ./efm32zg222f32_adaptor.o
  .text          0x0000000000000000        0x0 ./system_efm32zg.o
  .data          0x0000000000000000        0x0 ./system_efm32zg.o
  .bss           0x0000000000000000        0x0 ./system_efm32zg.o
@@ -441,43 +745,6 @@ Discarded input sections
  .comment       0x0000000000000000       0x1e ./STK3200_config.o
  .ARM.attributes
                 0x0000000000000000       0x32 ./STK3200_config.o
- .text          0x0000000000000000        0x0 ./dw1000_commRxTx.o
- .data          0x0000000000000000        0x0 ./dw1000_commRxTx.o
- .bss           0x0000000000000000        0x0 ./dw1000_commRxTx.o
- .text.dw_Tx    0x0000000000000000       0x2c ./dw1000_commRxTx.o
- .text.dw_Rx    0x0000000000000000       0x4c ./dw1000_commRxTx.o
- .text.dw_lpol_lpha_high
-                0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .text.dw_lpol_hpha_high
-                0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .text.dw_hpol_lpha_high
-                0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .text.dw_hpol_hpha_high
-                0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .text.dw_lpol_lpha_low
-                0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .text.dw_lpol_hpha_low
-                0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .text.dw_hpol_lpha_low
-                0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .text.dw_hpol_hpha_low
-                0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .data.dw_PolAlphaAssert
-                0x0000000000000000       0x10 ./dw1000_commRxTx.o
- .data.dw_PolAlphaDeAssert
-                0x0000000000000000       0x10 ./dw1000_commRxTx.o
- .debug_info    0x0000000000000000     0x1342 ./dw1000_commRxTx.o
- .debug_abbrev  0x0000000000000000      0x2a5 ./dw1000_commRxTx.o
- .debug_loc     0x0000000000000000      0x230 ./dw1000_commRxTx.o
- .debug_aranges
-                0x0000000000000000       0x68 ./dw1000_commRxTx.o
- .debug_ranges  0x0000000000000000       0x58 ./dw1000_commRxTx.o
- .debug_line    0x0000000000000000      0x25b ./dw1000_commRxTx.o
- .debug_str     0x0000000000000000      0x970 ./dw1000_commRxTx.o
- .comment       0x0000000000000000       0x1e ./dw1000_commRxTx.o
- .debug_frame   0x0000000000000000      0x150 ./dw1000_commRxTx.o
- .ARM.attributes
-                0x0000000000000000       0x2c ./dw1000_commRxTx.o
  .text          0x0000000000000000        0x0 ./dw1000_decodeMAC.o
  .data          0x0000000000000000        0x0 ./dw1000_decodeMAC.o
  .bss           0x0000000000000000        0x0 ./dw1000_decodeMAC.o
@@ -532,6 +799,168 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./efm32zg_timer_HAL.o
  .data          0x0000000000000000        0x0 ./efm32zg_timer_HAL.o
  .bss           0x0000000000000000        0x0 ./efm32zg_timer_HAL.o
+ .rodata.timer_config_table
+                0x0000000000000000       0x80 ./efm32zg_timer_HAL.o
+ .data.timer_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cmd_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_status_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_ien_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_ifrsc_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_top_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_topb_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cnt_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_route_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc0_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc0_ccv_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc0_ccvp_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc0_ccvb_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc1_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc1_ccv_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc1_ccvp_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc1_ccvb_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc2_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc2_ccv_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc2_ccvp_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .data.timer_cc2_ccvb_table
+                0x0000000000000000        0xc ./efm32zg_timer_HAL.o
+ .text.zg_timerCtrlRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCtrlWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCtrlClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCmdWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerStatusRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerIenRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerIenWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerIenClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerIfrRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerIfsWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerIfcClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerTopRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerTopWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerTopClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerTopbRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerTopbWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerTopbClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCntRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCntWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCntClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerRouteRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerRouteWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerRouteClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ctrlRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ctrlClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ccvRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ccvWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ccvClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ccvbRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ccvbWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ccvbClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ctrlRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ctrlClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ccvRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ccvWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ccvClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ccvbRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ccvbWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ccvbClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ctrlRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ctrlClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ccvRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ccvWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ccvClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ccvbRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ccvbWrite
+                0x0000000000000000       0x28 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ccvbClr
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
+ .text.zg_timerCc0_ccvpRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc1_ccvpRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .text.zg_timerCc2_ccvpRead
+                0x0000000000000000       0x20 ./efm32zg_timer_HAL.o
+ .debug_info    0x0000000000000000     0x1ef0 ./efm32zg_timer_HAL.o
+ .debug_abbrev  0x0000000000000000      0x291 ./efm32zg_timer_HAL.o
+ .debug_loc     0x0000000000000000      0xb98 ./efm32zg_timer_HAL.o
+ .debug_aranges
+                0x0000000000000000      0x1c0 ./efm32zg_timer_HAL.o
+ .debug_ranges  0x0000000000000000      0x1b0 ./efm32zg_timer_HAL.o
+ .debug_line    0x0000000000000000      0x929 ./efm32zg_timer_HAL.o
+ .debug_str     0x0000000000000000      0xec1 ./efm32zg_timer_HAL.o
+ .comment       0x0000000000000000       0x1e ./efm32zg_timer_HAL.o
+ .debug_frame   0x0000000000000000      0x6b0 ./efm32zg_timer_HAL.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./efm32zg_timer_HAL.o
  .text          0x0000000000000000        0x0 ./main.o
  .data          0x0000000000000000        0x0 ./main.o
  .bss           0x0000000000000000        0x0 ./main.o
@@ -598,6 +1027,208 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./efm32zg_cmu_HAL.o
  .data          0x0000000000000000        0x0 ./efm32zg_cmu_HAL.o
  .bss           0x0000000000000000        0x0 ./efm32zg_cmu_HAL.o
+ .rodata.cmu_config_table
+                0x0000000000000000       0x80 ./efm32zg_cmu_HAL.o
+ .rodata.cmu_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_hfcoreclkdiv_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_hfperclkdiv_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_hfrcoctrl_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_lfrcoctrl_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_auxhfrcoctrl_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_calctrl_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_calcnt_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_oscencmd_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_cmd_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_lfclksel_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_status_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_intfread_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_intfset_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_intfclear_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_inten_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_hfcoreclken0_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_hfperclken0_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_syncbusy_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_freeze_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_lfaclken0_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_lfbclken0_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_lfapresc0_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_lfbpresc0_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_pcntctrl_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_route_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .rodata.cmu_lock_table
+                0x0000000000000000        0xc ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCtrlRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCtrlWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCtrlClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfcoreclkdivRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfcoreclkdivWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfcoreclkdivClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfperclkdivRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfperclkdivWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfperclkdivClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfrcoctrlRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfrcoctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfrcoctrlClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfrcoctrlRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfrcoctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfrcoctrlClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuAuxhfrcoctrlRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuAuxhfrcoctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuAuxhfrcoctrlClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCalctrlRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCalctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCalctrlClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCalcntRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCalcntWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCalcntClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuOscencmdWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuCmdWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfclkselRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfclkselWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfclkselClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuStatusRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuIntfreadRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuIntfsetWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuIntfclearClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuIntenRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuIntenWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuIntenClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfcoreclken0Read
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfcoreclken0Write
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfcoreclken0Clr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfperclken0Read
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfperclken0Write
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuHfperclken0Clr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuSyncbusyRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuFreezeRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuFreezeWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuFreezeClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfaclken0Read
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfaclken0Write
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfaclken0Clr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfbclken0Read
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfbclken0Write
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfbclken0Clr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfapresc0Read
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfapresc0Write
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfapresc0Clr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfbpresc0Read
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfbpresc0Write
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLfbpresc0Clr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuPcntctrlRead
+                0x0000000000000000       0x20 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuPcntctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuPcntctrlClr
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuRouteRead
+                0x0000000000000000       0x24 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuRouteWrite
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuRouteClr
+                0x0000000000000000       0x30 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLockRead
+                0x0000000000000000       0x24 ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLockWrite
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
+ .text.zg_cmuLockClr
+                0x0000000000000000       0x30 ./efm32zg_cmu_HAL.o
+ .debug_info    0x0000000000000000     0x2265 ./efm32zg_cmu_HAL.o
+ .debug_abbrev  0x0000000000000000      0x291 ./efm32zg_cmu_HAL.o
+ .debug_loc     0x0000000000000000      0xea8 ./efm32zg_cmu_HAL.o
+ .debug_aranges
+                0x0000000000000000      0x230 ./efm32zg_cmu_HAL.o
+ .debug_ranges  0x0000000000000000      0x220 ./efm32zg_cmu_HAL.o
+ .debug_line    0x0000000000000000      0xac9 ./efm32zg_cmu_HAL.o
+ .debug_str     0x0000000000000000     0x10ab ./efm32zg_cmu_HAL.o
+ .comment       0x0000000000000000       0x1e ./efm32zg_cmu_HAL.o
+ .debug_frame   0x0000000000000000      0x870 ./efm32zg_cmu_HAL.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./efm32zg_cmu_HAL.o
  .text          0x0000000000000000        0x0 ./venus638.o
  .data          0x0000000000000000        0x0 ./venus638.o
  .bss           0x0000000000000000        0x0 ./venus638.o
@@ -730,6 +1361,10 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./efm32zg_usart_IO_HAL.o
  .data          0x0000000000000000        0x0 ./efm32zg_usart_IO_HAL.o
  .bss           0x0000000000000000        0x0 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_IO_table
+                0x0000000000000000       0x18 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_IO_host_slave_transfer
+                0x0000000000000000        0x8 ./efm32zg_usart_IO_HAL.o
  .rodata.USART_RXDATAX_DATABITS
                 0x0000000000000000        0x1 ./efm32zg_usart_IO_HAL.o
  .rodata.USART_RXDATAX_CTRLBIT
@@ -760,6 +1395,74 @@ Discarded input sections
                 0x0000000000000000        0x1 ./efm32zg_usart_IO_HAL.o
  .rodata.USART_TXDATA_DATABITS
                 0x0000000000000000        0x1 ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartRxdataxRead
+                0x0000000000000000       0x9c ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartRxdataRead
+                0x0000000000000000       0x4c ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartRxdataxpRead
+                0x0000000000000000       0x9c ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartRxdoublexRead
+                0x0000000000000000       0xf8 ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartRxdoubleRead
+                0x0000000000000000       0x4c ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartRxdoublexpRead
+                0x0000000000000000       0xf8 ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartTxdataxWrite
+                0x0000000000000000       0xc8 ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartTxdataWrite
+                0x0000000000000000       0x50 ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartTxdoublexWrite
+                0x0000000000000000       0xd8 ./efm32zg_usart_IO_HAL.o
+ .text.zg_usartTxdoubleWrite
+                0x0000000000000000       0x4c ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_rx_8_xp
+                0x0000000000000000        0x4 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_rx_16_xp
+                0x0000000000000000        0x4 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_rxtx_data_x
+                0x0000000000000000        0x8 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_rxtx_data
+                0x0000000000000000        0x8 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_rxtx_double_x
+                0x0000000000000000        0x8 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_rxtx_double
+                0x0000000000000000        0x8 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_rx_data_8_x
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_rx_data_8
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_rx_data_16_x
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_rx_data_16
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_rx_data_8_xp
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_rx_data_16_xp
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_tx_data_8_x
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_tx_data_8
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_tx_data_16_x
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .text.usart_assign_tx_data_16
+                0x0000000000000000       0x22 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_rx_bitwidth_table
+                0x0000000000000000       0x18 ./efm32zg_usart_IO_HAL.o
+ .rodata.usart_tx_bitwidth_table
+                0x0000000000000000       0x18 ./efm32zg_usart_IO_HAL.o
+ .debug_info    0x0000000000000000     0x1ff4 ./efm32zg_usart_IO_HAL.o
+ .debug_abbrev  0x0000000000000000      0x2ec ./efm32zg_usart_IO_HAL.o
+ .debug_loc     0x0000000000000000      0x460 ./efm32zg_usart_IO_HAL.o
+ .debug_aranges
+                0x0000000000000000       0xb8 ./efm32zg_usart_IO_HAL.o
+ .debug_ranges  0x0000000000000000       0xa8 ./efm32zg_usart_IO_HAL.o
+ .debug_line    0x0000000000000000      0x725 ./efm32zg_usart_IO_HAL.o
+ .debug_str     0x0000000000000000     0x1034 ./efm32zg_usart_IO_HAL.o
+ .comment       0x0000000000000000       0x1e ./efm32zg_usart_IO_HAL.o
+ .debug_frame   0x0000000000000000      0x290 ./efm32zg_usart_IO_HAL.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./efm32zg_usart_IO_HAL.o
  .text          0x0000000000000000        0x0 ./efm32zg_interrupts_HAL.o
  .data          0x0000000000000000        0x0 ./efm32zg_interrupts_HAL.o
  .bss           0x0000000000000000        0x0 ./efm32zg_interrupts_HAL.o
@@ -788,6 +1491,100 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./efm32zg_usart_HAL.o
  .data          0x0000000000000000        0x0 ./efm32zg_usart_HAL.o
  .bss           0x0000000000000000        0x0 ./efm32zg_usart_HAL.o
+ .rodata.usart_config_table
+                0x0000000000000000       0x80 ./efm32zg_usart_HAL.o
+ .rodata.usart_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_frame_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_trig_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_status_cmd_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_clkdiv_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_int_flag_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_ir_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_route_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_input_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .rodata.usart_i2s_ctrl_table
+                0x0000000000000000        0xc ./efm32zg_usart_HAL.o
+ .text.zg_usartCtrlRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartCtrlWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartCtrlClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartFrameRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartFrameWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartFrameClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartTrigctrlRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartTrigctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartTrigctrlClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartStatusRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartCmdWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartCmdClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartClkdivRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartClkdivWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartClkdivClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartIntflagRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartIntflagWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartIntflagClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartIrctrlRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartIrctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartIrctrlClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartRouteRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartRouteWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartRouteClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartInputRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartInputWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartInputClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .text.zg_usartI2sctrlRead
+                0x0000000000000000       0x20 ./efm32zg_usart_HAL.o
+ .text.zg_usartI2sctrlWrite
+                0x0000000000000000       0x28 ./efm32zg_usart_HAL.o
+ .text.zg_usartI2sctrlClr
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
+ .debug_info    0x0000000000000000     0x1915 ./efm32zg_usart_HAL.o
+ .debug_abbrev  0x0000000000000000      0x280 ./efm32zg_usart_HAL.o
+ .debug_loc     0x0000000000000000      0x690 ./efm32zg_usart_HAL.o
+ .debug_aranges
+                0x0000000000000000      0x108 ./efm32zg_usart_HAL.o
+ .debug_ranges  0x0000000000000000       0xf8 ./efm32zg_usart_HAL.o
+ .debug_line    0x0000000000000000      0x60c ./efm32zg_usart_HAL.o
+ .debug_str     0x0000000000000000      0xc0a ./efm32zg_usart_HAL.o
+ .comment       0x0000000000000000       0x1e ./efm32zg_usart_HAL.o
+ .debug_frame   0x0000000000000000      0x3d0 ./efm32zg_usart_HAL.o
+ .ARM.attributes
+                0x0000000000000000       0x2c ./efm32zg_usart_HAL.o
  .text          0x0000000000000000        0x0 ./mpi_timer.o
  .data          0x0000000000000000        0x0 ./mpi_timer.o
  .bss           0x0000000000000000        0x0 ./mpi_timer.o
@@ -908,6 +1705,7 @@ LOAD ./config_efm32zg222f32.o
 LOAD ./mpi_cmu.o
 LOAD ./efm32zg_types_HAL.o
 LOAD ./config_dw1000.o
+LOAD ./dw1000_commRxTx.o
 LOAD ./efm32zg_gpio_HAL.o
 LOAD ./dw1000_tofCalcs.o
 LOAD ./efm32zg_gpio_IO_HAL.o
@@ -919,7 +1717,6 @@ LOAD ./venus638_adaptor.o
 LOAD ./config_example.o
 LOAD ./dw1000_adaptor.o
 LOAD ./STK3200_config.o
-LOAD ./dw1000_commRxTx.o
 LOAD ./dw1000_decodeMAC.o
 LOAD ./efm32zg_timer_HAL.o
 LOAD ./main.o
@@ -946,13 +1743,13 @@ END GROUP
 LOAD /usr/lib/gcc/arm-none-eabi/9.1.0/crtend.o
 LOAD /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
 
-.text           0x0000000000000000     0x381c
+.text           0x0000000000000000      0x538
  *(.vectors)
  .vectors       0x0000000000000000       0x8c ./startup_efm32zg.o
                 0x0000000000000000                __Vectors
                 0x000000000000008c                __Vectors_End = .
                 0x000000000000008c                __Vectors_Size = (__Vectors_End - __Vectors)
-                0x0000000020000930                __end__ = .
+                0x0000000020000118                __end__ = .
  *(.text*)
  .text.__do_global_dtors_aux
                 0x000000000000008c       0x44 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
@@ -986,756 +1783,44 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
                 0x0000000000000230                AES_IRQHandler
                 0x0000000000000230                VCMP_IRQHandler
                 0x0000000000000230                DMA_IRQHandler
- .text.mpi_cmuConfigReg
-                0x0000000000000234       0x20 ./mpi_cmu.o
-                0x0000000000000234                mpi_cmuConfigReg
- .text.zg_gpioPCtrlRead
-                0x0000000000000254       0x2c ./efm32zg_gpio_HAL.o
-                0x0000000000000254                zg_gpioPCtrlRead
- .text.zg_gpioPCtrlWrite
-                0x0000000000000280       0x40 ./efm32zg_gpio_HAL.o
-                0x0000000000000280                zg_gpioPCtrlWrite
- .text.zg_gpioPinModeLowRead
-                0x00000000000002c0       0x30 ./efm32zg_gpio_HAL.o
-                0x00000000000002c0                zg_gpioPinModeLowRead
- .text.zg_gpioPinModeLowWrite
-                0x00000000000002f0       0x48 ./efm32zg_gpio_HAL.o
-                0x00000000000002f0                zg_gpioPinModeLowWrite
- .text.zg_gpioPinModeLowClear
-                0x0000000000000338       0x4c ./efm32zg_gpio_HAL.o
-                0x0000000000000338                zg_gpioPinModeLowClear
- .text.zg_gpioPinModeHighRead
-                0x0000000000000384       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000384                zg_gpioPinModeHighRead
- .text.zg_gpioPinModeHighWrite
-                0x00000000000003b4       0x48 ./efm32zg_gpio_HAL.o
-                0x00000000000003b4                zg_gpioPinModeHighWrite
- .text.zg_gpioPinModeHighClear
-                0x00000000000003fc       0x4c ./efm32zg_gpio_HAL.o
-                0x00000000000003fc                zg_gpioPinModeHighClear
- .text.zg_gpioPinLockRead
-                0x0000000000000448       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000448                zg_gpioPinLockRead
- .text.zg_gpioPinLockWrite
-                0x0000000000000478       0x48 ./efm32zg_gpio_HAL.o
-                0x0000000000000478                zg_gpioPinLockWrite
- .text.zg_gpioPinLockClr
-                0x00000000000004c0       0x4c ./efm32zg_gpio_HAL.o
-                0x00000000000004c0                zg_gpioPinLockClr
- .text.zg_gpioExtIntPinLowRead
-                0x000000000000050c       0x24 ./efm32zg_gpio_HAL.o
-                0x000000000000050c                zg_gpioExtIntPinLowRead
- .text.zg_gpioExtIntPinLowWrite
-                0x0000000000000530       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000530                zg_gpioExtIntPinLowWrite
- .text.zg_gpioExtIntPinLowClr
-                0x0000000000000560       0x34 ./efm32zg_gpio_HAL.o
-                0x0000000000000560                zg_gpioExtIntPinLowClr
- .text.zg_gpioExtIntPinHighRead
-                0x0000000000000594       0x24 ./efm32zg_gpio_HAL.o
-                0x0000000000000594                zg_gpioExtIntPinHighRead
- .text.zg_gpioExtIntPinHighWrite
-                0x00000000000005b8       0x30 ./efm32zg_gpio_HAL.o
-                0x00000000000005b8                zg_gpioExtIntPinHighWrite
- .text.zg_gpioExtIntPinHighClr
-                0x00000000000005e8       0x34 ./efm32zg_gpio_HAL.o
-                0x00000000000005e8                zg_gpioExtIntPinHighClr
- .text.zg_gpioExtIntRiseEdgeRead
-                0x000000000000061c       0x24 ./efm32zg_gpio_HAL.o
-                0x000000000000061c                zg_gpioExtIntRiseEdgeRead
- .text.zg_gpioExtIntRiseEdgeWrite
-                0x0000000000000640       0x38 ./efm32zg_gpio_HAL.o
-                0x0000000000000640                zg_gpioExtIntRiseEdgeWrite
- .text.zg_gpioExtIntRiseEdgeClr
-                0x0000000000000678       0x34 ./efm32zg_gpio_HAL.o
-                0x0000000000000678                zg_gpioExtIntRiseEdgeClr
- .text.zg_gpioExtIntFallEdgeRead
-                0x00000000000006ac       0x24 ./efm32zg_gpio_HAL.o
-                0x00000000000006ac                zg_gpioExtIntFallEdgeRead
- .text.zg_gpioExtIntFallEdgeWrite
-                0x00000000000006d0       0x38 ./efm32zg_gpio_HAL.o
-                0x00000000000006d0                zg_gpioExtIntFallEdgeWrite
- .text.zg_gpioExtIntFallEdgeClr
-                0x0000000000000708       0x34 ./efm32zg_gpio_HAL.o
-                0x0000000000000708                zg_gpioExtIntFallEdgeClr
- .text.zg_gpioIntEnRead
-                0x000000000000073c       0x24 ./efm32zg_gpio_HAL.o
-                0x000000000000073c                zg_gpioIntEnRead
- .text.zg_gpioIntEnWrite
-                0x0000000000000760       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000760                zg_gpioIntEnWrite
- .text.zg_gpioIntClr
-                0x0000000000000790       0x34 ./efm32zg_gpio_HAL.o
-                0x0000000000000790                zg_gpioIntClr
- .text.zg_gpioIntFlagRead
-                0x00000000000007c4       0x24 ./efm32zg_gpio_HAL.o
-                0x00000000000007c4                zg_gpioIntFlagRead
- .text.zg_gpioIntFlagWrite
-                0x00000000000007e8       0x30 ./efm32zg_gpio_HAL.o
-                0x00000000000007e8                zg_gpioIntFlagWrite
- .text.zg_gpioIntFlagClr
-                0x0000000000000818       0x24 ./efm32zg_gpio_HAL.o
-                0x0000000000000818                zg_gpioIntFlagClr
- .text.zg_gpioSerialWireEnRead
-                0x000000000000083c       0x24 ./efm32zg_gpio_HAL.o
-                0x000000000000083c                zg_gpioSerialWireEnRead
- .text.zg_gpioSerialWireEnWrite
-                0x0000000000000860       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000860                zg_gpioSerialWireEnWrite
- .text.zg_gpioSerialWireEnClr
-                0x0000000000000890       0x34 ./efm32zg_gpio_HAL.o
-                0x0000000000000890                zg_gpioSerialWireEnClr
- .text.zg_gpioSenseRead
-                0x00000000000008c4       0x24 ./efm32zg_gpio_HAL.o
-                0x00000000000008c4                zg_gpioSenseRead
- .text.zg_gpioSenseWrite
-                0x00000000000008e8       0x30 ./efm32zg_gpio_HAL.o
-                0x00000000000008e8                zg_gpioSenseWrite
- .text.zg_gpioSenseClr
-                0x0000000000000918       0x34 ./efm32zg_gpio_HAL.o
-                0x0000000000000918                zg_gpioSenseClr
- .text.zg_gpioConfLockRead
-                0x000000000000094c       0x24 ./efm32zg_gpio_HAL.o
-                0x000000000000094c                zg_gpioConfLockRead
- .text.zg_gpioConfLockWrite
-                0x0000000000000970       0x24 ./efm32zg_gpio_HAL.o
-                0x0000000000000970                zg_gpioConfLockWrite
- .text.zg_gpioConfLockClr
-                0x0000000000000994       0x28 ./efm32zg_gpio_HAL.o
-                0x0000000000000994                zg_gpioConfLockClr
- .text.zg_gpioEm4RetRead
-                0x00000000000009bc       0x24 ./efm32zg_gpio_HAL.o
-                0x00000000000009bc                zg_gpioEm4RetRead
- .text.zg_gpioEm4RetWrite
-                0x00000000000009e0       0x30 ./efm32zg_gpio_HAL.o
-                0x00000000000009e0                zg_gpioEm4RetWrite
- .text.zg_gpioEm4RetClr
-                0x0000000000000a10       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000a10                zg_gpioEm4RetClr
- .text.zg_EM4WakeRead
-                0x0000000000000a40       0x24 ./efm32zg_gpio_HAL.o
-                0x0000000000000a40                zg_EM4WakeRead
- .text.zg_EM4WakeWrite
-                0x0000000000000a64       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000a64                zg_EM4WakeWrite
- .text.zg_EM4WakeClr
-                0x0000000000000a94       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000a94                zg_EM4WakeClr
- .text.zg_EM4PolRead
-                0x0000000000000ac4       0x24 ./efm32zg_gpio_HAL.o
-                0x0000000000000ac4                zg_EM4PolRead
- .text.zg_EM4PolWrite
-                0x0000000000000ae8       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000ae8                zg_EM4PolWrite
- .text.zg_EM4PolClr
-                0x0000000000000b18       0x30 ./efm32zg_gpio_HAL.o
-                0x0000000000000b18                zg_EM4PolClr
- .text.zg_gpioClrEm4Request
-                0x0000000000000b48       0x1c ./efm32zg_gpio_HAL.o
-                0x0000000000000b48                zg_gpioClrEm4Request
- .text.zg_EM4Cause
-                0x0000000000000b64       0x24 ./efm32zg_gpio_HAL.o
-                0x0000000000000b64                zg_EM4Cause
- .text.zg_gpioReadIn
-                0x0000000000000b88       0x30 ./efm32zg_gpio_IO_HAL.o
-                0x0000000000000b88                zg_gpioReadIn
- .text.zg_gpioOutTgl
-                0x0000000000000bb8       0x30 ./efm32zg_gpio_IO_HAL.o
-                0x0000000000000bb8                zg_gpioOutTgl
- .text.zg_gpioOutRead
-                0x0000000000000be8       0x30 ./efm32zg_gpio_IO_HAL.o
-                0x0000000000000be8                zg_gpioOutRead
- .text.zg_gpioOutWrite
-                0x0000000000000c18       0x48 ./efm32zg_gpio_IO_HAL.o
-                0x0000000000000c18                zg_gpioOutWrite
- .text.zg_gpioOutClr
-                0x0000000000000c60       0x4c ./efm32zg_gpio_IO_HAL.o
-                0x0000000000000c60                zg_gpioOutClr
- .text.gpio_assign_rx_data
-                0x0000000000000cac       0x22 ./efm32zg_gpio_IO_HAL.o
-                0x0000000000000cac                gpio_assign_rx_data
- .text.gpio_assign_tx_data
-                0x0000000000000cce       0x22 ./efm32zg_gpio_IO_HAL.o
-                0x0000000000000cce                gpio_assign_tx_data
- .text.usart_Init
-                0x0000000000000cf0       0xac ./efm32zg222f32_adaptor.o
-                0x0000000000000cf0                usart_Init
- .text.usart_ConfigReg
-                0x0000000000000d9c       0x48 ./efm32zg222f32_adaptor.o
-                0x0000000000000d9c                usart_ConfigReg
- .text.usart_IO
-                0x0000000000000de4       0xd8 ./efm32zg222f32_adaptor.o
-                0x0000000000000de4                usart_IO
- .text.gpio_Init
-                0x0000000000000ebc       0x70 ./efm32zg222f32_adaptor.o
-                0x0000000000000ebc                gpio_Init
- .text.gpio_ConfigReg
-                0x0000000000000f2c       0x48 ./efm32zg222f32_adaptor.o
-                0x0000000000000f2c                gpio_ConfigReg
- .text.gpio_IO  0x0000000000000f74       0xa4 ./efm32zg222f32_adaptor.o
-                0x0000000000000f74                gpio_IO
- .text.gpio_Tgl
-                0x0000000000001018       0x74 ./efm32zg222f32_adaptor.o
-                0x0000000000001018                gpio_Tgl
- .text.cmu_Init
-                0x000000000000108c       0x84 ./efm32zg222f32_adaptor.o
-                0x000000000000108c                cmu_Init
- .text.cmu_ConfigReg
-                0x0000000000001110       0x48 ./efm32zg222f32_adaptor.o
-                0x0000000000001110                cmu_ConfigReg
- .text.timer_Init
-                0x0000000000001158       0x6c ./efm32zg222f32_adaptor.o
-                0x0000000000001158                timer_Init
- .text.timer_ConfigReg
-                0x00000000000011c4       0x48 ./efm32zg222f32_adaptor.o
-                0x00000000000011c4                timer_ConfigReg
  .text.SystemInit
-                0x000000000000120c        0x4 ./system_efm32zg.o
-                0x000000000000120c                SystemInit
- .text.zg_timerCtrlRead
-                0x0000000000001210       0x20 ./efm32zg_timer_HAL.o
-                0x0000000000001210                zg_timerCtrlRead
- .text.zg_timerCtrlWrite
-                0x0000000000001230       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001230                zg_timerCtrlWrite
- .text.zg_timerCtrlClr
-                0x0000000000001258       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001258                zg_timerCtrlClr
- .text.zg_timerCmdWrite
-                0x0000000000001284       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001284                zg_timerCmdWrite
- .text.zg_timerStatusRead
-                0x00000000000012ac       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000012ac                zg_timerStatusRead
- .text.zg_timerIenRead
-                0x00000000000012cc       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000012cc                zg_timerIenRead
- .text.zg_timerIenWrite
-                0x00000000000012ec       0x28 ./efm32zg_timer_HAL.o
-                0x00000000000012ec                zg_timerIenWrite
- .text.zg_timerIenClr
-                0x0000000000001314       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001314                zg_timerIenClr
- .text.zg_timerIfrRead
-                0x0000000000001340       0x20 ./efm32zg_timer_HAL.o
-                0x0000000000001340                zg_timerIfrRead
- .text.zg_timerIfsWrite
-                0x0000000000001360       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001360                zg_timerIfsWrite
- .text.zg_timerIfcClr
-                0x0000000000001388       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001388                zg_timerIfcClr
- .text.zg_timerTopRead
-                0x00000000000013b4       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000013b4                zg_timerTopRead
- .text.zg_timerTopWrite
-                0x00000000000013d4       0x28 ./efm32zg_timer_HAL.o
-                0x00000000000013d4                zg_timerTopWrite
- .text.zg_timerTopClr
-                0x00000000000013fc       0x2c ./efm32zg_timer_HAL.o
-                0x00000000000013fc                zg_timerTopClr
- .text.zg_timerTopbRead
-                0x0000000000001428       0x20 ./efm32zg_timer_HAL.o
-                0x0000000000001428                zg_timerTopbRead
- .text.zg_timerTopbWrite
-                0x0000000000001448       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001448                zg_timerTopbWrite
- .text.zg_timerTopbClr
-                0x0000000000001470       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001470                zg_timerTopbClr
- .text.zg_timerCntRead
-                0x000000000000149c       0x20 ./efm32zg_timer_HAL.o
-                0x000000000000149c                zg_timerCntRead
- .text.zg_timerCntWrite
-                0x00000000000014bc       0x28 ./efm32zg_timer_HAL.o
-                0x00000000000014bc                zg_timerCntWrite
- .text.zg_timerCntClr
-                0x00000000000014e4       0x2c ./efm32zg_timer_HAL.o
-                0x00000000000014e4                zg_timerCntClr
- .text.zg_timerRouteRead
-                0x0000000000001510       0x20 ./efm32zg_timer_HAL.o
-                0x0000000000001510                zg_timerRouteRead
- .text.zg_timerRouteWrite
-                0x0000000000001530       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001530                zg_timerRouteWrite
- .text.zg_timerRouteClr
-                0x0000000000001558       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001558                zg_timerRouteClr
- .text.zg_timerCc0_ctrlRead
-                0x0000000000001584       0x20 ./efm32zg_timer_HAL.o
-                0x0000000000001584                zg_timerCc0_ctrlRead
- .text.zg_timerCc0_ctrlWrite
-                0x00000000000015a4       0x28 ./efm32zg_timer_HAL.o
-                0x00000000000015a4                zg_timerCc0_ctrlWrite
- .text.zg_timerCc0_ctrlClr
-                0x00000000000015cc       0x2c ./efm32zg_timer_HAL.o
-                0x00000000000015cc                zg_timerCc0_ctrlClr
- .text.zg_timerCc0_ccvRead
-                0x00000000000015f8       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000015f8                zg_timerCc0_ccvRead
- .text.zg_timerCc0_ccvWrite
-                0x0000000000001618       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001618                zg_timerCc0_ccvWrite
- .text.zg_timerCc0_ccvClr
-                0x0000000000001640       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001640                zg_timerCc0_ccvClr
- .text.zg_timerCc0_ccvbRead
-                0x000000000000166c       0x20 ./efm32zg_timer_HAL.o
-                0x000000000000166c                zg_timerCc0_ccvbRead
- .text.zg_timerCc0_ccvbWrite
-                0x000000000000168c       0x28 ./efm32zg_timer_HAL.o
-                0x000000000000168c                zg_timerCc0_ccvbWrite
- .text.zg_timerCc0_ccvbClr
-                0x00000000000016b4       0x2c ./efm32zg_timer_HAL.o
-                0x00000000000016b4                zg_timerCc0_ccvbClr
- .text.zg_timerCc1_ctrlRead
-                0x00000000000016e0       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000016e0                zg_timerCc1_ctrlRead
- .text.zg_timerCc1_ctrlWrite
-                0x0000000000001700       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001700                zg_timerCc1_ctrlWrite
- .text.zg_timerCc1_ctrlClr
-                0x0000000000001728       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001728                zg_timerCc1_ctrlClr
- .text.zg_timerCc1_ccvRead
-                0x0000000000001754       0x20 ./efm32zg_timer_HAL.o
-                0x0000000000001754                zg_timerCc1_ccvRead
- .text.zg_timerCc1_ccvWrite
-                0x0000000000001774       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001774                zg_timerCc1_ccvWrite
- .text.zg_timerCc1_ccvClr
-                0x000000000000179c       0x2c ./efm32zg_timer_HAL.o
-                0x000000000000179c                zg_timerCc1_ccvClr
- .text.zg_timerCc1_ccvbRead
-                0x00000000000017c8       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000017c8                zg_timerCc1_ccvbRead
- .text.zg_timerCc1_ccvbWrite
-                0x00000000000017e8       0x28 ./efm32zg_timer_HAL.o
-                0x00000000000017e8                zg_timerCc1_ccvbWrite
- .text.zg_timerCc1_ccvbClr
-                0x0000000000001810       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001810                zg_timerCc1_ccvbClr
- .text.zg_timerCc2_ctrlRead
-                0x000000000000183c       0x20 ./efm32zg_timer_HAL.o
-                0x000000000000183c                zg_timerCc2_ctrlRead
- .text.zg_timerCc2_ctrlWrite
-                0x000000000000185c       0x28 ./efm32zg_timer_HAL.o
-                0x000000000000185c                zg_timerCc2_ctrlWrite
- .text.zg_timerCc2_ctrlClr
-                0x0000000000001884       0x2c ./efm32zg_timer_HAL.o
-                0x0000000000001884                zg_timerCc2_ctrlClr
- .text.zg_timerCc2_ccvRead
-                0x00000000000018b0       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000018b0                zg_timerCc2_ccvRead
- .text.zg_timerCc2_ccvWrite
-                0x00000000000018d0       0x28 ./efm32zg_timer_HAL.o
-                0x00000000000018d0                zg_timerCc2_ccvWrite
- .text.zg_timerCc2_ccvClr
-                0x00000000000018f8       0x2c ./efm32zg_timer_HAL.o
-                0x00000000000018f8                zg_timerCc2_ccvClr
- .text.zg_timerCc2_ccvbRead
-                0x0000000000001924       0x20 ./efm32zg_timer_HAL.o
-                0x0000000000001924                zg_timerCc2_ccvbRead
- .text.zg_timerCc2_ccvbWrite
-                0x0000000000001944       0x28 ./efm32zg_timer_HAL.o
-                0x0000000000001944                zg_timerCc2_ccvbWrite
- .text.zg_timerCc2_ccvbClr
-                0x000000000000196c       0x2c ./efm32zg_timer_HAL.o
-                0x000000000000196c                zg_timerCc2_ccvbClr
- .text.zg_timerCc0_ccvpRead
-                0x0000000000001998       0x20 ./efm32zg_timer_HAL.o
-                0x0000000000001998                zg_timerCc0_ccvpRead
- .text.zg_timerCc1_ccvpRead
-                0x00000000000019b8       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000019b8                zg_timerCc1_ccvpRead
- .text.zg_timerCc2_ccvpRead
-                0x00000000000019d8       0x20 ./efm32zg_timer_HAL.o
-                0x00000000000019d8                zg_timerCc2_ccvpRead
+                0x0000000000000234        0x4 ./system_efm32zg.o
+                0x0000000000000234                SystemInit
  .text.CHIP_Init
-                0x00000000000019f8        0xa ./main.o
- *fill*         0x0000000000001a02        0x2 
- .text.main     0x0000000000001a04       0x44 ./main.o
-                0x0000000000001a04                main
- .text.zg_cmuCtrlRead
-                0x0000000000001a48       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001a48                zg_cmuCtrlRead
- .text.zg_cmuCtrlWrite
-                0x0000000000001a68       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001a68                zg_cmuCtrlWrite
- .text.zg_cmuCtrlClr
-                0x0000000000001a90       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001a90                zg_cmuCtrlClr
- .text.zg_cmuHfcoreclkdivRead
-                0x0000000000001abc       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001abc                zg_cmuHfcoreclkdivRead
- .text.zg_cmuHfcoreclkdivWrite
-                0x0000000000001adc       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001adc                zg_cmuHfcoreclkdivWrite
- .text.zg_cmuHfcoreclkdivClr
-                0x0000000000001b04       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001b04                zg_cmuHfcoreclkdivClr
- .text.zg_cmuHfperclkdivRead
-                0x0000000000001b30       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001b30                zg_cmuHfperclkdivRead
- .text.zg_cmuHfperclkdivWrite
-                0x0000000000001b50       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001b50                zg_cmuHfperclkdivWrite
- .text.zg_cmuHfperclkdivClr
-                0x0000000000001b78       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001b78                zg_cmuHfperclkdivClr
- .text.zg_cmuHfrcoctrlRead
-                0x0000000000001ba4       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001ba4                zg_cmuHfrcoctrlRead
- .text.zg_cmuHfrcoctrlWrite
-                0x0000000000001bc4       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001bc4                zg_cmuHfrcoctrlWrite
- .text.zg_cmuHfrcoctrlClr
-                0x0000000000001bec       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001bec                zg_cmuHfrcoctrlClr
- .text.zg_cmuLfrcoctrlRead
-                0x0000000000001c18       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001c18                zg_cmuLfrcoctrlRead
- .text.zg_cmuLfrcoctrlWrite
-                0x0000000000001c38       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001c38                zg_cmuLfrcoctrlWrite
- .text.zg_cmuLfrcoctrlClr
-                0x0000000000001c60       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001c60                zg_cmuLfrcoctrlClr
- .text.zg_cmuAuxhfrcoctrlRead
-                0x0000000000001c8c       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001c8c                zg_cmuAuxhfrcoctrlRead
- .text.zg_cmuAuxhfrcoctrlWrite
-                0x0000000000001cac       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001cac                zg_cmuAuxhfrcoctrlWrite
- .text.zg_cmuAuxhfrcoctrlClr
-                0x0000000000001cd4       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001cd4                zg_cmuAuxhfrcoctrlClr
- .text.zg_cmuCalctrlRead
-                0x0000000000001d00       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001d00                zg_cmuCalctrlRead
- .text.zg_cmuCalctrlWrite
-                0x0000000000001d20       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001d20                zg_cmuCalctrlWrite
- .text.zg_cmuCalctrlClr
-                0x0000000000001d48       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001d48                zg_cmuCalctrlClr
- .text.zg_cmuCalcntRead
-                0x0000000000001d74       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001d74                zg_cmuCalcntRead
- .text.zg_cmuCalcntWrite
-                0x0000000000001d94       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001d94                zg_cmuCalcntWrite
- .text.zg_cmuCalcntClr
-                0x0000000000001dbc       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001dbc                zg_cmuCalcntClr
- .text.zg_cmuOscencmdWrite
-                0x0000000000001de8       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001de8                zg_cmuOscencmdWrite
- .text.zg_cmuCmdWrite
-                0x0000000000001e10       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001e10                zg_cmuCmdWrite
- .text.zg_cmuLfclkselRead
-                0x0000000000001e38       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001e38                zg_cmuLfclkselRead
- .text.zg_cmuLfclkselWrite
-                0x0000000000001e58       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001e58                zg_cmuLfclkselWrite
- .text.zg_cmuLfclkselClr
-                0x0000000000001e80       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001e80                zg_cmuLfclkselClr
- .text.zg_cmuStatusRead
-                0x0000000000001eac       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001eac                zg_cmuStatusRead
- .text.zg_cmuIntfreadRead
-                0x0000000000001ecc       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001ecc                zg_cmuIntfreadRead
- .text.zg_cmuIntfsetWrite
-                0x0000000000001eec       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001eec                zg_cmuIntfsetWrite
- .text.zg_cmuIntfclearClr
-                0x0000000000001f14       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001f14                zg_cmuIntfclearClr
- .text.zg_cmuIntenRead
-                0x0000000000001f40       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001f40                zg_cmuIntenRead
- .text.zg_cmuIntenWrite
-                0x0000000000001f60       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001f60                zg_cmuIntenWrite
- .text.zg_cmuIntenClr
-                0x0000000000001f88       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001f88                zg_cmuIntenClr
- .text.zg_cmuHfcoreclken0Read
-                0x0000000000001fb4       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000001fb4                zg_cmuHfcoreclken0Read
- .text.zg_cmuHfcoreclken0Write
-                0x0000000000001fd4       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000001fd4                zg_cmuHfcoreclken0Write
- .text.zg_cmuHfcoreclken0Clr
-                0x0000000000001ffc       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000001ffc                zg_cmuHfcoreclken0Clr
- .text.zg_cmuHfperclken0Read
-                0x0000000000002028       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000002028                zg_cmuHfperclken0Read
- .text.zg_cmuHfperclken0Write
-                0x0000000000002048       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000002048                zg_cmuHfperclken0Write
- .text.zg_cmuHfperclken0Clr
-                0x0000000000002070       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000002070                zg_cmuHfperclken0Clr
- .text.zg_cmuSyncbusyRead
-                0x000000000000209c       0x20 ./efm32zg_cmu_HAL.o
-                0x000000000000209c                zg_cmuSyncbusyRead
- .text.zg_cmuFreezeRead
-                0x00000000000020bc       0x20 ./efm32zg_cmu_HAL.o
-                0x00000000000020bc                zg_cmuFreezeRead
- .text.zg_cmuFreezeWrite
-                0x00000000000020dc       0x28 ./efm32zg_cmu_HAL.o
-                0x00000000000020dc                zg_cmuFreezeWrite
- .text.zg_cmuFreezeClr
-                0x0000000000002104       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000002104                zg_cmuFreezeClr
- .text.zg_cmuLfaclken0Read
-                0x0000000000002130       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000002130                zg_cmuLfaclken0Read
- .text.zg_cmuLfaclken0Write
-                0x0000000000002150       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000002150                zg_cmuLfaclken0Write
- .text.zg_cmuLfaclken0Clr
-                0x0000000000002178       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000002178                zg_cmuLfaclken0Clr
- .text.zg_cmuLfbclken0Read
-                0x00000000000021a4       0x20 ./efm32zg_cmu_HAL.o
-                0x00000000000021a4                zg_cmuLfbclken0Read
- .text.zg_cmuLfbclken0Write
-                0x00000000000021c4       0x28 ./efm32zg_cmu_HAL.o
-                0x00000000000021c4                zg_cmuLfbclken0Write
- .text.zg_cmuLfbclken0Clr
-                0x00000000000021ec       0x2c ./efm32zg_cmu_HAL.o
-                0x00000000000021ec                zg_cmuLfbclken0Clr
- .text.zg_cmuLfapresc0Read
-                0x0000000000002218       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000002218                zg_cmuLfapresc0Read
- .text.zg_cmuLfapresc0Write
-                0x0000000000002238       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000002238                zg_cmuLfapresc0Write
- .text.zg_cmuLfapresc0Clr
-                0x0000000000002260       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000002260                zg_cmuLfapresc0Clr
- .text.zg_cmuLfbpresc0Read
-                0x000000000000228c       0x20 ./efm32zg_cmu_HAL.o
-                0x000000000000228c                zg_cmuLfbpresc0Read
- .text.zg_cmuLfbpresc0Write
-                0x00000000000022ac       0x28 ./efm32zg_cmu_HAL.o
-                0x00000000000022ac                zg_cmuLfbpresc0Write
- .text.zg_cmuLfbpresc0Clr
-                0x00000000000022d4       0x2c ./efm32zg_cmu_HAL.o
-                0x00000000000022d4                zg_cmuLfbpresc0Clr
- .text.zg_cmuPcntctrlRead
-                0x0000000000002300       0x20 ./efm32zg_cmu_HAL.o
-                0x0000000000002300                zg_cmuPcntctrlRead
- .text.zg_cmuPcntctrlWrite
-                0x0000000000002320       0x28 ./efm32zg_cmu_HAL.o
-                0x0000000000002320                zg_cmuPcntctrlWrite
- .text.zg_cmuPcntctrlClr
-                0x0000000000002348       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000002348                zg_cmuPcntctrlClr
- .text.zg_cmuRouteRead
-                0x0000000000002374       0x24 ./efm32zg_cmu_HAL.o
-                0x0000000000002374                zg_cmuRouteRead
- .text.zg_cmuRouteWrite
-                0x0000000000002398       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000002398                zg_cmuRouteWrite
- .text.zg_cmuRouteClr
-                0x00000000000023c4       0x30 ./efm32zg_cmu_HAL.o
-                0x00000000000023c4                zg_cmuRouteClr
- .text.zg_cmuLockRead
-                0x00000000000023f4       0x24 ./efm32zg_cmu_HAL.o
-                0x00000000000023f4                zg_cmuLockRead
- .text.zg_cmuLockWrite
-                0x0000000000002418       0x2c ./efm32zg_cmu_HAL.o
-                0x0000000000002418                zg_cmuLockWrite
- .text.zg_cmuLockClr
-                0x0000000000002444       0x30 ./efm32zg_cmu_HAL.o
-                0x0000000000002444                zg_cmuLockClr
- .text.zg_usartRxdataxRead
-                0x0000000000002474       0x9c ./efm32zg_usart_IO_HAL.o
-                0x0000000000002474                zg_usartRxdataxRead
- .text.zg_usartRxdataRead
-                0x0000000000002510       0x4c ./efm32zg_usart_IO_HAL.o
-                0x0000000000002510                zg_usartRxdataRead
- .text.zg_usartRxdataxpRead
-                0x000000000000255c       0x9c ./efm32zg_usart_IO_HAL.o
-                0x000000000000255c                zg_usartRxdataxpRead
- .text.zg_usartRxdoublexRead
-                0x00000000000025f8       0xf8 ./efm32zg_usart_IO_HAL.o
-                0x00000000000025f8                zg_usartRxdoublexRead
- .text.zg_usartRxdoubleRead
-                0x00000000000026f0       0x4c ./efm32zg_usart_IO_HAL.o
-                0x00000000000026f0                zg_usartRxdoubleRead
- .text.zg_usartRxdoublexpRead
-                0x000000000000273c       0xf8 ./efm32zg_usart_IO_HAL.o
-                0x000000000000273c                zg_usartRxdoublexpRead
- .text.zg_usartTxdataxWrite
-                0x0000000000002834       0xc8 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002834                zg_usartTxdataxWrite
- .text.zg_usartTxdataWrite
-                0x00000000000028fc       0x50 ./efm32zg_usart_IO_HAL.o
-                0x00000000000028fc                zg_usartTxdataWrite
- .text.zg_usartTxdoublexWrite
-                0x000000000000294c       0xd8 ./efm32zg_usart_IO_HAL.o
-                0x000000000000294c                zg_usartTxdoublexWrite
- .text.zg_usartTxdoubleWrite
-                0x0000000000002a24       0x4c ./efm32zg_usart_IO_HAL.o
-                0x0000000000002a24                zg_usartTxdoubleWrite
- .text.usart_assign_rx_data_8_x
-                0x0000000000002a70       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002a70                usart_assign_rx_data_8_x
- .text.usart_assign_rx_data_8
-                0x0000000000002a92       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002a92                usart_assign_rx_data_8
- .text.usart_assign_rx_data_16_x
-                0x0000000000002ab4       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002ab4                usart_assign_rx_data_16_x
- .text.usart_assign_rx_data_16
-                0x0000000000002ad6       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002ad6                usart_assign_rx_data_16
- .text.usart_assign_rx_data_8_xp
-                0x0000000000002af8       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002af8                usart_assign_rx_data_8_xp
- .text.usart_assign_rx_data_16_xp
-                0x0000000000002b1a       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002b1a                usart_assign_rx_data_16_xp
- .text.usart_assign_tx_data_8_x
-                0x0000000000002b3c       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002b3c                usart_assign_tx_data_8_x
- .text.usart_assign_tx_data_8
-                0x0000000000002b5e       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002b5e                usart_assign_tx_data_8
- .text.usart_assign_tx_data_16_x
-                0x0000000000002b80       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002b80                usart_assign_tx_data_16_x
- .text.usart_assign_tx_data_16
-                0x0000000000002ba2       0x22 ./efm32zg_usart_IO_HAL.o
-                0x0000000000002ba2                usart_assign_tx_data_16
- .text.zg_usartCtrlRead
-                0x0000000000002bc4       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002bc4                zg_usartCtrlRead
- .text.zg_usartCtrlWrite
-                0x0000000000002be4       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002be4                zg_usartCtrlWrite
- .text.zg_usartCtrlClr
-                0x0000000000002c0c       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002c0c                zg_usartCtrlClr
- .text.zg_usartFrameRead
-                0x0000000000002c38       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002c38                zg_usartFrameRead
- .text.zg_usartFrameWrite
-                0x0000000000002c58       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002c58                zg_usartFrameWrite
- .text.zg_usartFrameClr
-                0x0000000000002c80       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002c80                zg_usartFrameClr
- .text.zg_usartTrigctrlRead
-                0x0000000000002cac       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002cac                zg_usartTrigctrlRead
- .text.zg_usartTrigctrlWrite
-                0x0000000000002ccc       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002ccc                zg_usartTrigctrlWrite
- .text.zg_usartTrigctrlClr
-                0x0000000000002cf4       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002cf4                zg_usartTrigctrlClr
- .text.zg_usartStatusRead
-                0x0000000000002d20       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002d20                zg_usartStatusRead
- .text.zg_usartCmdWrite
-                0x0000000000002d40       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002d40                zg_usartCmdWrite
- .text.zg_usartCmdClr
-                0x0000000000002d68       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002d68                zg_usartCmdClr
- .text.zg_usartClkdivRead
-                0x0000000000002d94       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002d94                zg_usartClkdivRead
- .text.zg_usartClkdivWrite
-                0x0000000000002db4       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002db4                zg_usartClkdivWrite
- .text.zg_usartClkdivClr
-                0x0000000000002ddc       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002ddc                zg_usartClkdivClr
- .text.zg_usartIntflagRead
-                0x0000000000002e08       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002e08                zg_usartIntflagRead
- .text.zg_usartIntflagWrite
-                0x0000000000002e28       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002e28                zg_usartIntflagWrite
- .text.zg_usartIntflagClr
-                0x0000000000002e50       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002e50                zg_usartIntflagClr
- .text.zg_usartIrctrlRead
-                0x0000000000002e7c       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002e7c                zg_usartIrctrlRead
- .text.zg_usartIrctrlWrite
-                0x0000000000002e9c       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002e9c                zg_usartIrctrlWrite
- .text.zg_usartIrctrlClr
-                0x0000000000002ec4       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002ec4                zg_usartIrctrlClr
- .text.zg_usartRouteRead
-                0x0000000000002ef0       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002ef0                zg_usartRouteRead
- .text.zg_usartRouteWrite
-                0x0000000000002f10       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002f10                zg_usartRouteWrite
- .text.zg_usartRouteClr
-                0x0000000000002f38       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002f38                zg_usartRouteClr
- .text.zg_usartInputRead
-                0x0000000000002f64       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002f64                zg_usartInputRead
- .text.zg_usartInputWrite
-                0x0000000000002f84       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002f84                zg_usartInputWrite
- .text.zg_usartInputClr
-                0x0000000000002fac       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000002fac                zg_usartInputClr
- .text.zg_usartI2sctrlRead
-                0x0000000000002fd8       0x20 ./efm32zg_usart_HAL.o
-                0x0000000000002fd8                zg_usartI2sctrlRead
- .text.zg_usartI2sctrlWrite
-                0x0000000000002ff8       0x28 ./efm32zg_usart_HAL.o
-                0x0000000000002ff8                zg_usartI2sctrlWrite
- .text.zg_usartI2sctrlClr
-                0x0000000000003020       0x2c ./efm32zg_usart_HAL.o
-                0x0000000000003020                zg_usartI2sctrlClr
- .text.atexit   0x000000000000304c       0x10 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-atexit.o)
-                0x000000000000304c                atexit
- .text.exit     0x000000000000305c       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
-                0x000000000000305c                exit
+                0x0000000000000238        0xa ./main.o
+ *fill*         0x0000000000000242        0x2 
+ .text.main     0x0000000000000244       0x64 ./main.o
+                0x0000000000000244                main
+ .text.atexit   0x00000000000002a8       0x10 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-atexit.o)
+                0x00000000000002a8                atexit
+ .text.exit     0x00000000000002b8       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
+                0x00000000000002b8                exit
  .text.__libc_fini_array
-                0x0000000000003088       0x28 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-fini.o)
-                0x0000000000003088                __libc_fini_array
+                0x00000000000002e4       0x28 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-fini.o)
+                0x00000000000002e4                __libc_fini_array
  .text.__libc_init_array
-                0x00000000000030b0       0x48 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
-                0x00000000000030b0                __libc_init_array
- .text.memset   0x00000000000030f8       0x10 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
-                0x00000000000030f8                memset
+                0x000000000000030c       0x48 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
+                0x000000000000030c                __libc_init_array
+ .text.memset   0x0000000000000354       0x10 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
+                0x0000000000000354                memset
  .text.__register_exitproc
-                0x0000000000003108       0xa8 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__atexit.o)
-                0x0000000000003108                __register_exitproc
+                0x0000000000000364       0xa8 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__atexit.o)
+                0x0000000000000364                __register_exitproc
  .text.__call_exitprocs
-                0x00000000000031b0       0x9c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
-                0x00000000000031b0                __call_exitprocs
- .text._exit    0x000000000000324c        0x4 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
-                0x000000000000324c                _exit
+                0x000000000000040c       0x9c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
+                0x000000000000040c                __call_exitprocs
+ .text._exit    0x00000000000004a8        0x4 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
+                0x00000000000004a8                _exit
  *(.init)
- .init          0x0000000000003250        0xc /usr/lib/gcc/arm-none-eabi/9.1.0/crti.o
-                0x0000000000003250                _init
- .init          0x000000000000325c        0xc /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
+ .init          0x00000000000004ac        0xc /usr/lib/gcc/arm-none-eabi/9.1.0/crti.o
+                0x00000000000004ac                _init
+ .init          0x00000000000004b8        0xc /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
  *(.fini)
- .fini          0x0000000000003268        0xc /usr/lib/gcc/arm-none-eabi/9.1.0/crti.o
-                0x0000000000003268                _fini
- .fini          0x0000000000003274        0xc /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
- .fini.__stub   0x0000000000003280       0x3c linker stubs
+ .fini          0x00000000000004c4        0xc /usr/lib/gcc/arm-none-eabi/9.1.0/crti.o
+                0x00000000000004c4                _fini
+ .fini          0x00000000000004d0        0xc /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
+ *fill*         0x00000000000004dc        0x4 
+ .fini.__stub   0x00000000000004e0       0x3c linker stubs
  *crtbegin.o(.ctors)
  *crtbegin?.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o *crtend?.o) .ctors)
@@ -1747,422 +1832,102 @@ LOAD /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
  *(SORT_BY_NAME(.dtors.*))
  *(.dtors)
  *(.rodata*)
- .rodata.gpio_config_table
-                0x00000000000032d0       0x80 ./efm32zg_gpio_HAL.o
-                0x00000000000032d0                gpio_config_table
- .rodata.gpio_ctrl
-                0x0000000000003350        0xc ./efm32zg_gpio_HAL.o
-                0x0000000000003350                gpio_ctrl
- .rodata.gpio_low_pinmode
-                0x000000000000335c        0xc ./efm32zg_gpio_HAL.o
-                0x000000000000335c                gpio_low_pinmode
- .rodata.gpio_high_pinmode
-                0x0000000000003368        0xc ./efm32zg_gpio_HAL.o
-                0x0000000000003368                gpio_high_pinmode
- .rodata.gpio_pinlock
-                0x0000000000003374        0xc ./efm32zg_gpio_HAL.o
-                0x0000000000003374                gpio_pinlock
- .rodata.gpio_int_ctrl
-                0x0000000000003380        0xc ./efm32zg_gpio_HAL.o
-                0x0000000000003380                gpio_int_ctrl
- .rodata.gpio_extint_low_pins
-                0x000000000000338c        0xc ./efm32zg_gpio_HAL.o
-                0x000000000000338c                gpio_extint_low_pins
- .rodata.gpio_extint_high_pins
-                0x0000000000003398        0xc ./efm32zg_gpio_HAL.o
-                0x0000000000003398                gpio_extint_high_pins
- .rodata.gpio_extint_rise_edge
-                0x00000000000033a4        0xc ./efm32zg_gpio_HAL.o
-                0x00000000000033a4                gpio_extint_rise_edge
- .rodata.gpio_extint_fall_edge
-                0x00000000000033b0        0xc ./efm32zg_gpio_HAL.o
-                0x00000000000033b0                gpio_extint_fall_edge
- .rodata.gpio_int_flag
-                0x00000000000033bc        0xc ./efm32zg_gpio_HAL.o
-                0x00000000000033bc                gpio_int_flag
- .rodata.gpio_serial_wire
-                0x00000000000033c8        0xc ./efm32zg_gpio_HAL.o
-                0x00000000000033c8                gpio_serial_wire
- .rodata.gpio_insense
-                0x00000000000033d4        0xc ./efm32zg_gpio_HAL.o
-                0x00000000000033d4                gpio_insense
- .rodata.gpio_conf_lock
-                0x00000000000033e0        0xc ./efm32zg_gpio_HAL.o
-                0x00000000000033e0                gpio_conf_lock
- .rodata.gpio_em4retention
-                0x00000000000033ec        0xc ./efm32zg_gpio_HAL.o
-                0x00000000000033ec                gpio_em4retention
- .rodata.gpio_em4wake
-                0x00000000000033f8        0xc ./efm32zg_gpio_HAL.o
-                0x00000000000033f8                gpio_em4wake
- .rodata.gpio_em4polarity
-                0x0000000000003404        0xc ./efm32zg_gpio_HAL.o
-                0x0000000000003404                gpio_em4polarity
- .rodata.gpio_em4clr_all
-                0x0000000000003410        0xc ./efm32zg_gpio_HAL.o
-                0x0000000000003410                gpio_em4clr_all
- .rodata.gpio_em4cause
-                0x000000000000341c        0xc ./efm32zg_gpio_HAL.o
-                0x000000000000341c                gpio_em4cause
- .rodata.gpio_I_O_TGL
-                0x0000000000003428        0xc ./efm32zg_gpio_IO_HAL.o
-                0x0000000000003428                gpio_I_O_TGL
- .rodata.gpio_IO_host_slave_transfer
-                0x0000000000003434        0x8 ./efm32zg_gpio_IO_HAL.o
-                0x0000000000003434                gpio_IO_host_slave_transfer
- .rodata.gpio_pinin_read
-                0x000000000000343c        0xc ./efm32zg_gpio_IO_HAL.o
-                0x000000000000343c                gpio_pinin_read
- .rodata.gpio_out
-                0x0000000000003448        0xc ./efm32zg_gpio_IO_HAL.o
-                0x0000000000003448                gpio_out
- .rodata.gpio_pinout_tgl
-                0x0000000000003454        0xc ./efm32zg_gpio_IO_HAL.o
-                0x0000000000003454                gpio_pinout_tgl
- .rodata.timer_config_table
-                0x0000000000003460       0x80 ./efm32zg_timer_HAL.o
-                0x0000000000003460                timer_config_table
- .rodata.cmu_config_table
-                0x00000000000034e0       0x80 ./efm32zg_cmu_HAL.o
-                0x00000000000034e0                cmu_config_table
- .rodata.cmu_ctrl_table
-                0x0000000000003560        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003560                cmu_ctrl_table
- .rodata.cmu_hfcoreclkdiv_table
-                0x000000000000356c        0xc ./efm32zg_cmu_HAL.o
-                0x000000000000356c                cmu_hfcoreclkdiv_table
- .rodata.cmu_hfperclkdiv_table
-                0x0000000000003578        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003578                cmu_hfperclkdiv_table
- .rodata.cmu_hfrcoctrl_table
-                0x0000000000003584        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003584                cmu_hfrcoctrl_table
- .rodata.cmu_lfrcoctrl_table
-                0x0000000000003590        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003590                cmu_lfrcoctrl_table
- .rodata.cmu_auxhfrcoctrl_table
-                0x000000000000359c        0xc ./efm32zg_cmu_HAL.o
-                0x000000000000359c                cmu_auxhfrcoctrl_table
- .rodata.cmu_calctrl_table
-                0x00000000000035a8        0xc ./efm32zg_cmu_HAL.o
-                0x00000000000035a8                cmu_calctrl_table
- .rodata.cmu_calcnt_table
-                0x00000000000035b4        0xc ./efm32zg_cmu_HAL.o
-                0x00000000000035b4                cmu_calcnt_table
- .rodata.cmu_oscencmd_table
-                0x00000000000035c0        0xc ./efm32zg_cmu_HAL.o
-                0x00000000000035c0                cmu_oscencmd_table
- .rodata.cmu_cmd_table
-                0x00000000000035cc        0xc ./efm32zg_cmu_HAL.o
-                0x00000000000035cc                cmu_cmd_table
- .rodata.cmu_lfclksel_table
-                0x00000000000035d8        0xc ./efm32zg_cmu_HAL.o
-                0x00000000000035d8                cmu_lfclksel_table
- .rodata.cmu_status_table
-                0x00000000000035e4        0xc ./efm32zg_cmu_HAL.o
-                0x00000000000035e4                cmu_status_table
- .rodata.cmu_intfread_table
-                0x00000000000035f0        0xc ./efm32zg_cmu_HAL.o
-                0x00000000000035f0                cmu_intfread_table
- .rodata.cmu_intfset_table
-                0x00000000000035fc        0xc ./efm32zg_cmu_HAL.o
-                0x00000000000035fc                cmu_intfset_table
- .rodata.cmu_intfclear_table
-                0x0000000000003608        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003608                cmu_intfclear_table
- .rodata.cmu_inten_table
-                0x0000000000003614        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003614                cmu_inten_table
- .rodata.cmu_hfcoreclken0_table
-                0x0000000000003620        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003620                cmu_hfcoreclken0_table
- .rodata.cmu_hfperclken0_table
-                0x000000000000362c        0xc ./efm32zg_cmu_HAL.o
-                0x000000000000362c                cmu_hfperclken0_table
- .rodata.cmu_syncbusy_table
-                0x0000000000003638        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003638                cmu_syncbusy_table
- .rodata.cmu_freeze_table
-                0x0000000000003644        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003644                cmu_freeze_table
- .rodata.cmu_lfaclken0_table
-                0x0000000000003650        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003650                cmu_lfaclken0_table
- .rodata.cmu_lfbclken0_table
-                0x000000000000365c        0xc ./efm32zg_cmu_HAL.o
-                0x000000000000365c                cmu_lfbclken0_table
- .rodata.cmu_lfapresc0_table
-                0x0000000000003668        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003668                cmu_lfapresc0_table
- .rodata.cmu_lfbpresc0_table
-                0x0000000000003674        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003674                cmu_lfbpresc0_table
- .rodata.cmu_pcntctrl_table
-                0x0000000000003680        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003680                cmu_pcntctrl_table
- .rodata.cmu_route_table
-                0x000000000000368c        0xc ./efm32zg_cmu_HAL.o
-                0x000000000000368c                cmu_route_table
- .rodata.cmu_lock_table
-                0x0000000000003698        0xc ./efm32zg_cmu_HAL.o
-                0x0000000000003698                cmu_lock_table
- .rodata.usart_IO_table
-                0x00000000000036a4       0x18 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036a4                usart_IO_table
- .rodata.usart_IO_host_slave_transfer
-                0x00000000000036bc        0x8 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036bc                usart_IO_host_slave_transfer
- .rodata.usart_rx_8_xp
-                0x00000000000036c4        0x4 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036c4                usart_rx_8_xp
- .rodata.usart_rx_16_xp
-                0x00000000000036c8        0x4 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036c8                usart_rx_16_xp
- .rodata.usart_rxtx_data_x
-                0x00000000000036cc        0x8 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036cc                usart_rxtx_data_x
- .rodata.usart_rxtx_data
-                0x00000000000036d4        0x8 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036d4                usart_rxtx_data
- .rodata.usart_rxtx_double_x
-                0x00000000000036dc        0x8 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036dc                usart_rxtx_double_x
- .rodata.usart_rxtx_double
-                0x00000000000036e4        0x8 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036e4                usart_rxtx_double
- .rodata.usart_rx_bitwidth_table
-                0x00000000000036ec       0x18 ./efm32zg_usart_IO_HAL.o
-                0x00000000000036ec                usart_rx_bitwidth_table
- .rodata.usart_tx_bitwidth_table
-                0x0000000000003704       0x18 ./efm32zg_usart_IO_HAL.o
-                0x0000000000003704                usart_tx_bitwidth_table
- .rodata.usart_config_table
-                0x000000000000371c       0x80 ./efm32zg_usart_HAL.o
-                0x000000000000371c                usart_config_table
- .rodata.usart_ctrl_table
-                0x000000000000379c        0xc ./efm32zg_usart_HAL.o
-                0x000000000000379c                usart_ctrl_table
- .rodata.usart_frame_table
-                0x00000000000037a8        0xc ./efm32zg_usart_HAL.o
-                0x00000000000037a8                usart_frame_table
- .rodata.usart_trig_ctrl_table
-                0x00000000000037b4        0xc ./efm32zg_usart_HAL.o
-                0x00000000000037b4                usart_trig_ctrl_table
- .rodata.usart_status_cmd_table
-                0x00000000000037c0        0xc ./efm32zg_usart_HAL.o
-                0x00000000000037c0                usart_status_cmd_table
- .rodata.usart_clkdiv_table
-                0x00000000000037cc        0xc ./efm32zg_usart_HAL.o
-                0x00000000000037cc                usart_clkdiv_table
- .rodata.usart_int_flag_table
-                0x00000000000037d8        0xc ./efm32zg_usart_HAL.o
-                0x00000000000037d8                usart_int_flag_table
- .rodata.usart_ir_ctrl_table
-                0x00000000000037e4        0xc ./efm32zg_usart_HAL.o
-                0x00000000000037e4                usart_ir_ctrl_table
- .rodata.usart_route_table
-                0x00000000000037f0        0xc ./efm32zg_usart_HAL.o
-                0x00000000000037f0                usart_route_table
- .rodata.usart_input_table
-                0x00000000000037fc        0xc ./efm32zg_usart_HAL.o
-                0x00000000000037fc                usart_input_table
- .rodata.usart_i2s_ctrl_table
-                0x0000000000003808        0xc ./efm32zg_usart_HAL.o
-                0x0000000000003808                usart_i2s_ctrl_table
  .rodata._global_impure_ptr
-                0x0000000000003814        0x4 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
-                0x0000000000003814                _global_impure_ptr
+                0x0000000000000530        0x4 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x0000000000000530                _global_impure_ptr
  *(.eh_frame*)
- .eh_frame      0x0000000000003818        0x0 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
- .eh_frame      0x0000000000003818        0x4 /usr/lib/gcc/arm-none-eabi/9.1.0/crtend.o
+ .eh_frame      0x0000000000000534        0x0 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
+ .eh_frame      0x0000000000000534        0x4 /usr/lib/gcc/arm-none-eabi/9.1.0/crtend.o
 
-.glue_7         0x000000000000381c        0x0
- .glue_7        0x000000000000381c        0x0 linker stubs
+.glue_7         0x0000000000000538        0x0
+ .glue_7        0x0000000000000538        0x0 linker stubs
 
-.glue_7t        0x000000000000381c        0x0
- .glue_7t       0x000000000000381c        0x0 linker stubs
+.glue_7t        0x0000000000000538        0x0
+ .glue_7t       0x0000000000000538        0x0 linker stubs
 
-.vfp11_veneer   0x000000000000381c        0x0
- .vfp11_veneer  0x000000000000381c        0x0 linker stubs
+.vfp11_veneer   0x0000000000000538        0x0
+ .vfp11_veneer  0x0000000000000538        0x0 linker stubs
 
-.v4_bx          0x000000000000381c        0x0
- .v4_bx         0x000000000000381c        0x0 linker stubs
+.v4_bx          0x0000000000000538        0x0
+ .v4_bx         0x0000000000000538        0x0 linker stubs
 
-.iplt           0x000000000000381c        0x0
- .iplt          0x000000000000381c        0x0 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
+.iplt           0x0000000000000538        0x0
+ .iplt          0x0000000000000538        0x0 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
 
 .ARM.extab
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x000000000000381c                __exidx_start = .
+                0x0000000000000538                __exidx_start = .
 
-.ARM.exidx      0x000000000000381c        0x8
+.ARM.exidx      0x0000000000000538        0x8
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
- .ARM.exidx     0x000000000000381c        0x8 /usr/lib/gcc/arm-none-eabi/9.1.0/../../../../arm-none-eabi/lib/crt0.o
-                0x0000000000003824                __exidx_end = .
-                0x0000000000003824                __etext = .
+ .ARM.exidx     0x0000000000000538        0x8 /usr/lib/gcc/arm-none-eabi/9.1.0/../../../../arm-none-eabi/lib/crt0.o
+                0x0000000000000540                __exidx_end = .
+                0x0000000000000540                __etext = .
 
-.rel.dyn        0x0000000000003824        0x0
- .rel.iplt      0x0000000000003824        0x0 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
+.rel.dyn        0x0000000000000540        0x0
+ .rel.iplt      0x0000000000000540        0x0 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
 
-.data           0x0000000020000000      0x6f8 load address 0x0000000000003824
+.data           0x0000000020000000       0x68 load address 0x0000000000000540
                 0x0000000020000000                __data_start__ = .
  *(vtable)
  *(.data*)
- .data.cmu_periphconf
-                0x0000000020000000       0x70 ./config_efm32zg222f32.o
-                0x0000000020000000                cmu_periphconf
- .data.efm32zg222f32_host
-                0x0000000020000070      0x514 ./config_efm32zg222f32.o
-                0x0000000020000070                efm32zg222f32_host
- .data.cmu      0x0000000020000584        0x4 ./efm32zg_types_HAL.o
-                0x0000000020000584                cmu
- .data.usart    0x0000000020000588        0x4 ./efm32zg_types_HAL.o
-                0x0000000020000588                usart
- .data.gpio     0x000000002000058c        0x4 ./efm32zg_types_HAL.o
-                0x000000002000058c                gpio
- .data.timer0   0x0000000020000590        0x4 ./efm32zg_types_HAL.o
-                0x0000000020000590                timer0
- .data.timer_ctrl_table
-                0x0000000020000594        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000594                timer_ctrl_table
- .data.timer_cmd_table
-                0x00000000200005a0        0xc ./efm32zg_timer_HAL.o
-                0x00000000200005a0                timer_cmd_table
- .data.timer_status_table
-                0x00000000200005ac        0xc ./efm32zg_timer_HAL.o
-                0x00000000200005ac                timer_status_table
- .data.timer_ien_table
-                0x00000000200005b8        0xc ./efm32zg_timer_HAL.o
-                0x00000000200005b8                timer_ien_table
- .data.timer_ifrsc_table
-                0x00000000200005c4        0xc ./efm32zg_timer_HAL.o
-                0x00000000200005c4                timer_ifrsc_table
- .data.timer_top_table
-                0x00000000200005d0        0xc ./efm32zg_timer_HAL.o
-                0x00000000200005d0                timer_top_table
- .data.timer_topb_table
-                0x00000000200005dc        0xc ./efm32zg_timer_HAL.o
-                0x00000000200005dc                timer_topb_table
- .data.timer_cnt_table
-                0x00000000200005e8        0xc ./efm32zg_timer_HAL.o
-                0x00000000200005e8                timer_cnt_table
- .data.timer_route_table
-                0x00000000200005f4        0xc ./efm32zg_timer_HAL.o
-                0x00000000200005f4                timer_route_table
- .data.timer_cc0_ctrl_table
-                0x0000000020000600        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000600                timer_cc0_ctrl_table
- .data.timer_cc0_ccv_table
-                0x000000002000060c        0xc ./efm32zg_timer_HAL.o
-                0x000000002000060c                timer_cc0_ccv_table
- .data.timer_cc0_ccvp_table
-                0x0000000020000618        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000618                timer_cc0_ccvp_table
- .data.timer_cc0_ccvb_table
-                0x0000000020000624        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000624                timer_cc0_ccvb_table
- .data.timer_cc1_ctrl_table
-                0x0000000020000630        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000630                timer_cc1_ctrl_table
- .data.timer_cc1_ccv_table
-                0x000000002000063c        0xc ./efm32zg_timer_HAL.o
-                0x000000002000063c                timer_cc1_ccv_table
- .data.timer_cc1_ccvp_table
-                0x0000000020000648        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000648                timer_cc1_ccvp_table
- .data.timer_cc1_ccvb_table
-                0x0000000020000654        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000654                timer_cc1_ccvb_table
- .data.timer_cc2_ctrl_table
-                0x0000000020000660        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000660                timer_cc2_ctrl_table
- .data.timer_cc2_ccv_table
-                0x000000002000066c        0xc ./efm32zg_timer_HAL.o
-                0x000000002000066c                timer_cc2_ccv_table
- .data.timer_cc2_ccvp_table
-                0x0000000020000678        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000678                timer_cc2_ccvp_table
- .data.timer_cc2_ccvb_table
-                0x0000000020000684        0xc ./efm32zg_timer_HAL.o
-                0x0000000020000684                timer_cc2_ccvb_table
  .data.impure_data
-                0x0000000020000690       0x60 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
-                0x00000000200006f0                . = ALIGN (0x4)
+                0x0000000020000000       0x60 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
+                0x0000000020000060                . = ALIGN (0x4)
  *(.ram)
-                0x00000000200006f0                . = ALIGN (0x4)
-                0x00000000200006f0                PROVIDE (__preinit_array_start = .)
+                0x0000000020000060                . = ALIGN (0x4)
+                0x0000000020000060                PROVIDE (__preinit_array_start = .)
  *(.preinit_array)
-                0x00000000200006f0                PROVIDE (__preinit_array_end = .)
-                0x00000000200006f0                . = ALIGN (0x4)
-                0x00000000200006f0                PROVIDE (__init_array_start = .)
+                0x0000000020000060                PROVIDE (__preinit_array_end = .)
+                0x0000000020000060                . = ALIGN (0x4)
+                0x0000000020000060                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array)
- .init_array    0x00000000200006f0        0x4 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
-                0x00000000200006f4                PROVIDE (__init_array_end = .)
-                0x00000000200006f4                . = ALIGN (0x4)
-                0x00000000200006f4                PROVIDE (__fini_array_start = .)
+ .init_array    0x0000000020000060        0x4 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
+                0x0000000020000064                PROVIDE (__init_array_end = .)
+                0x0000000020000064                . = ALIGN (0x4)
+                0x0000000020000064                PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array)
- .fini_array    0x00000000200006f4        0x4 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
-                0x00000000200006f8                PROVIDE (__fini_array_end = .)
+ .fini_array    0x0000000020000064        0x4 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
+                0x0000000020000068                PROVIDE (__fini_array_end = .)
  *(.jcr*)
-                0x00000000200006f8                . = ALIGN (0x4)
-                0x00000000200006f8                __data_end__ = .
+                0x0000000020000068                . = ALIGN (0x4)
+                0x0000000020000068                __data_end__ = .
 
-.igot.plt       0x00000000200006f8        0x0 load address 0x0000000000003f1c
- .igot.plt      0x00000000200006f8        0x0 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
+.igot.plt       0x0000000020000068        0x0 load address 0x00000000000005a8
+ .igot.plt      0x0000000020000068        0x0 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
 
-.bss            0x00000000200006f8      0x234 load address 0x0000000000003f1c
-                0x00000000200006f8                . = ALIGN (0x4)
-                0x00000000200006f8                __bss_start__ = .
+.bss            0x0000000020000068       0xac load address 0x00000000000005a8
+                0x0000000020000068                . = ALIGN (0x4)
+                0x0000000020000068                __bss_start__ = .
  *(.bss*)
  .bss.completed.8888
-                0x00000000200006f8        0x1 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
- *fill*         0x00000000200006f9        0x3 
+                0x0000000020000068        0x1 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
+ *fill*         0x0000000020000069        0x3 
  .bss.object.8893
-                0x00000000200006fc       0x18 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
- .bss.usart_periphconf
-                0x0000000020000714       0x38 ./config_efm32zg222f32.o
-                0x0000000020000714                usart_periphconf
- .bss.usart_frameconf
-                0x000000002000074c       0x40 ./config_efm32zg222f32.o
-                0x000000002000074c                usart_frameconf
- .bss.gpio_periphconf
-                0x000000002000078c       0x48 ./config_efm32zg222f32.o
-                0x000000002000078c                gpio_periphconf
+                0x000000002000006c       0x18 /usr/lib/gcc/arm-none-eabi/9.1.0/crtbegin.o
  .bss._global_atexit0
-                0x00000000200007d4       0x8c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__atexit.o)
+                0x0000000020000084       0x8c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__atexit.o)
  .bss._global_atexit
-                0x0000000020000860        0x4 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
-                0x0000000020000860                _global_atexit
+                0x0000000020000110        0x4 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
+                0x0000000020000110                _global_atexit
  *(COMMON)
- COMMON         0x0000000020000864       0xb2 ./config_efm32zg222f32.o
-                0x0000000020000864                usart_data
-                0x000000002000088c                gpio_data
-                0x000000002000089c                usart_status
-                0x00000000200008ac                timer_periphconf
-                0x0000000020000908                usart_error
- *fill*         0x0000000020000916        0x2 
- COMMON         0x0000000020000918       0x13 ./efm32zg222f32_adaptor.o
-                0x0000000020000918                usart_frameconf_rwc
-                0x0000000020000924                transmitBuffer
-                0x0000000020000928                receiveBuffer
-                0x000000002000092c                . = ALIGN (0x4)
- *fill*         0x000000002000092b        0x1 
-                0x000000002000092c                __bss_end__ = .
+                0x0000000020000114                . = ALIGN (0x4)
+                0x0000000020000114                __bss_end__ = .
 
-.heap           0x0000000020000930        0x0
-                0x0000000020000930                __HeapBase = .
-                0x0000000020000930                __end__ = .
-                0x0000000020000930                end = __end__
-                0x0000000020000930                _end = __end__
+.heap           0x0000000020000118        0x0
+                0x0000000020000118                __HeapBase = .
+                0x0000000020000118                __end__ = .
+                0x0000000020000118                end = __end__
+                0x0000000020000118                _end = __end__
  *(.heap*)
- .heap          0x0000000020000930        0x0 ./startup_efm32zg.o
-                0x0000000020000930                __HeapLimit = .
+ .heap          0x0000000020000118        0x0 ./startup_efm32zg.o
+                0x0000000020000118                __HeapLimit = .
 
-.stack_dummy    0x0000000020000930      0x400
+.stack_dummy    0x0000000020000118      0x400
  *(.stack*)
- .stack         0x0000000020000930      0x400 ./startup_efm32zg.o
+ .stack         0x0000000020000118      0x400 ./startup_efm32zg.o
                 0x0000000020001000                __StackTop = (ORIGIN (RAM) + LENGTH (RAM))
                 0x0000000020000c00                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
                 0x0000000020001000                PROVIDE (__stack = __StackTop)
@@ -2181,207 +1946,83 @@ OUTPUT(spongecake.axf elf32-littlearm)
  .ARM.attributes
                 0x0000000000000060       0x1b ./startup_efm32zg.o
  .ARM.attributes
-                0x000000000000007b       0x32 ./config_efm32zg222f32.o
+                0x000000000000007b       0x2c ./system_efm32zg.o
  .ARM.attributes
-                0x00000000000000ad       0x2c ./mpi_cmu.o
+                0x00000000000000a7       0x2c ./main.o
  .ARM.attributes
-                0x00000000000000d9       0x32 ./efm32zg_types_HAL.o
+                0x00000000000000d3       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-atexit.o)
  .ARM.attributes
-                0x000000000000010b       0x2c ./efm32zg_gpio_HAL.o
+                0x00000000000000ff       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
  .ARM.attributes
-                0x0000000000000137       0x2c ./efm32zg_gpio_IO_HAL.o
+                0x000000000000012b       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-fini.o)
  .ARM.attributes
-                0x0000000000000163       0x2c ./efm32zg222f32_adaptor.o
+                0x0000000000000157       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
  .ARM.attributes
-                0x000000000000018f       0x2c ./system_efm32zg.o
+                0x0000000000000183       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
  .ARM.attributes
-                0x00000000000001bb       0x2c ./efm32zg_timer_HAL.o
+                0x00000000000001af       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
  .ARM.attributes
-                0x00000000000001e7       0x2c ./main.o
+                0x00000000000001db       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__atexit.o)
  .ARM.attributes
-                0x0000000000000213       0x2c ./efm32zg_cmu_HAL.o
+                0x0000000000000207       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
  .ARM.attributes
-                0x000000000000023f       0x2c ./efm32zg_usart_IO_HAL.o
+                0x0000000000000233       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
  .ARM.attributes
-                0x000000000000026b       0x2c ./efm32zg_usart_HAL.o
+                0x000000000000025f       0x30 /usr/lib/gcc/arm-none-eabi/9.1.0/crtend.o
  .ARM.attributes
-                0x0000000000000297       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-atexit.o)
- .ARM.attributes
-                0x00000000000002c3       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
- .ARM.attributes
-                0x00000000000002ef       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-fini.o)
- .ARM.attributes
-                0x000000000000031b       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-impure.o)
- .ARM.attributes
-                0x0000000000000347       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
- .ARM.attributes
-                0x0000000000000373       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
- .ARM.attributes
-                0x000000000000039f       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__atexit.o)
- .ARM.attributes
-                0x00000000000003cb       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
- .ARM.attributes
-                0x00000000000003f7       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
- .ARM.attributes
-                0x0000000000000423       0x30 /usr/lib/gcc/arm-none-eabi/9.1.0/crtend.o
- .ARM.attributes
-                0x0000000000000453       0x1c /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
+                0x000000000000028f       0x1c /usr/lib/gcc/arm-none-eabi/9.1.0/crtn.o
 
 .comment        0x0000000000000000       0x1d
- .comment       0x0000000000000000       0x1d ./config_efm32zg222f32.o
+ .comment       0x0000000000000000       0x1d ./system_efm32zg.o
                                          0x1e (size before relaxing)
- .comment       0x000000000000001d       0x1e ./mpi_cmu.o
- .comment       0x000000000000001d       0x1e ./efm32zg_types_HAL.o
- .comment       0x000000000000001d       0x1e ./efm32zg_gpio_HAL.o
- .comment       0x000000000000001d       0x1e ./efm32zg_gpio_IO_HAL.o
- .comment       0x000000000000001d       0x1e ./efm32zg222f32_adaptor.o
- .comment       0x000000000000001d       0x1e ./system_efm32zg.o
- .comment       0x000000000000001d       0x1e ./efm32zg_timer_HAL.o
  .comment       0x000000000000001d       0x1e ./main.o
- .comment       0x000000000000001d       0x1e ./efm32zg_cmu_HAL.o
- .comment       0x000000000000001d       0x1e ./efm32zg_usart_IO_HAL.o
- .comment       0x000000000000001d       0x1e ./efm32zg_usart_HAL.o
 
-.debug_line     0x0000000000000000     0x4265
+.debug_line     0x0000000000000000      0x93c
  .debug_line    0x0000000000000000       0xaa ./startup_efm32zg.o
- .debug_line    0x00000000000000aa      0x2cc ./config_efm32zg222f32.o
- .debug_line    0x0000000000000376       0xd0 ./mpi_cmu.o
- .debug_line    0x0000000000000446      0x219 ./efm32zg_types_HAL.o
- .debug_line    0x000000000000065f      0x90c ./efm32zg_gpio_HAL.o
- .debug_line    0x0000000000000f6b      0x330 ./efm32zg_gpio_IO_HAL.o
- .debug_line    0x000000000000129b      0x627 ./efm32zg222f32_adaptor.o
- .debug_line    0x00000000000018c2      0x4d0 ./system_efm32zg.o
- .debug_line    0x0000000000001d92      0x929 ./efm32zg_timer_HAL.o
- .debug_line    0x00000000000026bb      0x3b0 ./main.o
- .debug_line    0x0000000000002a6b      0xac9 ./efm32zg_cmu_HAL.o
- .debug_line    0x0000000000003534      0x725 ./efm32zg_usart_IO_HAL.o
- .debug_line    0x0000000000003c59      0x60c ./efm32zg_usart_HAL.o
+ .debug_line    0x00000000000000aa      0x4d0 ./system_efm32zg.o
+ .debug_line    0x000000000000057a      0x3c2 ./main.o
 
-.debug_info     0x0000000000000000    0x14a6c
+.debug_info     0x0000000000000000     0x4058
  .debug_info    0x0000000000000000       0x26 ./startup_efm32zg.o
- .debug_info    0x0000000000000026     0x220b ./config_efm32zg222f32.o
- .debug_info    0x0000000000002231      0x13f ./mpi_cmu.o
- .debug_info    0x0000000000002370     0x11b5 ./efm32zg_types_HAL.o
- .debug_info    0x0000000000003525     0x1dfd ./efm32zg_gpio_HAL.o
- .debug_info    0x0000000000005322     0x143c ./efm32zg_gpio_IO_HAL.o
- .debug_info    0x000000000000675e     0x28e6 ./efm32zg222f32_adaptor.o
- .debug_info    0x0000000000009044      0xf2d ./system_efm32zg.o
- .debug_info    0x0000000000009f71     0x1ef0 ./efm32zg_timer_HAL.o
- .debug_info    0x000000000000be61     0x309d ./main.o
- .debug_info    0x000000000000eefe     0x2265 ./efm32zg_cmu_HAL.o
- .debug_info    0x0000000000011163     0x1ff4 ./efm32zg_usart_IO_HAL.o
- .debug_info    0x0000000000013157     0x1915 ./efm32zg_usart_HAL.o
+ .debug_info    0x0000000000000026      0xf2d ./system_efm32zg.o
+ .debug_info    0x0000000000000f53     0x3105 ./main.o
 
-.debug_abbrev   0x0000000000000000     0x1d38
+.debug_abbrev   0x0000000000000000      0x58f
  .debug_abbrev  0x0000000000000000       0x14 ./startup_efm32zg.o
- .debug_abbrev  0x0000000000000014      0x227 ./config_efm32zg222f32.o
- .debug_abbrev  0x000000000000023b       0xa4 ./mpi_cmu.o
- .debug_abbrev  0x00000000000002df      0x1ee ./efm32zg_types_HAL.o
- .debug_abbrev  0x00000000000004cd      0x2cb ./efm32zg_gpio_HAL.o
- .debug_abbrev  0x0000000000000798      0x285 ./efm32zg_gpio_IO_HAL.o
- .debug_abbrev  0x0000000000000a1d      0x312 ./efm32zg222f32_adaptor.o
- .debug_abbrev  0x0000000000000d2f      0x2c8 ./system_efm32zg.o
- .debug_abbrev  0x0000000000000ff7      0x291 ./efm32zg_timer_HAL.o
- .debug_abbrev  0x0000000000001288      0x2b3 ./main.o
- .debug_abbrev  0x000000000000153b      0x291 ./efm32zg_cmu_HAL.o
- .debug_abbrev  0x00000000000017cc      0x2ec ./efm32zg_usart_IO_HAL.o
- .debug_abbrev  0x0000000000001ab8      0x280 ./efm32zg_usart_HAL.o
+ .debug_abbrev  0x0000000000000014      0x2c8 ./system_efm32zg.o
+ .debug_abbrev  0x00000000000002dc      0x2b3 ./main.o
 
-.debug_aranges  0x0000000000000000      0x920
+.debug_aranges  0x0000000000000000       0xb0
  .debug_aranges
                 0x0000000000000000       0x20 ./startup_efm32zg.o
  .debug_aranges
-                0x0000000000000020       0x18 ./config_efm32zg222f32.o
+                0x0000000000000020       0x68 ./system_efm32zg.o
  .debug_aranges
-                0x0000000000000038       0x28 ./mpi_cmu.o
- .debug_aranges
-                0x0000000000000060       0x18 ./efm32zg_types_HAL.o
- .debug_aranges
-                0x0000000000000078      0x1a8 ./efm32zg_gpio_HAL.o
- .debug_aranges
-                0x0000000000000220       0x50 ./efm32zg_gpio_IO_HAL.o
- .debug_aranges
-                0x0000000000000270       0x70 ./efm32zg222f32_adaptor.o
- .debug_aranges
-                0x00000000000002e0       0x68 ./system_efm32zg.o
- .debug_aranges
-                0x0000000000000348      0x1c0 ./efm32zg_timer_HAL.o
- .debug_aranges
-                0x0000000000000508       0x28 ./main.o
- .debug_aranges
-                0x0000000000000530      0x230 ./efm32zg_cmu_HAL.o
- .debug_aranges
-                0x0000000000000760       0xb8 ./efm32zg_usart_IO_HAL.o
- .debug_aranges
-                0x0000000000000818      0x108 ./efm32zg_usart_HAL.o
+                0x0000000000000088       0x28 ./main.o
 
-.debug_str      0x0000000000000000     0x3cc5
+.debug_str      0x0000000000000000     0x1f21
  .debug_str     0x0000000000000000       0x8e ./startup_efm32zg.o
- .debug_str     0x000000000000008e     0x118f ./config_efm32zg222f32.o
-                                       0x12d6 (size before relaxing)
- .debug_str     0x000000000000121d       0x97 ./mpi_cmu.o
-                                        0x20d (size before relaxing)
- .debug_str     0x00000000000012b4       0x35 ./efm32zg_types_HAL.o
-                                        0x88b (size before relaxing)
- .debug_str     0x00000000000012e9      0x583 ./efm32zg_gpio_HAL.o
-                                        0xe89 (size before relaxing)
- .debug_str     0x000000000000186c       0xcd ./efm32zg_gpio_IO_HAL.o
-                                        0x9a1 (size before relaxing)
- .debug_str     0x0000000000001939      0x213 ./efm32zg222f32_adaptor.o
-                                       0x1455 (size before relaxing)
- .debug_str     0x0000000000001b4c      0x1d3 ./system_efm32zg.o
+ .debug_str     0x000000000000008e      0x709 ./system_efm32zg.o
                                         0x7a5 (size before relaxing)
- .debug_str     0x0000000000001d1f      0x5be ./efm32zg_timer_HAL.o
-                                        0xec1 (size before relaxing)
- .debug_str     0x00000000000022dd      0xb57 ./main.o
-                                       0x1e3e (size before relaxing)
- .debug_str     0x0000000000002e34      0x735 ./efm32zg_cmu_HAL.o
-                                       0x10ab (size before relaxing)
- .debug_str     0x0000000000003569      0x431 ./efm32zg_usart_IO_HAL.o
-                                       0x1034 (size before relaxing)
- .debug_str     0x000000000000399a      0x32b ./efm32zg_usart_HAL.o
-                                        0xc0a (size before relaxing)
+ .debug_str     0x0000000000000797     0x178a ./main.o
+                                       0x1e4b (size before relaxing)
 
-.debug_loc      0x0000000000000000     0x3730
- .debug_loc     0x0000000000000000       0x70 ./mpi_cmu.o
- .debug_loc     0x0000000000000070      0xae4 ./efm32zg_gpio_HAL.o
- .debug_loc     0x0000000000000b54      0x188 ./efm32zg_gpio_IO_HAL.o
- .debug_loc     0x0000000000000cdc      0x26a ./efm32zg222f32_adaptor.o
- .debug_loc     0x0000000000000f46      0x256 ./system_efm32zg.o
- .debug_loc     0x000000000000119c      0xb98 ./efm32zg_timer_HAL.o
- .debug_loc     0x0000000000001d34       0x64 ./main.o
- .debug_loc     0x0000000000001d98      0xea8 ./efm32zg_cmu_HAL.o
- .debug_loc     0x0000000000002c40      0x460 ./efm32zg_usart_IO_HAL.o
- .debug_loc     0x00000000000030a0      0x690 ./efm32zg_usart_HAL.o
+.debug_loc      0x0000000000000000      0x2ba
+ .debug_loc     0x0000000000000000      0x256 ./system_efm32zg.o
+ .debug_loc     0x0000000000000256       0x64 ./main.o
 
-.debug_ranges   0x0000000000000000      0x928
- .debug_ranges  0x0000000000000000       0x18 ./mpi_cmu.o
- .debug_ranges  0x0000000000000018      0x198 ./efm32zg_gpio_HAL.o
- .debug_ranges  0x00000000000001b0       0x40 ./efm32zg_gpio_IO_HAL.o
- .debug_ranges  0x00000000000001f0       0x60 ./efm32zg222f32_adaptor.o
- .debug_ranges  0x0000000000000250      0x150 ./system_efm32zg.o
- .debug_ranges  0x00000000000003a0      0x1b0 ./efm32zg_timer_HAL.o
- .debug_ranges  0x0000000000000550       0x18 ./main.o
- .debug_ranges  0x0000000000000568      0x220 ./efm32zg_cmu_HAL.o
- .debug_ranges  0x0000000000000788       0xa8 ./efm32zg_usart_IO_HAL.o
- .debug_ranges  0x0000000000000830       0xf8 ./efm32zg_usart_HAL.o
+.debug_ranges   0x0000000000000000      0x168
+ .debug_ranges  0x0000000000000000      0x150 ./system_efm32zg.o
+ .debug_ranges  0x0000000000000150       0x18 ./main.o
 
-.debug_frame    0x0000000000000000     0x20d4
- .debug_frame   0x0000000000000000       0x50 ./mpi_cmu.o
- .debug_frame   0x0000000000000050      0x64c ./efm32zg_gpio_HAL.o
- .debug_frame   0x000000000000069c       0xf0 ./efm32zg_gpio_IO_HAL.o
- .debug_frame   0x000000000000078c      0x170 ./efm32zg222f32_adaptor.o
- .debug_frame   0x00000000000008fc       0xc0 ./system_efm32zg.o
- .debug_frame   0x00000000000009bc      0x6b0 ./efm32zg_timer_HAL.o
- .debug_frame   0x000000000000106c       0x4c ./main.o
- .debug_frame   0x00000000000010b8      0x870 ./efm32zg_cmu_HAL.o
- .debug_frame   0x0000000000001928      0x290 ./efm32zg_usart_IO_HAL.o
- .debug_frame   0x0000000000001bb8      0x3d0 ./efm32zg_usart_HAL.o
- .debug_frame   0x0000000000001f88       0x28 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-atexit.o)
- .debug_frame   0x0000000000001fb0       0x28 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
- .debug_frame   0x0000000000001fd8       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-fini.o)
- .debug_frame   0x0000000000002004       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
- .debug_frame   0x0000000000002030       0x20 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
- .debug_frame   0x0000000000002050       0x30 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__atexit.o)
- .debug_frame   0x0000000000002080       0x34 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
- .debug_frame   0x00000000000020b4       0x20 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)
+.debug_frame    0x0000000000000000      0x258
+ .debug_frame   0x0000000000000000       0xc0 ./system_efm32zg.o
+ .debug_frame   0x00000000000000c0       0x4c ./main.o
+ .debug_frame   0x000000000000010c       0x28 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-atexit.o)
+ .debug_frame   0x0000000000000134       0x28 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-exit.o)
+ .debug_frame   0x000000000000015c       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-fini.o)
+ .debug_frame   0x0000000000000188       0x2c /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-init.o)
+ .debug_frame   0x00000000000001b4       0x20 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-memset.o)
+ .debug_frame   0x00000000000001d4       0x30 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__atexit.o)
+ .debug_frame   0x0000000000000204       0x34 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libc_nano.a(lib_a-__call_atexit.o)
+ .debug_frame   0x0000000000000238       0x20 /usr/arm-none-eabi/lib/thumb/v6-m/nofp/libnosys.a(_exit.o)

@@ -275,37 +275,46 @@ typedef struct {
  *                               GPIO
  ***********************************************************************/
 
-typedef struct { 
+#define GPIO_PERIPHCONF_INDEX   5
+#define GPIO_DATA_INDEX         6
+
+#define GPIO_PORTS  5
+
+typedef struct {
+  uint32_t douttgl;
+	uint32_t dout;
+	uint32_t din;
+}GPIO_port_data;
+
+typedef struct {
+  GPIO_port_data P[GPIO_PORTS];
+  uint32_t port;
+}GPIO_data;
+
+typedef struct {
 	uint32_t ctrl;
 	uint32_t pinmodeL;
 	uint32_t pinmodeH;
 	uint32_t pinlockn;
-	uint32_t extipselectL;
+}GPIO_port_conf;
+
+typedef struct { 
+  GPIO_port_conf P[GPIO_PORTS];
+  uint32_t extipselectL;
 	uint32_t extipselectH;
 	uint32_t extirise;
 	uint32_t extifall;
 	uint32_t ien;
 	uint32_t intf;
-	uint32_t swdswc;
+	uint32_t route;
 	uint32_t insense;
 	uint32_t lock;
 	uint32_t em4ret;
 	uint32_t em4wuen;
 	uint32_t em4wupol;
 	uint32_t em4wucause;
-	uint32_t ports;
+	uint32_t port;
 }GPIO_periphconf;
-
-typedef struct {
-	const uint32_t douttgl;
-	uint32_t dout;
-	uint32_t din;
-	uint32_t ports;
-}GPIO_data;
-
-#define GPIO_PERIPHCONF_INDEX   5
-#define GPIO_DATA_INDEX         6
-
 
 
 /***********************************************************************

@@ -22,49 +22,40 @@
 
 int zg_gpioReadIn(GPIO_data* MPI_data)
 {
-	MPI_data->din = gpio->P[MPI_data->ports].DIN;
+	MPI_data->P[MPI_data->port].din = gpio->P[MPI_data->port].DIN;
 	return 0;
 }
 
 int zg_gpioOutTgl(GPIO_data* MPI_data)
 {
-	gpio->P[MPI_data->ports].DOUTTGL = MPI_data->douttgl;
+	gpio->P[MPI_data->port].DOUTTGL = MPI_data->P[MPI_data->port].douttgl;
 	return 0;
 }
 
 int zg_gpioOutRead(GPIO_data* MPI_data)
 {
-	MPI_data->dout = gpio->P[MPI_data->ports].DOUT;
+	MPI_data->P[MPI_data->port].dout = gpio->P[MPI_data->port].DOUT;
 	return 0;
 
 }
 
 int zg_gpioOutWrite(GPIO_data* MPI_data)
 {
-	gpio->P[MPI_data->ports].DOUT |= MPI_data->dout;
+	gpio->P[MPI_data->port].DOUT |= MPI_data->P[MPI_data->port].dout;
 	return 0;
 }
 
 int zg_gpioOutClr(GPIO_data* MPI_data)
 {
-	gpio->P[MPI_data->ports].DOUT &= ~MPI_data->dout;
+	gpio->P[MPI_data->port].DOUTCLR &= ~MPI_data->P[MPI_data->port].dout;
 	return 0;
 }
 
-int(*const gpio_pinin_read 		[GPIO_READ_WRITE_CLEAR])()= 
-{zg_gpioReadIn, NULL, NULL};
-
-int(*const gpio_out				    [GPIO_READ_WRITE_CLEAR])()= 
-{zg_gpioOutRead, zg_gpioOutWrite, zg_gpioOutClr};
-
-int(*const gpio_pinout_tgl 		[GPIO_READ_WRITE_CLEAR])()= 
-{NULL, NULL, zg_gpioOutTgl};
-
 void gpio_assign_rx_data(GPIO_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  slave_obj_data_array[index] = host_obj_buffer->din;
+  slave_obj_data_array[index] = host_obj_buffer->P[host_obj_buffer->port].din;
 }
 void gpio_assign_tx_data(GPIO_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  host_obj_buffer->dout = slave_obj_data_array[index];
+  host_obj_buffer->P[host_obj_buffer->port].dout = slave_obj_data_array[index];
 }
 
 void(*const gpio_IO_host_slave_transfer[USART_READ_WRITE])() = 
@@ -72,6 +63,16 @@ void(*const gpio_IO_host_slave_transfer[USART_READ_WRITE])() =
   gpio_assign_rx_data,
   gpio_assign_tx_data  
 };
+
+int(*const gpio_pinin_read [GPIO_READ_WRITE_CLEAR])()= 
+  {zg_gpioReadIn, NULL, NULL};
+
+int(*const gpio_out [GPIO_READ_WRITE_CLEAR])()= 
+  {zg_gpioOutRead, zg_gpioOutWrite, zg_gpioOutClr};
+
+int(*const gpio_pinout_tgl [GPIO_READ_WRITE_CLEAR])()= 
+  {NULL, NULL, zg_gpioOutTgl};
+
 
 int(*const *const gpio_I_O_TGL[GPIO_READ_WRITE_CLEAR])() = 
 {
