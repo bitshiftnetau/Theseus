@@ -64,20 +64,13 @@ void(*const gpio_IO_host_slave_transfer[USART_READ_WRITE])() =
   gpio_assign_tx_data  
 };
 
-int(*const gpio_pinin_read [GPIO_READ_WRITE_CLEAR])()= 
-  {zg_gpioReadIn, NULL, NULL};
+int(*const gpio_pinin_read [1])()= 
+  {zg_gpioReadIn};
 
 int(*const gpio_out [GPIO_READ_WRITE_CLEAR])()= 
   {zg_gpioOutRead, zg_gpioOutWrite, zg_gpioOutClr};
 
-int(*const gpio_pinout_tgl [GPIO_READ_WRITE_CLEAR])()= 
-  {NULL, NULL, zg_gpioOutTgl};
+int(*const gpio_pinout_tgl [1])()= 
+  {zg_gpioOutTgl};
 
-
-int(*const *const gpio_I_O_TGL[GPIO_READ_WRITE_CLEAR])() = 
-{
-  gpio_pinin_read, 
-  gpio_out, 
-  gpio_pinout_tgl
-};
 

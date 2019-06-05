@@ -83,19 +83,21 @@
 int usart_Init(void* host_ptr, uint32_t RWC){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
-  USART_frameconf* MPI_frameconf = (USART_frameconf*)efm32zg_host_ptr->MPI_data[USART_FRAMECONF_INDEX];
+  //USART_frameconf* MPI_frameconf = (USART_frameconf*)efm32zg_host_ptr->MPI_data[USART_FRAMECONF_INDEX];
   USART_periphconf* MPI_usart_periphconf = (USART_periphconf*)efm32zg_host_ptr->MPI_data[USART_PERIPHCONF_INDEX];
 
 
-  zg_TxIntSetup(true);
-  zg_RxIntSetup(true);
+  zg_TxIntSetup(false);
+  zg_RxIntSetup(false);
 
+  /*
 	if(MPI_frameconf != NULL){
 		int ret = 0;
 		int(*frame_conf_fn)() = usart_frameconf_rwc[RWC];
 		ret = frame_conf_fn(MPI_frameconf);
 		return ret > 0 ? 1 : 0;
 	}
+  */
 
   if(MPI_usart_periphconf	!= NULL){
 
@@ -145,7 +147,7 @@ int usart_ConfigReg(void* host_ptr, uint32_t RWC){
  *
  */
 
-int usart_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
+int usart_Data(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   USART_data* MPI_buffer = (USART_data*)efm32zg_host_ptr->MPI_data[USART_DATA_INDEX];
@@ -234,6 +236,12 @@ int gpio_Init(void* host_ptr, uint32_t RWC){
        }
      i+=1;
 	  }
+
+
+    /*
+     *  ADD LOOP TO GO THROUGH EACH PORT: CURRENTLY WE CAN ONLY INITIALIZE ONE PORT ON BOOT
+     */
+
   }
 	return 0;
 }
@@ -297,54 +305,21 @@ int gpio_ConfigReg(void* host_ptr, uint32_t RWC){
  *  USE BETWEEN DEVICES, BUT THIS FN IS INTERNAL
  *
  */ 
-int gpio_IO(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
+int gpio_Data(void* host_ptr, uint32_t RWT){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   GPIO_data* gpio_data = (GPIO_data*)efm32zg_host_ptr->MPI_data[GPIO_DATA_INDEX];
-
-  void(*const transfer_data_host_slave_ptr)() = gpio_IO_host_slave_transfer[RW]; 
-  int(*const gpio_IO_ptr)() = gpio_I_O_TGL[RW][RW];
   
-  if(RW == READ){
-    for(int slave_obj_buffer_index = 0; slave_obj_buffer_index < array_len ;slave_obj_buffer_index++){
+  if(RWT == READ){
+      int(*const gpio_IO_ptr)() = gpio_pinin_read[0]; 
       gpio_IO_ptr(gpio_data);
-      transfer_data_host_slave_ptr(gpio_data, ext_dev_array, slave_obj_buffer_index);    
-    }
-  } else if(RW == WRITE){
-    for(int slave_obj_buffer_index = 0; slave_obj_buffer_index < array_len; slave_obj_buffer_index++){
-      transfer_data_host_slave_ptr(gpio_data, ext_dev_array, slave_obj_buffer_index); 
-	    gpio_IO_ptr(gpio_data);
-    }
+    } else if(RWT == WRITE){
+	    int(*const gpio_IO_ptr)() = gpio_out[RWT];
+      gpio_IO_ptr(gpio_data);
+    } else if(RWT == TGL){
+      int(*const gpio_IO_ptr)() = gpio_pinout_tgl[0];
+      gpio_IO_ptr(gpio_data);
   }
-  return 0;
-}
-
-/*
- * USE THIS FN FOR SIMPLE BOOLEAN INDICATORS
- */
-int gpio_RW(void* host_ptr, uint32_t RW){
-
-  MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
-  GPIO_data* gpio_data = (GPIO_data*)efm32zg_host_ptr->MPI_data[GPIO_DATA_INDEX];
-
-  int(*const gpio_IO_ptr)() = gpio_I_O_TGL[RW][RW];
-
-  gpio_IO_ptr(gpio_data);
-  
-  return 0;
-}
-
-int gpio_Tgl(void* host_ptr, uint32_t RW){
-
-  RW = TOGGLE;
-  
-  MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
-  GPIO_data* gpio_data = (GPIO_data*)efm32zg_host_ptr->MPI_data[GPIO_DATA_INDEX];
-  
-  int(*const gpio_IO_ptr)() = gpio_I_O_TGL[RW][RW];
-
-  gpio_IO_ptr(gpio_data);
- 
   return 0;
 }
 
@@ -392,12 +367,17 @@ int cmu_Init(void* host_ptr, uint32_t	RWC){
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   CMU_periphconf* cmu_periphconf = (CMU_periphconf*)efm32zg_host_ptr->MPI_data[CMU_PERIPHCONF_INDEX];
 
-  int(*fn_ptr)();
+  int(*fn_ptr)() = NULL;
   int ret = 0;
 	int i = 0;
 
   cmu_periphconf->hfrcoctrl |= *CMU_DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in config layer
   cmu_periphconf->tuningval = CMU_DEFAULT_BOOT_TUNE;
+
+  fn_ptr = cmu_oscencmd_WRITE[0];
+  ret = fn_ptr(cmu_periphconf);
+  fn_ptr = cmu_cmd_WRITE[0];
+  ret = fn_ptr(cmu_periphconf); 
 
 	while(cmu_config_table[i] != NULL){
 		fn_ptr = cmu_config_table[i][RWC];
@@ -487,5 +467,14 @@ int timer_ConfigReg(void* host_ptr, uint32_t RWC){
 
 	fn_ptr = timer_config_table[efm32zg_host_ptr->config_register][RWC];
 	return fn_ptr(timer_periphconf);
+}
+
+
+void timer_Delay(uint32_t dlyTicks)
+{
+  uint32_t curTicks;
+
+  curTicks = msTicks;
+  while ((msTicks - curTicks) < dlyTicks);
 }
 

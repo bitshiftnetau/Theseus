@@ -110,8 +110,17 @@ typedef struct {
 }TIMER_periphconf;
 */
 
-TIMER_periphconf timer_periphconf;
+TIMER_periphconf timer_periphconf = {
+ .ctrl = 0,
+ .cmd = //set the timer to start ,
+ .ien = //enable overflow ,
+ .topb = TIMERn_TOPms,
 
+};
+
+
+
+//timer 
 
 /**************
  *    USART
@@ -161,9 +170,6 @@ typedef struct {
 }USART_periphconf;
 */
 
-#define USART_BAUD_9600 (0b00000010011001UL << 6)
-#define USART_BAUD_19200 (0b00000010011001UL << 6)
-
 USART_data usart_data;
 USART_error usart_error;
 USART_status usart_status;
@@ -178,7 +184,10 @@ USART_periphconf usart_periphconf = {
 };
 
 USART_frameconf usart_frameconf = {
-
+  /*.bitwidth = ,
+  .rxenat0 = ,
+  .rxenat1 ...
+    ...*/
 };
 
 
@@ -224,24 +233,25 @@ typedef struct {
 }GPIO_periphconf;
 */
 
-#define GPIO_P_DOUT_DEFAULT 0x00000001UL
+#define GPIO_P_DOUT_DEFAULT 0x01
 
-#define GPIO_P_DOUT_1  (GPIO_P_DOUT_DEFAULT << 0) 
-#define GPIO_P_DOUT_2  (GPIO_P_DOUT_DEFAULT << 1)
-#define GPIO_P_DOUT_3  (GPIO_P_DOUT_DEFAULT << 2)
-#define GPIO_P_DOUT_4  (GPIO_P_DOUT_DEFAULT << 3)
-#define GPIO_P_DOUT_5  (GPIO_P_DOUT_DEFAULT << 4)
-#define GPIO_P_DOUT_6  (GPIO_P_DOUT_DEFAULT << 5)
-#define GPIO_P_DOUT_7  (GPIO_P_DOUT_DEFAULT << 6)
+#define GPIO_P_DOUT_0  (GPIO_P_DOUT_DEFAULT << 0) 
+#define GPIO_P_DOUT_1  (GPIO_P_DOUT_DEFAULT << 1)
+#define GPIO_P_DOUT_2  (GPIO_P_DOUT_DEFAULT << 2)
+#define GPIO_P_DOUT_3  (GPIO_P_DOUT_DEFAULT << 3)
+#define GPIO_P_DOUT_4  (GPIO_P_DOUT_DEFAULT << 4)
+#define GPIO_P_DOUT_5  (GPIO_P_DOUT_DEFAULT << 5)
+#define GPIO_P_DOUT_6  (GPIO_P_DOUT_DEFAULT << 6)
+#define GPIO_P_DOUT_7  (GPIO_P_DOUT_DEFAULT << 7)
 
-#define GPIO_P_DOUT_8  (GPIO_P_DOUT_DEFAULT << 7)
-#define GPIO_P_DOUT_9  (GPIO_P_DOUT_DEFAULT << 8)
-#define GPIO_P_DOUT_10 (GPIO_P_DOUT_DEFAULT << 9)
-#define GPIO_P_DOUT_11 (GPIO_P_DOUT_DEFAULT << 10)
-#define GPIO_P_DOUT_12 (GPIO_P_DOUT_DEFAULT << 11)
-#define GPIO_P_DOUT_13 (GPIO_P_DOUT_DEFAULT << 12)
-#define GPIO_P_DOUT_14 (GPIO_P_DOUT_DEFAULT << 13)
-#define GPIO_P_DOUT_15 (GPIO_P_DOUT_DEFAULT << 14)
+#define GPIO_P_DOUT_8  (GPIO_P_DOUT_DEFAULT << 8)
+#define GPIO_P_DOUT_9  (GPIO_P_DOUT_DEFAULT << 9)
+#define GPIO_P_DOUT_10 (GPIO_P_DOUT_DEFAULT << 10)
+#define GPIO_P_DOUT_11 (GPIO_P_DOUT_DEFAULT << 11)
+#define GPIO_P_DOUT_12 (GPIO_P_DOUT_DEFAULT << 12)
+#define GPIO_P_DOUT_13 (GPIO_P_DOUT_DEFAULT << 13)
+#define GPIO_P_DOUT_14 (GPIO_P_DOUT_DEFAULT << 14)
+#define GPIO_P_DOUT_15 (GPIO_P_DOUT_DEFAULT << 15)
 
 
 
@@ -257,7 +267,7 @@ GPIO_data gpio_data = {
       .dout = GPIO_P_DOUT_10 | GPIO_P_DOUT_11
     },
     [PORTD] = {
-      .dout = 0
+      .dout = GPIO_P_DOUT_4
     },
     [PORTE] = {
       .dout = 0
@@ -306,9 +316,8 @@ MPI_host efm32zg222f32_host = {
     ._usart_config_reg = usart_ConfigReg,
     ._gpio_config_reg = gpio_ConfigReg,
 
-    ._usart_io = usart_IO,
-    ._gpio_io = gpio_RW,
-    ._gpio_tgl = gpio_Tgl
+    ._usart_data = usart_Data,
+    ._gpio_data = gpio_Data,
 
   },
   .MPI_data = {

@@ -31,17 +31,11 @@ int (*const cmu_lfrcoctrl_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_auxhfrcoctrl_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_calctrl_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_calcnt_table[CMU_READ_WRITE_CLEAR])();
-int (*const cmu_oscencmd_table[CMU_READ_WRITE_CLEAR])();
-int (*const cmu_cmd_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_lfclksel_table[CMU_READ_WRITE_CLEAR])();
-int (*const cmu_status_table[CMU_READ_WRITE_CLEAR])();
-int (*const cmu_intfread_table[CMU_READ_WRITE_CLEAR])();
-int (*const cmu_intfset_table[CMU_READ_WRITE_CLEAR])();
-int (*const cmu_intfclear_table[CMU_READ_WRITE_CLEAR])();
+int (*const cmu_intf_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_inten_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_hfcoreclken0_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_hfperclken0_table[CMU_READ_WRITE_CLEAR])();
-int (*const cmu_syncbusy_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_freeze_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_lfaclken0_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_lfbclken0_table[CMU_READ_WRITE_CLEAR])();
@@ -61,17 +55,11 @@ int (*const *const cmu_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
   cmu_auxhfrcoctrl_table,
   cmu_calctrl_table,
   cmu_calcnt_table,
-  cmu_oscencmd_table,
-  cmu_cmd_table,
   cmu_lfclksel_table,
-  cmu_status_table,
-  cmu_intfread_table,
-  cmu_intfset_table,
-  cmu_intfclear_table,
+  cmu_intf_table,
   cmu_inten_table,
   cmu_hfcoreclken0_table,
   cmu_hfperclken0_table,
-  cmu_syncbusy_table,
   cmu_freeze_table,
   cmu_lfaclken0_table,
   cmu_lfbclken0_table,
@@ -240,7 +228,7 @@ int zg_cmuCalcntClr(CMU_periphconf* MPI_conf)
 
 int zg_cmuOscencmdWrite(CMU_periphconf* MPI_conf)
 {
-  cmu->OSCENCMD |= MPI_conf->oscencmd;
+  cmu->OSCENCMD = MPI_conf->oscencmd;
   return 0;
 }
 
@@ -277,20 +265,20 @@ int zg_cmuStatusRead(CMU_periphconf* MPI_conf)
   return 0;
 }
 
-int zg_cmuIntfreadRead(CMU_periphconf* MPI_conf)
+int zg_cmuIntfRead(CMU_periphconf* MPI_conf)
 {
   MPI_conf->intfread = cmu->IF;
   return 0;
 }
 
 
-int zg_cmuIntfsetWrite(CMU_periphconf* MPI_conf)
+int zg_cmuIntfWrite(CMU_periphconf* MPI_conf)
 {
   cmu->IFS |= MPI_conf->intfset;
   return 0;
 }
 
-int zg_cmuIntfclearClr(CMU_periphconf* MPI_conf)
+int zg_cmuIntfClr(CMU_periphconf* MPI_conf)
 {
   cmu->IFC &= ~MPI_conf->intfclear;
   return 0;
@@ -537,26 +525,11 @@ int (*const cmu_calctrl_table[CMU_READ_WRITE_CLEAR])() =
 int (*const cmu_calcnt_table[CMU_READ_WRITE_CLEAR])() = 
 {zg_cmuCalcntRead, zg_cmuCalcntWrite, zg_cmuCalcntClr};
 
-int (*const cmu_oscencmd_table[CMU_READ_WRITE_CLEAR])() = 
-{NULL, zg_cmuOscencmdWrite, NULL};
-
-int (*const cmu_cmd_table[CMU_READ_WRITE_CLEAR])() = 
-{NULL, zg_cmuCmdWrite, NULL};
-
 int (*const cmu_lfclksel_table[CMU_READ_WRITE_CLEAR])() = 
 {zg_cmuLfclkselRead, zg_cmuLfclkselWrite, zg_cmuLfclkselClr};
 
-int (*const cmu_status_table[CMU_READ_WRITE_CLEAR])() = 
-{zg_cmuStatusRead, NULL, NULL};
-
-int (*const cmu_intfread_table[CMU_READ_WRITE_CLEAR])() = 
-{zg_cmuIntfreadRead, NULL, NULL};
-
-int (*const cmu_intfset_table[CMU_READ_WRITE_CLEAR])() =
-{NULL, zg_cmuIntfsetWrite, NULL};
-
-int (*const cmu_intfclear_table[CMU_READ_WRITE_CLEAR])() =
-{NULL, NULL, zg_cmuIntfclearClr};
+int (*const cmu_intf_table[CMU_READ_WRITE_CLEAR])() = 
+{zg_cmuIntfRead, zg_cmuIntfWrite, zg_cmuIntfClr};
 
 int (*const cmu_inten_table[CMU_READ_WRITE_CLEAR])() = 
 {zg_cmuIntenRead, zg_cmuIntenWrite, zg_cmuIntenClr};
@@ -566,9 +539,6 @@ int (*const cmu_hfcoreclken0_table[CMU_READ_WRITE_CLEAR])() =
 
 int (*const cmu_hfperclken0_table[CMU_READ_WRITE_CLEAR])() = 
 {zg_cmuHfperclken0Read, zg_cmuHfperclken0Write, zg_cmuHfperclken0Clr};
-
-int (*const cmu_syncbusy_table[CMU_READ_WRITE_CLEAR])() =
-{zg_cmuSyncbusyRead, NULL, NULL};
 
 int (*const cmu_freeze_table[CMU_READ_WRITE_CLEAR])() = 
 {zg_cmuFreezeRead, zg_cmuFreezeWrite, zg_cmuFreezeClr};
@@ -595,6 +565,17 @@ int (*const cmu_lock_table[CMU_READ_WRITE_CLEAR])() =
 {zg_cmuLockRead, zg_cmuLockWrite, zg_cmuLockClr};
 
 
+int (*const cmu_oscencmd_WRITE[1])() = 
+{zg_cmuOscencmdWrite};
+
+int (*const cmu_cmd_WRITE[1])() = 
+{zg_cmuCmdWrite};
+
+int (*const cmu_status_READ[1])() = 
+{zg_cmuStatusRead};
+
+int (*const cmu_syncbusy_READ[1])() =
+{zg_cmuSyncbusyRead};
 
 
 

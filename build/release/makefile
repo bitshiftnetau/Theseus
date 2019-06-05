@@ -127,15 +127,15 @@ LD=$(CC)
 #VENUS_FLAG='-DVENUS638=1'
 #BUILD_CONFIG_1.1.1.1.1='-DEL_BOM00001_HAL0001_MW0001_A0001_R0001=1'
 
-CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DDEFAULT_HFRCO_21MHZ' '-DVENUS638=1' '-DDW1000=1' -Wall -c -fmessage-length=0 -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections 
+CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DDEFAULT_HFRCO_21MHZ' '-DVENUS638=1' '-DDW1000=1' $(INCLUDE) -Wall -c -fmessage-length=0 -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections 
 
 LDFLAGS= \
  -L$(GCC_LIB_ARM)/thumb/v6-m/nofp \
  -L$(GCC_ARM)/lib/thumb/v6-m/nofp \
  -L$(CMSIS_DIR)/Lib/GCC \
- -T "efm32zg.ld" -Xlinker --gc-sections -Xlinker -Map="efm32zg.map" --specs=nano.specs -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group 
+ -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb -T "efm32zg.ld" -Xlinker --gc-sections -Xlinker -Map="efm32zg.map" --specs=nano.specs -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group
 
-CPPFLAGS=$(INCLUDE)
+#CPPFLAGS=$(INCLUDE)
 
 BUILD_DIR=.
 
@@ -143,8 +143,8 @@ BUILD_DIR=.
 # 		   BUILD TARGETS 				  
 #################################
 
-assembly: $(SRC_DIR)
-	$(CC) $(CPPFLAGS) $(CFLAGS) -S $^ 
+#assembly: $(SRC_DIR)
+#	$(CC) $(CPPFLAGS) $(CFLAGS) -S $^ 
 
 all: $(TARGET)
 	arm-none-eabi-objcopy -O ihex "$(PROJECT_NAME).axf" "$(PROJECT_NAME).hex"
@@ -155,7 +155,7 @@ $(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)
 	$(LD) -o $@ $(wildcard $(BUILD_DIR)/*.o) $(LDFLAGS)
 
 $(OBJECTS): $(SRC_DIR)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $^  
+	$(CC) $(CFLAGS) $^  
 
 startup_efm32zg.o: $(DEVICE_DIR)/Source/GCC/startup_efm32zg.S
 	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb -c -x assembler-with-cpp \
@@ -192,7 +192,7 @@ system_efm32zg.o: $(DEVICE_DIR)/Source/system_efm32zg.c
 #	rm $(TARGET) $(OBJECTS)
 
 clean:
-	rm $(TARGET) $(BUILD_DIR)/*.o $(PROJECT_NAME).hex $(PROJECT_NAME).bin ./CMSIS/efm32zg/system_efm32zg.d 
+	rm $(TARGET) $(BUILD_DIR)/*.o $(PROJECT_NAME).hex $(PROJECT_NAME).bin
 .PHONY: all clean assembly
 
 

@@ -1,4 +1,5 @@
 target remote localhost:3333
-//monitor reset init
+monitor reset halt
+monitor resume
 load ../../build/release/spongecake.axf
 symbol-file ../../build/release/spongecake.axf

@@ -50,28 +50,17 @@
 
 //We need a dummy object for this example but this would basically be your
 //data struct that is made for the external object
-//void* dummy_ext_obj = NULL;
 
-/*
-int ext_DevEx(void* host_object, uint32_t RW, int(*host_gpio_fn)(), void* ext_dev_obj){
-
-  
-  //   DO SOME RANDOM EXTERNAL DEVICE LOGIC HERE
-   
-
-  //callback to the host when you're ready :)
-  return host_gpio_fn(host_object, RW);
-}*/
-
-#define GPIO_P_DOUT_DEFAULT 0x00000001UL
-#define GPIO_P_DOUT_PIN_10 (GPIO_P_DOUT_DEFAULT << 9)
-#define GPIO_P_DOUT_PIN_11 (GPIO_P_DOUT_DEFAULT << 10)
+//#define GPIO_P_DOUT_DEFAULT 0x00000001UL
+//#define GPIO_P_DOUT_PIN_10 (GPIO_P_DOUT_DEFAULT << 9)
+//#define GPIO_P_DOUT_PIN_11 (GPIO_P_DOUT_DEFAULT << 10)
 
 int main(void)
 {
   /* Chip errata */
   CHIP_Init();
 
+  /*
   int test = 0;
 
  CMU_TypeDef* cmu_test = CMU;
@@ -92,13 +81,14 @@ int main(void)
  gpio_test->P[2].CTRL = GPIO_P_CTRL_DRIVEMODE_STANDARD;
  gpio_test->P[2].MODEH = (GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE); 
  gpio_test->P[2].DOUT = 0xFFFFUL;
+*/
 
-
-  /*
+  
   //Get the x_Init fns for the respective devices and peripherals
   int(* efm32zg_cmu_init)() = efm32zg222f32_host._periph_periphconf._cmu_init;
   int(* efm32zg_usart_init)() = efm32zg222f32_host._periph_periphconf._usart_init;
   int(* efm32zg_gpio_init)() = efm32zg222f32_host._periph_periphconf._gpio_init;
+  
   
   //Run the x_Init fns through the middleware layer
   mpi_cmuInit(&efm32zg222f32_host, WRITE, efm32zg_cmu_init);
@@ -106,11 +96,12 @@ int main(void)
   mpi_gpioInit(&efm32zg222f32_host, WRITE, efm32zg_gpio_init); 
 
   //Get the x_io function 
-  int(* efm32zg_gpio_io)() = efm32zg222f32_host._periph_periphconf._gpio_io;
+  int(* efm32zg_gpio_data)() = efm32zg222f32_host._periph_periphconf._gpio_data;
   
   //Run the x_io function through the middleware layer
-  int ret = mpi_gpioWrite(&efm32zg222f32_host, efm32zg_gpio_io, ext_DevEx, dummy_ext_obj);
-  */
+  int ret = mpi_gpioData(&efm32zg222f32_host, WRITE, efm32zg_gpio_data);
+  
+
   /*
     //change cmu clock to hfxo  
   //1. set the values in the config struct

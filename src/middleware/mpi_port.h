@@ -134,9 +134,9 @@ typedef struct MPI_CORE_PERIPH{
   int_callback _mcs_init;
   int_callback _dma_init;
   int_callback _dbg_init;
-  int_callback _mcs_io;
-  int_callback _dma_io;
-  int_callback _dbg_io;
+  int_callback _mcs_data;
+  int_callback _dma_data;
+  int_callback _dbg_data;
 
 }MPI_core_periphconf;
 
@@ -167,24 +167,23 @@ typedef struct MPI_PERIPH_PERIPHCONF{
   int_callback _aes_init;
   int_callback _gpio_init;
       
-  int_callback _rmu_io;
-  int_callback _emu_io;
-  int_callback _cmu_io;
-  int_callback _wdog_io;
-  int_callback _prs_io;
-  int_callback _i2c_io;
-  int_callback _usart_io;
-  int_callback _leuart_io;
-  int_callback _timer_io;
-  int_callback _rtc_io;
-  int_callback _pcnt_io;
-  int_callback _acmp_io;
-  int_callback _vcmp_io;
-  int_callback _adc_io;
-  int_callback _idac_io;
-  int_callback _aes_io;
-  int_callback _gpio_io;
-  int_callback _gpio_tgl;
+  int_callback _rmu_data;
+  int_callback _emu_data;
+  int_callback _cmu_data;
+  int_callback _wdog_data;
+  int_callback _prs_data;
+  int_callback _i2c_data;
+  int_callback _usart_data;
+  int_callback _leuart_data;
+  int_callback _timer_data;
+  int_callback _rtc_data;
+  int_callback _pcnt_data;
+  int_callback _acmp_data;
+  int_callback _vcmp_data;
+  int_callback _adc_data;
+  int_callback _idac_data;
+  int_callback _aes_data;
+  int_callback _gpio_data;
 
   int_callback _rmu_config_reg;
   int_callback _emu_config_reg;

@@ -116,31 +116,6 @@ extern TIMER_TypeDef* timer0;
 
 #define DEVICE_SPECIFIC_NO_OF_PERIPHERALS EFM32ZG222F32_PERIPHERALS
 
-/*
-#define acmp0 	1
-#define adc0 	  2
-#define gpio0  	3
-#define i2c0 	  4
-#define idac0	  5
-#define prs  	  6
-#define timer0 	7
-#define timer1 	8
-#define usart1  9
-#define vcmp   	10
-
-typedef struct {
-	bool acmp0_on;
-	bool adc0_on;
-	bool gpio0_on;
-	bool i2c0_on;
-	bool idac0_on;
-	bool prs_on;
-	bool timer0_on;
-	bool timer1_on;
-	bool usart1_on;
-	bool vcmp_on;
-}EFM32ZG_peripherals;
-*/
 
 /***********************************************************************
  *                              USART 
@@ -269,21 +244,23 @@ typedef struct {
 #define USART_LOC2 2
 #define USART_LOC3 3
 
+#define USART_BAUD_9600 (0b00000010011001UL << 6)
+#define USART_BAUD_19200 (0b00000010011001UL << 6)
 
 
 /***********************************************************************
  *                               GPIO
  ***********************************************************************/
 
-#define GPIO_PERIPHCONF_INDEX   5
-#define GPIO_DATA_INDEX         6
+#define GPIO_DATA_INDEX         5
+#define GPIO_PERIPHCONF_INDEX   6
 
 #define GPIO_PORTS  5
 
 typedef struct {
-  uint32_t douttgl;
-	uint32_t dout;
-	uint32_t din;
+  uint16_t douttgl;
+	uint16_t dout;
+	uint16_t din;
 }GPIO_port_data;
 
 typedef struct {
@@ -361,6 +338,9 @@ typedef struct {
  *                             TIMER
  ***********************************************************************/
 
+#define TIMERn_TOPms (SystemCoreClock / 1000)
+#define TIMERn_TOPus (SystemCoreClock / 1000000)
+
 typedef struct {
   uint32_t ctrl;
   uint32_t cmd;
@@ -388,8 +368,6 @@ typedef struct {
 }TIMER_periphconf;
 
 #define TIMER_PERIPHCONF_INDEX 8
-
-
 
 
 

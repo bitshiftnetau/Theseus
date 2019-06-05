@@ -30,7 +30,6 @@ int zg_gpioExtIntFallEdgeClr(GPIO_periphconf* MPI_conf);
 int(*const gpio_ctrl[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_low_pinmode[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_high_pinmode[GPIO_READ_WRITE_CLEAR])();
-int(*const gpio_out[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_pinlock[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_int_ctrl[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_extint_low_pins[GPIO_READ_WRITE_CLEAR])();
@@ -44,18 +43,12 @@ int(*const gpio_conf_lock[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_em4retention[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_em4wake[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_em4polarity[GPIO_READ_WRITE_CLEAR])();
-int(*const gpio_pinin_read[GPIO_READ_WRITE_CLEAR])();
-int(*const gpio_pinout_tgl[GPIO_READ_WRITE_CLEAR])();
-int(*const gpio_em4clr_all[GPIO_READ_WRITE_CLEAR])();
-int(*const gpio_em4cause[GPIO_READ_WRITE_CLEAR])();
-
 
 int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
 {
 		gpio_ctrl,
 		gpio_low_pinmode,
 		gpio_high_pinmode,
-		gpio_out,
 		gpio_pinlock,
 		gpio_int_ctrl,
 		gpio_extint_low_pins,
@@ -69,11 +62,6 @@ int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
 		gpio_em4retention,
 		gpio_em4wake,
 		gpio_em4polarity,
-		gpio_pinin_read,
-		gpio_pinout_tgl,
-		gpio_em4clr_all,
-		gpio_em4cause
-
 };
 
 
@@ -506,8 +494,8 @@ int(*const gpio_em4wake[GPIO_READ_WRITE_CLEAR])()=
 int(*const gpio_em4polarity[GPIO_READ_WRITE_CLEAR])()=
 	{zg_EM4PolRead, zg_EM4PolWrite, zg_EM4PolClr};
 
-int(*const gpio_em4clr_all		[GPIO_READ_WRITE_CLEAR])()= {NULL, NULL, zg_gpioClrEm4Request};
-int(*const gpio_em4cause		[GPIO_READ_WRITE_CLEAR])()= {zg_EM4Cause,NULL,NULL};
+int(*const gpio_em4clr_all[1])()= {zg_gpioClrEm4Request};
+int(*const gpio_em4cause[1])()= {zg_EM4Cause};
 
 
 
