@@ -233,14 +233,9 @@ int gpio_Init(void* host_ptr, uint32_t RWC){
 	  	ret = fn_ptr(MPI_gpio_periphconf);
 	  	  if(ret > 0){
           return 1;
-       }
-     i+=1;
+        }
+      i+=1;
 	  }
-
-
-    /*
-     *  ADD LOOP TO GO THROUGH EACH PORT: CURRENTLY WE CAN ONLY INITIALIZE ONE PORT ON BOOT
-     */
 
   }
 	return 0;
@@ -371,7 +366,7 @@ int cmu_Init(void* host_ptr, uint32_t	RWC){
   int ret = 0;
 	int i = 0;
 
-  cmu_periphconf->hfrcoctrl |= *CMU_DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in config layer
+  cmu_periphconf->hfrcoctrl = *CMU_DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in config layer
   cmu_periphconf->tuningval = CMU_DEFAULT_BOOT_TUNE;
 
   fn_ptr = cmu_oscencmd_WRITE[0];
@@ -469,12 +464,4 @@ int timer_ConfigReg(void* host_ptr, uint32_t RWC){
 	return fn_ptr(timer_periphconf);
 }
 
-
-void timer_Delay(uint32_t dlyTicks)
-{
-  uint32_t curTicks;
-
-  curTicks = msTicks;
-  while ((msTicks - curTicks) < dlyTicks);
-}
 
