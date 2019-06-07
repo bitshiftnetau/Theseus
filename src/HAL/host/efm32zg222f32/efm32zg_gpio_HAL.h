@@ -28,6 +28,7 @@
 #define PORTC 2
 #define PORTD 3
 #define PORTE 4
+#define PORTF 5
 
 #define GPIO_P_PIN_NUMBER_0  (1UL << 0)
 #define GPIO_P_PIN_NUMBER_1  (1UL << 1)
@@ -51,5 +52,6 @@ int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])();
 
 int(*const gpio_em4clr_all[1])();
 int(*const gpio_em4cause[1])();
+
 
 #endif /* EFM32ZG_GPIO_HAL_H_ */
