@@ -60,6 +60,7 @@ PROJECT_INCLUDE= \
 -I$(SOURCE_DIR)/HAL/host/efm32zg222f32 \
 -I$(SOURCE_DIR)/HAL/slave/dw1000 \
 -I$(SOURCE_DIR)/HAL/slave/venus638 \
+-I$(SOURCE_DIR)/application/app_fns \
 -I$(SOURCE_DIR)/application/configs \
 -I$(SOURCE_DIR)/port_adaptors \
 -I$(SOURCE_DIR)/middleware \
@@ -91,6 +92,7 @@ $(wildcard $(SOURCE_DIR)/HAL/slave/dw1000/*.c) \
 $(wildcard $(SOURCE_DIR)/HAL/slave/venus638/*.c) \
 $(wildcard $(SOURCE_DIR)/middleware/*.c) \
 $(wildcard $(SOURCE_DIR)/board/STK3200/*.c) \
+$(wildcard $(SOURCE_DIR)/application/app_fns/*.c) \
 $(wildcard $(SOURCE_DIR)/application/configs/*.c) \
 $(wildcard $(SOURCE_DIR)/application/*.c) \
 $(wildcard $(SOURCE_DIR)/port_adaptors/*.c)
