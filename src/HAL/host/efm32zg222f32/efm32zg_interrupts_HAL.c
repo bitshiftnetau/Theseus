@@ -129,3 +129,16 @@ void USART1_RX_IRQHandler(void)
 
   	  zg_usartWrite(usart_txint);
 }*/
+
+
+/**********************************************
+ *          TIMER0 INTERRUPT
+ *********************************************/
+
+void TIMER0_IRQHandler(void){
+
+  TIMER_TypeDef* timer_0 = TIMER0; 
+  timer0_ms_ticks++;
+  timer_0->IFC = TIMER_IFC_OF;
+}
+
