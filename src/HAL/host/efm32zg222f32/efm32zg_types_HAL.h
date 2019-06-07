@@ -15,6 +15,7 @@ extern CMU_TypeDef* cmu;
 extern USART_TypeDef* usart;
 extern GPIO_TypeDef* gpio;
 extern TIMER_TypeDef* timer0;
+extern TIMER_TypeDef* timer1;
 
 #define SINGLE_BIT_SHIFT    1
 #define SINGLE_BYTE_SHIFT   8
@@ -338,8 +339,13 @@ typedef struct {
  *                             TIMER
  ***********************************************************************/
 
-#define TIMERn_TOPms (SystemCoreClock / 1000)
-#define TIMERn_TOPus (SystemCoreClock / 1000000)
+#define TIMERn_TOPms 21277
+//#define TIMERn_TOPus 
+
+volatile uint16_t timer0_ms_ticks;
+volatile uint16_t timer0_us_ticks;
+volatile uint16_t timer1_ms_ticks;
+volatile uint16_t timer1_us_ticks;
 
 typedef struct {
   uint32_t ctrl;

@@ -19,9 +19,9 @@
 #include "efm32zg_types_HAL.h"
 #include "efm32zg222f32.h"
 
-CMU_TypeDef * cmu 		= CMU;
-USART_TypeDef * usart 	= USART1;
-GPIO_TypeDef * gpio 	= GPIO;
+CMU_TypeDef * cmu	= CMU;
+USART_TypeDef * usart	= USART1;
+GPIO_TypeDef * gpio	= GPIO;
 TIMER_TypeDef * timer0 = TIMER0;
-
+TIMER_TypeDef * timer1 = TIMER1;
 
