@@ -29,6 +29,7 @@
 #include "mpi_gpio.h"
 #include "mpi_usart.h"
 #include "mpi_types.h"
+#include "mpi_timer.h"
 #include "mpi_port.h"
 #include "_app_config.h"
 
@@ -51,55 +52,30 @@
 //We need a dummy object for this example but this would basically be your
 //data struct that is made for the external object
 
-//#define GPIO_P_DOUT_DEFAULT 0x00000001UL
-//#define GPIO_P_DOUT_PIN_10 (GPIO_P_DOUT_DEFAULT << 9)
-//#define GPIO_P_DOUT_PIN_11 (GPIO_P_DOUT_DEFAULT << 10)
-
 int main(void)
 {
   /* Chip errata */
   CHIP_Init();
-
-  /*
-  int test = 0;
-
- CMU_TypeDef* cmu_test = CMU;
- GPIO_TypeDef* gpio_test = GPIO;
-
- cmu_test->CMD = CMU_CMD_HFCLKSEL_HFRCO;
- 
- cmu_test->HFRCOCTRL = (_CMU_HFRCOCTRL_SUDELAY_DEFAULT | CMU_HFRCOCTRL_BAND_14MHZ);
- cmu_test->OSCENCMD = CMU_OSCENCMD_HFRCOEN;
-
- test = 1;
-
- cmu_test->HFPERCLKDIV = (CMU_HFPERCLKDIV_HFPERCLKEN | _CMU_HFPERCLKDIV_HFPERCLKDIV_HFCLK2); 
- cmu_test->HFPERCLKEN0 = (CMU_HFPERCLKEN0_USART1 | CMU_HFPERCLKEN0_TIMER0 | CMU_HFPERCLKEN0_GPIO);
-
- test = 2;
- 
- gpio_test->P[2].CTRL = GPIO_P_CTRL_DRIVEMODE_STANDARD;
- gpio_test->P[2].MODEH = (GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE); 
- gpio_test->P[2].DOUT = 0xFFFFUL;
-*/
 
   
   //Get the x_Init fns for the respective devices and peripherals
   int(* efm32zg_cmu_init)() = efm32zg222f32_host._periph_periphconf._cmu_init;
   int(* efm32zg_usart_init)() = efm32zg222f32_host._periph_periphconf._usart_init;
   int(* efm32zg_gpio_init)() = efm32zg222f32_host._periph_periphconf._gpio_init;
-  
+  int(* efm32zg_timer_init)() = efm32zg222f32_host._periph_periphconf._timer_init;
   
   //Run the x_Init fns through the middleware layer
   mpi_cmuInit(&efm32zg222f32_host, WRITE, efm32zg_cmu_init);
   mpi_usartInit(&efm32zg222f32_host, WRITE, efm32zg_usart_init);
   mpi_gpioInit(&efm32zg222f32_host, WRITE, efm32zg_gpio_init); 
+  mpi_timerInit(&efm32zg222f32_host, WRITE, efm32zg_timer_init);
 
   //Get the x_io function 
   int(* efm32zg_gpio_data)() = efm32zg222f32_host._periph_periphconf._gpio_data;
-  
-  //Run the x_io function through the middleware layer
-  int ret = mpi_gpioData(&efm32zg222f32_host, WRITE, efm32zg_gpio_data);
+  int(* efm32zg_timer_delay)() = efm32zg222f32_host._periph_periphconf._timer_delay;
+
+  //get the data structs
+  GPIO_data* gpio_data = efm32zg222f32_host.MPI_data[GPIO_DATA_INDEX];
   
 
   /*
@@ -137,10 +113,38 @@ int main(void)
 	}
   */
 
+  NVIC_ClearPendingIRQ(TIMER0_IRQn);
+  NVIC_EnableIRQ(TIMER0_IRQn);
  
-  /* Infinite loop */
-  while (1);
+  gpio_data->port = 2; 
+  gpio_data->P[2].dout = (0x01 << 10); 
+  mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
+  mpi_gpioData(&efm32zg222f32_host, WRITE, efm32zg_gpio_data);
+    
+  gpio_data->P[2].dout = (0x01 << 11); 
+  mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
+  mpi_gpioData(&efm32zg222f32_host, WRITE, efm32zg_gpio_data);
+ 
+  gpio_data->P[2].dout = (0x01 << 14);
+  mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
+  mpi_gpioData(&efm32zg222f32_host, WRITE, efm32zg_gpio_data);
 
+  /* Infinite loop */
+  while (1){
+
+    gpio_data->port = 2; 
+    gpio_data->P[2].douttgl = (0x01 << 10); 
+    mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
+    mpi_gpioData(&efm32zg222f32_host, TGL, efm32zg_gpio_data);
+    
+    gpio_data->P[2].douttgl = (0x01 << 11); 
+    mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
+    mpi_gpioData(&efm32zg222f32_host, TGL, efm32zg_gpio_data);
+ 
+    gpio_data->P[2].douttgl = (0x01 << 14);
+    mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
+    mpi_gpioData(&efm32zg222f32_host, TGL, efm32zg_gpio_data);
+  }
 }
 
 
