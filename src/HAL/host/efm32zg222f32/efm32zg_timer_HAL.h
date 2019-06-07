@@ -20,4 +20,11 @@
 
 int (*const *const timer_config_table[PERIPH_REGISTER_TABLE_MEMBERS])();
 
+int(* timer_cc1_ccvp_table[1])();
+int(* timer_cc2_ccvp_table[1])();
+int(* timer_cc0_ccvp_table[1])();
+int(* timer_cmd_table[1])();
+int(* timer_status_table[1])();
+
+
 #endif

@@ -52,8 +52,6 @@
  */
 
 int(* timer_ctrl_table[TIMER_READ_WRITE_CLEAR])();
-int(* timer_cmd_table[TIMER_READ_WRITE_CLEAR])();    
-int(* timer_status_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_ien_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_ifrsc_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_top_table[TIMER_READ_WRITE_CLEAR])();
@@ -62,21 +60,16 @@ int(* timer_cnt_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_route_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc0_ctrl_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc0_ccv_table[TIMER_READ_WRITE_CLEAR])();
-int(* timer_cc0_ccvp_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc0_ccvb_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc1_ctrl_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc1_ccv_table[TIMER_READ_WRITE_CLEAR])();
-int(* timer_cc1_ccvp_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc1_ccvb_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc2_ctrl_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc2_ccv_table[TIMER_READ_WRITE_CLEAR])();
-int(* timer_cc2_ccvp_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc2_ccvb_table[TIMER_READ_WRITE_CLEAR])();
 
 int (*const *const timer_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() = {
   timer_ctrl_table,
-  timer_cmd_table, 
-  timer_status_table,
   timer_ien_table,
   timer_ifrsc_table,
   timer_top_table,
@@ -86,15 +79,12 @@ int (*const *const timer_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() = {
   timer_route_table,
   timer_cc0_ctrl_table,
   timer_cc0_ccv_table,
-  timer_cc0_ccvp_table,
   timer_cc0_ccvb_table,
   timer_cc1_ctrl_table,
   timer_cc1_ccv_table,
-  timer_cc1_ccvp_table,
   timer_cc1_ccvb_table,
   timer_cc2_ctrl_table,
   timer_cc2_ccv_table,
-  timer_cc2_ccvp_table,
   timer_cc2_ccvb_table,
   NULL
 };
@@ -367,12 +357,6 @@ int zg_timerCc2_ccvpRead(TIMER_periphconf* MPI_conf){
 int(* timer_ctrl_table[TIMER_READ_WRITE_CLEAR])() = 
   {zg_timerCtrlRead, zg_timerCtrlWrite, zg_timerCtrlClr};
 
-int(* timer_cmd_table[TIMER_READ_WRITE_CLEAR])() = 
-  {NULL, zg_timerCmdWrite, NULL};
-
-int(* timer_status_table[TIMER_READ_WRITE_CLEAR])() = 
-  {zg_timerStatusRead, NULL, NULL};
-
 int(* timer_ien_table[TIMER_READ_WRITE_CLEAR])() = 
   {zg_timerIenRead, zg_timerIenWrite, zg_timerIenClr};
 
@@ -418,12 +402,19 @@ int(* timer_cc2_ccv_table[TIMER_READ_WRITE_CLEAR])() =
 int(* timer_cc2_ccvb_table[TIMER_READ_WRITE_CLEAR])() = 
   {zg_timerCc2_ccvbRead, zg_timerCc2_ccvbWrite, zg_timerCc2_ccvbClr};
 
-int(* timer_cc1_ccvp_table[TIMER_READ_WRITE_CLEAR])() = 
-  {zg_timerCc1_ccvpRead, NULL, NULL};
+int(* timer_cc1_ccvp_table[1])() = 
+  {zg_timerCc1_ccvpRead};
 
-int(* timer_cc2_ccvp_table[TIMER_READ_WRITE_CLEAR])() = 
-  {zg_timerCc2_ccvpRead, NULL, NULL};
+int(* timer_cc2_ccvp_table[1])() = 
+  {zg_timerCc2_ccvpRead};
 
-int(* timer_cc0_ccvp_table[TIMER_READ_WRITE_CLEAR])() = 
-  {zg_timerCc0_ccvpRead, NULL, NULL};
+int(* timer_cc0_ccvp_table[1])() = 
+  {zg_timerCc0_ccvpRead};
+
+int(* timer_cmd_table[1])() = 
+  {zg_timerCmdWrite};
+
+int(* timer_status_table[1])() = 
+  {zg_timerStatusRead};
+
 
