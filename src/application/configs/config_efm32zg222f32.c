@@ -19,6 +19,7 @@
 #include "mpi_port.h"
 #include "mpi_types.h"
 #include "config_efm32zg222f32.h"
+#include "efm32zg_app.h"
 
 #include "efm32zg222f32.h"
 #include "efm32zg_types_HAL.h"
@@ -68,9 +69,9 @@ typedef struct {
 CMU_periphconf cmu_periphconf = {
 
  .ctrl = (CMU_CTRL_HFXOTIMEOUT_1KCYCLES | CMU_CTRL_HFXOGLITCHDETEN),
- .hfperclkdiv = CMU_HFPERCLKDIV_HFPERCLKEN | _CMU_HFPERCLKDIV_HFPERCLKDIV_HFCLK2, 
- .hfrcoctrl = _CMU_HFRCOCTRL_SUDELAY_DEFAULT | CMU_HFRCOCTRL_BAND_21MHZ,
- .oscencmd = CMU_OSCENCMD_HFRCOEN | _CMU_OSCENCMD_HFXOEN_MASK,
+ .hfperclkdiv = CMU_HFPERCLKDIV_HFPERCLKEN, 
+ .hfrcoctrl = _CMU_HFRCOCTRL_SUDELAY_DEFAULT | CMU_HFRCOCTRL_BAND_14MHZ,
+ .oscencmd = CMU_OSCENCMD_HFRCOEN,
  .cmd = CMU_CMD_HFCLKSEL_HFRCO,
  .hfperclken0 = (CMU_HFPERCLKEN0_USART1 | CMU_HFPERCLKEN0_TIMER0 | CMU_HFPERCLKEN0_GPIO),
  //.intfclear = ???;
@@ -110,12 +111,11 @@ typedef struct {
 }TIMER_periphconf;
 */
 
-TIMER_periphconf timer_periphconf = {
- .ctrl = 0,
- .cmd = //set the timer to start ,
- .ien = //enable overflow ,
- .topb = TIMERn_TOPms,
-
+TIMER_periphconf timer0_periphconf = {
+ .ctrl = TIMER_CTRL_DEBUGRUN,
+ .ien = TIMER_IEN_OF, //enable overflow interrupt
+ .top = 14308,
+ .topb = 14308
 };
 
 
@@ -264,37 +264,38 @@ GPIO_data gpio_data = {
       .dout = 0
     },
     [PORTC] = {
-      .dout = GPIO_P_DOUT_10 | GPIO_P_DOUT_11
+      .dout = 0 
     },
     [PORTD] = {
-      .dout = GPIO_P_DOUT_4
+      .dout = 0
     },
     [PORTE] = {
       .dout = 0
     }
   },
-  .port = PORTC  
+  .port = 0  
 };
 
 GPIO_periphconf gpio_periphconf = {
   .P = {
     [PORTA] = {
+      .ctrl = 0,
       .pinmodeL = (GPIO_P_MODEL_MODE7_PUSHPULL | GPIO_P_MODEL_MODE6_INPUT)
     },
     [PORTB] = {
-    
     },
     [PORTC] = {
-      .pinmodeH = GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE 
+      .ctrl = GPIO_P_CTRL_DRIVEMODE_HIGH,
+      .pinmodeH = GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE | GPIO_P_MODEH_MODE14_PUSHPULLDRIVE
     },
     [PORTD] = {
-
+      .ctrl = GPIO_P_CTRL_DRIVEMODE_HIGH,
+      .pinmodeL = GPIO_P_MODEL_MODE4_PUSHPULLDRIVE
     },
     [PORTE] = {
-
     }
   },
-  .port = PORTC
+  .port = PORTC 
 };
 
 
@@ -318,13 +319,14 @@ MPI_host efm32zg222f32_host = {
 
     ._usart_data = usart_Data,
     ._gpio_data = gpio_Data,
+    ._timer_delay = timer_Delay
 
   },
   .MPI_data = {
     &usart_data, &usart_periphconf, &usart_error,  &usart_frameconf, &usart_status,
     &gpio_data, &gpio_periphconf,
     &cmu_periphconf,
-    &timer_periphconf,
+    &timer0_periphconf,
     NULL
   }
 };
