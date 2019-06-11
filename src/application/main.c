@@ -62,63 +62,94 @@ int main(void)
   /* Chip errata */
   CHIP_Init();
 
-  int(* test_fn_ptr)() = test_fn;
-
-
-  //MPI_host* efm32zg = &efm32zg222f32_host;
   
   //Get the x_Init fns for the respective devices and peripherals
-  int(* efm32zg_cmu_init)() = efm32zg222f32_host._periph_periphconf._cmu_init;
-  int(* efm32zg_usart_init)() = efm32zg222f32_host._periph_periphconf._usart_init;
-  int(* efm32zg_gpio_init)() = efm32zg222f32_host._periph_periphconf._gpio_init;
-  int(* efm32zg_timer_init)() = efm32zg222f32_host._periph_periphconf._timer_init;
+  volatile const int(* efm32zg_cmu_init)() = efm32zg222f32_host._periph_periphconf._cmu_init;
+  volatile const int(* efm32zg_usart_init)() = efm32zg222f32_host._periph_periphconf._usart_init;
+  volatile const int(* efm32zg_gpio_init)() = efm32zg222f32_host._periph_periphconf._gpio_init;
+  volatile const int(* efm32zg_timer_init)() = efm32zg222f32_host._periph_periphconf._timer_init;
   
   //Run the x_Init fns through the middleware layer
-  mpi_cmuInit(&efm32zg222f32_host, WRITE, efm32zg_cmu_init);
-  mpi_timerInit(&efm32zg222f32_host, WRITE, efm32zg_timer_init);
-  mpi_gpioInit(&efm32zg222f32_host, WRITE, efm32zg_gpio_init); 
+  mpi_cmuInit(&efm32zg222f32_host, efm32zg_cmu_init);
 
-  mpi_usartInit(&efm32zg222f32_host, WRITE, efm32zg_usart_init);
 
-  //Get the x_io function 
-  int(* efm32zg_gpio_data)() = efm32zg222f32_host._periph_periphconf._gpio_data;
-  int(* efm32zg_timer_delay)() = efm32zg222f32_host._periph_periphconf._timer_delay;
+  CMU_periphconf* cmu_periphconf = efm32zg222f32_host.MPI_data[CMU_PERIPHCONF_INDEX];
+  volatile const int(* efm32zg_cmu_query_reg)() = efm32zg222f32_host._periph_periphconf._cmu_query_reg;
+  volatile const int(* efm32zg_cmu_config_reg)() = efm32zg222f32_host._periph_periphconf._cmu_config_reg;
+  
+  cmu_periphconf->oscencmd = CMU_OSCENCMD_HFXOEN;
+  mpi_cmuConfigReg(&efm32zg222f32_host, efm32zg_cmu_config_reg, CMU_OSCENCMD);
+
+  //check the status of the HFXO
+  do{
+    mpi_cmuQueryReg(&efm32zg222f32_host, efm32zg_cmu_query_reg, CMU_STATUS);
+  }while(!(cmu_periphconf->status & CMU_STATUS_HFXORDY));
+
+  //alter the struct member from hfrco to hfxo 
+  cmu_periphconf->cmd = CMU_CMD_HFCLKSEL_HFXO;
+
+  //change the clock by writing to the register via mpi_ConfigReg()
+  mpi_cmuConfigReg(&efm32zg222f32_host, efm32zg_cmu_config_reg, CMU_CMD);
+
+  //disable hfrco
+  cmu_periphconf->oscencmd = CMU_OSCENCMD_HFRCODIS;
+  mpi_cmuConfigReg(&efm32zg222f32_host, efm32zg_cmu_config_reg, CMU_OSCENCMD);
+
+  /*
+  CMU->OSCENCMD = CMU_OSCENCMD_HFXOEN;
+
+ 	while(!(CMU->STATUS & CMU_STATUS_HFXORDY)){
+ 	} CMU->CMD = CMU_CMD_HFCLKSEL_HFXO;
+
+ 	//TURN OFF THE HFRCO WHEN HFXO IS READY
+ 	if((CMU->STATUS & CMU_STATUS_HFXORDY) == CMU_STATUS_HFXORDY){
+ 		CMU->OSCENCMD = CMU_OSCENCMD_HFRCODIS;
+ 	}
+*/
+
+
+  mpi_timerInit(&efm32zg222f32_host, efm32zg_timer_init);
+  mpi_gpioInit(&efm32zg222f32_host, efm32zg_gpio_init); 
+  mpi_usartInit(&efm32zg222f32_host, efm32zg_usart_init);
+
+  //Get the io functions 
+  volatile const int(* efm32zg_gpio_data)() = efm32zg222f32_host._periph_periphconf._gpio_data;
+  volatile const int(* efm32zg_timer_delay)() = efm32zg222f32_host._periph_periphconf._timer_delay;
 
   //get the data structs
   GPIO_data* gpio_data = efm32zg222f32_host.MPI_data[GPIO_DATA_INDEX];
-  
 
   gpio_data->port = 2; 
-  gpio_data->P[2].dout = (0x01 << 10); 
-  mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
-  mpi_gpioData(&efm32zg222f32_host, WRITE, efm32zg_gpio_data);
+  gpio_data->P[gpio_data->port].dout = (0x01 << 10); 
+  mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
+  mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE);
     
-  gpio_data->P[2].dout = (0x01 << 11); 
-  mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
-  mpi_gpioData(&efm32zg222f32_host, WRITE, efm32zg_gpio_data);
+  gpio_data->P[gpio_data->port].dout = (0x01 << 11); 
+  mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
+  mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE);
 
   gpio_data->port = 5; 
-  gpio_data->P[5].dout = (0x01 << 4);
-  mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
-  mpi_gpioData(&efm32zg222f32_host, WRITE, efm32zg_gpio_data);
+  gpio_data->P[gpio_data->port].dout = (0x01 << 4);
+  mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
+  mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE);
 
 
   /* Infinite loop */
   while (1){
 
     gpio_data->port = 2; 
-    gpio_data->P[2].douttgl = (0x01 << 10); 
-    mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
-    mpi_gpioData(&efm32zg222f32_host, TGL, efm32zg_gpio_data);
+    gpio_data->P[gpio_data->port].douttgl = (0x01 << 10); 
+    mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
+    mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL);
     
-    gpio_data->P[2].douttgl = (0x01 << 11); 
-    mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
-    mpi_gpioData(&efm32zg222f32_host, TGL, efm32zg_gpio_data);
+    gpio_data->P[gpio_data->port].douttgl = (0x01 << 11); 
+    mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
+    mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL);
  
     gpio_data->port = 5; 
-    gpio_data->P[5].douttgl = (0x01 << 4);
-    mpi_timerDelay(&efm32zg222f32_host, 1000, efm32zg_timer_delay);
-    mpi_gpioData(&efm32zg222f32_host, TGL, efm32zg_gpio_data);
+    gpio_data->P[gpio_data->port].douttgl = (0x01 << 4);
+    mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
+    mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL);
 
    }
 }
