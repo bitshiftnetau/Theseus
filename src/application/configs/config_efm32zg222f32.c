@@ -76,6 +76,7 @@ CMU_periphconf cmu_periphconf = {
  .hfperclken0 = (CMU_HFPERCLKEN0_USART1 | CMU_HFPERCLKEN0_TIMER0 | CMU_HFPERCLKEN0_GPIO),
  //.intfclear = ???;
  //.inten = ???;
+ .lock = 0x580E
 
 };
 
@@ -111,11 +112,15 @@ typedef struct {
 }TIMER_periphconf;
 */
 
+#define TIMER_1MS_OF_14MHZ_HFRCO 14308
+
+#define TIMER_1MS_OF_LFXO 32
+
 TIMER_periphconf timer0_periphconf = {
  .ctrl = TIMER_CTRL_DEBUGRUN,
  .ien = TIMER_IEN_OF, //enable overflow interrupt
- .top = 14308,
- .topb = 14308
+ .top = TIMER_1MS_OF_14MHZ_HFRCO,
+ .topb = TIMER_1MS_OF_14MHZ_HFRCO
 };
 
 
