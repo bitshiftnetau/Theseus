@@ -59,7 +59,7 @@ extern TIMER_TypeDef* timer1;
 #define CMU_PCNTCTRL        18
 #define CMU_ROUTE           19
 #define CMU_LOCK            20
-// NULL                   21
+//NULL                      21
 #define CMU_OSCENCMD        22
 #define CMU_CMD             23
 #define CMU_STATUS          24
