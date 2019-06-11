@@ -19,11 +19,11 @@
 #include "mpi_port.h"
 #include "mpi_types.h"
 #include "config_efm32zg222f32.h"
-#include "efm32zg_app.h"
 
 #include "efm32zg222f32.h"
 #include "efm32zg_types_HAL.h"
 #include "efm32zg222f32_adaptor.h"
+#include "efm32zg_app.h"
 
 /**************
  *    CMU 
@@ -280,22 +280,43 @@ GPIO_periphconf gpio_periphconf = {
   .P = {
     [PORTA] = {
       .ctrl = 0,
-      .pinmodeL = (GPIO_P_MODEL_MODE7_PUSHPULL | GPIO_P_MODEL_MODE6_INPUT)
+      .pinmodeL = (GPIO_P_MODEL_MODE7_PUSHPULL | GPIO_P_MODEL_MODE6_INPUT),
+      .pinmodeH = 0,
+      .pinlockn = 0
     },
     [PORTB] = {
+      .ctrl = 0,
+      .pinmodeL = 0,
+      .pinmodeH = 0,
+      .pinlockn = 0
     },
     [PORTC] = {
       .ctrl = GPIO_P_CTRL_DRIVEMODE_HIGH,
-      .pinmodeH = GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE | GPIO_P_MODEH_MODE14_PUSHPULLDRIVE
+      .pinmodeL = 0,
+      .pinmodeH = GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE,
+      .pinlockn = 0
     },
     [PORTD] = {
-      .ctrl = GPIO_P_CTRL_DRIVEMODE_HIGH,
-      .pinmodeL = GPIO_P_MODEL_MODE4_PUSHPULLDRIVE
+      .ctrl = 0,
+      .pinmodeL = 0,
+      .pinmodeH = 0,
+      .pinlockn = 0
     },
     [PORTE] = {
+      .ctrl = 0,
+      .pinmodeL = 0,
+      .pinmodeH = 0,
+      .pinlockn = 0
+    },
+    [PORTF] = {
+      .ctrl = GPIO_P_CTRL_DRIVEMODE_HIGH,
+      .pinmodeL = GPIO_P_MODEL_MODE4_PUSHPULLDRIVE,
+      .pinmodeH = 0,
+      .pinlockn = 0
     }
   },
-  .port = PORTC 
+  .lock = 0xA534, //this must be written to the lock register, writing anything else (even a zero) will lock gpio
+  .port = PORTC,
 };
 
 
@@ -305,6 +326,7 @@ GPIO_periphconf gpio_periphconf = {
 
 
 MPI_host efm32zg222f32_host = { 
+  
   ._periph_periphconf = {
 
     ._cmu_init = cmu_Init,
