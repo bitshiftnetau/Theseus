@@ -41,7 +41,7 @@ int timer_Delay(void* host_ptr, uint32_t dlyTicks)
   efm32zg_host_ptr->config_register = ;
   timer_ConfigReg(host_ptr, WRITE);
   */
-  
+ 
   TIMER_TypeDef * timer_0 = TIMER0; 
   timer0_ms_ticks = 0;
   timer_0->CMD = TIMER_CMD_START;
