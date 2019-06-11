@@ -258,7 +258,6 @@ typedef struct MPI_HOST{
   MPI_core_periphconf _core_periphconf;
   MPI_periph_periphconf _periph_periphconf;
   void* MPI_data[256]; // middleware layer data struct as defined as standard
-  uint32_t config_register;
 
 }MPI_host;
 
@@ -272,7 +271,6 @@ typedef struct MPI_SLAVE{
   MPI_core_periphconf _core_periphconf;
   MPI_periph_periphconf _periph_periphconf;
   void* MPI_data[256]; // middleware layer data struct as defined as standard
-  uint32_t config_register;
 
 }MPI_slave;
 

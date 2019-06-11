@@ -82,12 +82,10 @@
  *
  */
 
-int usart_Init(void* host_ptr, uint32_t RWC){
+int usart_Init(void* host_ptr){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
-  //USART_frameconf* MPI_frameconf = (USART_frameconf*)efm32zg_host_ptr->MPI_data[USART_FRAMECONF_INDEX];
   USART_periphconf* MPI_usart_periphconf = (USART_periphconf*)efm32zg_host_ptr->MPI_data[USART_PERIPHCONF_INDEX];
-
 
   zg_TxIntSetup(false);
   zg_RxIntSetup(false);
@@ -100,7 +98,7 @@ int usart_Init(void* host_ptr, uint32_t RWC){
 
 			while(usart_config_table[i] != NULL){
 				
-        fn_ptr = usart_config_table[i][RWC];
+        fn_ptr = usart_config_table[i][WRITE];
 				ret = fn_ptr(MPI_usart_periphconf);
           if(ret > 0){
             return 1;
@@ -112,13 +110,25 @@ int usart_Init(void* host_ptr, uint32_t RWC){
 }
 
 
-int usart_ConfigReg(void* host_ptr, uint32_t RWC){
+int usart_ConfigReg(void* host_ptr, uint32_t config_register){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   USART_periphconf* MPI_usart_periphconf = (USART_periphconf*)efm32zg_host_ptr->MPI_data[USART_PERIPHCONF_INDEX];
-
+  uint32_t conf_reg = config_register;
+  
   int(*fn_ptr)();
-	fn_ptr = usart_config_table[efm32zg_host_ptr->config_register][RWC];
+	fn_ptr = usart_config_table[conf_reg][WRITE];
+	return fn_ptr(MPI_usart_periphconf);
+}
+
+int usart_QueryReg(void* host_ptr, uint32_t config_register){
+
+  MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
+  USART_periphconf* MPI_usart_periphconf = (USART_periphconf*)efm32zg_host_ptr->MPI_data[USART_PERIPHCONF_INDEX];
+  uint32_t conf_reg = config_register;
+  
+  int(*fn_ptr)();
+	fn_ptr = usart_config_table[conf_reg][READ];
 	return fn_ptr(MPI_usart_periphconf);
 }
 
@@ -210,7 +220,7 @@ int usart_Data(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_
  */
 
 
-int gpio_Init(void* host_ptr, uint32_t RWC){
+int gpio_Init(void* host_ptr){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   GPIO_periphconf* MPI_gpio_periphconf = (GPIO_periphconf*)efm32zg_host_ptr->MPI_data[GPIO_PERIPHCONF_INDEX];
@@ -222,7 +232,7 @@ int gpio_Init(void* host_ptr, uint32_t RWC){
 	  int i = 0;
 
 	  while(gpio_config_table[i] != NULL){
-	  	fn_ptr = gpio_config_table[i][RWC];
+	  	fn_ptr = gpio_config_table[i][WRITE];
 	  	ret = fn_ptr(MPI_gpio_periphconf);
 	  	  if(ret > 0){
           return 1;
@@ -236,7 +246,7 @@ int gpio_Init(void* host_ptr, uint32_t RWC){
     while(gpio_port_config_table[i] != NULL){
 	  	for(int j = 0; j < 6; j++){
         MPI_gpio_periphconf->port = j;
-        fn_ptr = gpio_port_config_table[i][RWC];
+        fn_ptr = gpio_port_config_table[i][WRITE];
 	  	  ret = fn_ptr(MPI_gpio_periphconf);
 	  	    if(ret > 0){
             return 1;
@@ -251,13 +261,25 @@ int gpio_Init(void* host_ptr, uint32_t RWC){
 }
 
 
-int gpio_ConfigReg(void* host_ptr, uint32_t RWC){
+int gpio_ConfigReg(void* host_ptr, uint32_t config_register){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   GPIO_periphconf* MPI_gpio_periphconf = (GPIO_periphconf*)efm32zg_host_ptr->MPI_data[GPIO_PERIPHCONF_INDEX];
-
+  uint32_t conf_reg = config_register;
+  
   int(*fn_ptr)();
-	fn_ptr = gpio_config_table[efm32zg_host_ptr->config_register][RWC];
+	fn_ptr = gpio_config_table[conf_reg][WRITE];
+  return fn_ptr(MPI_gpio_periphconf);
+}
+
+int gpio_QueryReg(void* host_ptr, uint32_t config_register){
+
+  MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
+  GPIO_periphconf* MPI_gpio_periphconf = (GPIO_periphconf*)efm32zg_host_ptr->MPI_data[GPIO_PERIPHCONF_INDEX];
+  uint32_t conf_reg = config_register;
+  
+  int(*fn_ptr)();
+	fn_ptr = gpio_config_table[conf_reg][READ];
   return fn_ptr(MPI_gpio_periphconf);
 }
 
@@ -366,7 +388,7 @@ int gpio_Data(void* host_ptr, uint32_t RWT){
  *
  */
 
-int cmu_Init(void* host_ptr, uint32_t	RWC){
+int cmu_Init(void* host_ptr){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   CMU_periphconf* cmu_periphconf = (CMU_periphconf*)efm32zg_host_ptr->MPI_data[CMU_PERIPHCONF_INDEX];
@@ -384,7 +406,7 @@ int cmu_Init(void* host_ptr, uint32_t	RWC){
   ret = fn_ptr(cmu_periphconf);
   
 	while(cmu_config_table[i] != NULL){
-		fn_ptr = cmu_config_table[i][RWC];
+		fn_ptr = cmu_config_table[i][WRITE];
 		ret = fn_ptr(cmu_periphconf);
     	if(ret > 0){
         return 1;
@@ -394,15 +416,26 @@ int cmu_Init(void* host_ptr, uint32_t	RWC){
 	return 0;
 }
 
-int cmu_ConfigReg(void* host_ptr, uint32_t RWC){
+int cmu_ConfigReg(void* host_ptr, uint32_t config_register){
 
     MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
     CMU_periphconf* cmu_periphconf = (CMU_periphconf*)efm32zg_host_ptr->MPI_data[CMU_PERIPHCONF_INDEX];
-
-    int(*fn_ptr)() = cmu_config_table[efm32zg_host_ptr->config_register][RWC];
+    uint32_t conf_reg = config_register;
+    
+    int(*fn_ptr)() = cmu_config_table[conf_reg][WRITE];
 		return fn_ptr(cmu_periphconf);
 }
+ 
+int cmu_QueryReg(void* host_ptr, uint32_t config_register){
+
+    MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
+    CMU_periphconf* cmu_periphconf = (CMU_periphconf*)efm32zg_host_ptr->MPI_data[CMU_PERIPHCONF_INDEX];
+    uint32_t conf_reg = config_register;
     
+    int(*fn_ptr)() = cmu_config_table[conf_reg][READ];
+		return fn_ptr(cmu_periphconf);
+}
+   
     
 
 /*******************************************************************************
@@ -442,7 +475,7 @@ int cmu_ConfigReg(void* host_ptr, uint32_t RWC){
  *
  */
 
-int timer_Init(void* host_ptr, uint32_t RWC){
+int timer_Init(void* host_ptr){
    
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   TIMER_periphconf* timer_periphconf = (TIMER_periphconf*)efm32zg_host_ptr->MPI_data[TIMER_PERIPHCONF_INDEX];
@@ -455,7 +488,7 @@ int timer_Init(void* host_ptr, uint32_t RWC){
 	int i = 0;
 
 	while(timer_config_table[i] != NULL){
-		fn_ptr = timer_config_table[i][RWC];
+		fn_ptr = timer_config_table[i][WRITE];
 		ret = fn_ptr(timer_periphconf);
 		  if(ret > 0){
         return 1;
@@ -465,14 +498,27 @@ int timer_Init(void* host_ptr, uint32_t RWC){
 	return 0;
 }
 
-int timer_ConfigReg(void* host_ptr, uint32_t RWC){
+int timer_ConfigReg(void* host_ptr, uint32_t config_register){
     
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   TIMER_periphconf* timer_periphconf = (TIMER_periphconf*)efm32zg_host_ptr->MPI_data[TIMER_PERIPHCONF_INDEX];
+  uint32_t conf_reg = config_register;
 
   int(*fn_ptr)();
 
-	fn_ptr = timer_config_table[efm32zg_host_ptr->config_register][RWC];
+	fn_ptr = timer_config_table[conf_reg][WRITE];
+	return fn_ptr(timer_periphconf);
+}
+
+int timer_QueryReg(void* host_ptr, uint32_t config_register){
+    
+  MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
+  TIMER_periphconf* timer_periphconf = (TIMER_periphconf*)efm32zg_host_ptr->MPI_data[TIMER_PERIPHCONF_INDEX];
+  uint32_t conf_reg = config_register;
+
+  int(*fn_ptr)();
+
+	fn_ptr = timer_config_table[conf_reg][READ];
 	return fn_ptr(timer_periphconf);
 }
 

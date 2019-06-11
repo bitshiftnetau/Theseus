@@ -18,30 +18,37 @@
  *      CMU 
  ********************/
 
-int cmu_Init(void* host_ptr, uint32_t RWC);
-int cmu_ConfigReg(void* host_ptr, uint32_t RWC);
+int cmu_Init(void* host_ptr);
+int cmu_ConfigReg(void* host_ptr, uint32_t config_register);
+int cmu_QueryReg(void* host_ptr, uint32_t config_register);
 
 /**********************
  *      USART
  **********************/
 
-int usart_Init(void* host_ptr, uint32_t RWC);
-int usart_ConfigReg(void* host_ptr, uint32_t RWC);
+int usart_Init(void* host_ptr);
+int usart_ConfigReg(void* host_ptr, uint32_t config_register);
+int usart_QueryReg(void* host_ptr, uint32_t config_register);
+
 int usart_Data(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len);
 
 /*********************
  *      GPIO 
  *********************/
 
-int gpio_Init(void* host_ptr, uint32_t RWC);
-int gpio_ConfigReg(void* host_ptr, uint32_t RWC);
+int gpio_Init(void* host_ptr);
+int gpio_ConfigReg(void* host_ptr, uint32_t config_register);
+int gpio_QueryReg(void* host_ptr, uint32_t config_register);
+
 int gpio_Data(void* host_ptr, uint32_t RW);
 
 /*********************
  *      TIMER 
  *********************/
 
-int timer_Init(void* host_ptr, uint32_t RWC);
-int timer_ConfigReg(void* host_ptr, uint32_t RWC);
+int timer_Init(void* host_ptr);
+int timer_ConfigReg(void* host_ptr, uint32_t config_register);
+int timer_QueryReg(void* host_ptr, uint32_t config_register);
+
 
 #endif /* EFM32ZG_GLOBAL_HAL_H_ */
