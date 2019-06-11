@@ -256,7 +256,7 @@ typedef struct {
 #define GPIO_DATA_INDEX         5
 #define GPIO_PERIPHCONF_INDEX   6
 
-#define GPIO_PORTS  5
+#define GPIO_PORTS  6
 
 typedef struct {
   uint16_t douttgl;

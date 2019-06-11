@@ -49,6 +49,7 @@
 #define GPIO_P_PIN_NUMBER_15 (1UL << 15)
 
 int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])();
+int(*const *const gpio_port_config_table[5])(); 
 
 int(*const gpio_em4clr_all[1])();
 int(*const gpio_em4cause[1])();

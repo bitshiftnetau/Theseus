@@ -33,6 +33,8 @@
 #include "efm32zg_timer_HAL.h"
 #include "efm32zg222f32_adaptor.h"
 
+#include "efm32zg_app.h"
+
 /**************** USART *******************/
 
 /******************************************************************
@@ -237,6 +239,22 @@ int gpio_Init(void* host_ptr, uint32_t RWC){
       i+=1;
 	  }
 
+    MPI_gpio_periphconf->port = 0;
+    i = 0;
+
+    while(gpio_port_config_table[i] != NULL){
+	  	for(int j = 0; j < 6; j++){
+        MPI_gpio_periphconf->port = j;
+        fn_ptr = gpio_port_config_table[i][RWC];
+	  	  ret = fn_ptr(MPI_gpio_periphconf);
+	  	    if(ret > 0){
+            return 1;
+          }
+      }
+      i+=1;
+	  }
+
+
   }
 	return 0;
 }
@@ -366,8 +384,8 @@ int cmu_Init(void* host_ptr, uint32_t	RWC){
   int ret = 0;
 	int i = 0;
 
-  cmu_periphconf->hfrcoctrl = *CMU_DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in config layer
-  cmu_periphconf->tuningval = CMU_DEFAULT_BOOT_TUNE;
+  //cmu_periphconf->hfrcoctrl = *CMU_DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in the cmu HAL header
+  //cmu_periphconf->tuningval = CMU_DEFAULT_BOOT_TUNE;
 
   fn_ptr = cmu_oscencmd_WRITE[0];
   ret = fn_ptr(cmu_periphconf);
@@ -434,9 +452,12 @@ int cmu_ConfigReg(void* host_ptr, uint32_t RWC){
  */
 
 int timer_Init(void* host_ptr, uint32_t RWC){
-  
+   
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   TIMER_periphconf* timer_periphconf = (TIMER_periphconf*)efm32zg_host_ptr->MPI_data[TIMER_PERIPHCONF_INDEX];
+
+  NVIC_ClearPendingIRQ(TIMER0_IRQn);
+  NVIC_EnableIRQ(TIMER0_IRQn);
 
   int(*fn_ptr)();
 	int ret = 0;

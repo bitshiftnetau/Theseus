@@ -39,18 +39,22 @@ int(*const gpio_conf_lock[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_em4retention[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_em4wake[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_em4polarity[GPIO_READ_WRITE_CLEAR])();
-
 int(*const gpio_ctrl[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_low_pinmode[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_high_pinmode[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_pinlock[GPIO_READ_WRITE_CLEAR])();
 
-int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
-{ 
+int(*const *const gpio_port_config_table[5])() = 
+{
   gpio_ctrl,
   gpio_low_pinmode,
   gpio_high_pinmode,
   gpio_pinlock,
+  NULL
+};
+
+int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
+{ 
   gpio_int_ctrl,
 	gpio_extint_low_pins,
 	gpio_extint_high_pins,
