@@ -24,12 +24,16 @@
 #include "mpi_types.h"
 #include "mpi_port.h"
 
-int mpi_cmuInit(void* host_object, uint32_t read_write_clear, int (*host_cmu_interface_global_fn)()){
-  return host_cmu_interface_global_fn(host_object, read_write_clear); 
+int mpi_cmuInit(void* host_object, int (*host_cmu_interface_global_fn)()){
+  return host_cmu_interface_global_fn(host_object); 
 }
 
-int mpi_cmuConfigReg(void* host_object, uint32_t read_write_clear, int (*host_cmu_interface_single_reg_fn)()){
-  return host_cmu_interface_single_reg_fn(host_object, read_write_clear); 
+int mpi_cmuConfigReg(void* host_object, int (*host_cmu_interface_single_reg_fn)(), uint32_t config_register){
+  return host_cmu_interface_single_reg_fn(host_object, config_register); 
+}
+
+int mpi_cmuQueryReg(void* host_object, int (*host_cmu_interface_single_reg_fn)(), uint32_t config_register){
+  return host_cmu_interface_single_reg_fn(host_object, config_register); 
 }
 
 
