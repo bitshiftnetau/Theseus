@@ -339,6 +339,11 @@ MPI_host efm32zg222f32_host = {
     ._usart_config_reg = usart_ConfigReg,
     ._gpio_config_reg = gpio_ConfigReg,
 
+    ._cmu_query_reg = cmu_QueryReg,
+    ._timer_query_reg = timer_QueryReg,
+    ._usart_query_reg = usart_QueryReg,
+    ._gpio_query_reg = gpio_QueryReg,
+
     ._usart_data = usart_Data,
     ._gpio_data = gpio_Data,
     ._timer_delay = timer_Delay

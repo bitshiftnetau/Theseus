@@ -203,6 +203,24 @@ typedef struct MPI_PERIPH_PERIPHCONF{
   int_callback _aes_config_reg;
   int_callback _gpio_config_reg;
 
+  int_callback _rmu_query_reg;
+  int_callback _emu_query_reg;
+  int_callback _cmu_query_reg;
+  int_callback _wdog_query_reg;
+  int_callback _prs_query_reg;
+  int_callback _i2c_query_reg;
+  int_callback _usart_query_reg;
+  int_callback _leuart_query_reg;
+  int_callback _timer_query_reg;
+  int_callback _rtc_query_reg;
+  int_callback _pcnt_query_reg;
+  int_callback _acmp_query_reg;
+  int_callback _vcmp_query_reg;  
+  int_callback _adc_query_reg;
+  int_callback _idac_query_reg;
+  int_callback _aes_query_reg;
+  int_callback _gpio_query_reg;
+
 }MPI_periph_periphconf;
 
 
