@@ -48,26 +48,21 @@
 #define SINGLE 1
 
 /* USART peripheral configuration */
-int mpi_usartInit(void* host_object, uint32_t read_write_clear, int(*host_usart_interface_global_fn)()){
-  return host_usart_interface_global_fn(host_object, read_write_clear); 
+int mpi_usartInit(void* host_object, int(*host_usart_interface_global_fn)()){
+  return host_usart_interface_global_fn(host_object); 
 }
-
-int mpi_usartConfigReg(void* host_object, uint32_t read_write_clear, int(*host_usart_interface_single_reg_fn)()){
-  return host_usart_interface_single_reg_fn(host_object, read_write_clear); 
+int mpi_usartConfigReg(void* host_object, int(*host_usart_interface_single_reg_fn)(), uint32_t config_register){
+  return host_usart_interface_single_reg_fn(host_object, WRITE, config_register); 
 }
-
-/*
-* We always write to an external device layer, rather than directly to the host usart
-*/
-int mpi_usartWrite(void* host_object, int(*host_usart_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
-	return ext_dev_interface_fn(host_object, WRITE, host_usart_interface_fn, ext_dev_object);
+int mpi_usartQueryReg(void* host_object, int(*host_usart_interface_single_reg_fn)(), uint32_t config_register){
+  return host_usart_interface_single_reg_fn(host_object, READ, config_register); 
 }
 
 /*
  * We always read from an external device layer, rather than directly from the host usart
  */
-int mpi_usartRead(void* host_object, int(*host_usart_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
-	return ext_dev_interface_fn(host_object, READ, host_usart_interface_fn, ext_dev_object);
+int mpi_usartData(void* host_object, int(*host_usart_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)(), uint32_t read_write){
+	return ext_dev_interface_fn(host_object, read_write, host_usart_interface_fn, ext_dev_object);
 }
 
 

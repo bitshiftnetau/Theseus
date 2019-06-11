@@ -18,11 +18,9 @@
  * @param device selects CS pin for required device
  *****************************************************************************/
 
-int mpi_usartInit(void* host_object, uint32_t read_write_clear, int (*host_usart_interface_global_fn)());
-int mpi_usartConfigReg(void* host_object, uint32_t read_write_clear, int (*host_usart_interface_single_reg_fn)());
-
-int mpi_usartWrite(void* host_object, int(*host_usart_interface_spi_fn)(), void* ext_dev_object, int (*ext_dev_interface_fn)());
-int mpi_usartRead(void* host_object, int(*host_usart_interface_spi_fn)(), void* ext_dev_object, int (*ext_dev_interface_fn)());
-
+int mpi_usartInit(void* host_object, int (*host_usart_interface_global_fn)());
+int mpi_usartConfigReg(void* host_object, int (*host_usart_interface_single_reg_fn)(), uint32_t config_register);
+int mpi_usartQueryReg(void* host_object, int (*host_usart_interface_single_reg_fn)(), uint32_t config_register);
+int mpi_usartData(void* host_object, int(*host_usart_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)(), uint32_t read_write);
 
 #endif /* MPI_SPI_H_ */
