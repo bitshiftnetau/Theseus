@@ -22,15 +22,19 @@
 #include "mpi_types.h"
 #include "mpi_port.h"
 
-int mpi_gpioInit(void* host_object, uint32_t read_write_clear, int(*host_gpio_interface_global_fn)()){
-  return host_gpio_interface_global_fn(host_object, read_write_clear); 
+int mpi_gpioInit(void* host_object, int(*host_gpio_interface_global_fn)()){
+  return host_gpio_interface_global_fn(host_object); 
 }
 
-int mpi_gpioConfigReg(void* host_object, uint32_t read_write_clear, int(*host_gpio_interface_single_reg_fn)()){
-  return host_gpio_interface_single_reg_fn(host_object, read_write_clear); 
+int mpi_gpioConfigReg(void* host_object, int(*host_gpio_interface_single_reg_fn)(), uint32_t config_register){
+  return host_gpio_interface_single_reg_fn(host_object, WRITE, config_register); 
 }
 
-int mpi_gpioData(void* host_object, uint32_t read_write_tgl, int(*host_gpio_interface_data_fn)()){
+int mpi_gpioQueryReg(void* host_object, int(*host_gpio_interface_single_reg_fn)(), uint32_t config_register){
+  return host_gpio_interface_single_reg_fn(host_object, READ, config_register); 
+}
+
+int mpi_gpioData(void* host_object, int(*host_gpio_interface_data_fn)(), uint32_t read_write_tgl){
 	return host_gpio_interface_data_fn(host_object, read_write_tgl);
 }
 
