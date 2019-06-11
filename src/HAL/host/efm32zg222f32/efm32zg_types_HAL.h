@@ -38,33 +38,33 @@ extern TIMER_TypeDef* timer1;
  * CMU TABLE INDEXES
  ********************/
 
-#define CMU_CTRL 			    0
-#define CMU_HFCORECLKDIV  1
-#define CMU_HFPERCLKDIV   2
-#define CMU_HFRCOCTRL     3
-#define CMU_LFCROCTRL     4
-#define CMU_AUXHFRCOCTRL  5
-#define CMU_CALCTRL       6
-#define CMU_CALCNT        7
-#define CMU_OSCENCMD      8
-#define CMU_CMD           9
-#define CMU_LFCLKSEL      10
-#define CMU_STATUS        11
-#define CMU_IF            12
-#define CMU_IFS           13
-#define CMU_IFC           14
-#define CMU_IEN           15
-#define CMU_HFCORECLKEN0  16
-#define CMU_HFPERCLKEN0   17
-#define CMU_SYNCBUSY      18
-#define CMU_FREEZE        19
-#define CMU_LFACLKEN0     20 
-#define CMU_LFBCLKEN0     21
-#define CMU_LFAPRESC0     22 
-#define CMU_LFBPRESC0     23
-#define CMU_PCNTCTRL      24
-#define CMU_ROUTE         25
-#define CMU_LOCK          26
+#define CMU_CTRL            1
+#define CMU_HFCORECLKDIV    2
+#define CMU_HFPERCLKDIV     3
+#define CMU_HFRCOCTRL       4
+#define CMU_LFRCOCTRL       5
+#define CMU_AUXHFRCOCTRL    6
+#define CMU_CALCTRL         7
+#define CMU_CALCNT          8
+#define CMU_LFCLKSEL        9
+#define CMU_INTF            10 
+#define CMU_INTEN           11
+#define CMU_HFCORECLKEN0    12
+#define CMU_HFPERCLKEN0     13
+#define CMU_FREEZE          14
+#define CMU_LFACLKEN0       15
+#define CMU_LFBCLKEN0       16
+#define CMU_LFAPRESC0       17
+#define CMU_LFBPRESC0       18
+#define CMU_PCNTCTRL        19
+#define CMU_ROUTE           20
+#define CMU_LOCK            21
+// NULL                   22
+#define CMU_OSCENCMD        23
+#define CMU_CMD             24
+#define CMU_STATUS          25
+#define CMU_SYNCBUSY        26
+
 
 /**********************
  *      USART
@@ -73,43 +73,26 @@ extern TIMER_TypeDef* timer1;
 #define USART_READ      0
 #define USART_WRITE     1
 
-#define USART_CTRL 			0
-#define USART_FRAME 			1
-#define USART_TRIG_CTRL 		2
-#define USART_STATUS_CMD 	3
-#define USART_CLKDIV 		4
-#define USART_INT_FLAG 		5
-#define USART_IR_CTRL 		6
-#define USART_ROUTE 			7
-#define USART_INPUT 			8
-#define USART_I2S_CTRL 		9
-#define USART_SET_GPIO_PINS 	10
+
+
 
 /*********************
- *       GPIO 
+ *      GPIO 
  *********************/
 
-#define GPIO_CTRL				0
-#define GPIO_LOW_PINMODE			1
-#define GPIO_HIGH_PINMODE		2
-#define GPIO_OUT					3
-#define GPIO_PINLOCK				4
-#define GPIO_INT_CTRL			5
-#define GPIO_EXTINT_LOW_PINS		6
-#define GPIO_EXTINT_HIGH_PINS	7
-#define GPIO_EXTINT_RISE_EDGE	8
-#define GPIO_EXTINT_FALL_EDGE	9
-#define GPIO_INT_FLAG			10
-#define GPIO_SERIAL_WIRE			11
-#define GPIO_INSENSE				12
-#define GPIO_CONF_LOCK			13
-#define GPIO_EM4_RET				14
-#define GPIO_EM4_WAKEUP			15
-#define GPIO_EM4_POL				16
-#define GPIO_PININ_READ			17
-#define GPIO_PINOUT_TGL			18
-#define GPIO_EM4_CLR_ALL			19
-#define GPIO_EM4_CAUSE			20
+
+
+
+
+/*********************
+ *      TIMER 
+ *********************/
+
+
+
+
+
+
 
 #ifndef EFM32ZG222F32_PERIPHERALS
 #define EFM32ZG222F32_PERIPHERALS 10

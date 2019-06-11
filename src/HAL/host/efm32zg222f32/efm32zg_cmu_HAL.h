@@ -37,12 +37,6 @@
 
 int (*const *const cmu_config_table[PERIPH_REGISTER_TABLE_MEMBERS])();
 
-int (*const cmu_oscencmd_WRITE[1])();
-int (*const cmu_cmd_WRITE[1])();
-int (*const cmu_status_READ[1])(); 
-int (*const cmu_syncbusy_READ[1])();
-
-
 /*
  * Index defines for cmu_config_table are in the efm32zg_types_HAL.h file
  */

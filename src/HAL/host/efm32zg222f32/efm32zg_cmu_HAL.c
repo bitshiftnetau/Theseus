@@ -45,6 +45,12 @@ int (*const cmu_pcntctrl_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_route_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_lock_table[CMU_READ_WRITE_CLEAR])();
 
+int (*const cmu_oscencmd_WRITE[1])();
+int (*const cmu_cmd_WRITE[1])();
+int (*const cmu_status_READ[1])(); 
+int (*const cmu_syncbusy_READ[1])();
+
+
 int (*const *const cmu_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
 {
   cmu_ctrl_table,
@@ -68,8 +74,13 @@ int (*const *const cmu_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
   cmu_pcntctrl_table,
   cmu_route_table,
   cmu_lock_table,
-  NULL
+  NULL,
+  cmu_oscencmd_WRITE,
+  cmu_cmd_WRITE,
+  cmu_status_READ,
+  cmu_syncbusy_READ
 };
+
 
 int zg_cmuCtrlRead(CMU_periphconf* MPI_conf)
 {

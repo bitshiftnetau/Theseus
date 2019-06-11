@@ -68,6 +68,13 @@ int(* timer_cc2_ctrl_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc2_ccv_table[TIMER_READ_WRITE_CLEAR])();
 int(* timer_cc2_ccvb_table[TIMER_READ_WRITE_CLEAR])();
 
+int(* timer_cc1_ccvp_table[1])();
+int(* timer_cc2_ccvp_table[1])();
+int(* timer_cc0_ccvp_table[1])();
+int(* timer_cmd_table[1])();
+int(* timer_status_table[1])();
+
+
 int (*const *const timer_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() = {
   timer_ctrl_table,
   timer_ien_table,
@@ -86,7 +93,12 @@ int (*const *const timer_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() = {
   timer_cc2_ctrl_table,
   timer_cc2_ccv_table,
   timer_cc2_ccvb_table,
-  NULL
+  NULL,
+  timer_cc1_ccvp_table,
+  timer_cc2_ccvp_table,
+  timer_cc0_ccvp_table,
+  timer_cmd_table,
+  timer_status_table
 };
 
 int zg_timerCtrlRead(TIMER_periphconf* MPI_conf){

@@ -44,6 +44,10 @@ int(*const gpio_low_pinmode[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_high_pinmode[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_pinlock[GPIO_READ_WRITE_CLEAR])();
 
+int(*const gpio_em4clr_all[1])();
+int(*const gpio_em4cause[1])();
+
+
 int(*const *const gpio_port_config_table[5])() = 
 {
   gpio_ctrl,
@@ -67,7 +71,9 @@ int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
 	gpio_em4retention,
 	gpio_em4wake,
 	gpio_em4polarity,
-  NULL
+  NULL,
+  gpio_em4clr_all,
+  gpio_em4cause
 };
 
 

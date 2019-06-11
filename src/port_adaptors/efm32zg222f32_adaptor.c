@@ -92,15 +92,6 @@ int usart_Init(void* host_ptr, uint32_t RWC){
   zg_TxIntSetup(false);
   zg_RxIntSetup(false);
 
-  /*
-	if(MPI_frameconf != NULL){
-		int ret = 0;
-		int(*frame_conf_fn)() = usart_frameconf_rwc[RWC];
-		ret = frame_conf_fn(MPI_frameconf);
-		return ret > 0 ? 1 : 0;
-	}
-  */
-
   if(MPI_usart_periphconf	!= NULL){
 
     int(*fn_ptr)();
@@ -387,11 +378,11 @@ int cmu_Init(void* host_ptr, uint32_t	RWC){
   //cmu_periphconf->hfrcoctrl = *CMU_DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in the cmu HAL header
   //cmu_periphconf->tuningval = CMU_DEFAULT_BOOT_TUNE;
 
-  fn_ptr = cmu_oscencmd_WRITE[0];
+  fn_ptr = cmu_config_table[CMU_OSCENCMD][0];
   ret = fn_ptr(cmu_periphconf);
-  fn_ptr = cmu_cmd_WRITE[0];
-  ret = fn_ptr(cmu_periphconf); 
-
+  fn_ptr = cmu_config_table[CMU_CMD][0];
+  ret = fn_ptr(cmu_periphconf);
+  
 	while(cmu_config_table[i] != NULL){
 		fn_ptr = cmu_config_table[i][RWC];
 		ret = fn_ptr(cmu_periphconf);
