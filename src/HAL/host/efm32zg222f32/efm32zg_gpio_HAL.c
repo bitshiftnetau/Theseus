@@ -33,7 +33,7 @@ int(*const gpio_extint_high_pins[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_extint_rise_edge[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_extint_fall_edge[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_int_flag[GPIO_READ_WRITE_CLEAR])();
-int(*const gpio_serial_wire[GPIO_READ_WRITE_CLEAR])();
+int(*const gpio_route[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_insense[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_conf_lock[GPIO_READ_WRITE_CLEAR])();
 int(*const gpio_em4retention[GPIO_READ_WRITE_CLEAR])();
@@ -65,7 +65,7 @@ int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
 	gpio_extint_rise_edge,
 	gpio_extint_fall_edge,
 	gpio_int_flag,
-	gpio_serial_wire,
+	gpio_route,
 	gpio_insense,
 	gpio_conf_lock,
 	gpio_em4retention,
@@ -75,8 +75,6 @@ int(*const *const gpio_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
   gpio_em4clr_all,
   gpio_em4cause
 };
-
-
 
 int zg_gpioPCtrlRead(GPIO_periphconf* MPI_conf)
 {
@@ -488,7 +486,7 @@ int(*const gpio_extint_fall_edge[GPIO_READ_WRITE_CLEAR])()=
 int(*const gpio_int_flag[GPIO_READ_WRITE_CLEAR])()=
 	{zg_gpioIntFlagRead, zg_gpioIntFlagWrite, zg_gpioIntFlagClr};
 
-int(*const gpio_serial_wire[GPIO_READ_WRITE_CLEAR])()=
+int(*const gpio_route[GPIO_READ_WRITE_CLEAR])()=
 	{zg_gpioSerialWireEnRead, zg_gpioSerialWireEnWrite, zg_gpioSerialWireEnClr};
 
 int(*const gpio_insense[GPIO_READ_WRITE_CLEAR])()=

@@ -52,7 +52,6 @@ int (*const *const usart_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
 };
 
 
-
 int zg_usartCtrlRead(USART_periphconf* MPI_conf)
 {
 	MPI_conf->ctrl = usart->CTRL;
