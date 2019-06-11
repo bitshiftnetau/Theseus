@@ -395,14 +395,14 @@ int cmu_Init(void* host_ptr){
 
   int(*fn_ptr)() = NULL;
   int ret = 0;
-	int i = 0;
+  int i = 0;
 
   //cmu_periphconf->hfrcoctrl = *CMU_DEFAULT_BOOT_TUNE; //DEFAULT_BOOT_TUNE is defined in the cmu HAL header
   //cmu_periphconf->tuningval = CMU_DEFAULT_BOOT_TUNE;
 
-  fn_ptr = cmu_config_table[CMU_OSCENCMD][0];
+  fn_ptr = cmu_config_table[CMU_OSCENCMD][WRITE];
   ret = fn_ptr(cmu_periphconf);
-  fn_ptr = cmu_config_table[CMU_CMD][0];
+  fn_ptr = cmu_config_table[CMU_CMD][WRITE];
   ret = fn_ptr(cmu_periphconf);
   
 	while(cmu_config_table[i] != NULL){
@@ -479,6 +479,7 @@ int timer_Init(void* host_ptr){
    
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   TIMER_periphconf* timer_periphconf = (TIMER_periphconf*)efm32zg_host_ptr->MPI_data[TIMER_PERIPHCONF_INDEX];
+  
 
   NVIC_ClearPendingIRQ(TIMER0_IRQn);
   NVIC_EnableIRQ(TIMER0_IRQn);
