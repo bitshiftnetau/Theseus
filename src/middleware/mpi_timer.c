@@ -24,15 +24,19 @@
 #include "mpi_types.h"
 #include "mpi_port.h"
 
-int mpi_timerInit(void* host_object, uint32_t read_write_clear, int (*host_timer_interface_global_fn)()){
-  return host_timer_interface_global_fn(host_object, read_write_clear); 
+int mpi_timerInit(void* host_object, int (*host_timer_interface_global_fn)()){
+  return host_timer_interface_global_fn(host_object); 
 }
 
-int mpi_timerConfigReg(void* host_object, uint32_t read_write_clear, int (*host_timer_interface_single_reg_fn)()){
-  return host_timer_interface_single_reg_fn(host_object, read_write_clear); 
+int mpi_timerConfigReg(void* host_object, int (*host_timer_interface_single_reg_fn)(), uint32_t config_register){
+  return host_timer_interface_single_reg_fn(host_object, WRITE, config_register); 
+}
+int mpi_timerQueryReg(void* host_object, int (*host_timer_interface_single_reg_fn)(), uint32_t config_register){
+  return host_timer_interface_single_reg_fn(host_object, READ, config_register); 
 }
 
-int mpi_timerDelay(void* host_object, uint32_t delay_ms,  int (*host_timer_interface_delay_fn)()){
+
+int mpi_timerDelay(void* host_object, int (*host_timer_interface_delay_fn)(), uint32_t delay_ms){
   return host_timer_interface_delay_fn(host_object, delay_ms); 
 }
 
