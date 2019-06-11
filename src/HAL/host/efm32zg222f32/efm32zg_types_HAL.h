@@ -38,57 +38,100 @@ extern TIMER_TypeDef* timer1;
  * CMU TABLE INDEXES
  ********************/
 
-#define CMU_CTRL            1
-#define CMU_HFCORECLKDIV    2
-#define CMU_HFPERCLKDIV     3
-#define CMU_HFRCOCTRL       4
-#define CMU_LFRCOCTRL       5
-#define CMU_AUXHFRCOCTRL    6
-#define CMU_CALCTRL         7
-#define CMU_CALCNT          8
-#define CMU_LFCLKSEL        9
-#define CMU_INTF            10 
-#define CMU_INTEN           11
-#define CMU_HFCORECLKEN0    12
-#define CMU_HFPERCLKEN0     13
-#define CMU_FREEZE          14
-#define CMU_LFACLKEN0       15
-#define CMU_LFBCLKEN0       16
-#define CMU_LFAPRESC0       17
-#define CMU_LFBPRESC0       18
-#define CMU_PCNTCTRL        19
-#define CMU_ROUTE           20
-#define CMU_LOCK            21
-// NULL                   22
-#define CMU_OSCENCMD        23
-#define CMU_CMD             24
-#define CMU_STATUS          25
-#define CMU_SYNCBUSY        26
+#define CMU_CTRL            0
+#define CMU_HFCORECLKDIV    1
+#define CMU_HFPERCLKDIV     2
+#define CMU_HFRCOCTRL       3
+#define CMU_LFRCOCTRL       4
+#define CMU_AUXHFRCOCTRL    5
+#define CMU_CALCTRL         6
+#define CMU_CALCNT          7
+#define CMU_LFCLKSEL        8
+#define CMU_INTF            9 
+#define CMU_INTEN           10
+#define CMU_HFCORECLKEN0    11
+#define CMU_HFPERCLKEN0     12
+#define CMU_FREEZE          13
+#define CMU_LFACLKEN0       14
+#define CMU_LFBCLKEN0       15
+#define CMU_LFAPRESC0       16
+#define CMU_LFBPRESC0       17
+#define CMU_PCNTCTRL        18
+#define CMU_ROUTE           19
+#define CMU_LOCK            20
+// NULL                   21
+#define CMU_OSCENCMD        22
+#define CMU_CMD             23
+#define CMU_STATUS          24
+#define CMU_SYNCBUSY        25
 
 
 /**********************
  *      USART
  **********************/
 
-#define USART_READ      0
-#define USART_WRITE     1
+#define USART_READ          0
+#define USART_WRITE         1
 
-
+#define USART_CTRL          0
+#define USART_FRAME         1
+#define USART_TRIGCTRL      2
+#define USART_STATUSCMD     3
+#define USART_CLKDIV        4
+#define USART_INTF          5
+#define USART_IRCTRL        6
+#define USART_ROUTE         7
+#define USART_INPUT         8
+#define USART_I2SCTRL       9
 
 
 /*********************
  *      GPIO 
  *********************/
 
-
-
+#define GPIO_INTCTRL      0
+#define GPIO_EXTINTL      1
+#define GPIO_EXTINTH      2
+#define GPIO_EXTINTRISE   3
+#define GPIO_EXTINTFALL   4
+#define GPIO_INTF         5
+#define GPIO_ROUTE        6
+#define GPIO_INSENSE      7
+#define GPIO_CONFLOCK     8 
+#define GPIO_EM4RET       9 
+#define GPIO_EM4WU        10
+#define GPIO_EM4POL       11
+//NULL                  12
+#define GPIO_EM4CLR       13
+#define GPIO_EM4CAUSE     14
 
 
 /*********************
  *      TIMER 
  *********************/
 
-
+#define TIMER_CTRL        1
+#define TIMER_IEN         2
+#define TIMER_IFRSC       3
+#define TIMER_TOP         4
+#define TIMER_TOPB        5
+#define TIMER_CNT         6
+#define TIMER_ROUTE       7
+#define TIMER_CC0_CTRL    8
+#define TIMER_CC0_CCV     9
+#define TIMER_CC0_CCVB    10
+#define TIMER_CC1_CTRL    11
+#define TIMER_CC1_CCV     12
+#define TIMER_CC1_CCVB    13
+#define TIMER_CC2_CTRL    14
+#define TIMER_CC2_CCV     15
+#define TIMER_CC2_CCVB    16
+//NULL                  17
+#define TIMER_CC0_CCVP    18
+#define TIMER_CC1_CCVP    19
+#define TIMER_CC2_CCVP    20
+#define TIMER_CMD         21
+#define TIMER_STATUS      22
 
 
 
