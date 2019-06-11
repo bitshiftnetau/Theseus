@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+
 #define CMU_HFRCO_FREQ_4MHZ		4000000
 #define CMU_HFRCO_FREQ_7MHZ		7000000
 #define CMU_HFRCO_FREQ_14MHZ	14000000

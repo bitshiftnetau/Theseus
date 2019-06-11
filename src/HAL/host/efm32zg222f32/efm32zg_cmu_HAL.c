@@ -1,5 +1,5 @@
  /* # SpongeCake, an embedded software design philosophy for bare-metal systems
- * Copyright (C) 2018 Aidan Millar-Powell
+ * Copyright (C) 20CMU_READ_WRITE_CLEAR8 Aidan Millar-Powell
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -45,10 +45,10 @@ int (*const cmu_pcntctrl_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_route_table[CMU_READ_WRITE_CLEAR])();
 int (*const cmu_lock_table[CMU_READ_WRITE_CLEAR])();
 
-int (*const cmu_oscencmd_WRITE[1])();
-int (*const cmu_cmd_WRITE[1])();
-int (*const cmu_status_READ[1])(); 
-int (*const cmu_syncbusy_READ[1])();
+int (*const cmu_oscencmd_WRITE[CMU_READ_WRITE_CLEAR])();
+int (*const cmu_cmd_WRITE[CMU_READ_WRITE_CLEAR])();
+int (*const cmu_status_READ[CMU_READ_WRITE_CLEAR])(); 
+int (*const cmu_syncbusy_READ[CMU_READ_WRITE_CLEAR])();
 
 
 int (*const *const cmu_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
@@ -80,6 +80,8 @@ int (*const *const cmu_config_table[PERIPH_REGISTER_TABLE_MEMBERS])() =
   cmu_status_READ,
   cmu_syncbusy_READ
 };
+
+
 
 
 int zg_cmuCtrlRead(CMU_periphconf* MPI_conf)
@@ -576,17 +578,17 @@ int (*const cmu_lock_table[CMU_READ_WRITE_CLEAR])() =
 {zg_cmuLockRead, zg_cmuLockWrite, zg_cmuLockClr};
 
 
-int (*const cmu_oscencmd_WRITE[1])() = 
-{zg_cmuOscencmdWrite};
+int (*const cmu_oscencmd_WRITE[CMU_READ_WRITE_CLEAR])() = 
+{NULL, zg_cmuOscencmdWrite, NULL};
 
-int (*const cmu_cmd_WRITE[1])() = 
-{zg_cmuCmdWrite};
+int (*const cmu_cmd_WRITE[CMU_READ_WRITE_CLEAR])() = 
+{NULL, zg_cmuCmdWrite, NULL};
 
-int (*const cmu_status_READ[1])() = 
-{zg_cmuStatusRead};
+int (*const cmu_status_READ[CMU_READ_WRITE_CLEAR])() = 
+{zg_cmuStatusRead, NULL, NULL};
 
-int (*const cmu_syncbusy_READ[1])() =
-{zg_cmuSyncbusyRead};
+int (*const cmu_syncbusy_READ[CMU_READ_WRITE_CLEAR])() =
+{zg_cmuSyncbusyRead, NULL, NULL};
 
 
 
