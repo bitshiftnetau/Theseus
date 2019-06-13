@@ -52,9 +52,12 @@
 //We need a dummy object for this example but this would basically be your
 //data struct that is made for the external object
 
-int test_fn(){
+uint32_t bufferlen = 512;
+uint8_t array[512];
 
-  return 0;
+int test_fn(void* host_ptr, uint32_t read_write, int(* host_usart_fn)(), void* ext_dev_obj){
+
+  return host_usart_fn(host_ptr, read_write, ext_dev_obj, bufferlen -1);
 }
 
 int main(void)
@@ -62,7 +65,9 @@ int main(void)
   /* Chip errata */
   CHIP_Init();
 
-  
+  //Uncomment the following for basic setup demo with cmu, usart, timer and gpio
+  //including LED initialization demo
+  /*
   //Get the x_Init fns for the respective devices and peripherals
   volatile const int(* efm32zg_cmu_init)() = efm32zg222f32_host._periph_periphconf._cmu_init;
   volatile const int(* efm32zg_usart_init)() = efm32zg222f32_host._periph_periphconf._usart_init;
@@ -95,19 +100,6 @@ int main(void)
   cmu_periphconf->oscencmd = CMU_OSCENCMD_HFRCODIS;
   mpi_cmuConfigReg(&efm32zg222f32_host, efm32zg_cmu_config_reg, CMU_OSCENCMD);
 
-  /*
-  CMU->OSCENCMD = CMU_OSCENCMD_HFXOEN;
-
- 	while(!(CMU->STATUS & CMU_STATUS_HFXORDY)){
- 	} CMU->CMD = CMU_CMD_HFCLKSEL_HFXO;
-
- 	//TURN OFF THE HFRCO WHEN HFXO IS READY
- 	if((CMU->STATUS & CMU_STATUS_HFXORDY) == CMU_STATUS_HFXORDY){
- 		CMU->OSCENCMD = CMU_OSCENCMD_HFRCODIS;
- 	}
-*/
-
-
   mpi_timerInit(&efm32zg222f32_host, efm32zg_timer_init);
   mpi_gpioInit(&efm32zg222f32_host, efm32zg_gpio_init); 
   mpi_usartInit(&efm32zg222f32_host, efm32zg_usart_init);
@@ -115,7 +107,8 @@ int main(void)
   //Get the io functions 
   volatile const int(* efm32zg_gpio_data)() = efm32zg222f32_host._periph_periphconf._gpio_data;
   volatile const int(* efm32zg_timer_delay)() = efm32zg222f32_host._periph_periphconf._timer_delay;
-
+  volatile const int(* efm32zg_usart_data)() = efm32zg222f32_host._periph_periphconf._usart_data;
+    
   //get the data structs
   GPIO_data* gpio_data = efm32zg222f32_host.MPI_data[GPIO_DATA_INDEX];
 
@@ -132,16 +125,18 @@ int main(void)
   gpio_data->P[gpio_data->port].dout = (0x01 << 4);
   mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
   mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE);
-
+  */
 
   /* Infinite loop */
   while (1){
 
+    //Uncomment the following for 3 LED blink with 1s delay
+    /*
     gpio_data->port = 2; 
-    gpio_data->P[gpio_data->port].douttgl = (0x01 << 10); 
+    gpio_data->P[gpio_data->port].douttgl = (0x01 << 11 | 0x01 << 10);
     mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
     mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL);
-    
+
     gpio_data->P[gpio_data->port].douttgl = (0x01 << 11); 
     mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
     mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL);
@@ -150,71 +145,15 @@ int main(void)
     gpio_data->P[gpio_data->port].douttgl = (0x01 << 4);
     mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
     mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL);
+    */
+ 
+    //Uncomment the following for usart read/write demo with blinking LED
+    /*
+    mpi_usartData(&efm32zg222f32_host, efm32zg_usart_data, &array, test_fn, READ);
+    mpi_usartData(&efm32zg222f32_host, efm32zg_usart_data, &array, test_fn, WRITE);
+    mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL);
+    */
 
    }
 }
-
-
-
-
-
-
-  /*
-    //change cmu clock to hfxo  
-  //1. set the values in the config struct
-  //2. write the value to host register with _configReg()
-  //3. query the status register
-  //4. delay for 5ms if not ready
-  //5. write the hfrco disable value to host register
-  //
- 
-  //Get the struct and set the values
-  CMU_periphconf* cmu_periphconf = efm32zg222f32_host.MPI_data[CMU_PERIPHCONF_INDEX];
-  cmu_periphconf->cmd = CMU_CMD_HFCLKSEL_HFXO
-  
-  //Get the x_configReg() fn
-  int(* efm32zg_cmu_config_reg)() = efm32zg222f32_host._periph_periphconf._cmu_config_reg;
- 
-  //Configure a single register
-  efm32zg_cmu_fn = efm32zg222f32_host._periph_periphconf._cmu_config_reg;
-  efm32zg222f32_host.config_register = CMU_OSCENCMD;
-  mpi_cmuConfigReg(&efm32zg222f32_host, WRITE, efm32zg_cmu_fn); 
- 
-  do {
-    mpi_cmuQueryReg(&efm32zg222f32, READ, efm32zg_cmu_config_reg)
-    //do nothing
-  } while
-  
-  
-  while(!(CMU->STATUS & CMU_STATUS_HFXORDY));{
-		} CMU->CMD = CMU_CMD_HFCLKSEL_HFXO;
-
-	  	if((CMU->STATUS & CMU_STATUS_HFXORDY) == CMU_STATUS_HFXORDY){
-	  	 	CMU->OSCENCMD = CMU_OSCENCMD_HFRCODIS;
-	}
-  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
