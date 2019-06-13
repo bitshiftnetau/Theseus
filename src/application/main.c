@@ -33,7 +33,10 @@
 #include "mpi_port.h"
 #include "_app_config.h"
 
-
+//The following main file contains a number of demos for gpio, cmu, usart and timer peripherals
+//as well as dummy objects for fns that require external device interaction, in order to be 
+//meaningful. 
+//
 //Lets say I have an external device that sets a spi pol/alpha through the gpio 
 //Instead of writing a new fn for every single host that I use, just have one
 //external device object that does some stuff and calls back to the host when 
@@ -50,15 +53,18 @@
 //
 
 //We need a dummy object for this example but this would basically be your
-//data struct that is made for the external object
-
+//data struct that is made for the external object.i
+//
+//Uncomment the following in accordance with the usart demo found in the infinite while loop
+//
+/*
 uint32_t bufferlen = 512;
 uint8_t array[512];
 
 int test_fn(void* host_ptr, uint32_t read_write, int(* host_usart_fn)(), void* ext_dev_obj){
-
   return host_usart_fn(host_ptr, read_write, ext_dev_obj, bufferlen -1);
 }
+*/
 
 int main(void)
 {
