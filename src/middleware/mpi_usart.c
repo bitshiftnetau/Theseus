@@ -52,10 +52,10 @@ int mpi_usartInit(void* host_object, int(*host_usart_interface_global_fn)()){
   return host_usart_interface_global_fn(host_object); 
 }
 int mpi_usartConfigReg(void* host_object, int(*host_usart_interface_single_reg_fn)(), uint32_t config_register){
-  return host_usart_interface_single_reg_fn(host_object, WRITE, config_register); 
+  return host_usart_interface_single_reg_fn(host_object, config_register); 
 }
 int mpi_usartQueryReg(void* host_object, int(*host_usart_interface_single_reg_fn)(), uint32_t config_register){
-  return host_usart_interface_single_reg_fn(host_object, READ, config_register); 
+  return host_usart_interface_single_reg_fn(host_object, config_register); 
 }
 
 /*
