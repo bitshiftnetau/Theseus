@@ -87,8 +87,11 @@ int usart_Init(void* host_ptr){
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   USART_periphconf* MPI_usart_periphconf = (USART_periphconf*)efm32zg_host_ptr->MPI_data[USART_PERIPHCONF_INDEX];
 
-  zg_TxIntSetup(false);
-  zg_RxIntSetup(false);
+  NVIC_ClearPendingIRQ(USART1_TX_IRQn);
+  NVIC_ClearPendingIRQ(USART1_RX_IRQn);
+
+  //zg_TxIntSetup(false);
+  //zg_RxIntSetup(false);
 
   if(MPI_usart_periphconf	!= NULL){
 
