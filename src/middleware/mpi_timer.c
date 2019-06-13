@@ -29,10 +29,10 @@ int mpi_timerInit(void* host_object, int (*host_timer_interface_global_fn)()){
 }
 
 int mpi_timerConfigReg(void* host_object, int (*host_timer_interface_single_reg_fn)(), uint32_t config_register){
-  return host_timer_interface_single_reg_fn(host_object, WRITE, config_register); 
+  return host_timer_interface_single_reg_fn(host_object, config_register); 
 }
 int mpi_timerQueryReg(void* host_object, int (*host_timer_interface_single_reg_fn)(), uint32_t config_register){
-  return host_timer_interface_single_reg_fn(host_object, READ, config_register); 
+  return host_timer_interface_single_reg_fn(host_object, config_register); 
 }
 
 
