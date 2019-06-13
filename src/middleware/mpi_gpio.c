@@ -27,11 +27,11 @@ int mpi_gpioInit(void* host_object, int(*host_gpio_interface_global_fn)()){
 }
 
 int mpi_gpioConfigReg(void* host_object, int(*host_gpio_interface_single_reg_fn)(), uint32_t config_register){
-  return host_gpio_interface_single_reg_fn(host_object, WRITE, config_register); 
+  return host_gpio_interface_single_reg_fn(host_object, config_register); 
 }
 
 int mpi_gpioQueryReg(void* host_object, int(*host_gpio_interface_single_reg_fn)(), uint32_t config_register){
-  return host_gpio_interface_single_reg_fn(host_object, READ, config_register); 
+  return host_gpio_interface_single_reg_fn(host_object, config_register); 
 }
 
 int mpi_gpioData(void* host_object, int(*host_gpio_interface_data_fn)(), uint32_t read_write_tgl){
