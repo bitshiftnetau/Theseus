@@ -17,6 +17,17 @@
  */
  
 
+/*
+ *  NOTE: AT THE TIME OF WRITING, THIS DRIVER DOES NOT TAKE INTERRUPTS INTO
+ *  CONSIDERATION IF YOU ENABLE INTERRUPTS FOR THE USART YOU WILL NEED TO CLEAR 
+ *  THE PARITY ERROR, FRAMING ERROR, OVERFLOW, UNDERFLOW, TX COMPLETE, AND 
+ *  COLLISON DETECT FLAGS IN THEIR RESPECTIVE POSITIONS. 
+ *
+ *  THESE FLAGS HAVE BEEN SLATED FOR FUTURE COMMITS 
+ *
+ *
+ */
+
 #include <stdbool.h>
 #include <stdint.h>
 #include "efm32zg222f32.h"
@@ -60,22 +71,17 @@ int zg_usartRxdataxRead(USART_data* 		MPI_buffer,
 						USART_error* 		MPI_error,
             USART_status* MPI_status)
 {
-
-  if((MPI_status->rxfull = ((usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)) > 0){
+  while(!(MPI_status->rxfull = (usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)){};
 
 	//READ FROM RX REGISTER INTO BUFFER
 	uint32_t temp_data_buffer = usart->RXDATAX;
 
-		if((MPI_error->rxdataxPERR = (temp_data_buffer & USART_RXDATAX_PARITY_ERR) >> USART_RXDATAX_PARITY_ERR_SHIFT) == 1)
-  		{return -1;}
-		else if((MPI_error->rxdataxFERR = (temp_data_buffer & USART_RXDATAX_FRAME_ERR) >> USART_RXDATAX_FRAME_ERR_SHIFT) == 1)
-			{return -2;}
-		else 
-      {
-				MPI_buffer->rxdatax 	  	= temp_data_buffer;
-				MPI_config->rxdatax_ctrl = ((temp_data_buffer & USART_RXDATAX_CTRLBIT) >> USART_RXDATAX_CTRLBIT_SHIFT);
-			}
-		}
+	if((MPI_error->rxdataxPERR = (temp_data_buffer & USART_RXDATAX_PARITY_ERR) >> USART_RXDATAX_PARITY_ERR_SHIFT) == 1){return -1;}
+	else if((MPI_error->rxdataxFERR = (temp_data_buffer & USART_RXDATAX_FRAME_ERR) >> USART_RXDATAX_FRAME_ERR_SHIFT) == 1){return -2;}
+	else{
+		MPI_buffer->rxdatax 	  	= temp_data_buffer;
+		MPI_config->rxdatax_ctrl = ((temp_data_buffer & USART_RXDATAX_CTRLBIT) >> USART_RXDATAX_CTRLBIT_SHIFT);
+	}
   return 0;
 }
 
@@ -90,10 +96,9 @@ int zg_usartRxdataRead(USART_data* 		MPI_buffer,
 	MPI_error = NULL;
 	MPI_config = NULL;
 
-	if((MPI_status->rxfull = ((usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)) > 0){
-		MPI_buffer->rxdata = usart->RXDATA;
-	}
-	
+  while(!(MPI_status->rxfull = (usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)){};
+	MPI_buffer->rxdata = usart->RXDATA;
+ 
   return 0;
 }
 
@@ -104,7 +109,8 @@ int zg_usartRxdataxpRead(USART_data* 		MPI_buffer,
 		USART_error* 		MPI_error,
     USART_status* MPI_status)
 {
-			if((MPI_status->rxfull = ((usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)) > 0){
+
+      while(!(MPI_status->rxfull = (usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)){};
 
 				//READ FROM RX REGISTER INTO BUFFER
 				uint32_t temp_data_buffer = usart->RXDATAXP;
@@ -117,8 +123,6 @@ int zg_usartRxdataxpRead(USART_data* 		MPI_buffer,
 					MPI_buffer->rxdataxp 		 = temp_data_buffer;
 					MPI_config->rxdataxp_ctrl = ((temp_data_buffer & USART_RXDATAXP_CTRLBIT) >> USART_RXDATAXP_CTRLBIT_SHIFT);
 				}
-			}
-
 	return 0;
 }
 
@@ -129,27 +133,22 @@ int zg_usartRxdoublexRead(USART_data* 		  MPI_buffer,
 		                      USART_error* 		  MPI_error,
                           USART_status*     MPI_status)
 {
-				if((MPI_status->rxfull = ((usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)) > 0){
 
-					//READ FROM RX REGISTER INTO BUFFER
-					uint32_t temp_data_buffer = usart->RXDOUBLEX;
+  while(!(MPI_status->rxfull = (usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)){};
 
-					if((MPI_error->rxdoublexPERR0 = (temp_data_buffer & USART_RXDOUBLEX_PARITY_ERR_0) >> USART_RXDOUBLEX_PARITY_ERR_SHIFT_0) == 1)
-					{return -1;}
-					else if((MPI_error->rxdoublexFERR0 = (temp_data_buffer & USART_RXDOUBLEX_FRAME_ERR_0) >> USART_RXDOUBLEX_FRAME_ERR_SHIFT_0) == 1)
-					{return -2;}
-					else if((MPI_error->rxdoublexPERR1 = (temp_data_buffer & USART_RXDOUBLEX_PARITY_ERR_1) >> USART_RXDOUBLEX_PARITY_ERR_SHIFT_1) == 1)
-          {return -3;}
-					else if((MPI_error->rxdoublexFERR1 = (temp_data_buffer & USART_RXDOUBLEX_FRAME_ERR_1) >> USART_RXDOUBLEX_FRAME_ERR_SHIFT_1) == 1)
-					{return -4;}
-					{
-						MPI_buffer->rxdoublex = (temp_data_buffer & USART_RXDOUBLEX_DATA_0) | (((temp_data_buffer >> USART_RXDOUBLEX_DATA_SHIFT_1) & USART_RXDOUBLEX_DATA_1) << SINGLE_BYTE_SHIFT);
-						MPI_config->rxdoublex_ctrl_0 = ((temp_data_buffer & USART_RXDOUBLEX_CTRLBIT_0) >> USART_RXDOUBLEX_CTRLBIT_SHIFT_0);
-						MPI_config->rxdoublex_ctrl_1 = ((temp_data_buffer & USART_RXDOUBLEX_CTRLBIT_1) >> USART_RXDOUBLEX_CTRLBIT_SHIFT_1);
-					}
-				}
-		return 0;
+	//READ FROM RX REGISTER INTO BUFFER
+	uint32_t temp_data_buffer = usart->RXDOUBLEX;
 
+	if((MPI_error->rxdoublexPERR0 = (temp_data_buffer & USART_RXDOUBLEX_PARITY_ERR_0) >> USART_RXDOUBLEX_PARITY_ERR_SHIFT_0) == 1){return -1;}
+	else if((MPI_error->rxdoublexFERR0 = (temp_data_buffer & USART_RXDOUBLEX_FRAME_ERR_0) >> USART_RXDOUBLEX_FRAME_ERR_SHIFT_0) == 1){return -2;}
+	else if((MPI_error->rxdoublexPERR1 = (temp_data_buffer & USART_RXDOUBLEX_PARITY_ERR_1) >> USART_RXDOUBLEX_PARITY_ERR_SHIFT_1) == 1){return -3;}
+	else if((MPI_error->rxdoublexFERR1 = (temp_data_buffer & USART_RXDOUBLEX_FRAME_ERR_1) >> USART_RXDOUBLEX_FRAME_ERR_SHIFT_1) == 1){return -4;}
+	else{
+		MPI_buffer->rxdoublex = (temp_data_buffer & USART_RXDOUBLEX_DATA_0) | (((temp_data_buffer >> USART_RXDOUBLEX_DATA_SHIFT_1) & USART_RXDOUBLEX_DATA_1) << SINGLE_BYTE_SHIFT);
+		MPI_config->rxdoublex_ctrl_0 = ((temp_data_buffer & USART_RXDOUBLEX_CTRLBIT_0) >> USART_RXDOUBLEX_CTRLBIT_SHIFT_0);
+		MPI_config->rxdoublex_ctrl_1 = ((temp_data_buffer & USART_RXDOUBLEX_CTRLBIT_1) >> USART_RXDOUBLEX_CTRLBIT_SHIFT_1);
+	}
+	return 0;
 }
 
 
@@ -163,9 +162,8 @@ int zg_usartRxdoubleRead(USART_data* 		MPI_buffer,
 	MPI_error = NULL;
 	MPI_config = NULL;
 
-		if((MPI_status->rxfull = ((usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)) > 0){
-				MPI_buffer->rxdouble = usart->RXDOUBLE;
-		}
+  while(!(MPI_status->rxfull = (usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)){};
+	MPI_buffer->rxdouble = usart->RXDOUBLE;
 	return 0;
 }
 
@@ -177,7 +175,8 @@ int zg_usartRxdoublexpRead(USART_data* 		MPI_buffer,
 		USART_error* 		MPI_error,
     USART_status* MPI_status)
 {
-			if((MPI_status->rxfull = ((usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT)) > 0){
+  
+      while(!(MPI_status->rxfull = ((usart->STATUS & USART_STATUS_RXFULL) >> _USART_STATUS_RXFULL_SHIFT))){};
 
 				//READ FROM RX REGISTER INTO BUFFER
 				uint32_t temp_data_buffer = usart->RXDOUBLEXP;
@@ -196,7 +195,6 @@ int zg_usartRxdoublexpRead(USART_data* 		MPI_buffer,
           MPI_config->rxdoublexp_ctrl_0 = ((temp_data_buffer & USART_RXDOUBLEXP_CTRLBIT_0) >> USART_RXDOUBLEXP_CTRLBIT_SHIFT_0);
 					MPI_config->rxdoublexp_ctrl_1 = ((temp_data_buffer & USART_RXDOUBLEXP_CTRLBIT_1) >> USART_RXDOUBLEXP_CTRLBIT_SHIFT_1);
 				}
-			}
 	return 0;
 }
 
@@ -219,20 +217,18 @@ int zg_usartTxdataxWrite(USART_data* 		MPI_buffer,
     | MPI_config->txbreak0 
     | MPI_config->txtriat0 
     | MPI_config->unbrxat0;
-
-		if((USART_STATUS_TXC & usart->STATUS) > 0){
-			usart->TXDATAX = temp_tx_buffer;
-		}
+ 
+    while(!(usart->STATUS & USART_STATUS_TXBL)){};
+		usart->TXDATAX = temp_tx_buffer;
   } else {
   
     uint16_t temp_tx_buffer = (MPI_buffer->txdatax & USART_TXDATAX_DATABITS) 
     | (MPI_config->txdatax_ctrl << SINGLE_BYTE_SHIFT);
  
-		if((USART_STATUS_TXC & usart->STATUS) > 0){
-			usart->TXDATAX = temp_tx_buffer;
-		}
+    while(!(usart->STATUS & USART_STATUS_TXBL)){};
+		usart->TXDATAX = temp_tx_buffer;
   }
-  usart->IFC |= USART_STATUS_TXC;
+  usart->IFC = USART_STATUS_TXC;
 	return 0;
 }
 
@@ -247,10 +243,10 @@ int zg_usartTxdataWrite(USART_data* 		MPI_buffer,
 	MPI_error = NULL;
   MPI_config = NULL;
 
-	if((USART_STATUS_TXC & usart->STATUS) > 0){
-		usart->TXDATAX = MPI_buffer->txdata & USART_TXDATA_DATABITS;
-	}
-	usart->IFC |= USART_STATUS_TXC;
+  while(!(usart->STATUS & USART_STATUS_TXBL)){};
+	
+  usart->TXDATA = MPI_buffer->txdata;
+	usart->IFC = USART_STATUS_TXC;
 	return 0;
 }
 
@@ -285,20 +281,18 @@ uint32_t temp_tx_buffer;
               | MPI_config->txtriat1
               | MPI_config->unbrxat1;
 
-		if((USART_STATUS_TXC & usart->STATUS) > 0){
-				usart->TXDOUBLEX = temp_tx_buffer;
-			}
+    while(!(usart->STATUS & USART_STATUS_TXBL)){};
+    usart->TXDOUBLEX = temp_tx_buffer;
 		
   } else {
     
     temp_tx_buffer = (MPI_buffer->txdoublex & USART_TXDOUBLEX_DATABITS_0)
 							|(MPI_buffer->txdoublex << DOUBLE_BYTE_SHIFT);
 	
-    if((USART_STATUS_TXC & usart->STATUS) > 0){
-				usart->TXDOUBLEX = temp_tx_buffer;
-			}
+    while(!(usart->STATUS & USART_STATUS_TXBL)){};
+		usart->TXDOUBLEX = temp_tx_buffer;
   }
-  usart->IFC |= USART_STATUS_TXC;
+  usart->IFC = USART_STATUS_TXC;
   return 0;
 }
 
@@ -313,10 +307,10 @@ int zg_usartTxdoubleWrite(USART_data* 		MPI_buffer,
 	MPI_config = NULL;
 	MPI_error = NULL;
 
-		if((USART_STATUS_TXC & usart->STATUS) > 0){
-			usart->TXDATAX = MPI_buffer->txdouble;
-		}
-		usart->IFC |= USART_STATUS_TXC;
+  while(!(usart->STATUS & USART_STATUS_TXBL)){};
+	
+  usart->TXDOUBLE = MPI_buffer->txdouble;
+  usart->IFC = USART_STATUS_TXC;
 	return 0;
 }
 
@@ -346,46 +340,56 @@ int (*const usart_rxtx_double[USART_READ_WRITE])() =
  */
 
 
-void usart_assign_rx_data_8_x(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  slave_obj_data_array[index] = host_obj_buffer->rxdatax;
+void usart_assign_rx_data_8_x(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint8_t* array = (uint8_t*)ext_dev_array;   
+  array[index] = host_obj_buffer->rxdatax;
 }
 
-void usart_assign_rx_data_8(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  slave_obj_data_array[index] = host_obj_buffer->rxdata;
+void usart_assign_rx_data_8(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint8_t* array = (uint8_t*)ext_dev_array;   
+  array[index] = host_obj_buffer->rxdata;
 }
 
-void usart_assign_rx_data_16_x(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  slave_obj_data_array[index] = host_obj_buffer->rxdoublex;
+void usart_assign_rx_data_16_x(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint16_t* array = (uint16_t*)ext_dev_array;   
+  array[index] = host_obj_buffer->rxdoublex;
 }
 
-void usart_assign_rx_data_16(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  slave_obj_data_array[index] = host_obj_buffer->rxdouble;
+void usart_assign_rx_data_16(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint16_t* array = (uint16_t*)ext_dev_array;   
+  array[index] = host_obj_buffer->rxdouble;
 }
 
-void usart_assign_rx_data_8_xp(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  slave_obj_data_array[index] = host_obj_buffer->rxdataxp; 
+void usart_assign_rx_data_8_xp(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint8_t* array = (uint8_t*)ext_dev_array;   
+  array[index] = host_obj_buffer->rxdataxp; 
 }
 
-void usart_assign_rx_data_16_xp(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  slave_obj_data_array[index] = host_obj_buffer->rxdoublexp;
+void usart_assign_rx_data_16_xp(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint16_t* array = (uint16_t*)ext_dev_array;   
+  array[index] = host_obj_buffer->rxdoublexp;
 }
 
 
 
-void usart_assign_tx_data_8_x(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  host_obj_buffer->txdatax = slave_obj_data_array[index];
- }
-
-void usart_assign_tx_data_8(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  host_obj_buffer->txdata = slave_obj_data_array[index];
+void usart_assign_tx_data_8_x(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint8_t* array = (uint8_t*)ext_dev_array;   
+  host_obj_buffer->txdatax = array[index];
 }
 
-void usart_assign_tx_data_16_x(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  host_obj_buffer->txdoublex = slave_obj_data_array[index];
- }
+void usart_assign_tx_data_8(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint8_t* array = (uint8_t*)ext_dev_array;   
+  host_obj_buffer->txdata = array[index];
+}
 
-void usart_assign_tx_data_16(USART_data* host_obj_buffer, uint32_t* slave_obj_data_array, uint32_t index){
-  host_obj_buffer->txdouble = slave_obj_data_array[index];
+void usart_assign_tx_data_16_x(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint16_t* array = (uint16_t*)ext_dev_array;   
+  host_obj_buffer->txdoublex = array[index];
+}
+
+void usart_assign_tx_data_16(USART_data* host_obj_buffer, void* ext_dev_array, uint32_t index){
+  uint16_t* array = (uint16_t*)ext_dev_array;   
+  host_obj_buffer->txdouble = array[index];
 }
 
 void(*const usart_rx_bitwidth_table[USART_REGISTER_TABLES])() = 
@@ -404,6 +408,8 @@ void(*const usart_tx_bitwidth_table[USART_REGISTER_TABLES])() =
   usart_assign_tx_data_8_x, 
   usart_assign_tx_data_8, 
   usart_assign_tx_data_16_x, 
+  usart_assign_tx_data_16,
+  usart_assign_tx_data_8_x, 
   usart_assign_tx_data_16
 };
 

@@ -248,6 +248,15 @@ typedef struct {
 #define USART_SINGLE_MEMBER			  1
 #define USART_DOUBLE_MEMBER			  2
 
+//assign one of these values to the .bitwidth propery of usart_data
+#define USART_8_X     0
+#define USART_8_N     1
+#define USART_16_X    2
+#define USART_16_N    3
+#define USART_8_XP    4
+#define USART_16_XP   5
+
+
 #define LPOL_LPHA		0
 #define LPHA_HPHA		1
 #define HPOL_LPHA		2

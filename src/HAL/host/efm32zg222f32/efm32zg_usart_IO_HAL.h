@@ -22,14 +22,6 @@
 #define PERR1_ERROR -4
 
 
-#define USART_RX_XP 		0
-#define USART_RX_8		  0
-#define USART_RX_16		  1
-
-#define USART_DATA_X 	  1
-#define USART_DATA 		  2
-#define USART_DOUBLE_X 	3
-#define USART_DOUBLE		4
 
 /*
  * whole-register bit-widths for tx/rx registers
