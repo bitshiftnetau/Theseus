@@ -66,6 +66,28 @@ typedef struct {
 
 // set the frequency of the hfrco and the tuning value as well
 
+/*
+void USART_SetBaud(int rate){
+
+	uint32_t clkmask_19200 = 0b00000010011001UL;
+	uint32_t clkmask_9600 = 0b00000010011001UL;
+
+
+	switch(rate){
+	case(9600):
+	USART1->CLKDIV = (_USART_CLKDIV_MASK & (clkmask_9600 <<6));
+	CMU->HFPERCLKDIV = (CMU_HFPERCLKDIV_HFPERCLKEN | _CMU_HFPERCLKDIV_HFPERCLKDIV_HFCLK4);
+	break;
+
+	case(19200):
+	USART1->CLKDIV = (_USART_CLKDIV_MASK & (clkmask_19200 <<6));
+	CMU->HFPERCLKDIV = (CMU_HFPERCLKDIV_HFPERCLKEN | _CMU_HFPERCLKDIV_HFPERCLKDIV_HFCLK2);
+	break;
+	}
+
+} //end fn
+*/
+
 CMU_periphconf cmu_periphconf = {
 
  .ctrl = (CMU_CTRL_HFXOTIMEOUT_1KCYCLES | CMU_CTRL_HFXOGLITCHDETEN),
@@ -112,15 +134,25 @@ typedef struct {
 }TIMER_periphconf;
 */
 
+#define TIMER_1MS_OF_21MHZ_HFRCO 21277
 #define TIMER_1MS_OF_14MHZ_HFRCO 14308
+#define TIMER_1MS_OF_7MHZ_HFRCO 
+#define TIMER_1MS_OF_4MHZ_HFRCO
+#define TIMER_1MS_OF_1MHZ_HFRCO
 
 #define TIMER_1MS_OF_LFXO 32
+
+#define TIMER_1MS_OF_24MHZ_DIV0_HFXO  24272
+#define TIMER_1MS_OF_24MHZ_DIV2_HFXO
+#define TIMER_1MS_OF_24MHZ_DIV4_HFXO
+#define TIMER_1MS_OF_24MHZ_DIV8_HFXO  3121
+
 
 TIMER_periphconf timer0_periphconf = {
  .ctrl = TIMER_CTRL_DEBUGRUN,
  .ien = TIMER_IEN_OF, //enable overflow interrupt
- .top = TIMER_1MS_OF_14MHZ_HFRCO,
- .topb = TIMER_1MS_OF_14MHZ_HFRCO
+ .top = TIMER_1MS_OF_24MHZ_DIV0_HFXO,
+ .topb = TIMER_1MS_OF_24MHZ_DIV0_HFXO
 };
 
 
@@ -175,6 +207,22 @@ typedef struct {
 }USART_periphconf;
 */
 
+/*
+#define CLKDIV_24MHZ_HFXO_4800
+#define CLKDIV_24MHZ_HFXO_19200
+#define CLKDIV_24MHZ_HFXO_38400
+#define CLKDIV_24MHZ_HFXO_56700
+#define CLKDIV_24MHZ_HFXO_115200
+*/
+/*
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV0_9600 (0b000000010011110UL << 6)
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV4_9600 (0b000000010011001UL << 6)
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV8_9600 (0b100111000100011UL << 6)
+*/
+
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV0_9600 (0b1001101101000000UL)
+//#define CLKDIV_24MHZ_HFXO_16OVS_DIV4_9600 (0b10011000010000UL)
+
 USART_data usart_data;
 USART_error usart_error;
 USART_status usart_status;
@@ -183,14 +231,14 @@ USART_periphconf usart_periphconf = {
   .ctrl = (USART_CTRL_OVS_X16 | USART_CTRL_TXBIL_EMPTY | USART_CTRL_SYNC_DEFAULT | USART_CTRL_TXDELAY_SINGLE | (!USART_CTRL_CLKPOL_IDLEHIGH)),
   .frame = (USART_FRAME_DATABITS_EIGHT | USART_FRAME_PARITY_NONE | USART_FRAME_STOPBITS_ONE),
   .cmd = (USART_CMD_TXEN | USART_CMD_RXEN),
-  .clkdiv = USART_BAUD_19200,
+  .clkdiv = CLKDIV_24MHZ_HFXO_16OVS_DIV0_9600,
   .route = (USART_ROUTE_LOCATION_LOC3 | USART_ROUTE_TXPEN | USART_ROUTE_RXPEN),
   .intflag = _USART_IF_RESETVALUE
 };
 
 USART_frameconf usart_frameconf = {
-  /*.bitwidth = ,
-  .rxenat0 = ,
+  .bitwidth = USART_8_N,
+  /*.rxenat0 = ,
   .rxenat1 ...
     ...*/
 };
@@ -285,7 +333,7 @@ GPIO_periphconf gpio_periphconf = {
   .P = {
     [PORTA] = {
       .ctrl = 0,
-      .pinmodeL = (GPIO_P_MODEL_MODE7_PUSHPULL | GPIO_P_MODEL_MODE6_INPUT),
+      .pinmodeL = 0,
       .pinmodeH = 0,
       .pinlockn = 0
     },
@@ -296,14 +344,14 @@ GPIO_periphconf gpio_periphconf = {
       .pinlockn = 0
     },
     [PORTC] = {
-      .ctrl = GPIO_P_CTRL_DRIVEMODE_HIGH,
+      .ctrl = GPIO_P_CTRL_DRIVEMODE_STANDARD,
       .pinmodeL = 0,
       .pinmodeH = GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE,
       .pinlockn = 0
     },
     [PORTD] = {
       .ctrl = 0,
-      .pinmodeL = 0,
+      .pinmodeL = (GPIO_P_MODEL_MODE7_PUSHPULL | GPIO_P_MODEL_MODE6_INPUT),
       .pinmodeH = 0,
       .pinlockn = 0
     },
@@ -314,7 +362,7 @@ GPIO_periphconf gpio_periphconf = {
       .pinlockn = 0
     },
     [PORTF] = {
-      .ctrl = GPIO_P_CTRL_DRIVEMODE_HIGH,
+      .ctrl = GPIO_P_CTRL_DRIVEMODE_STANDARD,
       .pinmodeL = GPIO_P_MODEL_MODE4_PUSHPULLDRIVE,
       .pinmodeH = 0,
       .pinlockn = 0
