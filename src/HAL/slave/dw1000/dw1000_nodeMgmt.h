@@ -1,6 +1,8 @@
 #ifndef DW1000_NODEMGMT_H_
 #define DW1000_NODEMGMT_H_
 
+#include <stdint.h>
+
 #include "mpi_port.h"
 #include "dw1000_types.h"
 
