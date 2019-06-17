@@ -16,11 +16,13 @@
  *
  */
 
-#include <stdio.h>
 #include <stdint.h>
 
-#include "venus638.h"
 #include "mpi_port.h"
+#include "mpi_types.h"
+
+#include "venus638.h"
+#include "venus638_adaptor.h"
 
 /**********************************************************
  *
@@ -29,76 +31,87 @@
  *
  *********************************************************/
 
+
+int venus638_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
+
+  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
+  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
+
+  int(* venus_data)() = venus638_rx_tx_table[WRITE];
+
+  for(int i = 0; i < 11; i++){
+      venus_message->message_id = venus_query_lookup_table[i]; 
+      venus_data(host_object, host_usart, ext_dev_object); 
+      int(* venus_data)() = venus638_rx_tx_table[READ];
+      venus_data(host_object, host_usart, ext_dev_object); 
+  }
+
+  return EXIT_SUCCESS;
+}
+
+int venus638_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object){
+
+  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
+  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
+
+  int(* venus_data)() = venus638_rx_tx_table[WRITE];
+
+  for(int i = 0; i < 11; i++){
+      venus_message->message_id = venus_query_lookup_table[i]; 
+      venus_data(host_object, host_usart, ext_dev_object); 
+      int(* venus_data)() = venus638_rx_tx_table[READ];
+      venus_data(host_object, host_usart, ext_dev_object); 
+  }
+
+  return EXIT_SUCCESS;
+}
+
+int venus638_ConfigReg(void* host_object, int(*host_usart)(), void* ext_dev_object, void* config_register){
+  
+  register_enum reg_enum = (register_enum)config_register;
+
+  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
+  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
+
+  venus_message->message_id = venus_query_lookup_table[reg_enum];
+  int(* venus_data)() = venus638_rx_tx_table[WRITE];
+  return venus_data(host_object, host_usart, ext_dev_object);
+}
+
+int venus638_QueryReg(void* host_object, int (*host_usart)(), void* ext_dev_object, void* config_register){
+  
+  register_enum reg_enum = (register_enum)config_register;
+  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
+  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
+
+  venus_message->message_id = venus_query_lookup_table[reg_enum];
+  int(* venus_data)() = venus638_rx_tx_table[WRITE];
+  return venus_data(host_object, host_usart, ext_dev_object);
+}
+
+int venus638_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t read_write){
+
+  int(* venus_data)() = venus638_rx_tx_table[read_write];
+  return venus_data(host_object, host_usart, ext_dev_object, read_write);
+}
+
+
+int venus638_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){
 /*
-int venus638_Init(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object){
-
   MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
   VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
-  for(int i = 0; i < 11; i++){
-      venus_message->message_id = venus_query_lookup_table[i]; 
-      venus638_Tx(host_object, host_usart, ext_dev_object); 
-  }
-
-  return EXIT_SUCCESS;
-}
-
-int venus638_RegDump(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object){
-
-  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
-  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
-  for(int i = 0; i < 11; i++){
-      venus_message->message_id = venus_query_lookup_table[i]; 
-      venus638_Rx(host_object, host_usart, ext_dev_object); 
-  }
-
-  return EXIT_SUCCESS;
-}
-
-int venus638_ConfigReg(void* host_object, int reg_index, int(*host_usart)(), void* ext_dev_object){
-  
-  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
-  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
-  venus_message->message_id = venus_query_lookup_table[reg_index];
-  return venus638_Tx(host_object, host_usart, ext_dev_object);
-}
-
-int venus638_QueryReg(void* host_object, int reg_index, int (*host_usart)(), void* ext_dev_object){
-  
-  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
-  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
-  venus_message->message_id = venus_query_lookup_table[reg_index];
-  return venus638_Rx(host_object, host_usart, ext_dev_object);
-}
-
-int venus638_Data(void* host_object, int reg_index, int(*host_usart)(), void* ext_dev_object){
-
-  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
-  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
-  return venus638_Rx(host_object, host_usart, ext_dev_object);
-}
-
-
-int venus638_Reset(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object){
-
-  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
-  VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
+*/
   //call to comm jump table and 
   //use tx function to send reset
 
   return EXIT_SUCCESS;
 }
 
-int venus638_Off(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object){
-
+int venus638_Off(void* host_object, int(*host_usart)(), void* ext_dev_object){
+/*
   MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
   VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
+*/
   //call to comm jump table and
   //use tx function to send off
   //also cut power to device
@@ -106,37 +119,37 @@ int venus638_Off(void* host_object, int read_write, int(*host_usart)(), void* ex
   return EXIT_SUCCESS;
 }
 
-int venus638_Sleep(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object){
-
+int venus638_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){
+/*
   MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
   VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
+*/
   //call to comm jump table and 
   //use tx function to send sleep 
 
   return EXIT_SUCCESS;
 }
 
-int venus638_Wakeup(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object){
-
+int venus638_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){
+/*
   MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
   VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
+*/
   //call to comm jump table and 
   //use tx function to send wakeup
 
   return EXIT_SUCCESS;
 }
 
-int venus638_ModeLevel(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object){
-
+int venus638_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object){
+/*
   MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
   VENUS_message_io* venus_message = (VENUS_message_io*)venus_object->MPI_data[VENUS_MESSAGE_INDEX];
-
+*/
   //call to comm jump table and 
   //use tx function to send mode level
 
   return EXIT_SUCCESS;
 }
-*/
+
 

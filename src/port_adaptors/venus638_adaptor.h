@@ -63,21 +63,22 @@
  *
  **************************************************/
 
-#ifndef VENUS638_H_
-#define VENUS638_H_
+#ifndef VENUS638_ADAPTOR_H_
+#define VENUS638_ADAPTOR_H_
 
 #include <stdint.h>
 
-#include "mpi_port.h"
 #include "venus638.h"
 
-int venus638_Init(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_QueryReg(void* host_object, int reg_index, int(*host_usart)(), void* ext_dev_object);
-int venus638_RegDump(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Reset(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Off(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Data(void* host_object, int reg_index, int(*host_usart)(), void* ext_dev_object);
-int venus638_Wakeup(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_ModeLevel(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
+int venus638_Init(void* host_object, int(*host_usart)(), void* ext_dev_object);
+int venus638_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object);
+int venus638_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object);
+int venus638_Off(void* host_object, int(*host_usart)(), void* ext_dev_object);
+int venus638_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t read_write);
+int venus638_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object);
+int venus638_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object);
+int venus638_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object);
+int venus638_QueryReg(void* host_object, int(*host_usart)(), void* ext_dev_object, void* config_register);
+int venus638_ConfigReg(void* host_object, int(*host_usart)(), void* ext_dev_object, void* config_register);
 
 #endif
