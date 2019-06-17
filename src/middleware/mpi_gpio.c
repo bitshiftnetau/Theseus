@@ -34,7 +34,7 @@ int mpi_gpioQueryReg(void* host_object, int(*host_gpio_interface_single_reg_fn)(
   return host_gpio_interface_single_reg_fn(host_object, config_register); 
 }
 
-int mpi_gpioData(void* host_object, int(*host_gpio_interface_data_fn)(), uint32_t read_write_tgl){
-	return host_gpio_interface_data_fn(host_object, read_write_tgl);
+int mpi_gpioData(void* host_object, int(*host_gpio_interface_data_fn)(), uint32_t read_write_tgl, uint32_t port, uint16_t pin){
+	return host_gpio_interface_data_fn(host_object, read_write_tgl, port, pin);
 }
 
