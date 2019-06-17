@@ -147,7 +147,8 @@ uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t node_index){
    active_distance = dev_list[i].distance;
  }
  
- memcpy(&tmp_1, &dev_list[i], sizeof(DW_network_dev));
+ //memcpy(&tmp_1, &dev_list[i], sizeof(DW_network_dev));
+ tmp_1 = dev_list[i];
 
  for(int j = 0; j < BLINK_SHORT_ADDR_LEN; j++){
   node_list->devices[i].tag_id[j] = dw_data.tag_id[j];
@@ -161,9 +162,14 @@ uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t node_index){
  }
 
  while(active_distance >= tmp_1.distance){
-   memcpy(&tmp_2, &dev_list[i], sizeof(DW_network_dev));
-   memcpy(&dev_list[i], &tmp_1, sizeof(DW_network_dev));
-   memcpy(&tmp_1, &tmp_2, sizeof(DW_network_dev));
+   //memcpy(&tmp_2, &dev_list[i], sizeof(DW_network_dev));
+   //memcpy(&dev_list[i], &tmp_1, sizeof(DW_network_dev));
+   //memcpy(&tmp_1, &tmp_2, sizeof(DW_network_dev));
+   
+   tmp_2 = dev_list[i];
+   dev_list[i] = tmp_1;
+   tmp_1 = tmp_2;
+   
    i++;
    if((i) != ACTIVE_DEVICES_LEN){
     active_distance = dev_list[i].distance;
