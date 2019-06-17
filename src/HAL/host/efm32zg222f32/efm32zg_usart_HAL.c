@@ -17,7 +17,6 @@
  */
  
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdint.h>
 
 #include "efm32zg222f32.h" 
