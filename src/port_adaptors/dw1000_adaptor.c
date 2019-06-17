@@ -82,13 +82,12 @@ enum _##type type##s[] = { __VA_ARGS__ }
  */
 
 
-uint32_t dw_Init(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
-  read_write = WRITE;
   dw_config->config_index = device_id;
   
   //for loop with call to write into struct members
@@ -104,8 +103,8 @@ uint32_t dw_Init(void* host_object, uint32_t read_write, int(*host_usart)(), voi
     //if tx call to dw_buildMessage()
     //if rx call to dw_decodeMessage()
     //
-    uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-    int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+    uint32_t(*build_msg_ptr)() = dw_decode_build_table[WRITE];
+    int ret = build_msg_ptr(ext_dev_object, WRITE, DW_CONFIG);
 
     //callback to host usart
     //
@@ -118,13 +117,12 @@ uint32_t dw_Init(void* host_object, uint32_t read_write, int(*host_usart)(), voi
   return EXIT_SUCCESS;
 }
 
-uint32_t dw_RegDump(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
-  read_write = READ;
   dw_config->query_index = device_id;
 
   for(int i = 0; i < QUERY_STRUCT_MEMBERS; i++){
@@ -132,8 +130,8 @@ uint32_t dw_RegDump(void* host_object, uint32_t read_write, int(*host_usart)(), 
     dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
     dw_config->query_index = dw_config->query_index + 1;
 
-    uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-    int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+    uint32_t(*build_msg_ptr)() = dw_decode_build_table[READ];
+    int ret = build_msg_ptr(ext_dev_object, READ, DW_CONFIG);
 
     //callback to host usart
     //
@@ -157,13 +155,11 @@ uint32_t dw_RegDump(void* host_object, uint32_t read_write, int(*host_usart)(), 
  * SINGLE REG/FIELD CONFIG/QUERY
  */
 
-uint32_t dw_ConfigReg(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_ConfigReg(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t config_register){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
-
-  read_write = WRITE;
 
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
   
@@ -175,8 +171,8 @@ uint32_t dw_ConfigReg(void* host_object, uint32_t read_write, int(*host_usart)()
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
   //
-  uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-  int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+  uint32_t(*build_msg_ptr)() = dw_decode_build_table[WRITE];
+  int ret = build_msg_ptr(ext_dev_object, WRITE, DW_CONFIG);
 
   //callback to host usart
   //
@@ -187,18 +183,16 @@ uint32_t dw_ConfigReg(void* host_object, uint32_t read_write, int(*host_usart)()
 }
 
 
-uint32_t dw_QueryReg(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_QueryReg(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t config_register){
   
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
-  read_write = READ;
-
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
 
-  uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-  int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+  uint32_t(*build_msg_ptr)() = dw_decode_build_table[READ];
+  int ret = build_msg_ptr(ext_dev_object, READ, DW_CONFIG);
 
   //callback to host usart
   //
@@ -218,7 +212,7 @@ uint32_t dw_QueryReg(void* host_object, uint32_t read_write, int(*host_usart)(),
 
 
 
-uint32_t dw_Data(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t read_write){
 
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   //DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
@@ -242,11 +236,13 @@ uint32_t dw_Data(void* host_object, uint32_t read_write, int(*host_usart)(), voi
     // read first two octets of frame
     dw_Rx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_in, FC_COMMON_LEN);
 
-    //if rx call to dw_buildMessage()
+    // decode whole frame and handle
     //
     uint32_t(*decode_frame_ptr)() = dw_decode_build_table[read_write];
     int index = decode_frame_ptr(host_object, host_usart, ext_dev_object);
 
+    //build the next frame to be sent in accordance with frame just decoded
+    //
     dw_nodelist->node_index = dw_buildMessageOut(ext_dev_object, WRITE, index);
 
     return (dw_nodelist->node_index == ERROR ? ERROR: EXIT_SUCCESS);
@@ -277,7 +273,7 @@ uint32_t dw_Data(void* host_object, uint32_t read_write, int(*host_usart)(), voi
 }
 
 
-uint32_t dw_Reset(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
@@ -291,8 +287,6 @@ uint32_t dw_Reset(void* host_object, uint32_t read_write, int(*host_usart)(), vo
 
 
 
-  read_write = WRITE;
-
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
   
   //call to adjust struct member value
@@ -303,8 +297,8 @@ uint32_t dw_Reset(void* host_object, uint32_t read_write, int(*host_usart)(), vo
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
   //
-  uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-  int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+  uint32_t(*build_msg_ptr)() = dw_decode_build_table[WRITE];
+  int ret = build_msg_ptr(ext_dev_object, WRITE, DW_CONFIG);
 
   if(ret == EXIT_SUCCESS){
     return dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
@@ -313,7 +307,7 @@ uint32_t dw_Reset(void* host_object, uint32_t read_write, int(*host_usart)(), vo
 }
 
 
-uint32_t dw_Off(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_Off(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
@@ -327,7 +321,6 @@ uint32_t dw_Off(void* host_object, uint32_t read_write, int(*host_usart)(), void
 
 
 
-  read_write = WRITE;
 
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
   
@@ -339,8 +332,8 @@ uint32_t dw_Off(void* host_object, uint32_t read_write, int(*host_usart)(), void
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
   //
-  uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-  int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+  uint32_t(*build_msg_ptr)() = dw_decode_build_table[WRITE];
+  int ret = build_msg_ptr(ext_dev_object, WRITE, DW_CONFIG);
 
   //callback to host usart
   //
@@ -351,7 +344,7 @@ uint32_t dw_Off(void* host_object, uint32_t read_write, int(*host_usart)(), void
 }
 
 
-uint32_t dw_Sleep(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
@@ -365,7 +358,6 @@ uint32_t dw_Sleep(void* host_object, uint32_t read_write, int(*host_usart)(), vo
 
 
 
-  read_write = WRITE;
 
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
   
@@ -377,8 +369,8 @@ uint32_t dw_Sleep(void* host_object, uint32_t read_write, int(*host_usart)(), vo
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
   //
-  uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-  int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+  uint32_t(*build_msg_ptr)() = dw_decode_build_table[WRITE];
+  int ret = build_msg_ptr(ext_dev_object, WRITE, DW_CONFIG);
 
   //callback to host usart
   //
@@ -389,7 +381,7 @@ uint32_t dw_Sleep(void* host_object, uint32_t read_write, int(*host_usart)(), vo
 }
 
 
-uint32_t dw_Wakeup(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
@@ -403,7 +395,6 @@ uint32_t dw_Wakeup(void* host_object, uint32_t read_write, int(*host_usart)(), v
 
 
 
-  read_write = WRITE;
 
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
   
@@ -415,8 +406,8 @@ uint32_t dw_Wakeup(void* host_object, uint32_t read_write, int(*host_usart)(), v
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
   //
-  uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-  int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+  uint32_t(*build_msg_ptr)() = dw_decode_build_table[WRITE];
+  int ret = build_msg_ptr(ext_dev_object, WRITE, DW_CONFIG);
 
   //callback to host usart
   //
@@ -427,7 +418,7 @@ uint32_t dw_Wakeup(void* host_object, uint32_t read_write, int(*host_usart)(), v
 }
 
 
-uint32_t dw_ModeLevel(void* host_object, uint32_t read_write, int(*host_usart)(), void* ext_dev_object){
+int dw_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
@@ -441,7 +432,6 @@ uint32_t dw_ModeLevel(void* host_object, uint32_t read_write, int(*host_usart)()
 
 
 
-  read_write = WRITE;
 
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
   
@@ -453,8 +443,8 @@ uint32_t dw_ModeLevel(void* host_object, uint32_t read_write, int(*host_usart)()
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
   //
-  uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-  int ret = build_msg_ptr(ext_dev_object, read_write, DW_CONFIG);
+  uint32_t(*build_msg_ptr)() = dw_decode_build_table[WRITE];
+  int ret = build_msg_ptr(ext_dev_object, WRITE, DW_CONFIG);
 
   //callback to host usart
   //
