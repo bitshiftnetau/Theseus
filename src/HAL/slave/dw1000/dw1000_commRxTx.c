@@ -53,49 +53,59 @@
 uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint32_t* buffer_out, uint32_t buffer_len){
 
   /*************************************************************************/
-  //de-assert CS line here
+  //  de-assert CS line here
   /*************************************************************************/
 
+/*
+  MPI_host* host_object_ptr = (MPI_host*)host_object;
+  volatile int(*host_spi_cs)() = host_object_ptr->_periph_periphconf._gpio_data;
+  
+   host_spi_cs(host_object, WRITE, 0, 5);
+*/
 
-
-  int read_write = DW_WRITE;
   //callback to host usart
   //
-  int ret = host_usart(host_object, read_write, buffer_out, buffer_len);
+  int ret = host_usart(host_object, WRITE, buffer_out, buffer_len);
 
   /*************************************************************************/
-  //re-assert CS line here
+  //  re-assert CS line here
   /*************************************************************************/
-
-
+/*
+  host_spi_cs(host_object, TGL, 0, 5);
+*/
 
   return ret;
 }
 
 
 uint32_t dw_Rx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint32_t* buffer_in, uint32_t buffer_len){
-
+ 
   //build message that requests a read from a given register (pre-configured in reg_id_index)
   int frame_len = dw_buildMessageHeader(dw_nodelist, DW_READ);
-
+ 
   /*************************************************************************/
   //de-assert CS line here
   /*************************************************************************/
+/*
+  MPI_host* host_object_ptr = (MPI_host*)host_object;
+  volatile int(*host_spi_cs)() = host_object_ptr->_periph_periphconf._gpio_data;
 
+  host_spi_cs(host_object, WRITE, 0, 5);
+*/
+  
   //make tx call to request frame
-  host_usart(host_object, host_usart, dw_nodelist->frame_out, frame_len);
+  host_usart(host_object, WRITE, dw_nodelist->frame_out, frame_len);
 
-  int read_write = DW_READ;
   //callback to host usart
   //
-  int ret = host_usart(host_object, read_write, buffer_in, buffer_len);
+  int ret = host_usart(host_object, READ, buffer_in, buffer_len);
 
   /*************************************************************************/
   //re-assert CS line here
   /*************************************************************************/
-
-
-
+/*
+  host_spi_cs(host_object, TGL, 0, 5);
+*/
   return ret;
 }
 
