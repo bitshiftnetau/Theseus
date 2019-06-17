@@ -70,15 +70,11 @@
 
 #define EXIT_SUCCESS 0
 
-int venus638_Init(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_ConfigReg(void* host_object, int reg_index, int(*host_usart)(), void* ext_dev_object);
-int venus638_QueryReg(void* host_object, int reg_index, int(*host_usart)(), void* ext_dev_object);
-int venus638_RegDump(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Reset(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Off(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Data(void* host_object, int reg_index, int(*host_usart)(), void* ext_dev_object);
-int venus638_Wakeup(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_ModeLevel(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
+typedef enum {
+  command,
+  nmea
+}VENUS_op_mode;
+
 
 //Jump tables
 //
@@ -92,15 +88,42 @@ extern int(*const venus638_rx_tx_table[])();
 extern int(*const nmea_decode_table[])();
 extern int(*const venus_config_query_fn_table[])(); 
 
+typedef enum {
+ config_serial,
+ config_nmea,
+ config_message,
+ config_sys_pwr,
+ config_update_rate,
+ config_datum,
+ config_set_eph,
+ config_waas,
+ config_pos_pin,
+ config_pos_pin_param,
+ config_nav_mode,
+ config_1pps_mode,
+ query_sw_rev,
+ query_sw_crc,
+ query_update_rate,
+ query_datum,
+ query_get_eph,
+ query_waas,
+ query_pos_pin,
+ query_nav_mode,
+ query_1pps_mode
+}venus_config_query_enum;
+
+typedef venus_config_query_enum register_enum;
+
+
 typedef struct VENUS_MESSAGE_IO{
   uint8_t sequence_start[2];
   uint8_t sequence_end[2];
   uint32_t message_id;
-  uint32_t message_body[512];
+  uint8_t message_body[64];
   uint32_t payload_len;
   uint32_t checksum;
-  uint32_t message_out[1024];
-  uint32_t message_in[1024];
+  uint8_t message_out[64];
+  uint8_t message_in[256];
   uint32_t final_message_len;
   uint8_t last_known;
 }VENUS_message_io;
@@ -204,6 +227,8 @@ typedef struct VENUS_RESPONSE_STORE{
  *
  **************************/
 
+#define NMEA_LEN               512
+
 #define ID_HEADER_LEN          1
 #define NMEA_SENTENCE_BEGIN    0x24
 #define ID_NMEA_LEN            6
@@ -231,17 +256,6 @@ typedef struct VENUS_RESPONSE_STORE{
 
 //#define test ( uint32_t testing = PGGA);
 
-#define VENUS_MESSAGE_INDEX    0
-#define VENUS_RESPONSE_INDEX   1
-#define VENUS_NMEA_INDEX       2
-
-#ifdef VENUS_CONFIG_VA_INDEX
-  #define VENUS_CONFIG_INDEX(x) x 
-#else 
-  #define VENUS_CONFIG_INDEX 0
-#endif
-
-
 extern const uint8_t venus_nmea_id_table [ID_NMEA_LEN][ID_NMEA_LEN]; 
 
 typedef struct {
@@ -249,12 +263,12 @@ typedef struct {
  uint8_t decode_id[ID_NMEA_LEN];
  uint8_t decode_id_index;
  uint8_t nmea_len;
- uint8_t decode_gga[64];
- uint8_t decode_gll[64];
- uint8_t decode_gsa[64];
- uint8_t decode_gsv[64];
- uint8_t decode_rmc[64];
- uint8_t decode_vtg[64];
+ uint8_t decode_gga[32];
+ uint8_t decode_gll[32];
+ uint8_t decode_gsa[32];
+ uint8_t decode_gsv[32];
+ uint8_t decode_rmc[32];
+ uint8_t decode_vtg[32];
 
 }VENUS_nmea_store;
 
@@ -267,6 +281,13 @@ typedef struct {
 
 #define VENUS_QUERY_LOOKUP_TABLE_LENGTH     24 
 #define VENUS_RESPONSE_LOOKUP_TABLE_LENGTH  12 
+
+#define VENUS_MESSAGE_INDEX   0
+#define VENUS_RESPONSE_INDEX  1
+#define VENUS_NMEA_INDEX      2
+
+#define VENUS_CONFIG_INDEX    0
+#define VENUS_OP_INDEX        1
 
 
 #define VENUS_READ_WRITE  2
@@ -696,21 +717,7 @@ typedef struct {
 #define ID_STATUS_1PPS            0xB6 //1PPS mode of GPS
 
 
-int venus638_Init(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_RegDump(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-
-int venus638_ConfigReg(void* host_object, int register, int (*host_usart)(), void* ext_dev_object);
-int venus638_QueryReg(void* host_object, int register, int (*host_usart)(), void* ext_dev_object);
-
-int venus638_Data(void* host_object, int read_register, int(*host_usart)(), void* ext_dev_object);
-
-
-int venus638_Reset(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Off(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Sleep(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_Wakeup(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-int venus638_ModeLevel(void* host_object, int read_write, int(*host_usart)(), void* ext_dev_object);
-
+int(*const usart_rx_tx_table[VENUS_READ_WRITE+1])();
 
 #endif
 

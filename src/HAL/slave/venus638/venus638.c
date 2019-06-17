@@ -16,8 +16,7 @@
  *
  */
    
-
-#include <stdio.h>
+#include <stddef.h>
 #include <stdint.h>
 
 #include "venus638.h"
@@ -52,6 +51,12 @@ const uint8_t venus_nmea_id_table [ID_NMEA_LEN][ID_NMEA_LEN] = {
 };
 int venus638_Tx(void* host_object, int (*host_usart)(), void* ext_dev_object);
 int venus638_Rx(void* host_object, int (*host_usart)(), void* ext_dev_object);
+
+int(*const venus638_rx_tx_table[VENUS_READ_WRITE+1])() = {
+  venus638_Rx,
+  venus638_Tx,
+  NULL
+};
 
 void venus_nullMessageArray();
 int venus_buildPlLen(VENUS_message_io* venus_message);
@@ -124,94 +129,70 @@ int venus638_Tx(void* host_object, int (*host_usart)(), void* ext_dev_object){
 
 int venus638_Rx(void* host_object, int (*host_usart)(), void* ext_dev_object){
 
-    int read_write = VENUS_READ;
-    MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
+  int read_write = VENUS_READ;
+  MPI_ext_dev* venus_object = (MPI_ext_dev*)ext_dev_object;
   
-    if(venus_object != NULL){
-    
-      VENUS_message_io* venus_message = venus_object->MPI_data[VENUS_MESSAGE_INDEX];  
-      VENUS_response_store* venus_response = venus_object->MPI_data[VENUS_RESPONSE_INDEX];
-      VENUS_nmea_store* venus_nmea = venus_object->MPI_data[VENUS_NMEA_INDEX];
-    
-      if((venus_message == NULL) || (venus_response == NULL) || (venus_nmea == NULL))
-      {
-        return -1;
-      } else {
-        
-        //Conditions to check:
-        // - nmea sentence begin
-        // - ack
-        // - nack
-        // - response message
+  VENUS_message_io* venus_message = venus_object->MPI_data[VENUS_MESSAGE_INDEX];  
+  VENUS_response_store* venus_response = venus_object->MPI_data[VENUS_RESPONSE_INDEX];
+  VENUS_nmea_store* venus_nmea = venus_object->MPI_data[VENUS_NMEA_INDEX];    
+  VENUS_op_mode* venus_mode = (VENUS_op_mode*)venus_object->MPI_conf[VENUS_OP_INDEX];
 
-        int ret = host_usart(host_object, read_write, venus_message->message_in, ID_HEADER_LEN);
 
-        if(ret){
-          return 1;
-        }
-  
+  //re-write this section to operate based on a mode i.e. command mode or 
 
-          /* if the first byte is a nmea sentence begin, store the nmea sentence*/
-          if((venus_message->message_in[0] & NMEA_SENTENCE_BEGIN) == 0){
+  if(*venus_mode == nmea){
+       /* if the first byte is a nmea sentence begin, store the nmea sentence*/
+    if((venus_message->message_in[0] & NMEA_SENTENCE_BEGIN) == 0){
     
-            //call to usart again to check which nmea sentence it is 
-            host_usart(host_object, read_write, venus_message->message_in, ID_NMEA_LEN);  
+       //call to usart again to check which nmea sentence it is 
+       host_usart(host_object, read_write, venus_message->message_in, NMEA_LEN);  
      
-            //Call to decoding nmea id fn
-            //
-            int ret = venus_decodeNmeaId(venus_message, venus_nmea);
+       //Call to decoding nmea id fn
+       //
+       int ret = venus_decodeNmeaId(venus_message, venus_nmea);
 
-            if(ret){
-              return 1;
-            } 
+       if(ret){
+         return 1;
+       } 
 
-            host_usart(host_object, read_write, venus_message->message_in, venus_nmea->nmea_len);
+       host_usart(host_object, read_write, venus_message->message_in, venus_nmea->nmea_len);
 
-            //Call to decoding nmea sentence fn
-            //
-            ret = venus_decodeNmeaMessage(venus_message, venus_nmea);
+       //Call to decoding nmea sentence fn
+       //
+       ret = venus_decodeNmeaMessage(venus_message, venus_nmea);
 
-            if(ret){
-              return 1;
-            }
+       if(ret){
+         return 1;
+       }
+    }
+  } else if (*venus_mode == command){
 
-          } else if((venus_message->message_in[0] & RES_ID_STATUS_ACK ) == 0){
-    
-            venus_response->ack_message_id = venus_message->message_in[1];
-            return 0;
-
-          } else if((venus_message->message_in[0] & RES_ID_STATUS_NACK ) == 0) {
-    
-            venus_response->nack_message_id = venus_message->message_in[1];
-            return -1;
-
-          } else {
-
-            uint8_t* table = venus_response_lookup_table; 
+     if((venus_message->message_in[0] & RES_ID_STATUS_ACK ) == 0){
+       venus_response->ack_message_id = venus_message->message_in[1];
+       return 0;
+     } else if((venus_message->message_in[0] & RES_ID_STATUS_NACK ) == 0) {
+       venus_response->nack_message_id = venus_message->message_in[1];
+       return -1;
+     } else {
+       uint8_t* table = venus_response_lookup_table; 
             
-            for(int i = 0; i < 10; i++){
-         
-              if((venus_message->message_in[0] & table[i]) == 0){
-
-              //store Id in struct
-              venus_response->response_id = venus_message->message_in[0]; 
-
-              venus_message->payload_len = venus_query_lookup_table_member_length[i];
-              //call to usart again to get message body
-              host_usart(host_object, read_write, venus_message->message_in, venus_message->payload_len);
-       
-              //store in struct member appropriately 
-              int(*response_handler)() = venus_handler_table[i];
-              response_handler(venus_message, venus_response);
-    
-            } else {
-                continue;
-            } //wat
-          } //the
-        } //fuck
-      } //happened
-    } //here
-   return EXIT_SUCCESS;
+       for(int i = 0; i < 10; i++){
+         if((venus_message->message_in[0] & table[i]) == 0){
+         //store Id in struct
+         venus_response->response_id = venus_message->message_in[0]; 
+         venus_message->payload_len = venus_query_lookup_table_member_length[i];
+         //call to usart again to get message body
+         host_usart(host_object, read_write, venus_message->message_in, venus_message->payload_len);
+         //store in struct member appropriately 
+         int(*response_handler)() = venus_handler_table[i];
+         response_handler(venus_message, venus_response);
+         } else {
+           continue;
+         } 
+       }
+     }
+  }
+  return EXIT_SUCCESS;
 }
 
 
