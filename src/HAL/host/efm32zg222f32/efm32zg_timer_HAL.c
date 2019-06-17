@@ -16,8 +16,7 @@
  *
  */
  
-#include <stdlib.h>
-#include <stdio.h>
+#include <stddef.h>
 
 #include "efm32zg_timer_HAL.h"
 #include "efm32zg_types_HAL.h"
