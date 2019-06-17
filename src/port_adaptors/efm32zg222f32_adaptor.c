@@ -16,7 +16,6 @@
  *
  */
 
-#include <stdio.h>
 #include <stdint.h>
 
 #include "mpi_types.h"
@@ -334,7 +333,7 @@ int gpio_QueryReg(void* host_ptr, uint32_t config_register){
  *  USE BETWEEN DEVICES, BUT THIS FN IS INTERNAL
  *
  */ 
-int gpio_Data(void* host_ptr, uint32_t RWT){
+int gpio_Data(void* host_ptr, uint32_t RWT, uint32_t port, uint16_t pin){
 
   MPI_host* efm32zg_host_ptr = (MPI_host*)host_ptr;
   GPIO_data* gpio_data = (GPIO_data*)efm32zg_host_ptr->MPI_data[GPIO_DATA_INDEX];
@@ -343,9 +342,13 @@ int gpio_Data(void* host_ptr, uint32_t RWT){
       int(*const gpio_IO_ptr)() = gpio_pinin_read[0]; 
       gpio_IO_ptr(gpio_data);
     } else if(RWT == WRITE){
+      gpio_data->port = port; 
+      gpio_data->P[port].dout = (0x01 << pin); 
 	    int(*const gpio_IO_ptr)() = gpio_out[RWT];
       gpio_IO_ptr(gpio_data);
     } else if(RWT == TGL){
+      gpio_data->port = port; 
+      gpio_data->P[port].douttgl = (0x01 << pin); 
       int(*const gpio_IO_ptr)() = gpio_pinout_tgl[0];
       gpio_IO_ptr(gpio_data);
   }

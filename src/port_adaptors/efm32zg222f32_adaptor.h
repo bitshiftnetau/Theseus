@@ -40,7 +40,7 @@ int gpio_Init(void* host_ptr);
 int gpio_ConfigReg(void* host_ptr, uint32_t config_register);
 int gpio_QueryReg(void* host_ptr, uint32_t config_register);
 
-int gpio_Data(void* host_ptr, uint32_t RW);
+int gpio_Data(void* host_ptr, uint32_t RW, uint32_t port, uint16_t pin);
 
 /*********************
  *      TIMER 
