@@ -14,19 +14,32 @@
 # 				CONSTANTS
 #################################
 
-ARM_GCC_VERS=8.3.0
-GCC_ARM=/usr/arm-none-eabi
-GCC_LIB_ARM=/usr/lib/gcc/arm-none-eabi/$(ARM_GCC_VERS)
+GNU_ARM_VERS=7.2_2017q4
+GNU_ARM=/srv/code/toolchains/gnu_arm/$(GNU_ARM_VERS)
+
+GCC_ARM_VERS=7.2.1
+GCC_ARM=$(GNU_ARM)/arm-none-eabi
+GCC_LIB_ARM=$(GNU_ARM)/lib/gcc/arm-none-eabi/$(GCC_ARM_VERS)
+GCC_BIN_ARM=$(GNU_ARM)/bin
+
+GECKO_SDK_VERS=2.5
+GECKO_SDK_DIR=/usr/include/sdks/gecko_sdk_suite/v$(GECKO_SDK_VERS)
+
+
+
+#GCC_ARM_VERS=8.3.0
+#GCC_ARM=/usr/arm-none-eabi
+#GCC_LIB_ARM=/usr/lib/gcc/arm-none-eabi/$(GCC_ARM_VERS)
 
 SOURCE_DIR=../../src
-SDK_DIR=/usr/include/sdks/gecko_sdk
-CMSIS_DIR=$(SDK_DIR)/platform/CMSIS
-DEVICE_DIR=$(SDK_DIR)/platform/Device/SiliconLabs/EFM32ZG
-FREERTOS_DIR=$(SDK_DIR)/util/third_party/freertos
+#GECKO_SDK_DIR=/usr/include/sdks/gecko_sdk
+CMSIS_DIR=$(GECKO_SDK_DIR)/platform/CMSIS
+DEVICE_DIR=$(GECKO_SDK_DIR)/platform/Device/SiliconLabs/EFM32ZG
+FREERTOS_DIR=$(GECKO_SDK_DIR)/util/third_party/freertos
 DEP_LIST_OUT=./CMSIS/efm32zg/system_efm32zg.d
-EM_LIB=$(SDK_DIR)/platform/emlib/inc
-STK3200_DIR=$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200
-BSP_DIR=$(SDK_DIR)/hardware/kit/common/bsp
+EM_LIB=$(GECKO_SDK_DIR)/platform/emlib/inc
+STK3200_DIR=$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200
+BSP_DIR=$(GECKO_SDK_DIR)/hardware/kit/common/bsp
 
 PROJECT_NAME=spongecake
 TARGET=$(PROJECT_NAME).axf 
@@ -122,20 +135,16 @@ $(PROJECT_SOURCES)
 # 		    BUILD FLAGS 				  	
 #################################
 
-CC=arm-none-eabi-gcc
+CC=$(GCC_BIN_ARM)/arm-none-eabi-gcc
 LD=$(CC)
 
-#EFM32ZG_FLAG='-DEFM32ZG222F32=1'
-#VENUS_FLAG='-DVENUS638=1'
-#BUILD_CONFIG_1.1.1.1.1='-DEL_BOM00001_HAL0001_MW0001_A0001_R0001=1'
-
-CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DDEFAULT_HFRCO_14MHZ' '-DVENUS638=1' '-DDW1000=1' $(INCLUDE) -Wall -c -fmessage-length=0 -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections 
+CFLAGS= -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' '-DDEFAULT_HFRCO_14MHZ=1' '-DDW1000=1' '-DVENUS638=1' $(INCLUDE) -Wall -c -fmessage-length=0 -mno-sched-prolog -fno-builtin -ffunction-sections -fdata-sections 
 
 LDFLAGS= \
  -L$(GCC_LIB_ARM)/thumb/v6-m/nofp \
  -L$(GCC_ARM)/lib/thumb/v6-m/nofp \
  -L$(CMSIS_DIR)/Lib/GCC \
- -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb -T "efm32zg.ld" -Xlinker --gc-sections -Xlinker -Map="efm32zg.map" --specs=nano.specs -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group
+ -v -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb -T "efm32zg.ld" -Xlinker --gc-sections -Xlinker -Map="efm32zg.map" --specs=nano.specs -Wl,--start-group -lgcc -lc -lnosys -Wl,--end-group
 
 #CPPFLAGS=$(INCLUDE)
 
@@ -149,24 +158,34 @@ BUILD_DIR=.
 #	$(CC) $(CPPFLAGS) $(CFLAGS) -S $^ 
 
 all: $(TARGET)
-	arm-none-eabi-objcopy -O ihex "$(PROJECT_NAME).axf" "$(PROJECT_NAME).hex"
-	arm-none-eabi-objcopy -O binary "$(PROJECT_NAME).axf" "$(PROJECT_NAME).bin"
-	arm-none-eabi-size "$(PROJECT_NAME).axf"
+	$(GCC_BIN_ARM)/arm-none-eabi-objcopy -O ihex "$(PROJECT_NAME).axf" "$(PROJECT_NAME).hex"
+	$(GCC_BIN_ARM)/arm-none-eabi-objcopy -O binary "$(PROJECT_NAME).axf" "$(PROJECT_NAME).bin"
+	$(GCC_BIN_ARM)/arm-none-eabi-size "$(PROJECT_NAME).axf"
 
-$(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)
+#$(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)
+#	$(LD) -o $@ $(wildcard $(BUILD_DIR)/*.o) $(LDFLAGS)
+
+$(TARGET): startup_efm32zg.o system_efm32zg.o obj
 	$(LD) -o $@ $(wildcard $(BUILD_DIR)/*.o) $(LDFLAGS)
 
-$(OBJECTS): $(SRC_DIR)
+obj: $(SRC_DIR)
 	$(CC) $(CFLAGS) $^  
 
+#$(OBJECTS): $(SRC_DIR)
+#	$(CC) $(CFLAGS) $^  
+
+#$(OBJECTS): %.o : %.c $(SRC_DIR)
+#	$(CC) $(CFLAGS) $^  
+
+
 startup_efm32zg.o: $(DEVICE_DIR)/Source/GCC/startup_efm32zg.S
-	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb -c -x assembler-with-cpp \
-	 	-I"$(SDK_DIR)/platform/Device/SiliconLabs/EFM32ZG/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+	$(CC) -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb -c -x assembler-with-cpp \
+	 	-I"$(GECKO_SDK_DIR)/platform/Device/SiliconLabs/EFM32ZG/Include" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 		-I"$(EM_LIB)" \
-	 	-I"$(SDK_DIR)/platform/CMSIS/Include" \
-		-I"$(SDK_DIR)/hardware/kit/common/bsp" \
-		-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	 	-I"$(GECKO_SDK_DIR)/platform/CMSIS/Include" \
+		-I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+		-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 	 	-I"$(FREERTOS_DIR)/Source/include" \
 	 	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
 	 	'-DEFM32ZG222F32=1' -o "$@" "$<" 
@@ -174,13 +193,13 @@ startup_efm32zg.o: $(DEVICE_DIR)/Source/GCC/startup_efm32zg.S
 	@echo ' '
 
 system_efm32zg.o: $(DEVICE_DIR)/Source/system_efm32zg.c
-	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
-	 	-I"$(SDK_DIR)/platform/Device/SiliconLabs/EFM32ZG/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+	$(CC) -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
+	 	-I"$(GECKO_SDK_DIR)/platform/Device/SiliconLabs/EFM32ZG/Include" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 	 	-I"$(EM_LIB)" \
-	 	-I"$(SDK_DIR)/platform/CMSIS/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/bsp" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	 	-I"$(GECKO_SDK_DIR)/platform/CMSIS/Include" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 	 	-I"$(FREERTOS_DIR)/Source/include" \
 	 	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
 	 	-O3 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -std=c99 -MMD -MP \
@@ -235,10 +254,10 @@ $(FREERTOS_DIR)/Source/timers.d
 #routine.o: $(FREERTOS_DIR)/Source/croutine.c
 #	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
 	 	-I"$(DEVICE_DIR)/Device/SiliconLabs/EFM32ZG/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 	 	-I"$(CMSIS_DIR)/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/bsp" \
-		 	-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+		 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 		 	-I"$(FREERTOS_DIR)/Source/include" \
 	   	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
  	  	-O3 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -std=c99 -MMD -MP \
@@ -250,10 +269,10 @@ $(FREERTOS_DIR)/Source/timers.d
 #heap_1.o: $(FREERTOS_DIR)/Source/portable/MemMang/heap_1.c
 #	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
 	 	-I"$(DEVICE_DIR)/Device/SiliconLabs/EFM32ZG/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 	 	-I"$(CMSIS_DIR)/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/bsp" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 	 	-I"$(FREERTOS_DIR)/Source/include" \
 	 	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
 	 	-O3 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -std=c99 -MMD -MP \
@@ -265,10 +284,10 @@ $(FREERTOS_DIR)/Source/timers.d
 #list.o: $(FREERTOS_DIR)/Source/list.c
 #	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
 	 	-I"$(DEVICE_DIR)/Device/SiliconLabs/EFM32ZG/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 	 	-I"$(CMSIS_DIR)/Include" \
-	  -I"$(SDK_DIR)/hardware/kit/common/bsp" \
-  	-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	  -I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+  	-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 	 	-I"$(FREERTOS_DIR)/Source/include" \
 	 	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
 	 	-O3 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -std=c99 -MMD -MP \
@@ -280,10 +299,10 @@ $(FREERTOS_DIR)/Source/timers.d
 #port.o: $(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0/port.c
 #	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
 	 	-I"$(DEVICE_DIR)/Device/SiliconLabs/EFM32ZG/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 	 	-I"$(CMSIS_DIR)/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/bsp" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 	 	-I"$(FREERTOS_DIR)/Source/include" \
 	 	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
 	 	-O3 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -std=c99 -MMD -MP \
@@ -295,10 +314,10 @@ $(FREERTOS_DIR)/Source/timers.d
 #queue.o: $(FREERTOS_DIR)/Source/queue.c
 #	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
 	 	-I"$(DEVICE_DIR)/Device/SiliconLabs/EFM32ZG/Include" \
-		-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+		-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 	 	-I"$(CMSIS_DIR)/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/bsp" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 	 	-I"$(FREERTOS_DIR)/Source/include" \
 	 	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
 	 	-O3 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -std=c99 -MMD -MP \
@@ -310,10 +329,10 @@ $(FREERTOS_DIR)/Source/timers.d
 #tasks.o: $(FREERTOS_DIR)/Source/tasks.c
 #	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
 	 	-I"$(DEVICE_DIR)/Device/SiliconLabs/EFM32ZG/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 	 	-I"$(CMSIS_DIR)/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/bsp" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 	 	-I"$(FREERTOS_DIR)/Source/include" \
 	 	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
 	 	-O3 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -std=c99 -MMD -MP \
@@ -325,10 +344,10 @@ $(FREERTOS_DIR)/Source/timers.d
 #timers.o: $(FREERTOS_DIR)/Source/timers.c
 #	arm-none-eabi-gcc -g -gdwarf-2 -mcpu=cortex-m0plus -mthumb '-DEFM32ZG222F32=1' \
 	 	-I"$(DEVICE_DIR)/Device/SiliconLabs/EFM32ZG/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200/config" \
 	 	-I"$(CMSIS_DIR)/Include" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/bsp" \
-	 	-I"$(SDK_DIR)/hardware/kit/common/drivers" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/bsp" \
+	 	-I"$(GECKO_SDK_DIR)/hardware/kit/common/drivers" \
 	 	-I"$(FREERTOS_DIR)/Source/include" \
 	 	-I"$(FREERTOS_DIR)/Source/portable/GCC/ARM_CM0" \
 	 	-O3 -Wall -c -fmessage-length=0 -ffunction-sections -fdata-sections -std=c99 -MMD -MP \
