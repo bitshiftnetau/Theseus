@@ -215,26 +215,41 @@ typedef struct {
 #define CLKDIV_24MHZ_HFXO_115200
 */
 /*
-#define CLKDIV_24MHZ_HFXO_16OVS_DIV0_9600 (0b000000010011110UL << 6)
-#define CLKDIV_24MHZ_HFXO_16OVS_DIV4_9600 (0b000000010011001UL << 6)
-#define CLKDIV_24MHZ_HFXO_16OVS_DIV8_9600 (0b100111000100011UL << 6)
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV0_ASYNC_9600 (0b000000010011110UL << 6)
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV4_ASYNC_9600 (0b000000010011001UL << 6)
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV8_ASYNC_9600 (0b100111000100011UL << 6)
 */
 
-#define CLKDIV_24MHZ_HFXO_16OVS_DIV0_9600 (0b1001101101000000UL)
-//#define CLKDIV_24MHZ_HFXO_16OVS_DIV4_9600 (0b10011000010000UL)
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV0_ASYNC_9600 (0b1001101101000000UL)
+//#define CLKDIV_24MHZ_HFXO_16OVS_DIV4_ASYNC_9600 (0b10011000010000UL)
+
+
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV0_SYNC_115200 (0b110011100UL << 6)
+
 
 USART_data usart_data;
 USART_error usart_error;
 USART_status usart_status;
 
-USART_periphconf usart_periphconf = {
+USART_periphconf usart_sync = {
+  .ctrl = (USART_CTRL_OVS_X16 | USART_CTRL_TXBIL_EMPTY | USART_CTRL_SYNC | USART_CTRL_MSBF | USART_CTRL_CLKPHA | USART_CTRL_AUTOCS),
+  .frame = (USART_FRAME_DATABITS_EIGHT),
+  .cmd = (USART_CMD_TXEN | USART_CMD_RXEN | USART_CMD_MASTEREN),
+  .clkdiv = CLKDIV_24MHZ_HFXO_16OVS_DIV0_SYNC_115200,
+  .route = (USART_ROUTE_LOCATION_LOC3 | USART_ROUTE_TXPEN | USART_ROUTE_RXPEN | USART_ROUTE_CSPEN | USART_ROUTE_CLKPEN),
+  .intflag = _USART_IF_RESETVALUE
+};
+
+
+USART_periphconf usart_async_8N1 = {
   .ctrl = (USART_CTRL_OVS_X16 | USART_CTRL_TXBIL_EMPTY | USART_CTRL_SYNC_DEFAULT | USART_CTRL_TXDELAY_SINGLE | (!USART_CTRL_CLKPOL_IDLEHIGH)),
   .frame = (USART_FRAME_DATABITS_EIGHT | USART_FRAME_PARITY_NONE | USART_FRAME_STOPBITS_ONE),
   .cmd = (USART_CMD_TXEN | USART_CMD_RXEN),
-  .clkdiv = CLKDIV_24MHZ_HFXO_16OVS_DIV0_9600,
+  .clkdiv = CLKDIV_24MHZ_HFXO_16OVS_DIV0_ASYNC_9600,
   .route = (USART_ROUTE_LOCATION_LOC3 | USART_ROUTE_TXPEN | USART_ROUTE_RXPEN),
   .intflag = _USART_IF_RESETVALUE
 };
+
 
 USART_frameconf usart_frameconf = {
   .bitwidth = USART_8_N,
@@ -317,7 +332,7 @@ GPIO_data gpio_data = {
       .dout = 0
     },
     [PORTC] = {
-      .dout = 0 
+      .dout = GPIO_P_DOUT_14 
     },
     [PORTD] = {
       .dout = 0
@@ -346,7 +361,7 @@ GPIO_periphconf gpio_periphconf = {
     [PORTC] = {
       .ctrl = GPIO_P_CTRL_DRIVEMODE_STANDARD,
       .pinmodeL = 0,
-      .pinmodeH = GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE,
+      .pinmodeH = GPIO_P_MODEH_MODE10_PUSHPULLDRIVE | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE | GPIO_P_MODEH_MODE14_PUSHPULL | GPIO_P_MODEH_MODE15_PUSHPULL,
       .pinlockn = 0
     },
     [PORTD] = {
@@ -382,28 +397,28 @@ MPI_host efm32zg222f32_host = {
   
   ._periph_periphconf = {
 
-    ._cmu_init = cmu_Init,
-    ._timer_init = timer_Init,
-    ._usart_init = usart_Init,
-    ._gpio_init = gpio_Init,
+    ._cmu_init = &cmu_Init,
+    ._timer_init = &timer_Init,
+    ._usart_init = &usart_Init,
+    ._gpio_init = &gpio_Init,
 
-    ._cmu_config_reg = cmu_ConfigReg,
-    ._timer_config_reg = timer_ConfigReg,
-    ._usart_config_reg = usart_ConfigReg,
-    ._gpio_config_reg = gpio_ConfigReg,
+    ._cmu_config_reg = &cmu_ConfigReg,
+    ._timer_config_reg = &timer_ConfigReg,
+    ._usart_config_reg = &usart_ConfigReg,
+    ._gpio_config_reg = &gpio_ConfigReg,
 
-    ._cmu_query_reg = cmu_QueryReg,
-    ._timer_query_reg = timer_QueryReg,
-    ._usart_query_reg = usart_QueryReg,
-    ._gpio_query_reg = gpio_QueryReg,
+    ._cmu_query_reg = &cmu_QueryReg,
+    ._timer_query_reg = &timer_QueryReg,
+    ._usart_query_reg = &usart_QueryReg,
+    ._gpio_query_reg = &gpio_QueryReg,
 
-    ._usart_data = usart_Data,
-    ._gpio_data = gpio_Data,
-    ._timer_delay = timer_Delay
+    ._usart_data = &usart_Data,
+    ._gpio_data = &gpio_Data,
+    ._timer_delay = &timer_Delay
 
   },
   .MPI_data = {
-    &usart_data, &usart_periphconf, &usart_error,  &usart_frameconf, &usart_status,
+    &usart_data, &usart_sync, &usart_error,  &usart_frameconf, &usart_status,
     &gpio_data, &gpio_periphconf,
     &cmu_periphconf,
     &timer0_periphconf,
