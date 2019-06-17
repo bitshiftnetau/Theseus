@@ -18,7 +18,7 @@
  
 
 #include <stdint.h>
-#include <string.h>
+#include <stddef.h>
 
 #include "mpi_port.h"
 #include "dw1000_tofCalcs.h"
