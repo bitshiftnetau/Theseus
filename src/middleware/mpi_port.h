@@ -21,6 +21,9 @@
 #include <stdint.h>
 #include "mpi_types.h"
 
+#define HOST_INTERFACE_ARRAY  32
+
+
 /*****************************************************************
  -----------------------------------------------------------------
  *
@@ -223,7 +226,20 @@ typedef struct MPI_PERIPH_PERIPHCONF{
 
 }MPI_periph_periphconf;
 
+typedef MPI_periph_periphconf host_periph_struct;
 
+typedef struct {
+  int_callback _dev_init;
+  int_callback _dev_reg_dump;
+  int_callback _dev_data;
+  int_callback _dev_config_reg;
+  int_callback _dev_query_reg;
+  int_callback _dev_wakeup;
+  int_callback _dev_sleep;
+  int_callback _dev_mode_level;
+  int_callback _dev_reset;
+  int_callback _dev_off;
+}MPI_ext_dev_interface;
 
 /****************************************************************
  * @brief MPI_SILICON 
@@ -275,7 +291,7 @@ typedef struct MPI_HOST{
   MPI_core_mcuconf _core_mcuconf;
   MPI_core_periphconf _core_periphconf;
   MPI_periph_periphconf _periph_periphconf;
-  void* MPI_data[256]; // middleware layer data struct as defined as standard
+  void* MPI_data[12]; // middleware layer data struct as defined as standard
 
 }MPI_host;
 
@@ -288,7 +304,7 @@ typedef struct MPI_SLAVE{
   MPI_core_mcuconf _core_mcuconf;
   MPI_core_periphconf _core_periphconf;
   MPI_periph_periphconf _periph_periphconf;
-  void* MPI_data[256]; // middleware layer data struct as defined as standard
+  void* MPI_data[12]; // middleware layer data struct as defined as standard
 
 }MPI_slave;
 
@@ -297,8 +313,9 @@ typedef struct MPI_EXT_DEV{
 
   char model[16];
   char revision[8];
-  void* MPI_data[1024];
-  void* MPI_conf[1024];
+  MPI_ext_dev_interface _interface;
+  void* MPI_data[12];
+  void* MPI_conf[12];
   
 }MPI_ext_dev;
 
