@@ -15,7 +15,20 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  */
-   
+
+/*
+ * Configurations:
+ *
+ * - GPIO 5 + 6 sampled
+ * - SPICSn needs to be active low 
+ * - RSTn pin default active low, so wait for high signal (DW will de-assert on wakeup)
+ * - GPIO default to input on reset, config LEDs and IRQ
+ * - check PLL is locked
+ *
+ *
+ */
+
+#include <stddef.h>
 
 #include "mpi_port.h"
 #include "mpi_types.h"
@@ -26,6 +39,8 @@
 #include "dw1000_tofCalcs.h"
 
 DW_config dw_devconf;
+DW_nodelist dw_list;
+
 
 DW_nodelist dw_list = {
   .list[0 ... NODELIST_LEN -1].dev_status = DW_DEV_DISABLED,
@@ -43,6 +58,20 @@ DW_nodelist dw_list = {
 };
 
 MPI_ext_dev dw1000 = {
+  ._interface = {
+
+    ._dev_init = &dw_Init,
+    ._dev_reg_dump = &dw_RegDump,
+    ._dev_data = &dw_Data,
+    ._dev_config_reg = &dw_ConfigReg,
+    ._dev_query_reg = &dw_QueryReg,
+    ._dev_wakeup = &dw_Wakeup,
+    ._dev_sleep = &dw_Sleep,
+    ._dev_mode_level = &dw_ModeLevel,
+    ._dev_reset = &dw_Reset,
+    ._dev_off = &dw_Off
+
+  },
   .MPI_data = {
     &dw_list,
     NULL
