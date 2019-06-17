@@ -1,11 +1,14 @@
 #ifndef DW1000_TYPES_H_
 #define DW1000_TYPES_H_
 
-#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 
 #include "dw1000_regs.h"
+
+#define READ    0
+#define WRITE   1
+#define TGL     2
 
 #define DW_READ_WRITE  2 
 #define DW_DEV_ACTIVE      1
