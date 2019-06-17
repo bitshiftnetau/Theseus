@@ -1,6 +1,8 @@
 #ifndef DW1000_FRAME_DECODE_H_
 #define DW1000_FRAME_DECODE_H_
 
+#include <stdint.h>
+
 extern uint8_t frame_src_addr_index_start_table[];
 extern uint8_t frame_len_table[];
 extern uint8_t pan_id_index_table[];
