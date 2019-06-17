@@ -9,8 +9,9 @@ extern VENUS_nmea_store venus_nmea;
 extern VENUS_config venus_config;
 extern MPI_ext_dev venus638;
 
-#ifdef VENUS_CONFIG_VA_INDEX
-  VENUS_CONFIG_INDEX(0)
-#endif
+#define VENUS_MSG_INDEX   0
+#define VENUS_RESP_INDEX  1
+#define VENUS_NMEA_INDEX  2
+
 
 #endif
