@@ -2,6 +2,7 @@
 #define DW1000_FRAME_BUILD_H_
 
 #include <stdint.h>
+#include "mpi_port.h"
 
 extern uint8_t dw_sub_bool_table[];
 extern uint8_t (*dw_reg_table[REG_IDS_LEN])[SUB_EXT_ADDR_LEN];
