@@ -26,18 +26,20 @@
  */
 
 int mpi_extdevInit(void* host_object, int(*host_comm_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
-  return ext_dev_interface_fn(host_comm_interface_fn);
+  return ext_dev_interface_fn(host_object, host_comm_interface_fn, ext_dev_object);
 }
 
-int mpi_extdevConfigReg(void* host_object, int(*host_comm_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
-  return ext_dev_interface_fn(host_comm_interface_fn);
+int mpi_extdevConfigReg(void* host_object, int(*host_comm_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)(), void* register_enum){
+  return ext_dev_interface_fn(host_object, host_comm_interface_fn, ext_dev_object, register_enum);
 }
 
-int mpi_extdevStop(void* host_object, int(*host_comm_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)()){
-	return ext_dev_interface_fn(host_comm_interface_fn);
+int mpi_extdevQueryReg(void* host_object, int(*host_comm_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)(), void* register_enum){
+	return ext_dev_interface_fn(host_object, host_comm_interface_fn, ext_dev_object, register_enum);
 }
 
-int mpi_extdev_IO(void* host_object, int(*host_comm_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)(), int(*mpi_host_comm_IO_fn)()){
-  return mpi_host_comm_IO_fn(host_object, host_comm_interface_fn, ext_dev_object, ext_dev_interface_fn);
+int mpi_extdevData(void* host_object, int(*host_comm_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)(), uint32_t read_write){
+  return ext_dev_interface_fn(host_object, host_comm_interface_fn, ext_dev_object, read_write);
 }
+
+
 
