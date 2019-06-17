@@ -25,7 +25,8 @@ extern TIMER_TypeDef* timer1;
 #define READ 	  0
 #define WRITE 	1
 #define CLEAR 	2
-#define TGL 	  3
+//#define TGL 	  3
+#define TGL     2
 
 #define PERIPH_REGISTER_TABLE_MEMBERS   32
 
