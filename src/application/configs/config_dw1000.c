@@ -61,7 +61,7 @@ DW_nodelist dw_list = {
   .list[0].dev_status = DW_DEV_DISABLED,
   .list[0].dev_index = 0,
   .list[0].sequence_num = 0, 
-  .list[0].handler_index = RANGE_INDEX,
+  .list[0].handler_index = BLINK_INDEX,
   .list[0].pan_id = {0},
   .list[0].tag_id = {0},
   .list[0].short_addr = {0},
@@ -69,7 +69,9 @@ DW_nodelist dw_list = {
   .list[0].build_message = {0},
   .list[0].frame_len = 0,
   .list[0].frame_in = {0},
-  .list[0].frame_out = {0}
+  .list[0].frame_out = {0},
+  .frame_out_len = 3,
+  .node_index = 0
 };
 
 
