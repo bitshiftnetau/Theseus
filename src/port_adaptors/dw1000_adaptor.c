@@ -94,7 +94,7 @@ int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
 
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   dw_config->config_index = device_id;
 
@@ -134,7 +134,7 @@ int dw_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   dw_config->query_index = device_id;
 
@@ -171,7 +171,7 @@ int dw_ConfigReg(void* host_object, int(*host_usart)(), void* ext_dev_object, ui
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
   
@@ -198,7 +198,7 @@ int dw_QueryReg(void* host_object, int(*host_usart)(), void* ext_dev_object, uin
   
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   dw_nodelist->reg_id_index = query_table_reg_id_table[dw_config->query_index];
 
@@ -225,7 +225,7 @@ int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
 
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   //DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   if(read_write == READ){
 
@@ -275,7 +275,7 @@ int dw_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   
    // set dw_config->query_index member that triggers this function
@@ -308,7 +308,7 @@ int dw_Off(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   
    // set dw_config->query_index member that triggers this function
@@ -344,7 +344,7 @@ int dw_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   
    // set dw_config->query_index member that triggers this function
@@ -380,7 +380,7 @@ int dw_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   
    // set dw_config->query_index member that triggers this function
@@ -416,7 +416,7 @@ int dw_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   
    // set dw_config->query_index member that triggers this function
