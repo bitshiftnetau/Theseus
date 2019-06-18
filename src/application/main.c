@@ -217,7 +217,7 @@ int main(void)
     */
     
     for(int i = 0; i < 3; i++){
-      mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 50);
+      mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 100);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 10);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 11);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 5, 4);
