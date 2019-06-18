@@ -157,14 +157,8 @@ int main(void)
   
 
   //Uncomment the following for dw1000 demo
-  //volatile const int(* dw1000_init)() = dw1000._interface._dev_init;
-  //volatile const int(* dw1000_data)() = dw1000._interface._dev_data;
-
-  //volatile const dw_nodelist* dw_list_test = dw1000.MPI_data[0];
-
-  //volatile const MPI_ext_dev_interface* interface_test = &dw1000._interface;
-  
-  //volatile const MPI_ext_dev* dw1000_slave = &dw1000;
+  volatile const int(* dw1000_init)() = dw1000._interface._dev_init;
+  volatile const int(* dw1000_data)() = dw1000._interface._dev_data;
 
   //mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_init, &dw1000, dw_Init);
   
@@ -191,16 +185,14 @@ int main(void)
 
     //Uncomment the following for 3 LED blink with 1s delay
    
-    
+    /* 
     mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
     mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 10);
-
     mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
     mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 11);
- 
     mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
     mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 5, 4);
-    
+    */
  
     //Uncomment the following for usart read/write demo with blinking LED
     /*
@@ -222,18 +214,18 @@ int main(void)
     //Uncomment the following for the SPI demo with blinking LEDs
     /* 
     mpi_usartData(&efm32zg222f32_host, efm32zg_usart_data, &array, test_fn, WRITE);
-  
+    */
+    
     for(int i = 0; i < 3; i++){
       mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 50);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 10);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 11);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 5, 4);
     }
-    */
 
     //Uncomment for dw1000 demo
-    //mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 50);
-    //mpi_extdevData(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, venus638_data, WRITE);
+    mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 50);
+    mpi_extdevData(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_data, WRITE);
 
    }
 }

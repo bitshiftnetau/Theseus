@@ -1,7 +1,11 @@
 #ifndef _DECA_DEVICE_API_H_
 #define _DECA_DEVICE_API_H_
 
-#include "dw1000_types.h"
+//#include "dw1000_types.h"
+
+#include <stdint.h>
+
+uint32_t (*dw_decode_build_table[3])(); 
 
 int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object);
 int dw_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object);

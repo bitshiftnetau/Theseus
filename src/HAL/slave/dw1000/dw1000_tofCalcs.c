@@ -60,12 +60,12 @@ void dw_tx_poll_ts(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodeli
   dw_nodelist->reg_id_index = REG_ID_TX_MARKER;
   dw_nodelist->sub_addr_index = 0;
 
-  uint32_t tx_marker[TX_MARKER_TOTAL_LEN];
+  uint8_t tx_marker[TX_MARKER_TOTAL_LEN];
   dw_Rx(host_object, host_usart, dw_nodelist, tx_marker, TX_MARKER_TOTAL_LEN - 1);
   
   //dw_data->tof.poll.tx_marker = tx_marker[0];
   for(int i = T_REPLY_LEN; i < 0; i--){
-    dw_data->tof.poll.tx_marker = (dw_data->tof.poll.tx_marker << SINGLE_BYTE_SHIFT)  | (SINGLE_BYTE & tx_marker[i]);
+    dw_data->tof.poll.tx_marker = (dw_data->tof.poll.tx_marker << SINGLE_BYTE_SHIFT) | tx_marker[i];
   }
 
 }

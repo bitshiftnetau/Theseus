@@ -39,9 +39,8 @@
 #include "dw1000_tofCalcs.h"
 
 DW_config dw_devconf;
-DW_nodelist dw_list;
 
-
+/*
 DW_nodelist dw_list = {
   .list[0 ... NODELIST_LEN -1].dev_status = DW_DEV_DISABLED,
   .list[0 ... NODELIST_LEN -1].dev_index = 0,
@@ -56,8 +55,26 @@ DW_nodelist dw_list = {
   .list[0 ... NODELIST_LEN -1].frame_in = {0},
   .list[0 ... NODELIST_LEN -1].frame_out = {0}
 };
+*/
+
+DW_nodelist dw_list = {
+  .list[0].dev_status = DW_DEV_DISABLED,
+  .list[0].dev_index = 0,
+  .list[0].sequence_num = 0, 
+  .list[0].handler_index = RANGE_INDEX,
+  .list[0].pan_id = {0},
+  .list[0].tag_id = {0},
+  .list[0].short_addr = {0},
+  .list[0].resp_delay = {0},
+  .list[0].build_message = {0},
+  .list[0].frame_len = 0,
+  .list[0].frame_in = {0},
+  .list[0].frame_out = {0}
+};
+
 
 MPI_ext_dev dw1000 = {
+
   ._interface = {
 
     ._dev_init = &dw_Init,
@@ -80,10 +97,10 @@ MPI_ext_dev dw1000 = {
     &dw_devconf,
     NULL
   }
+  
 };
+
 
 #ifdef DW_CONFIG_VA_INDEX
   DW_CONFIG_INDEX(0)
 #endif
-
-

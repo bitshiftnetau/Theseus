@@ -22,7 +22,7 @@
 #include "dw1000_types.h"
 #include "dw1000_regs.h"
 #include "dw1000_buildMAC.h"
-
+#include "dw1000_commRxTx.h"
 
 /***********************************************************
  *                       Comm fns
@@ -50,7 +50,7 @@
 
 
 
-uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint32_t* buffer_out, uint32_t buffer_len){
+uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint8_t* buffer_out, uint32_t buffer_len){
 
   /*************************************************************************/
   //  de-assert CS line here
@@ -78,11 +78,12 @@ uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, 
 }
 
 
-uint32_t dw_Rx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint32_t* buffer_in, uint32_t buffer_len){
+uint32_t dw_Rx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint8_t* buffer_in, uint32_t buffer_len){
  
   //build message that requests a read from a given register (pre-configured in reg_id_index)
-  int frame_len = dw_buildMessageHeader(dw_nodelist, DW_READ);
- 
+  //int frame_len = dw_buildMessageHeader(dw_nodelist, DW_READ);
+  int frame_len = 5;
+    
   /*************************************************************************/
   //de-assert CS line here
   /*************************************************************************/

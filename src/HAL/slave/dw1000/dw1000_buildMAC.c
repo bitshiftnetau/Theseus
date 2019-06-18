@@ -40,38 +40,81 @@
  */
 
 
+uint32_t dw_buildMessageOut(void* ext_dev_object, uint32_t read_write, uint32_t node_index){
+   
+  /* Build the message 
+   *
+   *    R/W           SI=y/n?       reg-id
+   *  <- bit #0 -> <- bit #1 -> <--- bitfield 2:7 --->
+   *
+   *     ext?         sub-index/ext. addr. (0-7-LSBs)
+   *  <- bit #0 -> <--------- bitfield 1:7 ---------->
+   *
+   *               extended address
+   * <--------------- bitfield 0:7 ------------------>
+   */
+  
+  uint32_t data_index = node_index;
+  int rw = read_write;
+
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
+  DW_data* dw_data = &dw_nodelist->list[data_index]; 
+  
+  uint32_t handler_index = dw_data->handler_index;
+
+   // MAKE SURE THIS VALUE IS BEING SET UPON READING IN A FRAME AND ALSO WHEN INITIALIZING
+   // ANY AND ALL UNSOLICITED TX COMMUNICATION
+   
+  uint32_t msg_header_end = dw_buildMessageHeader(dw_nodelist, rw);
+
+  if(data_index == DW_CONFIG){
+    uint32_t(*dw_config_query_ptr)() = dw_config_query_table[rw];
+    return dw_config_query_ptr(dw_nodelist, dw_config, msg_header_end);
+  } else {
+    //fire frame builder based on handler_index 
+    uint32_t(*frame_builder_ptr)() = dw_frame_build_table[handler_index]; 
+    int ret = frame_builder_ptr(dw_nodelist, dw_data, dw_config, msg_header_end);
+    if(ret == EXIT_SUCCESS){
+      return data_index; 
+    }
+  }
+  return EXIT_SUCCESS;
+}
+
+
+uint32_t dw_buildMessageHeader(DW_nodelist* dw_nodelist, uint32_t read_write){
+
+  //Each spi read/write is conducted by writing a transaction header, followed by a variable
+  //number of data octets. The transaction header does not need to repeat for each data octet
+
+  int header_len = 1; //has to start at 1 for loop logic to work
+
+  // header_build_ptr will return 1 if another octet, and thus another loop, is to be 
+  // written. Otherwise it will return a 0 and table_index == header_len
+  for(int table_index = 0; table_index < header_len; table_index++){
+    uint32_t(*header_builder_ptr)() = dw_frame_header_read_write_table[table_index];
+    int ret = header_builder_ptr(dw_nodelist, read_write); 
+    header_len += ret; 
+  }
+
+  //return the starting index 
+  //
+  return header_len; 
+}
+
+
+
 /************************************************************
  *                       Builders
  ***********************************************************/
 
 /*
- * SPI TRANSACTION HEADER BUILDERS
- */
-
-uint32_t dw_reg_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
-  dw_nodelist->frame_out[0]  = dw_rw_bool_table[read_write];
-  dw_nodelist->frame_out[0] |= dw_reg_table[REG_TABLE_REG_ADDR_TABLE_INDEX][dw_nodelist->reg_id_index][0];
-  dw_nodelist->frame_out[0] |= dw_reg_table[REG_TABLE_SUB_ADDR_TABLE_INDEX][dw_nodelist->reg_id_index][SUB_BOOL_INDEX];
-  return (MSG_SUB_ADDR_TRUE & dw_nodelist->frame_out[0]);
-  //because other bits will be set in the frame_out member, even if the boolean is set to false: it will return true. Therefore bitwise AND'ing with extract the bit and render true or false
-}
-
-uint32_t dw_sub_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
-  dw_nodelist->frame_out[1] |= dw_reg_table[REG_TABLE_SUB_ADDR_TABLE_INDEX][dw_nodelist->reg_id_index][dw_nodelist->sub_addr_index];
-  dw_nodelist->frame_out[1] |= dw_reg_table[REG_TABLE_EXT_ADDR_TABLE_INDEX][dw_nodelist->reg_id_index][EXT_BOOL_INDEX];
-  return (MSG_EXT_ADDR_TRUE & dw_nodelist->frame_out[1]);
-  //because other bits will be set in the frame_out member, even if the boolean is set to false: it will return true. Therefore bitwise AND'ing with extract the bit and render true or false
-}
-
-uint32_t dw_ext_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
-  dw_nodelist->frame_out[2] = dw_reg_table[REG_TABLE_EXT_ADDR_TABLE_INDEX][dw_nodelist->reg_id_index][dw_nodelist->ext_addr_index];
-  return 0;
-  //return 0 so that the return value and the parent loop iterator will be equal and the loop will stop 
-}
-
-/*
  * FULL FRAME BUILDERS
  */
+
 
 uint32_t dw_buildBlinkFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_config* dw_config, uint32_t frame_index_start){
 
@@ -98,6 +141,8 @@ uint32_t dw_buildBlinkFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_confi
 
   return EXIT_SUCCESS;
 }
+
+
 
 uint32_t dw_buildRangeInitFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_config* dw_config, uint32_t frame_index_start){
 
@@ -138,6 +183,8 @@ uint32_t dw_buildRangeInitFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_c
   return EXIT_SUCCESS;
 }
 
+
+
 uint32_t dw_buildPollFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_config* dw_config, uint32_t frame_index_start){
 
   //insert the following:
@@ -164,8 +211,11 @@ uint32_t dw_buildPollFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_config
   return EXIT_SUCCESS;
 }
 
+
+
 uint32_t dw_buildResponseFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_config* dw_config, uint32_t frame_index_start){
 
+  
   //insert the following:
   // bit 0    - function code: 0x50
   // bit 1-4  - calculated ToF
@@ -200,8 +250,11 @@ uint32_t dw_buildResponseFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_co
   return EXIT_SUCCESS;
 }
 
+
+
 uint32_t dw_buildFinalFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_config* dw_config, uint32_t frame_index_start){
 
+  
   //insert the following:
   // bit 0    - function code: 0x69
   // bit 1-4  - resp RX time minus poll TX time
@@ -239,6 +292,8 @@ uint32_t dw_buildFinalFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_confi
   return EXIT_SUCCESS;
 }
 
+
+
 uint32_t dw_buildConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_start){
 
   uint32_t index = frame_index_start;
@@ -251,6 +306,8 @@ uint32_t dw_buildConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t
   
   return EXIT_SUCCESS;
 }
+
+
 
 uint32_t dw_queryConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_start){
 
@@ -265,79 +322,89 @@ uint32_t dw_queryConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t
   return EXIT_SUCCESS;
 }
 
+
+/*
+ * SPI TRANSACTION HEADER BUILDERS
+ */
+
+/*
+uint32_t dw_reg_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
+
+  int reg_id_index = dw_nodelist->reg_id_index;
+
+  dw_nodelist->frame_out[0]  = dw_rw_bool_table[read_write];
+  dw_nodelist->frame_out[0] |= dw_reg_addr_table[reg_id_index];
+  dw_nodelist->frame_out[0] |= dw_sub_addr_table[reg_id_index][SUB_BOOL_INDEX];
+  
+  return (MSG_SUB_ADDR_TRUE & dw_nodelist->frame_out[0]);
+}
+
+uint32_t dw_sub_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
+  
+  
+  int reg_id_index = dw_nodelist->reg_id_index;
+  int sub_addr_index = dw_nodelist->sub_addr_index;
+   
+  dw_nodelist->frame_out[1] |= dw_sub_addr_table[reg_id_index][sub_addr_index];
+  dw_nodelist->frame_out[1] |= dw_ext_addr_table[reg_id_index][EXT_BOOL_INDEX];
+  
+  return (MSG_EXT_ADDR_TRUE & dw_nodelist->frame_out[1]);
+  //because other bits will be set in the frame_out member, even if the boolean is set to false: it will return true. Therefore bitwise AND'ing with extract the bit and render true or false
+}
+
+uint32_t dw_ext_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
+
+  
+  int reg_id_index = dw_nodelist->reg_id_index;
+  int ext_addr_index = dw_nodelist->ext_addr_index;
+  dw_nodelist->frame_out[2] = dw_ext_addr_table[reg_id_index][ext_addr_index];
+  
+  return 0;
+  //return 0 so that the return value and the parent loop iterator will be equal and the loop will stop 
+}
+*/
+
+uint32_t dw_reg_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
+
+  int reg_id_index = dw_nodelist->reg_id_index;
+
+  dw_nodelist->frame_out[0]  = dw_rw_bool_table[read_write];
+  dw_nodelist->frame_out[0] |= dw_reg_addr_table[reg_id_index];
+  dw_nodelist->frame_out[0] |= sub_addr_bool_table[reg_id_index];
+  
+  return (MSG_SUB_ADDR_TRUE & dw_nodelist->frame_out[0]);
+}
+
+uint32_t dw_sub_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
+  
+  int reg_id_index = dw_nodelist->reg_id_index;
+  sub_addr_table sub_addr_index = (sub_addr_table)dw_nodelist->sub_addr_index;
+   
+  dw_nodelist->frame_out[1] |= sub_addr_index;
+  dw_nodelist->frame_out[1] |= ext_addr_bool_table[reg_id_index];
+  
+  return (MSG_EXT_ADDR_TRUE & dw_nodelist->frame_out[1]);
+  //because other bits will be set in the frame_out member, even if the boolean is set to false: it will return true. Therefore bitwise AND'ing with extract the bit and render true or false
+}
+
+uint32_t dw_ext_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){
+  
+  ext_addr_table ext_addr_index = (ext_addr_table)dw_nodelist->ext_addr_index;
+  
+  dw_nodelist->frame_out[2] = ext_addr_index;
+  
+  return 0;
+  //return 0 so that the return value and the parent loop iterator will be equal and the loop will stop 
+}
+
 uint32_t(* dw_config_query_table[DW_READ_WRITE +1])() = {
   dw_queryConfig,
   dw_buildConfig,
   NULL
 };
 
-uint32_t dw_buildMessageOut(void* ext_dev_object, uint32_t read_write, uint32_t node_index){
-   
-  /* Build the message 
-   *
-   *    R/W           SI=y/n?       reg-id
-   *  <- bit #0 -> <- bit #1 -> <--- bitfield 2:7 --->
-   *
-   *     ext?         sub-index/ext. addr. (0-7-LSBs)
-   *  <- bit #0 -> <--------- bitfield 1:7 ---------->
-   *
-   *               extended address
-   * <--------------- bitfield 0:7 ------------------>
-   */
 
-  uint32_t data_index = node_index;
-  int rw = read_write;
-
-  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
-
-  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
-  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
-  DW_data dw_data = dw_nodelist->list[data_index]; 
-  
-  uint32_t handler_index = dw_data.handler_index;
-
-  /*
-   * MAKE SURE THIS VALUE IS BEING SET UPON READING IN A FRAME AND ALSO WHEN INITIALIZING
-   * ANY AND ALL UNSOLICITED TX COMMUNICATION
-   */
-  
-  uint32_t msg_header_end = dw_buildMessageHeader(dw_nodelist, rw);
-
-  if(data_index == DW_CONFIG){
-    uint32_t(*dw_config_query_ptr)() = dw_config_query_table[rw];
-    return dw_config_query_ptr(dw_nodelist, dw_config, msg_header_end);
-  } else {
-    //fire frame builder based on handler_index 
-    uint32_t(*frame_builder_ptr)() = dw_frame_build_table[handler_index]; 
-    int ret = frame_builder_ptr(dw_nodelist, dw_data, dw_config, msg_header_end);
-    if(ret == EXIT_SUCCESS){
-      return data_index; 
-    }
-  }
-  return EXIT_SUCCESS;
-}
-
-uint32_t dw_buildMessageHeader(DW_nodelist* dw_nodelist, uint32_t read_write){
-
-  //Each spi read/write is conducted by writing a transaction header, followed by a variable
-  //number of data octets. The transaction header does not need to repeat for each data octet
-
-  int header_len = 1; //has to start at 1 for loop logic to work
-
-  for(int table_index = 0; table_index < header_len; table_index++){
-    uint32_t(*header_builder_ptr)() = dw_frame_header_read_write_table[table_index];
-    header_len += header_builder_ptr(dw_nodelist, read_write); //fn_ptr will return 1 if another octet, and thus another loop,
-                                   //is required. Otherwise it will return a 0 and table_index == header_len
-                                   //thus stopping the loop.
-  }
-
-  //return the starting index 
-  //
-  return header_len; 
-}
-
-
-uint32_t(* dw_frame_build_table[BUILD_TABLE_LEN])() = {
+uint32_t(*const dw_frame_build_table[BUILD_TABLE_LEN])() = {
   dw_buildBlinkFrame,
   dw_buildRangeInitFrame,
   dw_buildPollFrame,
@@ -346,10 +413,11 @@ uint32_t(* dw_frame_build_table[BUILD_TABLE_LEN])() = {
   NULL
 };
 
+
 uint32_t(*const dw_frame_header_read_write_table[REG_SUB_EXT])() = {
-  &dw_reg_read_write,
-  &dw_sub_read_write,
-  &dw_ext_read_write,
+  dw_reg_read_write,
+  dw_sub_read_write,
+  dw_ext_read_write,
   NULL
 };
 
@@ -364,44 +432,29 @@ uint8_t dw_rw_bool_table[3] = {
   MESSAGE_WRITE,
 };
 
-//Call to these tables for configuration writes
-uint8_t dw_sub_bool_table[3] = {
-  MSG_SUB_ADDR_FALSE,
-  MSG_SUB_ADDR_TRUE,
-};
-
 uint8_t dw_ext_bool_table[3] = {
   MSG_EXT_ADDR_FALSE,
   MSG_EXT_ADDR_TRUE,
 };
 
+
 //register id addr table
-uint8_t dw_reg_addr_table[REG_IDS_LEN][SUB_EXT_ADDR_LEN] = { 
-  {0x00},
-  {0x01},
-  {0x02},
+uint8_t dw_reg_addr_table[REG_IDS_LEN] = { 
+  0x00,
+  0x01,
+  0x02,
 };
 
-//sub index addr table
-uint8_t dw_sub_addr_table[REG_IDS_LEN][SUB_EXT_ADDR_LEN] = {
-  {MSG_SUB_ADDR_FALSE},
-  {MSG_SUB_ADDR_TRUE, 0x00, 0x01}
-};
-
-//extended addr table
-uint8_t dw_ext_addr_table[REG_IDS_LEN][SUB_EXT_ADDR_LEN] = {
-  {MSG_EXT_ADDR_FALSE},
-  {MSG_EXT_ADDR_TRUE, 0x00, 0x01}
-};
-
-//register id, sub addr id, and ext addr id table
-uint8_t (*dw_reg_table[REG_IDS_LEN])[SUB_EXT_ADDR_LEN] = {
-  dw_reg_addr_table, 
-  dw_sub_addr_table, 
-  dw_ext_addr_table,
+bool sub_addr_bool_table[REG_IDS_LEN] = {
+  MSG_SUB_ADDR_FALSE,
+  MSG_SUB_ADDR_TRUE,
   NULL
 };
-
+bool ext_addr_bool_table[REG_IDS_LEN] = {
+  MSG_SUB_ADDR_FALSE,
+  MSG_SUB_ADDR_TRUE,
+  NULL
+};
 
 //Make this a member of the dw_nodelist struct and the conditional 
 //operand as part of building a transaction header

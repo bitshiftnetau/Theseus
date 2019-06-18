@@ -16,7 +16,7 @@
  *
  */
 
-
+#include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -26,11 +26,13 @@
 #include "dw1000_types.h"
 #include "dw1000_regs.h"
 
+
 #include "dw1000_nodeMgmt.h"
 #include "dw1000_buildMAC.h"
 #include "dw1000_decodeMAC.h"
 #include "dw1000_commRxTx.h"
 #include "dw1000_tofCalcs.h"
+
 
 /**************************************************************
  *                  HAL API functions
@@ -81,15 +83,21 @@ enum _##type type##s[] = { __VA_ARGS__ }
  *
  */
 
+uint32_t(* dw_decode_build_table[3])() = {
+  dw_decodeFrameIn,
+  dw_buildMessageOut,
+  NULL
+};
+
 
 int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
- 
+
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
   dw_config->config_index = device_id;
-  
+
   //for loop with call to write into struct members
   //
   for(int i = 0; i < CONFIG_STRUCT_MEMBERS; i++){
@@ -97,25 +105,30 @@ int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
     dw_nodelist->reg_id_index = config_table_reg_id_table[dw_config->config_index];
     dw_config->config_index = dw_config->config_index + 1;
 
+    
     void(*config_member_ptr)() = config_table[i]; 
     config_member_ptr(dw_config);
- 
+
+    
     //if tx call to dw_buildMessage()
     //if rx call to dw_decodeMessage()
     //
-    uint32_t(*build_msg_ptr)() = dw_decode_build_table[WRITE];
+    volatile uint32_t(* build_msg_ptr)() = dw_decode_build_table[WRITE];
     int ret = build_msg_ptr(ext_dev_object, WRITE, DW_CONFIG);
-
+    
+    //int ret = dw_buildMessageOut(ext_dev_object, WRITE, 0);
+   
     //callback to host usart
     //
     if(ret == EXIT_SUCCESS){
       dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
     } else {
       return ERROR;
-    }
+    } 
   }
   return EXIT_SUCCESS;
 }
+  
 
 int dw_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
@@ -150,7 +163,6 @@ int dw_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object){
 }
 
 
-
 /*
  * SINGLE REG/FIELD CONFIG/QUERY
  */
@@ -182,7 +194,6 @@ int dw_ConfigReg(void* host_object, int(*host_usart)(), void* ext_dev_object, ui
   return ERROR;
 }
 
-
 int dw_QueryReg(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t config_register){
   
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
@@ -210,22 +221,11 @@ int dw_QueryReg(void* host_object, int(*host_usart)(), void* ext_dev_object, uin
 
 
 
-
-
 int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t read_write){
 
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   //DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
-
-  /*
-   *  Alter this logic:
-   *
-   *  - I think we have to read all the octets at once, I don't think we can just read the header and 
-   *  then continue reading everything else.
-   *
-   *
-   */
 
   if(read_write == READ){
 
@@ -249,10 +249,9 @@ int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
 
   } else if (read_write == WRITE){
    
-    /*
-     * MAJOR PROBLEM: WE DON'T HAVE THE INDEX OF THE DATA NODE FROM NODELIST IF WE ARE 
-     * MAKING AN UNSOLICITED WRITE OPERATION
-     */
+     // MAJOR PROBLEM: WE DON'T HAVE THE INDEX OF THE DATA NODE FROM NODELIST IF WE ARE 
+     // MAKING AN UNSOLICITED WRITE OPERATION
+   
 
       //if tx call to dw_buildMessage()
       //
@@ -272,16 +271,15 @@ int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
   return EXIT_SUCCESS;
 }
 
-
 int dw_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
-  /*
-   * set dw_config->query_index member that triggers this function
-   */
+  
+   // set dw_config->query_index member that triggers this function
+ 
 
 
 
@@ -305,7 +303,6 @@ int dw_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){
   }
   return ERROR;
 }
-
 
 int dw_Off(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
@@ -313,9 +310,9 @@ int dw_Off(void* host_object, int(*host_usart)(), void* ext_dev_object){
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
-  /*
-   * set dw_config->query_index member that triggers this function
-   */
+  
+   // set dw_config->query_index member that triggers this function
+   
 
 
 
@@ -342,7 +339,6 @@ int dw_Off(void* host_object, int(*host_usart)(), void* ext_dev_object){
   }
   return ERROR;
 }
-
 
 int dw_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
@@ -350,9 +346,9 @@ int dw_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
-  /*
-   * set dw_config->query_index member that triggers this function
-   */
+  
+   // set dw_config->query_index member that triggers this function
+ 
 
 
 
@@ -379,7 +375,6 @@ int dw_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){
   }
   return ERROR;
 }
-
 
 int dw_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
@@ -387,9 +382,9 @@ int dw_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
-  /*
-   * set dw_config->query_index member that triggers this function
-   */
+  
+   // set dw_config->query_index member that triggers this function
+   
 
 
 
@@ -416,7 +411,6 @@ int dw_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){
   }
   return ERROR;
 }
-
 
 int dw_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
@@ -424,9 +418,9 @@ int dw_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object){
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_conf[NODE_LIST_INDEX];
 
-  /*
-   * set dw_config->query_index member that triggers this function
-   */
+  
+   // set dw_config->query_index member that triggers this function
+ 
 
 
 
@@ -453,5 +447,4 @@ int dw_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object){
   }
   return ERROR;
 }
-
 

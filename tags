@@ -239,7 +239,6 @@ CONFIG_EPH_DATA_SET_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_EP
 CONFIG_EPH_DATA_SET_SFD	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_EPH_DATA_SET_SFD(/;"	d
 CONFIG_EPH_DATA_SET_SV_ID	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_EPH_DATA_SET_SV_ID(/;"	d
 CONFIG_EXAMPLE_H_	src/application/configs/config_example.h	/^#define CONFIG_EXAMPLE_H_$/;"	d
-CONFIG_FRAME_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define CONFIG_FRAME_LEN /;"	d
 CONFIG_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define CONFIG_INDEX /;"	d
 CONFIG_MESSAGE_TYPE_BINARY	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_MESSAGE_TYPE_BINARY /;"	d
 CONFIG_MESSAGE_TYPE_NMEA	src/HAL/slave/venus638/venus638.h	/^#define CONFIG_MESSAGE_TYPE_NMEA /;"	d
@@ -308,12 +307,7 @@ C_DEPS	build/release/sources.mk	/^C_DEPS := $/;"	m
 C_SRCS	build/debug/sources.mk	/^C_SRCS := $/;"	m
 C_SRCS	build/release/sources.mk	/^C_SRCS := $/;"	m
 CallbackParameters_t	FreeRTOS/efm32zg/Source/timers.c	/^} CallbackParameters_t;$/;"	t	typeref:struct:tmrCallbackParameters	file:
-ClearLoop	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^ClearLoop:$/;"	l
-ClearLoopEnd	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^ClearLoopEnd:$/;"	l
 CoRoutineHandle_t	FreeRTOS/efm32zg/Source/include/croutine.h	/^typedef void * CoRoutineHandle_t;$/;"	t	typeref:typename:void *
-CopyLoop	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^CopyLoop:$/;"	l
-CopyLoopEnd	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^CopyLoopEnd:$/;"	l
-DECA_MAX_SPI_HEADER_LENGTH	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECA_MAX_SPI_HEADER_LENGTH /;"	d
 DECODE_FRAME_CTRL_TABLE_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECODE_FRAME_CTRL_TABLE_LEN /;"	d
 DECODE_FRAME_CTRL_TABLE_WIDTH	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECODE_FRAME_CTRL_TABLE_WIDTH /;"	d
 DECODE_TABLE_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DECODE_TABLE_LEN /;"	d
@@ -369,91 +363,11 @@ DW1000_FRAME_BUILD_H_	src/HAL/slave/dw1000/dw1000_buildMAC.h	/^#define DW1000_FR
 DW1000_FRAME_DECODE_H_	src/HAL/slave/dw1000/dw1000_decodeMAC.h	/^#define DW1000_FRAME_DECODE_H_$/;"	d
 DW1000_NODEMGMT_H_	src/HAL/slave/dw1000/dw1000_nodeMgmt.h	/^#define DW1000_NODEMGMT_H_$/;"	d
 DW1000_TYPES_H_	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW1000_TYPES_H_$/;"	d
-DWT_BR_110K	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_BR_110K /;"	d
-DWT_BR_6M8	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_BR_6M8 /;"	d
-DWT_BR_850K	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_BR_850K /;"	d
-DWT_CONFIG	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_CONFIG /;"	d
-DWT_DEVICE_ID	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_DEVICE_ID /;"	d
-DWT_ERROR	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_ERROR /;"	d
-DWT_FF_ACK_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_FF_ACK_EN /;"	d
-DWT_FF_BEACON_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_FF_BEACON_EN /;"	d
-DWT_FF_COORD_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_FF_COORD_EN /;"	d
-DWT_FF_DATA_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_FF_DATA_EN /;"	d
-DWT_FF_MAC_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_FF_MAC_EN /;"	d
-DWT_FF_NOTYPE_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_FF_NOTYPE_EN /;"	d
-DWT_FF_RSVD_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_FF_RSVD_EN /;"	d
-DWT_INT_ARFE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_ARFE /;"	d
-DWT_INT_LDED	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_LDED /;"	d
-DWT_INT_RFCE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_RFCE /;"	d
-DWT_INT_RFCG	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_RFCG /;"	d
-DWT_INT_RFSL	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_RFSL /;"	d
-DWT_INT_RFTO	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_RFTO /;"	d
-DWT_INT_RPHE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_RPHE /;"	d
-DWT_INT_RXOVRR	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_RXOVRR /;"	d
-DWT_INT_RXPTO	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_RXPTO /;"	d
-DWT_INT_SFDT	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_SFDT /;"	d
-DWT_INT_TFRS	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_INT_TFRS /;"	d
-DWT_LOADANTDLY	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_LOADANTDLY /;"	d
-DWT_LOADLDO	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_LOADLDO /;"	d
-DWT_LOADLDOTUNE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_LOADLDOTUNE /;"	d
-DWT_LOADNONE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_LOADNONE /;"	d
-DWT_LOADOPSET	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_LOADOPSET /;"	d
-DWT_LOADTXCONFIG	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_LOADTXCONFIG /;"	d
-DWT_LOADUCODE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_LOADUCODE /;"	d
-DWT_LOADXTALTRIM	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_LOADXTALTRIM /;"	d
-DWT_OPSET_64LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_OPSET_64LEN /;"	d
-DWT_OPSET_DEFLT	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_OPSET_DEFLT /;"	d
-DWT_OPSET_TIGHT	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_OPSET_TIGHT /;"	d
-DWT_PAC16	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PAC16 /;"	d
-DWT_PAC32	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PAC32 /;"	d
-DWT_PAC64	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PAC64 /;"	d
-DWT_PAC8	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PAC8 /;"	d
-DWT_PHRMODE_EXT	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PHRMODE_EXT /;"	d
-DWT_PHRMODE_STD	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PHRMODE_STD /;"	d
-DWT_PLEN_1024	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PLEN_1024 /;"	d
-DWT_PLEN_128	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PLEN_128 /;"	d
-DWT_PLEN_1536	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PLEN_1536 /;"	d
-DWT_PLEN_2048	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PLEN_2048 /;"	d
-DWT_PLEN_256	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PLEN_256 /;"	d
-DWT_PLEN_4096	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PLEN_4096 /;"	d
-DWT_PLEN_512	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PLEN_512 /;"	d
-DWT_PLEN_64	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PLEN_64 /;"	d
-DWT_PRESRV_SLEEP	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PRESRV_SLEEP /;"	d
-DWT_PRF_16M	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PRF_16M /;"	d
-DWT_PRF_64M	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_PRF_64M /;"	d
-DWT_REENABLE_ON_DLY_ERR	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_REENABLE_ON_DLY_ERR /;"	d
-DWT_RESPONSE_EXPECTED	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_RESPONSE_EXPECTED /;"	d
-DWT_SFDTOC_DEF	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SFDTOC_DEF /;"	d
-DWT_SIG_DW_IDLE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_DW_IDLE /;"	d
-DWT_SIG_RX_ERROR	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_ERROR /;"	d
-DWT_SIG_RX_NOERR	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_NOERR /;"	d
-DWT_SIG_RX_OKAY	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_OKAY /;"	d
-DWT_SIG_RX_PENDING	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_PENDING /;"	d
-DWT_SIG_RX_PHR_ERROR	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_PHR_ERROR /;"	d
-DWT_SIG_RX_PTOTIMEOUT	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_PTOTIMEOUT /;"	d
-DWT_SIG_RX_SFDTIMEOUT	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_SFDTIMEOUT /;"	d
-DWT_SIG_RX_SYNCLOSS	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_SYNCLOSS /;"	d
-DWT_SIG_RX_TIMEOUT	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_RX_TIMEOUT /;"	d
-DWT_SIG_TX_AA_DONE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_TX_AA_DONE /;"	d
-DWT_SIG_TX_DONE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_TX_DONE /;"	d
-DWT_SIG_TX_ERROR	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_TX_ERROR /;"	d
-DWT_SIG_TX_PENDING	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SIG_TX_PENDING /;"	d
-DWT_SLP_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SLP_EN /;"	d
-DWT_START_RX_DELAYED	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_START_RX_DELAYED /;"	d
-DWT_START_RX_IMMEDIATE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_START_RX_IMMEDIATE /;"	d
-DWT_START_TX_DELAYED	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_START_TX_DELAYED /;"	d
-DWT_START_TX_IMMEDIATE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_START_TX_IMMEDIATE /;"	d
-DWT_SUCCESS	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_SUCCESS /;"	d
-DWT_TANDV	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_TANDV /;"	d
-DWT_TIME_UNITS	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_TIME_UNITS /;"	d
-DWT_WAKE_CS	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_WAKE_CS /;"	d
-DWT_WAKE_SLPCNT	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_WAKE_SLPCNT /;"	d
-DWT_WAKE_WK	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_WAKE_WK /;"	d
-DWT_XTAL_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define DWT_XTAL_EN /;"	d
 DW_ANT_DELAY_LEN	src/HAL/slave/dw1000/dw1000_types.c	/^#define DW_ANT_DELAY_LEN /;"	d	file:
 DW_CHAN_LEN	src/HAL/slave/dw1000/dw1000_types.c	/^#define DW_CHAN_LEN /;"	d	file:
 DW_CLEAR	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_CLEAR /;"	d
 DW_CONFIG	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_CONFIG /;"	d
+DW_CONFIG_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^  #define DW_CONFIG_INDEX /;"	d
 DW_CONFIG_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^  #define DW_CONFIG_INDEX(/;"	d
 DW_CONF_DISCOVERY_MODE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_CONF_DISCOVERY_MODE /;"	d
 DW_CONF_RANGING_MODE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_CONF_RANGING_MODE /;"	d
@@ -494,32 +408,31 @@ DW_SPI_POLALPA_VARIANTS	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_SPI_POL
 DW_SPI_POLPHA_MASK	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_SPI_POLPHA_MASK /;"	d
 DW_SUB_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_SUB_INDEX /;"	d
 DW_SYS_CONFIG_LEN	src/HAL/slave/dw1000/dw1000_types.c	/^#define DW_SYS_CONFIG_LEN /;"	d	file:
-DW_TOF	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_TOF;$/;"	t	typeref:struct:__anon0073e1db0608
+DW_TOF	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_TOF;$/;"	t	typeref:struct:__anon0073e1db0808
 DW_TOF_CALCS_H_	src/HAL/slave/dw1000/dw1000_tofCalcs.h	/^#define DW_TOF_CALCS_H_$/;"	d
 DW_TWR_FN_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_TWR_FN_INDEX /;"	d
 DW_TX_DELAY_LEN	src/HAL/slave/dw1000/dw1000_types.c	/^#define DW_TX_DELAY_LEN /;"	d	file:
 DW_TX_FCTRL_LEN	src/HAL/slave/dw1000/dw1000_types.c	/^#define DW_TX_FCTRL_LEN /;"	d	file:
 DW_TX_POW_LEN	src/HAL/slave/dw1000/dw1000_types.c	/^#define DW_TX_POW_LEN /;"	d	file:
-DW_TreplyX	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_TreplyX;$/;"	t	typeref:union:__anon0073e1db050a
-DW_TroundX	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_TroundX;$/;"	t	typeref:union:__anon0073e1db040a
+DW_TreplyX	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_TreplyX;$/;"	t	typeref:union:__anon0073e1db070a
+DW_TroundX	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_TroundX;$/;"	t	typeref:union:__anon0073e1db060a
 DW_WRITE	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_WRITE /;"	d
 DW_WRITE_BITMASK	src/HAL/slave/dw1000/dw1000_types.h	/^#define DW_WRITE_BITMASK /;"	d
 DW_XTRIM_LEN	src/HAL/slave/dw1000/dw1000_types.c	/^#define DW_XTRIM_LEN /;"	d	file:
-DW_config	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_config;$/;"	t	typeref:struct:__anon0073e1db0908
-DW_config_index_table	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_config_index_table;$/;"	t	typeref:enum:__anon0073e1db0803
-DW_data	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_data; $/;"	t	typeref:struct:__anon0073e1db0708
-DW_final_timestamp	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_final_timestamp;$/;"	t	typeref:union:__anon0073e1db010a
+DW_config	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_config;$/;"	t	typeref:struct:__anon0073e1db0b08
+DW_config_index_table	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_config_index_table;$/;"	t	typeref:enum:__anon0073e1db0a03
+DW_data	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_data; $/;"	t	typeref:struct:__anon0073e1db0908
+DW_final_timestamp	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_final_timestamp;$/;"	t	typeref:union:__anon0073e1db030a
 DW_frame_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^}DW_frame_index;$/;"	t	typeref:struct:__anon9e779e160108	file:
-DW_network_dev	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_network_dev;$/;"	t	typeref:struct:__anon0073e1db0a08
-DW_nodelist	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_nodelist;$/;"	t	typeref:struct:__anon0073e1db0b08
-DW_poll_timestamp	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_poll_timestamp;$/;"	t	typeref:union:__anon0073e1db030a
+DW_network_dev	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_network_dev;$/;"	t	typeref:struct:__anon0073e1db0c08
+DW_nodelist	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_nodelist;$/;"	t	typeref:struct:__anon0073e1db0d08
+DW_poll_timestamp	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_poll_timestamp;$/;"	t	typeref:union:__anon0073e1db050a
 DW_regid_index	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^}DW_regid_index;$/;"	t	typeref:enum:__anonf4e68d820103	file:
-DW_resp_timestamp	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_resp_timestamp;$/;"	t	typeref:union:__anon0073e1db020a
+DW_resp_timestamp	src/HAL/slave/dw1000/dw1000_types.h	/^}DW_resp_timestamp;$/;"	t	typeref:union:__anon0073e1db040a
 DX_TIME_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define DX_TIME_ID /;"	d
 DX_TIME_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define DX_TIME_LEN /;"	d
 DaemonTaskMessage_t	FreeRTOS/efm32zg/Source/timers.c	/^} DaemonTaskMessage_t;$/;"	t	typeref:struct:tmrTimerQueueMessage	file:
 Default_Handler	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^Default_Handler PROC$/;"	l
-Default_Handler	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^Default_Handler:$/;"	l
 Default_Handler	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^Default_Handler:$/;"	l
 Default_Handler	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^void Default_Handler(void)$/;"	f	typeref:typename:void
 EC_CTRL_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define EC_CTRL_LEN /;"	d
@@ -555,7 +468,6 @@ EFM_DISP_PWR	src/board/STK3200/STK3200_config.h	/^#define EFM_DISP_PWR /;"	d
 EFM_DISP_SELECT	src/board/STK3200/STK3200_config.h	/^#define EFM_DISP_SELECT /;"	d
 EM_INCLUDE	build/release/makefile	/^EM_INCLUDE= \\$/;"	m
 EM_LIB	build/release/makefile	/^EM_LIB=$(GECKO_SDK_DIR)\/platform\/emlib\/inc$/;"	m
-ENABLE_ALL_SEQ	src/HAL/slave/dw1000/dw1000_types.h	/^#define ENABLE_ALL_SEQ /;"	d
 EPH_SUB_FRAME_DATA_LEN	src/HAL/slave/venus638/venus638.h	/^#define EPH_SUB_FRAME_DATA_LEN /;"	d
 ERROR	src/HAL/slave/dw1000/dw1000_types.h	/^#define ERROR /;"	d
 EUI_64_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define EUI_64_ID /;"	d
@@ -605,9 +517,9 @@ EXECUTABLES	build/debug/sources.mk	/^EXECUTABLES := $/;"	m
 EXECUTABLES	build/release/sources.mk	/^EXECUTABLES := $/;"	m
 EXIT_SUCCESS	src/HAL/slave/dw1000/dw1000_types.h	/^#define EXIT_SUCCESS /;"	d
 EXIT_SUCCESS	src/HAL/slave/venus638/venus638.h	/^#define EXIT_SUCCESS /;"	d
-EXTENDED_ADDRESS_SIZE	src/HAL/slave/dw1000/dw1000_types.h	/^#define EXTENDED_ADDRESS_SIZE /;"	d
 EXT_BOOL_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define EXT_BOOL_INDEX /;"	d
 EXT_FALSE	src/HAL/slave/dw1000/dw1000_types.h	/^#define EXT_FALSE /;"	d
+EXT_FRAME_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define EXT_FRAME_LEN /;"	d
 EXT_SYNC_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define EXT_SYNC_ID /;"	d
 EXT_SYNC_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define EXT_SYNC_LEN /;"	d
 EXT_TRUE	src/HAL/slave/dw1000/dw1000_types.h	/^#define EXT_TRUE /;"	d
@@ -645,11 +557,6 @@ FN_CODE_RANGE	src/HAL/slave/dw1000/dw1000_types.h	/^#define FN_CODE_RANGE /;"	d
 FN_CODE_RANGE_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define FN_CODE_RANGE_INDEX /;"	d
 FN_CODE_RESP	src/HAL/slave/dw1000/dw1000_types.h	/^#define FN_CODE_RESP /;"	d
 FN_CODE_RESP_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define FN_CODE_RESP_INDEX /;"	d
-FORCE_OTP_OFF	src/HAL/slave/dw1000/dw1000_types.h	/^#define FORCE_OTP_OFF /;"	d
-FORCE_OTP_ON	src/HAL/slave/dw1000/dw1000_types.h	/^#define FORCE_OTP_ON /;"	d
-FORCE_SYS_PLL	src/HAL/slave/dw1000/dw1000_types.h	/^#define FORCE_SYS_PLL /;"	d
-FORCE_SYS_XTI	src/HAL/slave/dw1000/dw1000_types.h	/^#define FORCE_SYS_XTI /;"	d
-FORCE_TX_PLL	src/HAL/slave/dw1000/dw1000_types.h	/^#define FORCE_TX_PLL /;"	d
 FP_AMPL2_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FP_AMPL2_MASK /;"	d
 FP_AMPL2_SHIFT	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FP_AMPL2_SHIFT /;"	d
 FRAME_BUFFER_SIZE	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_BUFFER_SIZE /;"	d
@@ -673,7 +580,6 @@ FRAME_CTRL_SEC_EN	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_CTRL_SEC_E
 FRAME_CTRL_SRC_ADDR_16	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_CTRL_SRC_ADDR_16 /;"	d
 FRAME_CTRL_SRC_ADDR_64	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_CTRL_SRC_ADDR_64 /;"	d
 FRAME_INDEX_TABLE	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_INDEX_TABLE /;"	d
-FRAME_LEN_IEEE_STD	src/HAL/slave/dw1000/dw1000_types.h	/^#define FRAME_LEN_IEEE_STD$/;"	d
 FREERTOS_DIR	build/release/makefile	/^FREERTOS_DIR=$(GECKO_SDK_DIR)\/util\/third_party\/freertos$/;"	m
 FS_CTRL_ID	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FS_CTRL_ID /;"	d
 FS_CTRL_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define FS_CTRL_LEN /;"	d
@@ -1037,7 +943,6 @@ INCLUDE_xTimerPendFunctionCall	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#de
 INCOMING_INDEX	src/HAL/slave/dw1000/dw1000_types.h	/^#define INCOMING_INDEX /;"	d
 INC_FREERTOS_H	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^#define INC_FREERTOS_H$/;"	d
 INC_TASK_H	FreeRTOS/efm32zg/Source/include/task.h	/^#define INC_TASK_H$/;"	d
-InterruptVector	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^InterruptVector:$/;"	l
 LD	build/release/makefile	/^LD=$(CC)$/;"	m
 LDE_CFG1_LEN	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_CFG1_LEN /;"	d
 LDE_CFG1_NSTDEV_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define LDE_CFG1_NSTDEV_MASK /;"	d
@@ -1253,7 +1158,6 @@ OBJS	build/debug/sources.mk	/^OBJS := $/;"	m
 OBJS	build/release/sources.mk	/^OBJS := $/;"	m
 OBJ_SRCS	build/debug/sources.mk	/^OBJ_SRCS := $/;"	m
 OBJ_SRCS	build/release/sources.mk	/^OBJ_SRCS := $/;"	m
-ORIGIN	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^  FLASH (rx)      : ORIGIN = 0x00000000, LENGTH = 32768$/;"	s
 ORIGIN	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 32768$/;"	s
 ORIGIN	build/debug/efm32zg.ld	/^  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 32768$/;"	s
 ORIGIN	build/release/efm32zg.ld	/^  FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 32768$/;"	s
@@ -1440,8 +1344,6 @@ READ	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^#define READ /;"	d
 READ	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^#define READ	/;"	d
 READ	src/HAL/slave/dw1000/dw1000_types.h	/^#define READ /;"	d
 READ	src/middleware/mpi_types.h	/^#define READ	/;"	d
-READ_ACC_OFF	src/HAL/slave/dw1000/dw1000_types.h	/^#define READ_ACC_OFF /;"	d
-READ_ACC_ON	src/HAL/slave/dw1000/dw1000_types.h	/^#define READ_ACC_ON /;"	d
 READ_WRITE	src/HAL/slave/dw1000/dw1000_types.h	/^#define READ_WRITE /;"	d
 READ_WRITE_CLEAR	src/HAL/slave/dw1000/dw1000_types.h	/^#define READ_WRITE_CLEAR /;"	d
 REG_05_ID_RESERVED	src/HAL/slave/dw1000/dw1000_regs.h	/^#define REG_05_ID_RESERVED /;"	d
@@ -1468,7 +1370,6 @@ REG_3C_ID_RESERVED	src/HAL/slave/dw1000/dw1000_regs.h	/^#define REG_3C_ID_RESERV
 REG_3D_ID_RESERVED	src/HAL/slave/dw1000/dw1000_regs.h	/^#define REG_3D_ID_RESERVED /;"	d
 REG_3E_ID_RESERVED	src/HAL/slave/dw1000/dw1000_regs.h	/^#define REG_3E_ID_RESERVED /;"	d
 REG_3F_ID_RESERVED	src/HAL/slave/dw1000/dw1000_regs.h	/^#define REG_3F_ID_RESERVED /;"	d
-REG_DUMP	src/HAL/slave/dw1000/dw1000_types.h	/^#define REG_DUMP /;"	d
 REG_IDS_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define REG_IDS_LEN /;"	d
 REG_ID_	src/HAL/slave/dw1000/dw1000_types.h	/^#define REG_ID_$/;"	d
 REG_ID_RX_BUFFER	src/HAL/slave/dw1000/dw1000_types.h	/^#define REG_ID_RX_BUFFER /;"	d
@@ -1595,9 +1496,8 @@ RX_TTCKO_RCPHASE_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define RX_TTCKO_RCPH
 RX_TTCKO_RSMPDEL_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define RX_TTCKO_RSMPDEL_MASK /;"	d
 RX_TTCKO_RXTOFS_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define RX_TTCKO_RXTOFS_MASK /;"	d
 Reset_Handler	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^Reset_Handler   PROC$/;"	l
-Reset_Handler	CMSIS/efm32zg/Source/Atollic/startup_efm32zg.s	/^Reset_Handler:$/;"	l
 Reset_Handler	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^Reset_Handler:$/;"	l
-Reset_Handler	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^void Reset_Handler(void) {$/;"	f	typeref:typename:void
+Reset_Handler	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^void Reset_Handler(void)$/;"	f	typeref:typename:void
 Reset_Handler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^__weak void Reset_Handler(void)$/;"	f	typeref:typename:__weak void
 Reset_Handler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^Reset_Handler$/;"	l
 S79_SRCS	build/debug/sources.mk	/^S79_SRCS := $/;"	m
@@ -1615,7 +1515,6 @@ SET_FACTORY_DEFAULTS	src/HAL/slave/venus638/venus638.h	/^#define SET_FACTORY_DEF
 SET_FACTORY_DEFAULTS_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define SET_FACTORY_DEFAULTS_PL_LEN /;"	d
 SE_MODE_SEL_EA	src/HAL/slave/venus638/venus638.h	/^#define SE_MODE_SEL_EA /;"	d
 SE_MODE_SEL_LP	src/HAL/slave/venus638/venus638.h	/^#define SE_MODE_SEL_LP /;"	d
-SHORT_ADDRESS_SIZE	src/HAL/slave/dw1000/dw1000_types.h	/^#define SHORT_ADDRESS_SIZE /;"	d
 SHORT_ADDR_INDEX_0	src/HAL/slave/dw1000/dw1000_types.h	/^#define SHORT_ADDR_INDEX_0 /;"	d
 SHORT_ADDR_INDEX_1	src/HAL/slave/dw1000/dw1000_types.h	/^#define SHORT_ADDR_INDEX_1 /;"	d
 SINGLE	src/middleware/mpi_usart.c	/^#define SINGLE /;"	d	file:
@@ -1647,6 +1546,7 @@ STATUS_POS_PIN_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define STATUS_POS_PIN
 STATUS_SW_CRC_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define STATUS_SW_CRC_PL_LEN /;"	d
 STATUS_SW_VERSION_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define STATUS_SW_VERSION_PL_LEN /;"	d
 STATUS_WAAS_PL_LEN	src/HAL/slave/venus638/venus638.h	/^#define STATUS_WAAS_PL_LEN /;"	d
+STD_FRAME_LEN	src/HAL/slave/dw1000/dw1000_types.h	/^#define STD_FRAME_LEN /;"	d
 STD_NOISE_MASK	src/HAL/slave/dw1000/dw1000_regs.h	/^#define STD_NOISE_MASK /;"	d
 STD_NOISE_SHIFT	src/HAL/slave/dw1000/dw1000_regs.h	/^#define STD_NOISE_SHIFT /;"	d
 STK3200_DIR	build/release/makefile	/^STK3200_DIR=$(GECKO_SDK_DIR)\/hardware\/kit\/EFM32ZG_STK3200$/;"	m
@@ -1827,7 +1727,7 @@ StaticTimer_t	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^} StaticTimer_t;$/;"	
 SysTick_Handler	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^SysTick_Handler PROC$/;"	l
 SysTick_Handler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^__weak void SysTick_Handler(void)$/;"	f	typeref:typename:__weak void
 SysTick_Handler	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^SysTick_Handler$/;"	l
-SystemCoreClock	CMSIS/efm32zg/Source/system_efm32zg.c	/^uint32_t SystemCoreClock;$/;"	v	typeref:typename:uint32_t
+SystemCoreClock	CMSIS/efm32zg/Source/system_efm32zg.c	/^uint32_t SystemCoreClock = 14000000UL;$/;"	v	typeref:typename:uint32_t
 SystemCoreClockGet	CMSIS/efm32zg/Source/system_efm32zg.c	/^uint32_t SystemCoreClockGet(void)$/;"	f	typeref:typename:uint32_t
 SystemHFClockGet	CMSIS/efm32zg/Source/system_efm32zg.c	/^uint32_t SystemHFClockGet(void)$/;"	f	typeref:typename:uint32_t
 SystemHFXOClock	CMSIS/efm32zg/Source/system_efm32zg.c	/^static uint32_t SystemHFXOClock = EFM32_HFXO_FREQ;$/;"	v	typeref:typename:uint32_t	file:
@@ -2201,18 +2101,16 @@ WRITE	src/HAL/slave/dw1000/dw1000_types.h	/^#define WRITE /;"	d
 WRITE	src/middleware/mpi_types.h	/^#define WRITE	/;"	d
 XTRIM_ADDRESS	src/HAL/slave/dw1000/dw1000_types.h	/^#define XTRIM_ADDRESS /;"	d
 \\handler_name	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^    .set    \\handler_name, Default_Handler$/;"	d
-_1	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t _1;$/;"	m	union:__anon0073e1db040a	typeref:typename:uint32_t
-_1	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t _1;$/;"	m	union:__anon0073e1db050a	typeref:typename:uint32_t
-_2	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t _2;$/;"	m	union:__anon0073e1db040a	typeref:typename:uint32_t
-_2	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t _2;$/;"	m	union:__anon0073e1db050a	typeref:typename:uint32_t
+_1	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t _1;$/;"	m	union:__anon0073e1db060a	typeref:typename:uint32_t
+_1	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t _1;$/;"	m	union:__anon0073e1db070a	typeref:typename:uint32_t
+_2	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t _2;$/;"	m	union:__anon0073e1db060a	typeref:typename:uint32_t
+_2	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t _2;$/;"	m	union:__anon0073e1db070a	typeref:typename:uint32_t
 _APP_CONFIG_H	src/application/configs/_app_config.h	/^#define _APP_CONFIG_H$/;"	d
 _DECA_DEVICE_API_H_	src/port_adaptors/dw1000_adaptor.h	/^#define _DECA_DEVICE_API_H_$/;"	d
 _DECA_REGS_H_	src/HAL/slave/dw1000/dw1000_regs.h	/^#define _DECA_REGS_H_$/;"	d
 _DECA_VERSION_H_	src/HAL/slave/dw1000/dw1000_version.h	/^#define _DECA_VERSION_H_$/;"	d
 _EFM32ZG_CMU_HAL_H_	src/HAL/host/efm32zg222f32/efm32zg_cmu_HAL.h	/^#define _EFM32ZG_CMU_HAL_H_$/;"	d
 _EFM32ZG_INT_HAL_H_	src/HAL/host/efm32zg222f32/efm32zg_interrupts_HAL.h	/^#define _EFM32ZG_INT_HAL_H_$/;"	d
-_Min_Heap_Size	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^_Min_Heap_Size = 0;      \/* required amount of heap  *\/$/;"	s
-_Min_Stack_Size	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^_Min_Stack_Size = 0x400; \/* required amount of stack *\/$/;"	s
 _STK3200_CONFIG_H_	src/board/STK3200/STK3200_config.h	/^#define _STK3200_CONFIG_H_$/;"	d
 _USART_RXDATAXP_CTRLBIT	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^#define _USART_RXDATAXP_CTRLBIT /;"	d
 _USART_RXDATAXP_DATABITS	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^#define _USART_RXDATAXP_DATABITS /;"	d
@@ -2241,8 +2139,9 @@ __StackLimit	build/release/efm32zg.ld	/^  __StackLimit = __StackTop - SIZEOF(.st
 __StackTop	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^__StackTop:$/;"	l
 __Vectors	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__Vectors       DCD     __initial_sp              ; Top of Stack$/;"	l
 __Vectors	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^__Vectors:$/;"	l
-__Vectors	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^const pFunc __Vectors[] __attribute__ ((section(".vectors"))) = {$/;"	v	typeref:typename:const pFunc[]
+__Vectors	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^const tVectorEntry        __Vectors[] __attribute__ ((section(".vectors"))) = {$/;"	v	typeref:typename:const tVectorEntry[]
 __Vectors	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^__Vectors       EQU   __vector_table$/;"	d
+__Vectors	CMSIS/efm32zg/Source/system_efm32zg.c	/^#define __Vectors /;"	d	file:
 __Vectors_End	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__Vectors_End$/;"	l
 __Vectors_End	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^__Vectors_End$/;"	l
 __Vectors_Size	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__Vectors_Size  EQU     __Vectors_End - __Vectors$/;"	d
@@ -2250,17 +2149,19 @@ __Vectors_Size	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __Vectors_Size = __Vect
 __Vectors_Size	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^__Vectors_Size  EQU   __Vectors_End - __Vectors$/;"	d
 __Vectors_Size	build/debug/efm32zg.ld	/^    __Vectors_Size = __Vectors_End - __Vectors;$/;"	s
 __Vectors_Size	build/release/efm32zg.ld	/^    __Vectors_Size = __Vectors_End - __Vectors;$/;"	s
-__anon0073e1db010a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
-__anon0073e1db020a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
+__anon0073e1db0103	src/HAL/slave/dw1000/dw1000_types.h	/^typedef enum {$/;"	g
+__anon0073e1db0203	src/HAL/slave/dw1000/dw1000_types.h	/^typedef enum {$/;"	g
 __anon0073e1db030a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
 __anon0073e1db040a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
 __anon0073e1db050a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
-__anon0073e1db0608	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct{$/;"	s
-__anon0073e1db0708	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct {$/;"	s
-__anon0073e1db0803	src/HAL/slave/dw1000/dw1000_types.h	/^typedef enum {$/;"	g
+__anon0073e1db060a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
+__anon0073e1db070a	src/HAL/slave/dw1000/dw1000_types.h	/^typedef union{$/;"	u
+__anon0073e1db0808	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct{$/;"	s
 __anon0073e1db0908	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct {$/;"	s
-__anon0073e1db0a08	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct{$/;"	s
-__anon0073e1db0b08	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct{$/;"	s
+__anon0073e1db0a03	src/HAL/slave/dw1000/dw1000_types.h	/^typedef enum {$/;"	g
+__anon0073e1db0b08	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct {$/;"	s
+__anon0073e1db0c08	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct{$/;"	s
+__anon0073e1db0d08	src/HAL/slave/dw1000/dw1000_types.h	/^typedef struct{$/;"	s
 __anon38b53441010a	FreeRTOS/efm32zg/Source/queue.c	/^	{$/;"	u	struct:QueueDefinition	file:
 __anon484018370108	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
 __anon484018370208	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^typedef struct {$/;"	s
@@ -2279,16 +2180,16 @@ __anon793e99d30203	src/HAL/slave/venus638/venus638.h	/^typedef enum {$/;"	g
 __anon793e99d30308	src/HAL/slave/venus638/venus638.h	/^typedef struct {$/;"	s
 __anon7d20eec90108	src/middleware/mpi_port.h	/^typedef struct {$/;"	s
 __anon89f65ef0010a	FreeRTOS/efm32zg/Source/timers.c	/^	{$/;"	u	struct:tmrTimerQueueMessage	file:
+__anon8abc22dd010a	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^typedef union {$/;"	u	file:
 __anon9e779e160108	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^typedef struct {$/;"	s	file:
 __anone255dfe70103	FreeRTOS/efm32zg/Source/include/task.h	/^{$/;"	g
 __anone255dfe70203	FreeRTOS/efm32zg/Source/include/task.h	/^{$/;"	g
 __anone255dfe70303	FreeRTOS/efm32zg/Source/include/task.h	/^{$/;"	g
+__anonf153b8ec010a	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^typedef union {$/;"	u	file:
 __anonf4e68d820103	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^typedef enum {$/;"	g	file:
-__bss_end__	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    __bss_end__ = _ebss;$/;"	s
 __bss_end__	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __bss_end__ = .;$/;"	s
 __bss_end__	build/debug/efm32zg.ld	/^    __bss_end__ = .;$/;"	s
 __bss_end__	build/release/efm32zg.ld	/^    __bss_end__ = .;$/;"	s
-__bss_start__	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    __bss_start__ = _sbss;$/;"	s
 __bss_start__	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    __bss_start__ = .;$/;"	s
 __bss_start__	build/debug/efm32zg.ld	/^    __bss_start__ = .;$/;"	s
 __bss_start__	build/release/efm32zg.ld	/^    __bss_start__ = .;$/;"	s
@@ -2304,32 +2205,24 @@ __end__	build/release/efm32zg.ld	/^    __end__ = .;$/;"	s
 __etext	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^  __etext = .;$/;"	s
 __etext	build/debug/efm32zg.ld	/^  __etext = .;$/;"	s
 __etext	build/release/efm32zg.ld	/^  __etext = .;$/;"	s
-__exidx_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    __exidx_end = .;$/;"	s
-__exidx_start	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    __exidx_start = .;$/;"	s
-__fini_array_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_end = .);$/;"	s
 __fini_array_end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_end = .);$/;"	s
 __fini_array_end	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_end = .);$/;"	s
 __fini_array_end	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_end = .);$/;"	s
-__fini_array_start	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_start = .);$/;"	s
 __fini_array_start	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_start = .);$/;"	s
 __fini_array_start	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_start = .);$/;"	s
 __fini_array_start	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__fini_array_start = .);$/;"	s
 __heap_base	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__heap_base$/;"	l
 __heap_limit	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__heap_limit$/;"	l
-__init_array_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_end = .);$/;"	s
 __init_array_end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_end = .);$/;"	s
 __init_array_end	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_end = .);$/;"	s
 __init_array_end	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_end = .);$/;"	s
-__init_array_start	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_start = .);$/;"	s
 __init_array_start	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_start = .);$/;"	s
 __init_array_start	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_start = .);$/;"	s
 __init_array_start	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__init_array_start = .);$/;"	s
 __initial_sp	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__initial_sp$/;"	l
-__preinit_array_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_end = .);$/;"	s
 __preinit_array_end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_end = .);$/;"	s
 __preinit_array_end	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_end = .);$/;"	s
 __preinit_array_end	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_end = .);$/;"	s
-__preinit_array_start	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_start = .);$/;"	s
 __preinit_array_start	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_start = .);$/;"	s
 __preinit_array_start	build/debug/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_start = .);$/;"	s
 __preinit_array_start	build/release/efm32zg.ld	/^    PROVIDE_HIDDEN (__preinit_array_start = .);$/;"	s
@@ -2337,7 +2230,7 @@ __stack	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^  PROVIDE(__stack = __StackTop);$/
 __stack	build/debug/efm32zg.ld	/^  PROVIDE(__stack = __StackTop);$/;"	s
 __stack	build/release/efm32zg.ld	/^  PROVIDE(__stack = __StackTop);$/;"	s
 __user_initial_stackheap	CMSIS/efm32zg/Source/ARM/startup_efm32zg.s	/^__user_initial_stackheap PROC$/;"	l
-__vector_table	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^const void * const __vector_table[]=  {$/;"	v	typeref:typename:const void * const[]
+__vector_table	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^const tVectorEntry __vector_table[] = {$/;"	v	typeref:typename:const tVectorEntry[]
 __vector_table	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^__vector_table$/;"	l
 __vector_table_0x1c	CMSIS/efm32zg/Source/IAR/startup_efm32zg.s	/^__vector_table_0x1c$/;"	l
 _acmp_config_reg	src/middleware/mpi_port.h	/^  int_callback _acmp_config_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
@@ -2378,19 +2271,14 @@ _dev_sleep	src/middleware/mpi_port.h	/^  int_callback _dev_sleep;$/;"	m	struct:_
 _dev_wakeup	src/middleware/mpi_port.h	/^  int_callback _dev_wakeup;$/;"	m	struct:__anon7d20eec90108	typeref:typename:int_callback
 _dma_data	src/middleware/mpi_port.h	/^  int_callback _dma_data;$/;"	m	struct:MPI_CORE_PERIPH	typeref:typename:int_callback
 _dma_init	src/middleware/mpi_port.h	/^  int_callback _dma_init;$/;"	m	struct:MPI_CORE_PERIPH	typeref:typename:int_callback
-_ebss	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    _ebss = .;         \/* define a global symbol at bss end *\/$/;"	s
-_edata	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    _edata = .;        \/* define a global symbol at data end *\/$/;"	s
 _emu_config_reg	src/middleware/mpi_port.h	/^  int_callback _emu_config_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _emu_data	src/middleware/mpi_port.h	/^  int_callback _emu_data;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _emu_handler	src/middleware/mpi_port.h	/^  int_callback _emu_handler;$/;"	m	struct:MPI_INTERRUPT	typeref:typename:int_callback
 _emu_init	src/middleware/mpi_port.h	/^  int_callback _emu_init;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _emu_query_reg	src/middleware/mpi_port.h	/^  int_callback _emu_query_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
-_end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE ( _end = . );$/;"	s
 _end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    _end = __end__;$/;"	s
 _end	build/debug/efm32zg.ld	/^    _end = __end__;$/;"	s
 _end	build/release/efm32zg.ld	/^    _end = __end__;$/;"	s
-_estack	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^_estack = 0x20001000;    \/* end of RAM *\/$/;"	s
-_etext	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    _etext = .;        \/* define a global symbols at end of code *\/$/;"	s
 _gpio_config_reg	src/middleware/mpi_port.h	/^  int_callback _gpio_config_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _gpio_data	src/middleware/mpi_port.h	/^  int_callback _gpio_data;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _gpio_handler	src/middleware/mpi_port.h	/^  int_callback _gpio_handler;$/;"	m	struct:MPI_INTERRUPT	typeref:typename:int_callback
@@ -2437,9 +2325,6 @@ _rtc_data	src/middleware/mpi_port.h	/^  int_callback _rtc_data;$/;"	m	struct:MPI
 _rtc_handler	src/middleware/mpi_port.h	/^  int_callback _rtc_handler;$/;"	m	struct:MPI_INTERRUPT	typeref:typename:int_callback
 _rtc_init	src/middleware/mpi_port.h	/^  int_callback _rtc_init;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
 _rtc_query_reg	src/middleware/mpi_port.h	/^  int_callback _rtc_query_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
-_sbss	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    _sbss = .;         \/* define a global symbol at bss start *\/$/;"	s
-_sdata	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    _sdata = .;        \/* create a global symbol at data start *\/$/;"	s
-_sidata	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^  _sidata = LOADADDR(.data);$/;"	s
 _systick_handler	src/middleware/mpi_port.h	/^  void_callback _systick_handler;$/;"	m	struct:MPI_CORE_MCU	typeref:typename:void_callback
 _systick_init	src/middleware/mpi_port.h	/^  int_callback _systick_init;$/;"	m	struct:MPI_CORE_MCU	typeref:typename:int_callback
 _timer_config_reg	src/middleware/mpi_port.h	/^  int_callback _timer_config_reg;$/;"	m	struct:MPI_PERIPH_PERIPHCONF	typeref:typename:int_callback
@@ -2465,11 +2350,11 @@ _wdog_query_reg	src/middleware/mpi_port.h	/^  int_callback _wdog_query_reg;$/;"	
 ack_message_id	src/HAL/slave/venus638/venus638.h	/^  uint32_t ack_message_id;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 all	build/debug/makefile	/^all: multidrone_prototype.axf$/;"	t
 all	build/release/makefile	/^all: $(TARGET)$/;"	t
-ant_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  ant_delay,$/;"	e	enum:__anon0073e1db0803
-ant_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ant_delay;           \/\/ antenna delay read from otp 64 prf value is in high 16 bits/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+ant_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  ant_delay,$/;"	e	enum:__anon0073e1db0a03
+ant_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ant_delay;           \/\/ antenna delay read from otp 64 prf value is in high 16 bits/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 auxhfrcoctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t auxhfrcoctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 bitwidth	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t bitwidth;$/;"	m	struct:__anon484018370408	typeref:typename:uint32_t
-build_message	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t build_message[4];$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t[4]
+build_message	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t build_message[4];$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t[4]
 cRxLock	FreeRTOS/efm32zg/Source/queue.c	/^	volatile int8_t cRxLock;		\/*< Stores the number of items received from the queue (removed from/;"	m	struct:QueueDefinition	typeref:typename:volatile int8_t	file:
 cTxLock	FreeRTOS/efm32zg/Source/queue.c	/^	volatile int8_t cTxLock;		\/*< Stores the number of items transmitted to the queue (added to th/;"	m	struct:QueueDefinition	typeref:typename:volatile int8_t	file:
 calcnt	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t calcnt;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
@@ -2486,8 +2371,8 @@ cc2_ccv	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccv;$/;"
 cc2_ccvb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccvb;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 cc2_ccvp	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ccvp;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 cc2_ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t cc2_ctrl;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
-channel	src/HAL/slave/dw1000/dw1000_types.h	/^  channel,$/;"	e	enum:__anon0073e1db0803
-channel	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t channel;              \/\/ added chan here - used in the reading of acc$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+channel	src/HAL/slave/dw1000/dw1000_types.h	/^  channel,$/;"	e	enum:__anon0073e1db0a03
+channel	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t channel;              \/\/ added chan here - used in the reading of acc$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 char_callback	src/middleware/mpi_types.h	/^typedef char (*char_callback)();$/;"	t	typeref:typename:char (*)()
 char_callback_setter	src/middleware/mpi_types.h	/^typedef char (*char_callback_setter)(char_callback);$/;"	t	typeref:typename:char (*)(char_callback)
 checksum	src/HAL/slave/venus638/venus638.h	/^  uint32_t checksum;$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint32_t
@@ -2619,8 +2504,8 @@ config_1pps_attr	src/HAL/slave/venus638/venus638.h	/^  uint8_t config_1pps_attr;
 config_1pps_mode	src/HAL/slave/venus638/venus638.h	/^  uint8_t config_1pps_mode;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint8_t
 config_1pps_mode	src/HAL/slave/venus638/venus638.h	/^ config_1pps_mode,$/;"	e	enum:__anon793e99d30203
 config_ant_delay	src/HAL/slave/dw1000/dw1000_types.c	/^void config_ant_delay(DW_config* dw_config){$/;"	f	typeref:typename:void
-config_buffer	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t config_buffer[16];$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[16]
-config_buffer_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t config_buffer_len;$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+config_buffer	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t config_buffer[16];$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint8_t[16]
+config_buffer_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t config_buffer_len;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 config_channel	src/HAL/slave/dw1000/dw1000_types.c	/^void config_channel(DW_config* dw_config){$/;"	f	typeref:typename:void
 config_datum	src/HAL/slave/venus638/venus638.h	/^ config_datum,$/;"	e	enum:__anon793e99d30203
 config_datum_attr	src/HAL/slave/venus638/venus638.h	/^  uint8_t config_datum_attr;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint8_t
@@ -2634,7 +2519,7 @@ config_datum_semi_major_axis	src/HAL/slave/venus638/venus638.h	/^  uint32_t conf
 config_dbl_buff_on	src/HAL/slave/dw1000/dw1000_types.c	/^void config_dbl_buff_on(DW_config* dw_config){$/;"	f	typeref:typename:void
 config_device_id	src/HAL/slave/dw1000/dw1000_types.c	/^void config_device_id(DW_config* dw_config){$/;"	f	typeref:typename:void
 config_get_eph_data_sv	src/HAL/slave/venus638/venus638.h	/^  uint8_t config_get_eph_data_sv;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint8_t
-config_index	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_config_index_table config_index;$/;"	m	struct:__anon0073e1db0908	typeref:typename:DW_config_index_table
+config_index	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_config_index_table config_index;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:DW_config_index_table
 config_ldo_tune_low32	src/HAL/slave/dw1000/dw1000_types.c	/^void config_ldo_tune_low32(DW_config* dw_config){$/;"	f	typeref:typename:void
 config_long_frames	src/HAL/slave/dw1000/dw1000_types.c	/^void config_long_frames(DW_config* dw_config){$/;"	f	typeref:typename:void
 config_lot_id	src/HAL/slave/dw1000/dw1000_types.c	/^void config_lot_id(DW_config* dw_config){$/;"	f	typeref:typename:void
@@ -2664,7 +2549,7 @@ config_pos_unpin_cnt	src/HAL/slave/venus638/venus638.h	/^  uint16_t config_pos_u
 config_pos_unpin_distance	src/HAL/slave/venus638/venus638.h	/^  uint16_t config_pos_unpin_distance;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint16_t
 config_pos_unpin_speed	src/HAL/slave/venus638/venus638.h	/^  uint16_t config_pos_unpin_speed;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint16_t
 config_prf_index	src/HAL/slave/dw1000/dw1000_types.c	/^void config_prf_index(DW_config* dw_config){$/;"	f	typeref:typename:void
-config_query_bool	src/HAL/slave/dw1000/dw1000_types.h	/^  bool config_query_bool;$/;"	m	struct:__anon0073e1db0908	typeref:typename:bool
+config_query_bool	src/HAL/slave/dw1000/dw1000_types.h	/^  bool config_query_bool;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:bool
 config_rf_rx_delay	src/HAL/slave/dw1000/dw1000_types.c	/^void config_rf_rx_delay(DW_config* dw_config){$/;"	f	typeref:typename:void
 config_rf_tx_delay	src/HAL/slave/dw1000/dw1000_types.c	/^void config_rf_tx_delay(DW_config* dw_config){$/;"	f	typeref:typename:void
 config_serial	src/HAL/slave/venus638/venus638.h	/^ config_serial,$/;"	e	enum:__anon793e99d30203
@@ -2708,8 +2593,8 @@ ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t ctrl;$/;"	m	stru
 ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 ctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t ctrl;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 datum_index	src/HAL/slave/venus638/venus638.h	/^  uint32_t datum_index;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
-dbl_buff_on	src/HAL/slave/dw1000/dw1000_types.h	/^  dbl_buff_on,$/;"	e	enum:__anon0073e1db0803
-dbl_buff_on	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t dbl_buff_on;          \/\/ double rx buffer mode flag$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+dbl_buff_on	src/HAL/slave/dw1000/dw1000_types.h	/^  dbl_buff_on,$/;"	e	enum:__anon0073e1db0a03
+dbl_buff_on	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t dbl_buff_on;          \/\/ double rx buffer mode flag$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 decaIrqStatus_t	src/HAL/slave/dw1000/dw1000_types.h	/^typedef int decaIrqStatus_t; \/\/ type for remembering IRQ status$/;"	t	typeref:typename:int
 decode_gga	src/HAL/slave/venus638/venus638.h	/^ uint8_t decode_gga[32];$/;"	m	struct:__anon793e99d30308	typeref:typename:uint8_t[32]
 decode_gga_fn	src/HAL/slave/venus638/venus638.c	/^int decode_gga_fn(VENUS_message_io* venus_message, VENUS_nmea_store* nmea_store){$/;"	f	typeref:typename:int
@@ -2728,13 +2613,13 @@ decode_vtg_fn	src/HAL/slave/venus638/venus638.c	/^int decode_vtg_fn(VENUS_messag
 def_irq_handler	CMSIS/efm32zg/Source/GCC/startup_efm32zg.S	/^    .macro  def_irq_handler	handler_name$/;"	m
 dest_addr_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^  uint8_t dest_addr_index;$/;"	m	struct:__anon9e779e160108	typeref:typename:uint8_t	file:
 dest_addr_index_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint8_t dest_addr_index_table[FRAME_INDEX_TABLE] = {$/;"	v	typeref:typename:uint8_t[]
-dev_index	src/HAL/slave/dw1000/dw1000_types.h	/^  int dev_index;$/;"	m	struct:__anon0073e1db0708	typeref:typename:int
-dev_status	src/HAL/slave/dw1000/dw1000_types.h	/^  int dev_status;$/;"	m	struct:__anon0073e1db0708	typeref:typename:int
-device_id	src/HAL/slave/dw1000/dw1000_types.h	/^  device_id,$/;"	e	enum:__anon0073e1db0803
-device_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t device_id[EUI_64_LEN]; \/\/ device id (ieee unique 64-bit identifier)$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[]
-devices	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_network_dev devices[ACTIVE_DEVICES_LEN]; $/;"	m	struct:__anon0073e1db0b08	typeref:typename:DW_network_dev[]
+dev_index	src/HAL/slave/dw1000/dw1000_types.h	/^  int dev_index;$/;"	m	struct:__anon0073e1db0908	typeref:typename:int
+dev_status	src/HAL/slave/dw1000/dw1000_types.h	/^  int dev_status;$/;"	m	struct:__anon0073e1db0908	typeref:typename:int
+device_id	src/HAL/slave/dw1000/dw1000_types.h	/^  device_id,$/;"	e	enum:__anon0073e1db0a03
+device_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t device_id[EUI_64_LEN]; \/\/ device id (ieee unique 64-bit identifier)$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t[]
+devices	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_network_dev devices[1]; $/;"	m	struct:__anon0073e1db0d08	typeref:typename:DW_network_dev[1]
 din	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint16_t din;$/;"	m	struct:__anon484018370608	typeref:typename:uint16_t
-distance	src/HAL/slave/dw1000/dw1000_types.h	/^  float distance;$/;"	m	struct:__anon0073e1db0a08	typeref:typename:float
+distance	src/HAL/slave/dw1000/dw1000_types.h	/^  float distance;$/;"	m	struct:__anon0073e1db0c08	typeref:typename:float
 dout	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint16_t dout;$/;"	m	struct:__anon484018370608	typeref:typename:uint16_t
 douttgl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint16_t douttgl;$/;"	m	struct:__anon484018370608	typeref:typename:uint16_t
 dw1000	src/application/configs/config_dw1000.c	/^MPI_ext_dev dw1000 = {$/;"	v	typeref:typename:MPI_ext_dev
@@ -2748,9 +2633,9 @@ dw_PolAlphaDeAssert	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^void(* dw_PolAlphaD
 dw_QueryReg	src/port_adaptors/dw1000_adaptor.c	/^int dw_QueryReg(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t config_reg/;"	f	typeref:typename:int
 dw_RegDump	src/port_adaptors/dw1000_adaptor.c	/^int dw_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object){$/;"	f	typeref:typename:int
 dw_Reset	src/port_adaptors/dw1000_adaptor.c	/^int dw_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){$/;"	f	typeref:typename:int
-dw_Rx	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^uint32_t dw_Rx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint32_t* buffer/;"	f	typeref:typename:uint32_t
+dw_Rx	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^uint32_t dw_Rx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint8_t* buffer_/;"	f	typeref:typename:uint32_t
 dw_Sleep	src/port_adaptors/dw1000_adaptor.c	/^int dw_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){$/;"	f	typeref:typename:int
-dw_Tx	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint32_t* buffer/;"	f	typeref:typename:uint32_t
+dw_Tx	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint8_t* buffer_/;"	f	typeref:typename:uint32_t
 dw_Wakeup	src/port_adaptors/dw1000_adaptor.c	/^int dw_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){$/;"	f	typeref:typename:int
 dw_buildBlinkFrame	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t dw_buildBlinkFrame(DW_nodelist* dw_nodelist, DW_data* dw_data, DW_config* dw_config, ui/;"	f	typeref:typename:uint32_t
 dw_buildConfig	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t dw_buildConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_sta/;"	f	typeref:typename:uint32_t
@@ -2763,14 +2648,15 @@ dw_buildResponseFrame	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t dw_build
 dw_config_query_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t(* dw_config_query_table[DW_READ_WRITE +1])() = {$/;"	v	typeref:typename:uint32_t (* [DW_READ_WRITE+1])()
 dw_decodeFrameCtrl	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint32_t dw_decodeFrameCtrl(DW_nodelist* dw_nodelist){$/;"	f	typeref:typename:uint32_t
 dw_decodeFrameIn	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint32_t dw_decodeFrameIn(void* host_object, int(*host_usart)(), void* ext_dev_object){$/;"	f	typeref:typename:uint32_t
-dw_decode_build_table	src/HAL/slave/dw1000/dw1000_types.c	/^uint32_t(* dw_decode_build_table[READ_WRITE])() = {$/;"	v	typeref:typename:uint32_t (* [READ_WRITE])()
+dw_decode_build_table	src/port_adaptors/dw1000_adaptor.c	/^uint32_t(* dw_decode_build_table[3])() = {$/;"	v	typeref:typename:uint32_t (* [3])()
+dw_decode_build_table	src/port_adaptors/dw1000_adaptor.h	/^uint32_t (*dw_decode_build_table[3])(); $/;"	v	typeref:typename:uint32_t (* [3])()
 dw_devconf	src/application/configs/config_dw1000.c	/^DW_config dw_devconf;$/;"	v	typeref:typename:DW_config
 dw_deviceStore	src/HAL/slave/dw1000/dw1000_tofCalcs.c	/^uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t node_index){$/;"	f	typeref:typename:uint32_t
-dw_ext_addr_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint8_t dw_ext_addr_table[REG_IDS_LEN][SUB_EXT_ADDR_LEN] = {$/;"	v	typeref:typename:uint8_t[][]
+dw_ext_addr_table	src/HAL/slave/dw1000/dw1000_types.h	/^ext_addr_table dw_ext_addr_table;$/;"	v	typeref:typename:ext_addr_table
 dw_ext_bool_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint8_t dw_ext_bool_table[3] = {$/;"	v	typeref:typename:uint8_t[3]
 dw_ext_read_write	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t dw_ext_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){$/;"	f	typeref:typename:uint32_t
 dw_fn_code_table	src/HAL/slave/dw1000/dw1000_types.c	/^const uint32_t dw_fn_code_table[DECODE_TABLE_LEN] = {$/;"	v	typeref:typename:const uint32_t[]
-dw_frame_build_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t(* dw_frame_build_table[BUILD_TABLE_LEN])() = {$/;"	v	typeref:typename:uint32_t (* [BUILD_TABLE_LEN])()
+dw_frame_build_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t(*const dw_frame_build_table[BUILD_TABLE_LEN])() = {$/;"	v	typeref:typename:uint32_t (* const[BUILD_TABLE_LEN])()
 dw_frame_ctrl_table	src/HAL/slave/dw1000/dw1000_types.c	/^uint8_t dw_frame_ctrl_table[3][2] = {$/;"	v	typeref:typename:uint8_t[3][2]
 dw_frame_header_read_write_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t(*const dw_frame_header_read_write_table[REG_SUB_EXT])() = {$/;"	v	typeref:typename:uint32_t (* const[REG_SUB_EXT])()
 dw_handlerBlink	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint32_t dw_handlerBlink(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_con/;"	f	typeref:typename:uint32_t
@@ -2785,7 +2671,6 @@ dw_hpol_hpha_low	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^void dw_hpol_hpha_low(
 dw_hpol_lpha_high	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^void dw_hpol_lpha_high(void(*device_gpio)(),$/;"	f	typeref:typename:void
 dw_hpol_lpha_low	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^void dw_hpol_lpha_low(void(*device_gpio)(),$/;"	f	typeref:typename:void
 dw_list	src/application/configs/config_dw1000.c	/^DW_nodelist dw_list = {$/;"	v	typeref:typename:DW_nodelist
-dw_list	src/application/configs/config_dw1000.c	/^DW_nodelist dw_list;$/;"	v	typeref:typename:DW_nodelist
 dw_lpol_hpha_high	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^void dw_lpol_hpha_high(void(*device_gpio)(),$/;"	f	typeref:typename:void
 dw_lpol_hpha_low	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^void dw_lpol_hpha_low(void(*device_gpio)(),$/;"	f	typeref:typename:void
 dw_lpol_lpha_high	src/HAL/slave/dw1000/dw1000_commRxTx.c	/^void dw_lpol_lpha_high(void(*device_gpio)(),$/;"	f	typeref:typename:void
@@ -2795,13 +2680,10 @@ dw_nodeDelete	src/HAL/slave/dw1000/dw1000_nodeMgmt.c	/^uint32_t dw_nodeDelete(DW
 dw_nodeSearch	src/HAL/slave/dw1000/dw1000_nodeMgmt.c	/^uint32_t dw_nodeSearch(DW_nodelist* dw_nodelist, uint8_t* tag_id){$/;"	f	typeref:typename:uint32_t
 dw_nodeSort	src/HAL/slave/dw1000/dw1000_nodeMgmt.c	/^uint32_t dw_nodeSort(DW_nodelist* dw_nodelist, uint32_t node_index){$/;"	f	typeref:typename:uint32_t
 dw_queryConfig	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t dw_queryConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_sta/;"	f	typeref:typename:uint32_t
-dw_reg_addr_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint8_t dw_reg_addr_table[REG_IDS_LEN][SUB_EXT_ADDR_LEN] = { $/;"	v	typeref:typename:uint8_t[][]
+dw_reg_addr_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint8_t dw_reg_addr_table[REG_IDS_LEN] = { $/;"	v	typeref:typename:uint8_t[]
 dw_reg_read_write	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t dw_reg_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){$/;"	f	typeref:typename:uint32_t
-dw_reg_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint8_t (*dw_reg_table[REG_IDS_LEN])[SUB_EXT_ADDR_LEN] = {$/;"	v	typeref:typename:uint8_t (* [REG_IDS_LEN])[]
 dw_rw_bool_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint8_t dw_rw_bool_table[3] = {$/;"	v	typeref:typename:uint8_t[3]
-dw_status	src/HAL/slave/dw1000/dw1000_types.h	/^uint8_t *dw_status;$/;"	v	typeref:typename:uint8_t *
-dw_sub_addr_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint8_t dw_sub_addr_table[REG_IDS_LEN][SUB_EXT_ADDR_LEN] = {$/;"	v	typeref:typename:uint8_t[][]
-dw_sub_bool_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint8_t dw_sub_bool_table[3] = {$/;"	v	typeref:typename:uint8_t[3]
+dw_sub_addr_table	src/HAL/slave/dw1000/dw1000_types.h	/^sub_addr_table dw_sub_addr_table;$/;"	v	typeref:typename:sub_addr_table
 dw_sub_read_write	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^uint32_t dw_sub_read_write(DW_nodelist* dw_nodelist, uint32_t read_write){$/;"	f	typeref:typename:uint32_t
 dw_tof_dist	src/HAL/slave/dw1000/dw1000_tofCalcs.c	/^void dw_tof_dist(DW_data* dw_data, DW_config* dw_config){$/;"	f	typeref:typename:void
 dw_ts_handler_table	src/HAL/slave/dw1000/dw1000_tofCalcs.c	/^void (* dw_ts_handler_table[TS_HANDLER_TABLE_LEN])() = {$/;"	v	typeref:typename:void (* [TS_HANDLER_TABLE_LEN])()
@@ -2835,7 +2717,6 @@ em4ret	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4ret;$/;"	m	
 em4wucause	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wucause;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 em4wuen	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wuen;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 em4wupol	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t em4wupol;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-end	CMSIS/efm32zg/Source/Atollic/efm32zg.ld	/^    PROVIDE ( end = . );$/;"	s
 end	CMSIS/efm32zg/Source/GCC/efm32zg.ld	/^    end = __end__;$/;"	s
 end	build/debug/efm32zg.ld	/^    end = __end__;$/;"	s
 end	build/release/efm32zg.ld	/^    end = __end__;$/;"	s
@@ -2849,28 +2730,62 @@ eventCLEAR_EVENTS_ON_EXIT_BIT	FreeRTOS/efm32zg/Source/event_groups.c	/^	#define 
 eventEVENT_BITS_CONTROL_BYTES	FreeRTOS/efm32zg/Source/event_groups.c	/^	#define eventEVENT_BITS_CONTROL_BYTES	/;"	d	file:
 eventUNBLOCKED_DUE_TO_BIT_SET	FreeRTOS/efm32zg/Source/event_groups.c	/^	#define eventUNBLOCKED_DUE_TO_BIT_SET	/;"	d	file:
 eventWAIT_FOR_ALL_BITS	FreeRTOS/efm32zg/Source/event_groups.c	/^	#define eventWAIT_FOR_ALL_BITS	/;"	d	file:
-ext_addr_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ext_addr_index;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+ext_addr_1	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_1 = 0x01,$/;"	e	enum:__anon0073e1db0203
+ext_addr_10	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_10 = 0xA,$/;"	e	enum:__anon0073e1db0203
+ext_addr_11	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_11 = 0xB,$/;"	e	enum:__anon0073e1db0203
+ext_addr_12	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_12 = 0xC,$/;"	e	enum:__anon0073e1db0203
+ext_addr_13	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_13 = 0xD,$/;"	e	enum:__anon0073e1db0203
+ext_addr_14	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_14 = 0xE,$/;"	e	enum:__anon0073e1db0203
+ext_addr_15	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_15 = 0xF,$/;"	e	enum:__anon0073e1db0203
+ext_addr_16	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_16 = 0x10,$/;"	e	enum:__anon0073e1db0203
+ext_addr_17	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_17 = 0x11,$/;"	e	enum:__anon0073e1db0203
+ext_addr_18	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_18 = 0x12,$/;"	e	enum:__anon0073e1db0203
+ext_addr_19	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_19 = 0x13,$/;"	e	enum:__anon0073e1db0203
+ext_addr_2	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_2 = 0x02,$/;"	e	enum:__anon0073e1db0203
+ext_addr_20	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_20 = 0x14,$/;"	e	enum:__anon0073e1db0203
+ext_addr_21	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_21 = 0x15,$/;"	e	enum:__anon0073e1db0203
+ext_addr_22	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_22 = 0x16,$/;"	e	enum:__anon0073e1db0203
+ext_addr_23	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_23 = 0x17,$/;"	e	enum:__anon0073e1db0203
+ext_addr_24	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_24 = 0x18,$/;"	e	enum:__anon0073e1db0203
+ext_addr_25	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_25 = 0x19,$/;"	e	enum:__anon0073e1db0203
+ext_addr_26	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_26 = 0x1A,$/;"	e	enum:__anon0073e1db0203
+ext_addr_27	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_27 = 0x1B,$/;"	e	enum:__anon0073e1db0203
+ext_addr_28	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_28 = 0x1C,$/;"	e	enum:__anon0073e1db0203
+ext_addr_29	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_29 = 0x1D,$/;"	e	enum:__anon0073e1db0203
+ext_addr_3	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_3 = 0x03,$/;"	e	enum:__anon0073e1db0203
+ext_addr_30	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_30 = 0x1E,$/;"	e	enum:__anon0073e1db0203
+ext_addr_31	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_31 = 0x1F,$/;"	e	enum:__anon0073e1db0203
+ext_addr_32	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_32 = 0x20$/;"	e	enum:__anon0073e1db0203
+ext_addr_4	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_4 = 0x04,$/;"	e	enum:__anon0073e1db0203
+ext_addr_5	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_5 = 0x05,$/;"	e	enum:__anon0073e1db0203
+ext_addr_6	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_6 = 0x06,$/;"	e	enum:__anon0073e1db0203
+ext_addr_7	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_7 = 0x07,$/;"	e	enum:__anon0073e1db0203
+ext_addr_8	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_8 = 0x08,$/;"	e	enum:__anon0073e1db0203
+ext_addr_9	src/HAL/slave/dw1000/dw1000_types.h	/^ ext_addr_9 = 0x09,$/;"	e	enum:__anon0073e1db0203
+ext_addr_bool_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^bool ext_addr_bool_table[REG_IDS_LEN] = {$/;"	v	typeref:typename:bool[]
+ext_addr_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ext_addr_index;$/;"	m	struct:__anon0073e1db0d08	typeref:typename:uint32_t
+ext_addr_table	src/HAL/slave/dw1000/dw1000_types.h	/^}ext_addr_table;$/;"	t	typeref:enum:__anon0073e1db0203
 extifall	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extifall;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 extipselectH	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extipselectH;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 extipselectL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t extipselectL;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 extirise	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t extirise;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
-final	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_final_timestamp final;$/;"	m	struct:__anon0073e1db0608	typeref:typename:DW_final_timestamp
-final_distance	src/HAL/slave/dw1000/dw1000_types.h	/^  double final_distance;$/;"	m	struct:__anon0073e1db0608	typeref:typename:double
+final	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_final_timestamp final;$/;"	m	struct:__anon0073e1db0808	typeref:typename:DW_final_timestamp
+final_distance	src/HAL/slave/dw1000/dw1000_types.h	/^  double final_distance;$/;"	m	struct:__anon0073e1db0808	typeref:typename:double
 final_message_len	src/HAL/slave/venus638/venus638.h	/^  uint32_t final_message_len;$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint32_t
 float_callback	src/middleware/mpi_types.h	/^typedef float (*float_callback)();$/;"	t	typeref:typename:float (*)()
 float_callback_setter	src/middleware/mpi_types.h	/^typedef float (*float_callback_setter)(float_callback);$/;"	t	typeref:typename:float (*)(float_callback)
 fn_code_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^  uint8_t fn_code_index;$/;"	m	struct:__anon9e779e160108	typeref:typename:uint8_t	file:
 fn_code_index_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint8_t fn_code_index_table[3] = {$/;"	v	typeref:typename:uint8_t[3]
 frame	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t frame;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-frame_in	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_in[1024];$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint32_t[1024]
-frame_in	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_in[FRAME_BUFFER_SIZE];$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t[]
-frame_in_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_in_len;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+frame_in	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t frame_in[FRAME_BUFFER_SIZE];$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t[]
+frame_in	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t frame_in[FRAME_BUFFER_SIZE];$/;"	m	struct:__anon0073e1db0d08	typeref:typename:uint8_t[]
+frame_in_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_in_len;$/;"	m	struct:__anon0073e1db0d08	typeref:typename:uint32_t
 frame_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^static DW_frame_index frame_index;$/;"	v	typeref:typename:DW_frame_index	file:
-frame_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_len;$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint32_t
+frame_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_len;$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
 frame_len_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint8_t frame_len_table[FRAME_INDEX_TABLE] = {$/;"	v	typeref:typename:uint8_t[]
-frame_out	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_out[1024];$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint32_t[1024]
-frame_out	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_out[FRAME_BUFFER_SIZE];$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t[]
-frame_out_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_out_len;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+frame_out	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t frame_out[FRAME_BUFFER_SIZE];$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t[]
+frame_out	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t frame_out[FRAME_BUFFER_SIZE];$/;"	m	struct:__anon0073e1db0d08	typeref:typename:uint8_t[]
+frame_out_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t frame_out_len;$/;"	m	struct:__anon0073e1db0d08	typeref:typename:uint32_t
 frame_src_addr_index_start_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint8_t frame_src_addr_index_start_table[FRAME_INDEX_TABLE] = {$/;"	v	typeref:typename:uint8_t[]
 frame_type_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^  uint32_t frame_type_index;$/;"	m	struct:__anon9e779e160108	typeref:typename:uint32_t	file:
 freeze	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t freeze;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
@@ -2932,9 +2847,7 @@ gpio_port_config_table	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.h	/^int(*cons
 gpio_route	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_route[GPIO_READ_WRITE_CLEAR])();$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gpio_route	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int(*const gpio_route[GPIO_READ_WRITE_CLEAR])()=$/;"	v	typeref:typename:int (* const[GPIO_READ_WRITE_CLEAR])()
 gps_1pps_mode	src/HAL/slave/venus638/venus638.h	/^  uint32_t gps_1pps_mode;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
-handler_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t handler_index;$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t
-header_read	src/HAL/slave/dw1000/dw1000_types.h	/^uint8_t header_read[150]  =   {0};$/;"	v	typeref:typename:uint8_t[150]
-header_write	src/HAL/slave/dw1000/dw1000_types.h	/^uint8_t header_write[150] =   {0};$/;"	v	typeref:typename:uint8_t[150]
+handler_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t handler_index;$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t
 heap	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^static uint8_t heap[__HEAP_SIZE]   __attribute__ ((aligned(8), used, section(".heap")));$/;"	v	typeref:typename:uint8_t[]	file:
 heapBITS_PER_BYTE	FreeRTOS/efm32zg/Source/portable/MemMang/heap_4.c	/^#define heapBITS_PER_BYTE	/;"	d	file:
 heapBITS_PER_BYTE	FreeRTOS/efm32zg/Source/portable/MemMang/heap_5.c	/^#define heapBITS_PER_BYTE	/;"	d	file:
@@ -2969,15 +2882,15 @@ intfset	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t intfset;$/;"
 irctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t irctrl;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 kernel_version	src/HAL/slave/venus638/venus638.h	/^  uint32_t kernel_version;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 last_known	src/HAL/slave/venus638/venus638.h	/^  uint8_t last_known;$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint8_t
-ldo_tune_low32	src/HAL/slave/dw1000/dw1000_types.h	/^  ldo_tune_low32,$/;"	e	enum:__anon0073e1db0803
-ldo_tune_low32	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ldo_tune_low32;      \/\/low 32 bits of ldo tune value$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+ldo_tune_low32	src/HAL/slave/dw1000/dw1000_types.h	/^  ldo_tune_low32,$/;"	e	enum:__anon0073e1db0a03
+ldo_tune_low32	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t ldo_tune_low32;      \/\/low 32 bits of ldo tune value$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 lfaclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfaclken0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 lfapresc0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfapresc0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 lfbclken0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfbclken0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 lfbpresc0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfbpresc0;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 lfclksel	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfclksel;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 lfrcoctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lfrcoctrl;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
-list	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_data list[NODELIST_LEN];$/;"	m	struct:__anon0073e1db0b08	typeref:typename:DW_data[]
+list	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_data list[1];$/;"	m	struct:__anon0073e1db0d08	typeref:typename:DW_data[1]
 listCURRENT_LIST_LENGTH	FreeRTOS/efm32zg/Source/include/list.h	/^#define listCURRENT_LIST_LENGTH(/;"	d
 listFIRST_LIST_INTEGRITY_CHECK_VALUE	FreeRTOS/efm32zg/Source/include/list.h	/^	#define listFIRST_LIST_INTEGRITY_CHECK_VALUE$/;"	d
 listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE	FreeRTOS/efm32zg/Source/include/list.h	/^	#define listFIRST_LIST_ITEM_INTEGRITY_CHECK_VALUE$/;"	d
@@ -3006,10 +2919,10 @@ listTEST_LIST_ITEM_INTEGRITY	FreeRTOS/efm32zg/Source/include/list.h	/^	#define l
 location	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t location;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 lock	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t lock;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 lock	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t lock;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
-long_frames	src/HAL/slave/dw1000/dw1000_types.h	/^  long_frames$/;"	e	enum:__anon0073e1db0803
-long_frames	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t long_frames;  \/\/ flag in non-standard long frame mode$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
-lot_id	src/HAL/slave/dw1000/dw1000_types.h	/^  lot_id,$/;"	e	enum:__anon0073e1db0803
-lot_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t lot_id;              \/\/ lot id ???$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+long_frames	src/HAL/slave/dw1000/dw1000_types.h	/^  long_frames$/;"	e	enum:__anon0073e1db0a03
+long_frames	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t long_frames;  \/\/ flag in non-standard long frame mode$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+lot_id	src/HAL/slave/dw1000/dw1000_types.h	/^  lot_id,$/;"	e	enum:__anon0073e1db0a03
+lot_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t lot_id;              \/\/ lot id ???$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 main	src/application/main.c	/^int main(void)$/;"	f	typeref:typename:int
 master	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	bool master;$/;"	m	struct:__anon484018370308	typeref:typename:bool
 message_body	src/HAL/slave/venus638/venus638.h	/^  uint8_t message_body[64];$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint8_t[64]
@@ -3049,22 +2962,23 @@ nmea	src/HAL/slave/venus638/venus638.h	/^  nmea$/;"	e	enum:__anon793e99d30103
 nmea_decode_table	src/HAL/slave/venus638/venus638.c	/^int(*const nmea_decode_table[ID_NMEA_LEN])() = $/;"	v	typeref:typename:int (* const[ID_NMEA_LEN])()
 nmea_len	src/HAL/slave/venus638/venus638.h	/^ uint8_t nmea_len;$/;"	m	struct:__anon793e99d30308	typeref:typename:uint8_t
 nmea_sent_len	src/HAL/slave/venus638/venus638.c	/^const uint8_t nmea_sent_len[ID_NMEA_LEN] = {$/;"	v	typeref:typename:const uint8_t[]
-node_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t node_index;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+node_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t node_index;$/;"	m	struct:__anon0073e1db0d08	typeref:typename:uint32_t
 node_list_table	src/HAL/slave/dw1000/dw1000_nodeMgmt.c	/^uint32_t(* node_list_table[DW_NODE_TABLE_LEN])() = {$/;"	v	typeref:typename:uint32_t (* [DW_NODE_TABLE_LEN])()
 node_list_table	src/HAL/slave/dw1000/dw1000_nodeMgmt.h	/^uint32_t(* node_list_table[DW_NODE_TABLE_LEN])();$/;"	v	typeref:typename:uint32_t (* [DW_NODE_TABLE_LEN])()
 obj	build/release/makefile	/^obj: $(SRC_DIR)$/;"	t
 odm_version	src/HAL/slave/venus638/venus638.h	/^  uint32_t odm_version;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 oscencmd	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t oscencmd;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
-otp_rev	src/HAL/slave/dw1000/dw1000_types.h	/^  otp_rev,$/;"	e	enum:__anon0073e1db0803
-otp_rev	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t otp_rev;              \/\/ otp revision number (read during initialisation)$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
-pFunc	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^typedef void( *pFunc )( void );$/;"	t	typeref:typename:void (*)(void)	file:
-pan_id	src/HAL/slave/dw1000/dw1000_types.h	/^  pan_id,$/;"	e	enum:__anon0073e1db0803
-pan_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t pan_id[2];$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[2]
-pan_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t pan_id[2];$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t[2]
+otp_rev	src/HAL/slave/dw1000/dw1000_types.h	/^  otp_rev,$/;"	e	enum:__anon0073e1db0a03
+otp_rev	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t otp_rev;              \/\/ otp revision number (read during initialisation)$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+pFunc	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^  void (*pFunc)(void);$/;"	m	union:__anon8abc22dd010a	typeref:typename:void (*)(void)	file:
+pFunc	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^  void (*pFunc)(void);$/;"	m	union:__anonf153b8ec010a	typeref:typename:void (*)(void)	file:
+pan_id	src/HAL/slave/dw1000/dw1000_types.h	/^  pan_id,$/;"	e	enum:__anon0073e1db0a03
+pan_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t pan_id[2];$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t[2]
+pan_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t pan_id[2];$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t[2]
 pan_id_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^  uint8_t pan_id_index;$/;"	m	struct:__anon9e779e160108	typeref:typename:uint8_t	file:
 pan_id_index_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint8_t pan_id_index_table[FRAME_INDEX_TABLE] = {$/;"	v	typeref:typename:uint8_t[]
-part_id	src/HAL/slave/dw1000/dw1000_types.h	/^  part_id,$/;"	e	enum:__anon0073e1db0803
-part_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t part_id;             \/\/ part id ???$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+part_id	src/HAL/slave/dw1000/dw1000_types.h	/^  part_id,$/;"	e	enum:__anon0073e1db0a03
+part_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t part_id;             \/\/ part id ???$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 payload_len	src/HAL/slave/venus638/venus638.h	/^  uint32_t payload_len;$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint32_t
 pcHead	FreeRTOS/efm32zg/Source/queue.c	/^	int8_t *pcHead;					\/*< Points to the beginning of the queue storage area. *\/$/;"	m	struct:QueueDefinition	typeref:typename:int8_t *	file:
 pcInterruptPriorityRegisters	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM3/port.c	/^	 static const volatile uint8_t * const pcInterruptPriorityRegisters = ( const volatile uint8_t /;"	v	typeref:typename:const volatile uint8_t * const	file:
@@ -3150,7 +3064,7 @@ pinmodeH	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pinmodeH;$/;
 pinmodeL	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pinmodeL;$/;"	m	struct:__anon484018370808	typeref:typename:uint32_t
 pins	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t pins;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 polalpha	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t polalpha;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-poll	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_poll_timestamp  poll;$/;"	m	struct:__anon0073e1db0608	typeref:typename:DW_poll_timestamp
+poll	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_poll_timestamp  poll;$/;"	m	struct:__anon0073e1db0808	typeref:typename:DW_poll_timestamp
 poll_resp_final_handler_table	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^uint32_t (*poll_resp_final_handler_table[3])() = {$/;"	v	typeref:typename:uint32_t (* [3])()
 port	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t port;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 port	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t port;$/;"	m	struct:__anon484018370708	typeref:typename:uint32_t
@@ -3945,8 +3859,8 @@ portYIELD_WITHIN_API	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM3_MPU/portmacro.
 portYIELD_WITHIN_API	FreeRTOS/efm32zg/Source/portable/GCC/ARM_CM4_MPU/portmacro.h	/^#define portYIELD_WITHIN_API(/;"	d
 portYIELD_WITHIN_API	FreeRTOS/efm32zg/Source/portable/RVDS/ARM_CM4_MPU/portmacro.h	/^#define portYIELD_WITHIN_API(/;"	d
 pos_pin_status	src/HAL/slave/venus638/venus638.h	/^  uint32_t pos_pin_status;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
-prf_index	src/HAL/slave/dw1000/dw1000_types.h	/^   int prf_index;               \/\/prf index ???$/;"	m	struct:__anon0073e1db0908	typeref:typename:int
-prf_index	src/HAL/slave/dw1000/dw1000_types.h	/^  prf_index,$/;"	e	enum:__anon0073e1db0803
+prf_index	src/HAL/slave/dw1000/dw1000_types.h	/^   int prf_index;               \/\/prf index ???$/;"	m	struct:__anon0073e1db0b08	typeref:typename:int
+prf_index	src/HAL/slave/dw1000/dw1000_types.h	/^  prf_index,$/;"	e	enum:__anon0073e1db0a03
 prvAddCoRoutineToReadyQueue	FreeRTOS/efm32zg/Source/croutine.c	/^#define prvAddCoRoutineToReadyQueue(/;"	d	file:
 prvAddCurrentTaskToDelayedList	FreeRTOS/efm32zg/Source/tasks.c	/^static void prvAddCurrentTaskToDelayedList( TickType_t xTicksToWait, const BaseType_t xCanBlockI/;"	f	typeref:typename:void	file:
 prvAddNewTaskToReadyList	FreeRTOS/efm32zg/Source/tasks.c	/^static void prvAddNewTaskToReadyList( TCB_t *pxNewTCB )$/;"	f	typeref:typename:void	file:
@@ -4103,14 +4017,14 @@ pxTimer	FreeRTOS/efm32zg/Source/timers.c	/^	Timer_t *			pxTimer;			\/*<< The tim
 pxTopOfStack	FreeRTOS/efm32zg/Source/tasks.c	/^	volatile StackType_t	*pxTopOfStack;	\/*< Points to the location of the last item placed on the /;"	m	struct:tskTaskControlBlock	typeref:typename:volatile StackType_t *	file:
 query_1pps_mode	src/HAL/slave/venus638/venus638.h	/^ query_1pps_mode$/;"	e	enum:__anon793e99d30203
 query_ant_delay	src/HAL/slave/dw1000/dw1000_types.c	/^void query_ant_delay(DW_config* dw_config){$/;"	f	typeref:typename:void
-query_buffer	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t query_buffer[16];$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[16]
-query_buffer_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t query_buffer_len;$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+query_buffer	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t query_buffer[16];$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint8_t[16]
+query_buffer_len	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t query_buffer_len;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 query_channel	src/HAL/slave/dw1000/dw1000_types.c	/^void query_channel(DW_config* dw_config){$/;"	f	typeref:typename:void
 query_datum	src/HAL/slave/venus638/venus638.h	/^ query_datum,$/;"	e	enum:__anon793e99d30203
 query_dbl_buff_on	src/HAL/slave/dw1000/dw1000_types.c	/^void query_dbl_buff_on(DW_config* dw_config){$/;"	f	typeref:typename:void
 query_device_id	src/HAL/slave/dw1000/dw1000_types.c	/^void query_device_id(DW_config* dw_config){$/;"	f	typeref:typename:void
 query_get_eph	src/HAL/slave/venus638/venus638.h	/^ query_get_eph,$/;"	e	enum:__anon793e99d30203
-query_index	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_config_index_table query_index;$/;"	m	struct:__anon0073e1db0908	typeref:typename:DW_config_index_table
+query_index	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_config_index_table query_index;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:DW_config_index_table
 query_ldo_tune_low32	src/HAL/slave/dw1000/dw1000_types.c	/^void query_ldo_tune_low32(DW_config* dw_config){$/;"	f	typeref:typename:void
 query_long_frames	src/HAL/slave/dw1000/dw1000_types.c	/^void query_long_frames(DW_config* dw_config){$/;"	f	typeref:typename:void
 query_lot_id	src/HAL/slave/dw1000/dw1000_types.c	/^void query_lot_id(DW_config* dw_config){$/;"	f	typeref:typename:void
@@ -4150,36 +4064,35 @@ queueSEND_TO_BACK	FreeRTOS/efm32zg/Source/include/queue.h	/^#define	queueSEND_TO
 queueSEND_TO_FRONT	FreeRTOS/efm32zg/Source/include/queue.h	/^#define	queueSEND_TO_FRONT	/;"	d
 queueUNLOCKED	FreeRTOS/efm32zg/Source/queue.c	/^#define queueUNLOCKED	/;"	d	file:
 queueYIELD_IF_USING_PREEMPTION	FreeRTOS/efm32zg/Source/queue.c	/^	#define queueYIELD_IF_USING_PREEMPTION(/;"	d	file:
-ranging_mode	src/HAL/slave/dw1000/dw1000_types.h	/^  bool ranging_mode;            \/\/discovery or twr phase$/;"	m	struct:__anon0073e1db0908	typeref:typename:bool
-ranging_mode	src/HAL/slave/dw1000/dw1000_types.h	/^  ranging_mode,$/;"	e	enum:__anon0073e1db0803
-read_data	src/HAL/slave/dw1000/dw1000_types.h	/^uint8_t read_data[150]    =   {0};$/;"	v	typeref:typename:uint8_t[150]
+ranging_mode	src/HAL/slave/dw1000/dw1000_types.h	/^  bool ranging_mode;            \/\/discovery or twr phase$/;"	m	struct:__anon0073e1db0b08	typeref:typename:bool
+ranging_mode	src/HAL/slave/dw1000/dw1000_types.h	/^  ranging_mode,$/;"	e	enum:__anon0073e1db0a03
 receiveBuffer	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^char   receiveBuffer[BUFFERSIZE];$/;"	v	typeref:typename:char[]
-reg_id_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t reg_id_index;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+reg_id_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t reg_id_index;$/;"	m	struct:__anon0073e1db0d08	typeref:typename:uint32_t
 regid	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^DW_regid_index regid;$/;"	v	typeref:typename:DW_regid_index
 register_1	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^  register_1,$/;"	e	enum:__anonf4e68d820103	file:
 register_2	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^  register_2,$/;"	e	enum:__anonf4e68d820103	file:
 register_3	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^  register_3,$/;"	e	enum:__anonf4e68d820103	file:
 register_4	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^  register_4$/;"	e	enum:__anonf4e68d820103	file:
 register_enum	src/HAL/slave/venus638/venus638.h	/^typedef venus_config_query_enum register_enum;$/;"	t	typeref:typename:venus_config_query_enum
-resp	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_resp_timestamp  resp;$/;"	m	struct:__anon0073e1db0608	typeref:typename:DW_resp_timestamp
-resp_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t resp_delay[2]; \/\/store from range init and use in ranging phase$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t[2]
+resp	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_resp_timestamp  resp;$/;"	m	struct:__anon0073e1db0808	typeref:typename:DW_resp_timestamp
+resp_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t resp_delay[2]; \/\/store from range init and use in ranging phase$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t[2]
 response_id	src/HAL/slave/venus638/venus638.h	/^  uint32_t response_id;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 revision	src/HAL/slave/venus638/venus638.h	/^  uint32_t revision;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 revision	src/middleware/mpi_port.h	/^  char revision[8];$/;"	m	struct:MPI_EXT_DEV	typeref:typename:char[8]
 revision	src/middleware/mpi_port.h	/^  char revision[8];$/;"	m	struct:MPI_HOST	typeref:typename:char[8]
 revision	src/middleware/mpi_port.h	/^  char revision[8];$/;"	m	struct:MPI_SLAVE	typeref:typename:char[8]
-rf_rx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  rf_rx_delay,$/;"	e	enum:__anon0073e1db0803
-rf_rx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rf_rx_delay[2];         \/\/ rf delay (delay though the rf blocks before the signal c/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[2]
-rf_tx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  rf_tx_delay,$/;"	e	enum:__anon0073e1db0803
-rf_tx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rf_tx_delay[2];         \/\/ rf delay (delay though the rf blocks before the signal c/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[2]
+rf_rx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  rf_rx_delay,$/;"	e	enum:__anon0073e1db0a03
+rf_rx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rf_rx_delay[2];         \/\/ rf delay (delay though the rf blocks before the signal c/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t[2]
+rf_tx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  rf_tx_delay,$/;"	e	enum:__anon0073e1db0a03
+rf_tx_delay	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rf_tx_delay[2];         \/\/ rf delay (delay though the rf blocks before the signal c/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t[2]
 route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t route;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t route;$/;"	m	struct:__anon484018370908	typeref:typename:uint32_t
 route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t route;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 route	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t route;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
-rx_fctrl	src/HAL/slave/dw1000/dw1000_types.h	/^  rx_fctrl,$/;"	e	enum:__anon0073e1db0803
-rx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rx_marker;$/;"	m	union:__anon0073e1db010a	typeref:typename:uint32_t
-rx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rx_marker;$/;"	m	union:__anon0073e1db020a	typeref:typename:uint32_t
+rx_fctrl	src/HAL/slave/dw1000/dw1000_types.h	/^  rx_fctrl,$/;"	e	enum:__anon0073e1db0a03
 rx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rx_marker;$/;"	m	union:__anon0073e1db030a	typeref:typename:uint32_t
+rx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rx_marker;$/;"	m	union:__anon0073e1db040a	typeref:typename:uint32_t
+rx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t rx_marker;$/;"	m	union:__anon0073e1db050a	typeref:typename:uint32_t
 rxblock	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	bool rxblock;$/;"	m	struct:__anon484018370308	typeref:typename:bool
 rxdata	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t rxdata;$/;"	m	struct:__anon484018370108	typeref:typename:uint32_t
 rxdatav	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	bool rxdatav;$/;"	m	struct:__anon484018370308	typeref:typename:bool
@@ -4218,13 +4131,13 @@ semBINARY_SEMAPHORE_QUEUE_LENGTH	FreeRTOS/efm32zg/Source/include/semphr.h	/^#def
 semGIVE_BLOCK_TIME	FreeRTOS/efm32zg/Source/include/semphr.h	/^#define semGIVE_BLOCK_TIME	/;"	d
 semSEMAPHORE_QUEUE_ITEM_LENGTH	FreeRTOS/efm32zg/Source/include/semphr.h	/^#define semSEMAPHORE_QUEUE_ITEM_LENGTH	/;"	d
 sequence_end	src/HAL/slave/venus638/venus638.h	/^  uint8_t sequence_end[2];$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint8_t[2]
-sequence_num	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t sequence_num;$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t
+sequence_num	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t sequence_num;$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t
 sequence_start	src/HAL/slave/venus638/venus638.h	/^  uint8_t sequence_start[2];$/;"	m	struct:VENUS_MESSAGE_IO	typeref:typename:uint8_t[2]
 set_factory_defaults_type	src/HAL/slave/venus638/venus638.h	/^  uint8_t set_factory_defaults_type;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint8_t
 sfd_1	src/HAL/slave/venus638/venus638.h	/^  uint32_t sfd_1[28];$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t[28]
 sfd_2	src/HAL/slave/venus638/venus638.h	/^  uint32_t sfd_2[28];$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t[28]
 sfd_3	src/HAL/slave/venus638/venus638.h	/^  uint32_t sfd_3[28];$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t[28]
-short_addr	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t short_addr[2]; \/\/store from range init and use in ranging phase$/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t[2]
+short_addr	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t short_addr[2]; \/\/store from range init and use in ranging phase$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t[2]
 software_crc_type	src/HAL/slave/venus638/venus638.h	/^  uint32_t software_crc_type;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 software_version_type	src/HAL/slave/venus638/venus638.h	/^  uint32_t software_version_type;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 src_addr_index	src/HAL/slave/dw1000/dw1000_decodeMAC.c	/^  uint8_t src_addr_index;$/;"	m	struct:__anon9e779e160108	typeref:typename:uint8_t	file:
@@ -4236,11 +4149,45 @@ static	FreeRTOS/efm32zg/Source/tasks.c	/^	#define static$/;"	d	file:
 status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t status;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
 status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t status;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
 status	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t status;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
-sub_addr_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t sub_addr_index;$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+sub_addr_1	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_1 = 0x01,$/;"	e	enum:__anon0073e1db0103
+sub_addr_10	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_10 = 0xA,$/;"	e	enum:__anon0073e1db0103
+sub_addr_11	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_11 = 0xB,$/;"	e	enum:__anon0073e1db0103
+sub_addr_12	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_12 = 0xC,$/;"	e	enum:__anon0073e1db0103
+sub_addr_13	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_13 = 0xD,$/;"	e	enum:__anon0073e1db0103
+sub_addr_14	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_14 = 0xE,$/;"	e	enum:__anon0073e1db0103
+sub_addr_15	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_15 = 0xF,$/;"	e	enum:__anon0073e1db0103
+sub_addr_16	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_16 = 0x10,$/;"	e	enum:__anon0073e1db0103
+sub_addr_17	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_17 = 0x11,$/;"	e	enum:__anon0073e1db0103
+sub_addr_18	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_18 = 0x12,$/;"	e	enum:__anon0073e1db0103
+sub_addr_19	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_19 = 0x13,$/;"	e	enum:__anon0073e1db0103
+sub_addr_2	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_2 = 0x02,$/;"	e	enum:__anon0073e1db0103
+sub_addr_20	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_20 = 0x14,$/;"	e	enum:__anon0073e1db0103
+sub_addr_21	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_21 = 0x15,$/;"	e	enum:__anon0073e1db0103
+sub_addr_22	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_22 = 0x16,$/;"	e	enum:__anon0073e1db0103
+sub_addr_23	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_23 = 0x17,$/;"	e	enum:__anon0073e1db0103
+sub_addr_24	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_24 = 0x18,$/;"	e	enum:__anon0073e1db0103
+sub_addr_25	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_25 = 0x19,$/;"	e	enum:__anon0073e1db0103
+sub_addr_26	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_26 = 0x1A,$/;"	e	enum:__anon0073e1db0103
+sub_addr_27	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_27 = 0x1B,$/;"	e	enum:__anon0073e1db0103
+sub_addr_28	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_28 = 0x1C,$/;"	e	enum:__anon0073e1db0103
+sub_addr_29	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_29 = 0x1D,$/;"	e	enum:__anon0073e1db0103
+sub_addr_3	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_3 = 0x03,$/;"	e	enum:__anon0073e1db0103
+sub_addr_30	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_30 = 0x1E,$/;"	e	enum:__anon0073e1db0103
+sub_addr_31	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_31 = 0x1F,$/;"	e	enum:__anon0073e1db0103
+sub_addr_32	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_32 = 0x20$/;"	e	enum:__anon0073e1db0103
+sub_addr_4	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_4 = 0x04,$/;"	e	enum:__anon0073e1db0103
+sub_addr_5	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_5 = 0x05,$/;"	e	enum:__anon0073e1db0103
+sub_addr_6	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_6 = 0x06,$/;"	e	enum:__anon0073e1db0103
+sub_addr_7	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_7 = 0x07,$/;"	e	enum:__anon0073e1db0103
+sub_addr_8	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_8 = 0x08,$/;"	e	enum:__anon0073e1db0103
+sub_addr_9	src/HAL/slave/dw1000/dw1000_types.h	/^ sub_addr_9 = 0x09,$/;"	e	enum:__anon0073e1db0103
+sub_addr_bool_table	src/HAL/slave/dw1000/dw1000_buildMAC.c	/^bool sub_addr_bool_table[REG_IDS_LEN] = {$/;"	v	typeref:typename:bool[]
+sub_addr_index	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t sub_addr_index;$/;"	m	struct:__anon0073e1db0d08	typeref:typename:uint32_t
+sub_addr_table	src/HAL/slave/dw1000/dw1000_types.h	/^}sub_addr_table;$/;"	t	typeref:enum:__anon0073e1db0103
 sv_id	src/HAL/slave/venus638/venus638.h	/^  uint32_t sv_id;$/;"	m	struct:VENUS_RESPONSE_STORE	typeref:typename:uint32_t
 syncbusy	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t syncbusy;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t
-sys_config_reg	src/HAL/slave/dw1000/dw1000_types.h	/^  sys_config_reg,$/;"	e	enum:__anon0073e1db0803
-sys_config_reg	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t sys_config_reg;     \/\/ local copy of system config register$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
+sys_config_reg	src/HAL/slave/dw1000/dw1000_types.h	/^  sys_config_reg,$/;"	e	enum:__anon0073e1db0a03
+sys_config_reg	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t sys_config_reg;     \/\/ local copy of system config register$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 sys_reset_altitude	src/HAL/slave/venus638/venus638.h	/^  int16_t sys_reset_altitude;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:int16_t
 sys_reset_latitude	src/HAL/slave/venus638/venus638.h	/^  int16_t sys_reset_latitude;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:int16_t
 sys_reset_longitude	src/HAL/slave/venus638/venus638.h	/^  int16_t sys_reset_longitude;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:int16_t
@@ -4252,8 +4199,10 @@ sys_reset_utc_month	src/HAL/slave/venus638/venus638.h	/^  uint8_t sys_reset_utc_
 sys_reset_utc_second	src/HAL/slave/venus638/venus638.h	/^  uint8_t sys_reset_utc_second;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint8_t
 sys_reset_utc_year	src/HAL/slave/venus638/venus638.h	/^  uint16_t sys_reset_utc_year;$/;"	m	struct:VENUS_MESSAGE_BODY	typeref:typename:uint16_t
 system_efm32zg.o	build/release/makefile	/^system_efm32zg.o: $(DEVICE_DIR)\/Source\/system_efm32zg.c$/;"	t
-tag_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t tag_id[8]; \/\/ <--- store the tag ID from the initial blink message, in here and re-t/;"	m	struct:__anon0073e1db0708	typeref:typename:uint8_t[8]
-tag_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t tag_id[BLINK_SHORT_ADDR_LEN];$/;"	m	struct:__anon0073e1db0a08	typeref:typename:uint8_t[]
+tVectorEntry	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^} tVectorEntry;$/;"	t	typeref:union:__anon8abc22dd010a	file:
+tVectorEntry	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^} tVectorEntry;$/;"	t	typeref:union:__anonf153b8ec010a	file:
+tag_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t tag_id[8]; \/\/ <--- store the tag ID from the initial blink message, in here and re-t/;"	m	struct:__anon0073e1db0908	typeref:typename:uint8_t[8]
+tag_id	src/HAL/slave/dw1000/dw1000_types.h	/^  uint8_t tag_id[BLINK_SHORT_ADDR_LEN];$/;"	m	struct:__anon0073e1db0c08	typeref:typename:uint8_t[]
 taskCHECK_FOR_STACK_OVERFLOW	FreeRTOS/efm32zg/Source/include/StackMacros.h	/^	#define taskCHECK_FOR_STACK_OVERFLOW(/;"	d
 taskDISABLE_INTERRUPTS	FreeRTOS/efm32zg/Source/include/task.h	/^#define taskDISABLE_INTERRUPTS(/;"	d
 taskENABLE_INTERRUPTS	FreeRTOS/efm32zg/Source/include/task.h	/^#define taskENABLE_INTERRUPTS(/;"	d
@@ -4348,8 +4297,10 @@ tmrTIMER_CALLBACK	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define tmrTIMER
 tmrTimerControl	FreeRTOS/efm32zg/Source/timers.c	/^typedef struct tmrTimerControl$/;"	s	file:
 tmrTimerParameters	FreeRTOS/efm32zg/Source/timers.c	/^typedef struct tmrTimerParameters$/;"	s	file:
 tmrTimerQueueMessage	FreeRTOS/efm32zg/Source/timers.c	/^typedef struct tmrTimerQueueMessage$/;"	s	file:
-tof	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_TOF  tof; $/;"	m	struct:__anon0073e1db0708	typeref:typename:DW_TOF
+tof	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_TOF  tof; $/;"	m	struct:__anon0073e1db0908	typeref:typename:DW_TOF
 top	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t top;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
+topOfStack	CMSIS/efm32zg/Source/GCC/startup_efm32zg.c	/^  void *topOfStack;$/;"	m	union:__anon8abc22dd010a	typeref:typename:void *	file:
+topOfStack	CMSIS/efm32zg/Source/IAR/startup_efm32zg.c	/^  void *topOfStack;$/;"	m	union:__anonf153b8ec010a	typeref:typename:void *	file:
 topb	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t topb;$/;"	m	struct:__anon484018370b08	typeref:typename:uint32_t
 traceBLOCKING_ON_QUEUE_RECEIVE	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define traceBLOCKING_ON_QUEUE_RECEIVE(/;"	d
 traceBLOCKING_ON_QUEUE_SEND	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define traceBLOCKING_ON_QUEUE_SEND(/;"	d
@@ -4425,9 +4376,9 @@ traceTIMER_CREATE	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define traceTIM
 traceTIMER_CREATE_FAILED	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define traceTIMER_CREATE_FAILED(/;"	d
 traceTIMER_EXPIRED	FreeRTOS/efm32zg/Source/include/FreeRTOS.h	/^	#define traceTIMER_EXPIRED(/;"	d
 transmitBuffer	src/HAL/host/efm32zg222f32/efm32zg_usart_IO_HAL.h	/^char   transmitBuffer[3];$/;"	v	typeref:typename:char[3]
-treplyx	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_TreplyX         treplyx;$/;"	m	struct:__anon0073e1db0608	typeref:typename:DW_TreplyX
+treplyx	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_TreplyX         treplyx;$/;"	m	struct:__anon0073e1db0808	typeref:typename:DW_TreplyX
 trigctrl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint32_t trigctrl;$/;"	m	struct:__anon484018370508	typeref:typename:uint32_t
-troundx	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_TroundX         troundx;$/;"	m	struct:__anon0073e1db0608	typeref:typename:DW_TroundX
+troundx	src/HAL/slave/dw1000/dw1000_types.h	/^  DW_TroundX         troundx;$/;"	m	struct:__anon0073e1db0808	typeref:typename:DW_TroundX
 tskBLOCKED_CHAR	FreeRTOS/efm32zg/Source/tasks.c	/^#define tskBLOCKED_CHAR	/;"	d	file:
 tskDELETED_CHAR	FreeRTOS/efm32zg/Source/tasks.c	/^#define tskDELETED_CHAR	/;"	d	file:
 tskDYNAMICALLY_ALLOCATED_STACK_AND_TCB	FreeRTOS/efm32zg/Source/tasks.c	/^#define tskDYNAMICALLY_ALLOCATED_STACK_AND_TCB /;"	d	file:
@@ -4445,12 +4396,12 @@ tskSUSPENDED_CHAR	FreeRTOS/efm32zg/Source/tasks.c	/^#define tskSUSPENDED_CHAR	/;
 tskTCB	FreeRTOS/efm32zg/Source/tasks.c	/^} tskTCB;$/;"	t	typeref:struct:tskTaskControlBlock	file:
 tskTaskControlBlock	FreeRTOS/efm32zg/Source/tasks.c	/^typedef struct tskTaskControlBlock$/;"	s	file:
 tuningval	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^  uint32_t* tuningval;$/;"	m	struct:__anon484018370a08	typeref:typename:uint32_t *
-tx_fctrl	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_fctrl;            \/\/ keep tx_fctrl register config$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
-tx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_marker;$/;"	m	union:__anon0073e1db010a	typeref:typename:uint32_t
-tx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_marker;$/;"	m	union:__anon0073e1db020a	typeref:typename:uint32_t
+tx_fctrl	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_fctrl;            \/\/ keep tx_fctrl register config$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
 tx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_marker;$/;"	m	union:__anon0073e1db030a	typeref:typename:uint32_t
-tx_pow_config	src/HAL/slave/dw1000/dw1000_types.h	/^  tx_pow_config,$/;"	e	enum:__anon0073e1db0803
-tx_pow_config	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_pow_config[12];   \/\/ stores the tx power configuration read from otp (6 channels/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t[12]
+tx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_marker;$/;"	m	union:__anon0073e1db040a	typeref:typename:uint32_t
+tx_marker	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_marker;$/;"	m	union:__anon0073e1db050a	typeref:typename:uint32_t
+tx_pow_config	src/HAL/slave/dw1000/dw1000_types.h	/^  tx_pow_config,$/;"	e	enum:__anon0073e1db0a03
+tx_pow_config	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t tx_pow_config[12];   \/\/ stores the tx power configuration read from otp (6 channels/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t[12]
 txbdright	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	bool txbdright;$/;"	m	struct:__anon484018370308	typeref:typename:bool
 txbl	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	bool txbl;$/;"	m	struct:__anon484018370308	typeref:typename:bool
 txbreak0	src/HAL/host/efm32zg222f32/efm32zg_types_HAL.h	/^	uint16_t txbreak0;$/;"	m	struct:__anon484018370408	typeref:typename:uint16_t
@@ -5285,8 +5236,8 @@ xTimerStop	FreeRTOS/efm32zg/Source/include/timers.h	/^#define xTimerStop(/;"	d
 xTimerStopFromISR	FreeRTOS/efm32zg/Source/include/timers.h	/^#define xTimerStopFromISR(/;"	d
 xTimerTaskHandle	FreeRTOS/efm32zg/Source/timers.c	/^PRIVILEGED_DATA static TaskHandle_t xTimerTaskHandle = NULL;$/;"	v	typeref:typename:PRIVILEGED_DATA TaskHandle_t	file:
 xYieldPending	FreeRTOS/efm32zg/Source/tasks.c	/^PRIVILEGED_DATA static volatile BaseType_t xYieldPending 			= pdFALSE;$/;"	v	typeref:typename:PRIVILEGED_DATA volatile BaseType_t	file:
-xtrim	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t xtrim;               \/\/ xtrim value read from otp$/;"	m	struct:__anon0073e1db0908	typeref:typename:uint32_t
-xtrim	src/HAL/slave/dw1000/dw1000_types.h	/^  xtrim,$/;"	e	enum:__anon0073e1db0803
+xtrim	src/HAL/slave/dw1000/dw1000_types.h	/^  uint32_t xtrim;               \/\/ xtrim value read from otp$/;"	m	struct:__anon0073e1db0b08	typeref:typename:uint32_t
+xtrim	src/HAL/slave/dw1000/dw1000_types.h	/^  xtrim,$/;"	e	enum:__anon0073e1db0a03
 zg_EM4Cause	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int zg_EM4Cause(GPIO_periphconf* MPI_conf)$/;"	f	typeref:typename:int
 zg_EM4PolClr	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int zg_EM4PolClr(GPIO_periphconf* MPI_conf)$/;"	f	typeref:typename:int
 zg_EM4PolRead	src/HAL/host/efm32zg222f32/efm32zg_gpio_HAL.c	/^int zg_EM4PolRead(GPIO_periphconf* MPI_conf)$/;"	f	typeref:typename:int

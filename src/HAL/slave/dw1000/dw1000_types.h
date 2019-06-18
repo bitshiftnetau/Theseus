@@ -19,17 +19,11 @@
 
 #define SINGLE_BYTE 0xFF
 #define SINGLE_BYTE_SHIFT 8
-#define CONFIG_FRAME_LEN  ???
 
-#define FRAME_LEN_IEEE_STD
 
-#ifdef FRAME_LEN_IEEE_STD
-#define FRAME_BUFFER_SIZE 127
-#endif
-
-#ifdef FRAME_LEN_PROPRIETARY_EXT
-#define FRAME_BUFFER_SIZE 1024
-#endif
+#define STD_FRAME_LEN 127
+#define EXT_FRAME_LEN 1024
+#define FRAME_BUFFER_SIZE STD_FRAME_LEN 
 
 /*
  * NUMBER OF OCTETS REQUIRED TO WRITE FOR EACH REGISTER READ/WRITE OPERATION
@@ -43,7 +37,7 @@
  */
 
 #define REG_ID_
-#define REG_ID_TX_BUFFER  0x09
+#define REG_ID_TX_BUFFER      0x09
 #define REG_ID__
 #define REG_ID_RX_BUFFER      0x11
 
@@ -74,6 +68,80 @@
  */
 
   
+typedef enum {
+ sub_addr_1 = 0x01,
+ sub_addr_2 = 0x02,
+ sub_addr_3 = 0x03,
+ sub_addr_4 = 0x04,
+ sub_addr_5 = 0x05,
+ sub_addr_6 = 0x06,
+ sub_addr_7 = 0x07,
+ sub_addr_8 = 0x08,
+ sub_addr_9 = 0x09,
+ sub_addr_10 = 0xA,
+ sub_addr_11 = 0xB,
+ sub_addr_12 = 0xC,
+ sub_addr_13 = 0xD,
+ sub_addr_14 = 0xE,
+ sub_addr_15 = 0xF,
+ sub_addr_16 = 0x10,
+ sub_addr_17 = 0x11,
+ sub_addr_18 = 0x12,
+ sub_addr_19 = 0x13,
+ sub_addr_20 = 0x14,
+ sub_addr_21 = 0x15,
+ sub_addr_22 = 0x16,
+ sub_addr_23 = 0x17,
+ sub_addr_24 = 0x18,
+ sub_addr_25 = 0x19,
+ sub_addr_26 = 0x1A,
+ sub_addr_27 = 0x1B,
+ sub_addr_28 = 0x1C,
+ sub_addr_29 = 0x1D,
+ sub_addr_30 = 0x1E,
+ sub_addr_31 = 0x1F,
+ sub_addr_32 = 0x20
+}sub_addr_table;
+
+
+typedef enum {
+ ext_addr_1 = 0x01,
+ ext_addr_2 = 0x02,
+ ext_addr_3 = 0x03,
+ ext_addr_4 = 0x04,
+ ext_addr_5 = 0x05,
+ ext_addr_6 = 0x06,
+ ext_addr_7 = 0x07,
+ ext_addr_8 = 0x08,
+ ext_addr_9 = 0x09,
+ ext_addr_10 = 0xA,
+ ext_addr_11 = 0xB,
+ ext_addr_12 = 0xC,
+ ext_addr_13 = 0xD,
+ ext_addr_14 = 0xE,
+ ext_addr_15 = 0xF,
+ ext_addr_16 = 0x10,
+ ext_addr_17 = 0x11,
+ ext_addr_18 = 0x12,
+ ext_addr_19 = 0x13,
+ ext_addr_20 = 0x14,
+ ext_addr_21 = 0x15,
+ ext_addr_22 = 0x16,
+ ext_addr_23 = 0x17,
+ ext_addr_24 = 0x18,
+ ext_addr_25 = 0x19,
+ ext_addr_26 = 0x1A,
+ ext_addr_27 = 0x1B,
+ ext_addr_28 = 0x1C,
+ ext_addr_29 = 0x1D,
+ ext_addr_30 = 0x1E,
+ ext_addr_31 = 0x1F,
+ ext_addr_32 = 0x20
+}ext_addr_table;
+
+sub_addr_table dw_sub_addr_table;
+ext_addr_table dw_ext_addr_table;
+
 
 /*
  * INDEXES
@@ -193,6 +261,7 @@
 #define DECODE_FRAME_CTRL_TABLE_LEN     4
 #define DECODE_FRAME_CTRL_TABLE_WIDTH   2 
 
+#define REG_SUB_EXT   4   //jump table length for dw_frame_header_read_write_table
 
 #define MSG_RW_BOOL_INDEX   7
 #define MSG_SUB_ADDR_BOOL_INDEX  6
@@ -392,8 +461,8 @@ typedef struct {
   uint8_t handler_index;
   uint8_t build_message[4];
   uint32_t frame_len;
-  uint32_t frame_in[1024];
-  uint32_t frame_out[1024];
+  uint8_t frame_in[FRAME_BUFFER_SIZE];
+  uint8_t frame_out[FRAME_BUFFER_SIZE];
   DW_TOF  tof; 
 }DW_data; 
 
@@ -424,8 +493,8 @@ typedef struct {
   DW_config_index_table query_index;
   bool config_query_bool;
   bool ranging_mode;            //discovery or twr phase
-  uint32_t query_buffer[16];
-  uint32_t config_buffer[16];
+  uint8_t query_buffer[16];
+  uint8_t config_buffer[16];
   uint32_t config_buffer_len;
   uint32_t query_buffer_len;
   uint32_t device_id[EUI_64_LEN]; // device id (ieee unique 64-bit identifier)
@@ -476,17 +545,32 @@ typedef struct{
 
 
 /* list of devices both in the process of ranging and those that are ranged */
+/*
 typedef struct{
   uint32_t reg_id_index;
   uint32_t sub_addr_index;
   uint32_t ext_addr_index;
-  uint32_t frame_in[FRAME_BUFFER_SIZE];
-  uint32_t frame_out[FRAME_BUFFER_SIZE];
+  uint8_t frame_in[FRAME_BUFFER_SIZE];
+  uint8_t frame_out[FRAME_BUFFER_SIZE];
   uint32_t frame_in_len;
   uint32_t frame_out_len;
   uint32_t node_index;
   DW_data list[NODELIST_LEN];
   DW_network_dev devices[ACTIVE_DEVICES_LEN]; 
+}DW_nodelist;
+*/
+
+typedef struct{
+  uint32_t reg_id_index;
+  uint32_t sub_addr_index;
+  uint32_t ext_addr_index;
+  uint8_t frame_in[FRAME_BUFFER_SIZE];
+  uint8_t frame_out[FRAME_BUFFER_SIZE];
+  uint32_t frame_in_len;
+  uint32_t frame_out_len;
+  uint32_t node_index;
+  DW_data list[1];
+  DW_network_dev devices[1]; 
 }DW_nodelist;
 
 
@@ -494,7 +578,6 @@ extern uint8_t dw_frame_ctrl_table[][2];
 extern const uint32_t dw_fn_code_table[]; 
 extern void (*config_table[])(); 
 extern void (*query_table[])();
-extern uint32_t (*dw_decode_build_table[])(); 
 extern uint32_t config_table_reg_id_table[]; 
 extern uint32_t query_table_reg_id_table[];
 
@@ -612,9 +695,8 @@ typedef struct
 
 
 
-#define REG_SUB_EXT   4   //jump table length for dw_frame_header_read_write_table
 
-
+/*
 // Defines for enable_clocks function
 #define FORCE_SYS_XTI  0
 #define ENABLE_ALL_SEQ 1
@@ -633,13 +715,15 @@ uint8_t header_read[150]  =   {0};
 
 #define DECA_MAX_SPI_HEADER_LENGTH   (3)   // max number of bytes in header (for formating & sizing)
 
-#define SHORT_ADDRESS_SIZE    2    /* Size of Short Mac Address */
-#define EXTENDED_ADDRESS_SIZE 8    /* Size of Extended Mac Address */
+#define SHORT_ADDRESS_SIZE    2    // Size of Short Mac Address 
+#define EXTENDED_ADDRESS_SIZE 8    // Size of Extended Mac Address 
+
 
 #define REG_DUMP (0) //set to 1 to enable register dump functions
 #if (REG_DUMP == 1)
 #include "string.h"
 #endif
+
 
 #define DWT_SUCCESS (0)
 #define DWT_ERROR   (-1)
@@ -758,9 +842,10 @@ uint8_t header_read[150]  =   {0};
 #define DWT_OPSET_64LEN   0x0
 #define DWT_OPSET_TIGHT   0x1
 #define DWT_OPSET_DEFLT   0x2
+*/
 
 /* dw_status is used for printing debug logs */
-uint8_t *dw_status;
+//uint8_t *dw_status;
 
 
 #endif /* DW1000_TYPES_H_ */

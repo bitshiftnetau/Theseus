@@ -25,8 +25,8 @@
 #include "dw1000_regs.h"
 
 #include "dw1000_nodeMgmt.h"
-#include "dw1000_buildMAC.h"
-#include "dw1000_decodeMAC.h"
+//#include "dw1000_buildMAC.h"
+//#include "dw1000_decodeMAC.h"
 #include "dw1000_commRxTx.h"
 #include "dw1000_tofCalcs.h"
 
@@ -46,11 +46,6 @@ const uint32_t dw_fn_code_table[DECODE_TABLE_LEN] = {
   FN_CODE_FINAL 
 };
 
-
-uint32_t(* dw_decode_build_table[READ_WRITE])() = {
-  dw_decodeFrameIn,
-  dw_buildMessageOut
-};
 
 
 #define DW_PART_ID_LEN        1

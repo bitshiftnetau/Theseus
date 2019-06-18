@@ -343,11 +343,11 @@ for(int i = 0; i < BLINK_SRC_ADDR_LEN; i++){
   dw_nodelist->sub_addr_index = SUB_ADDR_RX_MARKER_0;
   dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
 
-  uint32_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
+  uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
   dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
 
   for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
-    dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT)  | (SINGLE_BYTE & rx_marker[i]);
+    dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
   }
 
 
@@ -412,11 +412,11 @@ for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
   dw_nodelist->sub_addr_index = SUB_ADDR_RX_MARKER_0;
   dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
 
-  uint32_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
+  uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
   dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
 
   for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
-    dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT)  | (SINGLE_BYTE & rx_marker[i]);
+    dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
   }
 
 
@@ -482,11 +482,11 @@ uint32_t dw_handlerFinal(void* host_object, int(*host_usart)(), DW_nodelist* dw_
     dw_nodelist->sub_addr_index = SUB_ADDR_RX_MARKER_0;
     dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
 
-    uint32_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
+    uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
     dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
  
     for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
-      dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT)  | (SINGLE_BYTE & rx_marker[i]);
+      dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
     }
 
     //fire off the final distance measuring function

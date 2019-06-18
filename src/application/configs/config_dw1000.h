@@ -7,9 +7,9 @@
 #include "dw1000_types.h"
 #include "dw1000_tofCalcs.h"
 
-extern DW_config dw_config;
+extern DW_config dw_devconf;
 extern DW_data dw_data;
-extern DW_network_dev dw_dev;  
+//extern DW_network_dev dw_dev;  
 
 extern DW_nodelist dw_list; 
 extern MPI_ext_dev dw1000;
