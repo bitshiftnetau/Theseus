@@ -154,28 +154,16 @@ BUILD_DIR=.
 # 		   BUILD TARGETS 				  
 #################################
 
-#assembly: $(SRC_DIR)
-#	$(CC) $(CPPFLAGS) $(CFLAGS) -S $^ 
-
 all: $(TARGET)
 	$(GCC_BIN_ARM)/arm-none-eabi-objcopy -O ihex "$(PROJECT_NAME).axf" "$(PROJECT_NAME).hex"
 	$(GCC_BIN_ARM)/arm-none-eabi-objcopy -O binary "$(PROJECT_NAME).axf" "$(PROJECT_NAME).bin"
 	$(GCC_BIN_ARM)/arm-none-eabi-size "$(PROJECT_NAME).axf"
-
-#$(TARGET): startup_efm32zg.o system_efm32zg.o $(OBJECTS)
-#	$(LD) -o $@ $(wildcard $(BUILD_DIR)/*.o) $(LDFLAGS)
 
 $(TARGET): startup_efm32zg.o system_efm32zg.o obj
 	$(LD) -o $@ $(wildcard $(BUILD_DIR)/*.o) $(LDFLAGS)
 
 obj: $(SRC_DIR)
 	$(CC) $(CFLAGS) $^  
-
-#$(OBJECTS): $(SRC_DIR)
-#	$(CC) $(CFLAGS) $^  
-
-#$(OBJECTS): %.o : %.c $(SRC_DIR)
-#	$(CC) $(CFLAGS) $^  
 
 
 startup_efm32zg.o: $(DEVICE_DIR)/Source/GCC/startup_efm32zg.S
