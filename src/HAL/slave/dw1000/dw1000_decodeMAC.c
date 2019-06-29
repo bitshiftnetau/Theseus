@@ -36,12 +36,13 @@ typedef struct {
 }DW_frame_index;
 static DW_frame_index frame_index;
 
-uint32_t dw_handlerBlink(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config);
-uint32_t dw_handlerRangeInit(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config);
-uint32_t dw_handlerPollRespFinal(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config);
-uint32_t dw_handlerPoll(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config);
-uint32_t dw_handlerResp(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config);
-uint32_t dw_handlerFinal(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config);
+uint32_t dw_handlerBlink(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+uint32_t dw_handlerRangeInit(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+uint32_t dw_handlerPollRespFinal(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+uint32_t dw_handlerPoll(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+uint32_t dw_handlerResp(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+uint32_t dw_handlerFinal(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+
 
 
 uint32_t dw_decodeFrameCtrl(DW_nodelist* dw_nodelist){
@@ -85,7 +86,7 @@ uint32_t dw_decodeFrameIn(void* host_object, int(*host_usart)(), void* ext_dev_o
   //of the data tables to extract the necessary values based on the frame type
   //
   dw_nodelist->frame_in_len = frame_len_table[frame_index.frame_type_index];//call to jump table to get frame length
-  dw_nodelist->reg_id_index = REG_ID_RX_BUFFER;
+  dw_config->reg_id_index = REG_ID_RX_BUFFER;
   
   frame_index.pan_id_index = pan_id_index_table[frame_index.frame_type_index];
   frame_index.dest_addr_index = dest_addr_index_table[frame_index.frame_type_index];
@@ -126,7 +127,19 @@ uint32_t dw_decodeFrameIn(void* host_object, int(*host_usart)(), void* ext_dev_o
  *
  */
 
-uint32_t dw_handlerBlink(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config){
+uint32_t dw_handlerBlink(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+ 
+  if(nodelist_index > NODELIST_LEN){
+    return ERROR;
+  }
+
+
+  uint32_t node_index = nodelist_index;
+
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   uint8_t tag_id[9];
 
@@ -135,12 +148,10 @@ uint32_t dw_handlerBlink(void* host_object, int(*host_usart)(), DW_nodelist* dw_
   }
 
   //search the list for known node
-  //
    uint32_t(* node_search)() = node_list_table[DW_NODE_SEARCH];
-   uint32_t node_index = node_search(dw_nodelist, tag_id);
+   node_index = node_search(dw_nodelist, tag_id);
 
   // if not known, add node to list
-  //
   if(node_index == ERROR){
     uint32_t(* node_create)() = node_list_table[DW_NODE_CREATE];
     uint32_t index = node_create(dw_nodelist, tag_id);
@@ -152,34 +163,28 @@ uint32_t dw_handlerBlink(void* host_object, int(*host_usart)(), DW_nodelist* dw_
   }
 
   //store short address and response delay
-  //
   for(int i = 0; i < BLINK_SHORT_ADDR_LEN; i++){
     dw_nodelist->list[index].short_addr[i] = dw_nodelist->frame_in[i+BLINK_SRC_ADDR_INDEX];
     dw_nodelist->list[index].resp_delay[i] = dw_config->rf_tx_delay[i];
   }
 
   //store the handler index
-  //
   dw_nodelist->list[index].handler_index = BLINK_INDEX +1;
    
   //return node_index
-  //
   return index;
 } else {
   
   //store short address 
-  //
   for(int i = 0; i < BLINK_SHORT_ADDR_LEN; i++){
     dw_nodelist->list[node_index].short_addr[i] = dw_nodelist->frame_in[i+BLINK_SHORT_ADDR_INDEX];
     dw_nodelist->list[node_index].resp_delay[i] = dw_config->rf_tx_delay[i];
   }
 
   //store the handler index
-  //
   dw_nodelist->list[node_index].handler_index = BLINK_INDEX +1;
  
   //return node_index
-  //   
   return node_index;
 }
 return ERROR;
@@ -187,12 +192,23 @@ return ERROR;
 
 
 
-uint32_t dw_handlerRangeInit(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config){
+uint32_t dw_handlerRangeInit(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+ 
+  if(nodelist_index > NODELIST_LEN){
+    return ERROR;
+  }
 
+
+  uint32_t node_index = nodelist_index;
+  
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
+  
   //first check if this frame is for this device
-  //
   for(int i = 0; i < RANGE_DEST_ADDR_LEN; i++){
-    if((dw_config->device_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
+    if((dw_config->unique_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
       continue;
     } else {
       return ERROR;
@@ -206,18 +222,13 @@ uint32_t dw_handlerRangeInit(void* host_object, int(*host_usart)(), DW_nodelist*
   }
 
   //search the list for known node
-  //
   uint32_t(* node_search)() = node_list_table[DW_NODE_SEARCH];
-  uint32_t node_index = node_search(dw_nodelist, tag_id);
+  node_index = node_search(dw_nodelist, tag_id);
 
   if(node_index == ERROR){
-   
-    return ERROR;
-    
      
     uint32_t(* node_create)() = node_list_table[DW_NODE_CREATE];
     uint32_t index = node_create(dw_nodelist, tag_id);
-    
 
     /*
      * STORE DATA FROM INCOMING NODE INTO NEW NODE
@@ -229,14 +240,11 @@ uint32_t dw_handlerRangeInit(void* host_object, int(*host_usart)(), DW_nodelist*
     }
  
     //store the handler index
-    //
     dw_nodelist->list[index].handler_index = RANGE_INDEX +1;
     
-     
     //return data index
-    //
     return index;
-      
+
   } else {
  
     /*
@@ -249,11 +257,9 @@ uint32_t dw_handlerRangeInit(void* host_object, int(*host_usart)(), DW_nodelist*
     }
  
     //store the handler index
-    //
     dw_nodelist->list[node_index].handler_index = RANGE_INDEX +1;
   
     //return data index
-    //
     return node_index;
   } 
   return ERROR;
@@ -269,174 +275,217 @@ uint32_t dw_handlerRangeInit(void* host_object, int(*host_usart)(), DW_nodelist*
  * incoming message
  *
  */
-uint32_t dw_handlerPollRespFinal(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config){
-
-//first decide if it's for this device
-//
-for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
-  if((dw_config->device_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
-    continue;
-  } else {
+uint32_t dw_handlerPollRespFinal(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+ 
+  if(nodelist_index > NODELIST_LEN){
     return ERROR;
   }
-}
 
-//find out which of poll, resp, final 
-//
-int handler_index;
-for(int i = 0; i < 2; i++){
-  if((dw_fn_code_table[DW_TWR_FN_INDEX+i] & dw_nodelist->frame_in[frame_index.fn_code_index]) == 0){
-    handler_index = DW_TWR_FN_INDEX+i;
-  } else {
-    continue;
+
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
+
+  //first decide if it's for this device
+  for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
+    if((dw_config->unique_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
+      continue;
+    } else {
+      return ERROR;
+    }
   }
+
+  //find out which of poll, resp, final 
+  int handler_index;
+  for(int i = 0; i < 2; i++){
+    if((dw_fn_code_table[DW_TWR_FN_INDEX+i] & dw_nodelist->frame_in[frame_index.fn_code_index]) == 0){
+      handler_index = DW_TWR_FN_INDEX+i;
+    } else {
+      continue;
+    }
+  }
+
+  //fire off poll/resp/final handler proper
+  uint32_t(*handler_ptr)() = poll_resp_final_handler_table[handler_index];
+  return handler_ptr(host_object, host_usart, ext_dev_object);
 }
 
-//fire off poll/resp/final handler proper
-//
-uint32_t(*handler_ptr)() = poll_resp_final_handler_table[handler_index];
-return handler_ptr(host_object, host_usart, dw_nodelist, dw_config);
-}
-
-uint32_t dw_handlerPoll(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config){
- 
-//first decide if it's for this device
-//
-for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
-  if((dw_config->device_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
-    continue;
-  } else {
+uint32_t dw_handlerPoll(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+  
+  if(nodelist_index > NODELIST_LEN){
     return ERROR;
   }
-}
 
-uint8_t tag_id[EUI_64_LEN];
-//assign src addr to tag_id
-//
-for(int i = 0; i < BLINK_SRC_ADDR_LEN; i++){
-  tag_id[i] = dw_nodelist->frame_in[i+frame_index.src_addr_index];
-}
- 
-//search the list for known node
-//
- uint32_t(* node_search)() = node_list_table[DW_NODE_SEARCH];
- uint32_t node_index = node_search(dw_nodelist, tag_id);
+  uint32_t node_index = nodelist_index;
 
- if(node_index == ERROR){
-  return ERROR;   
-} else {
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
 
-  DW_data dw_data = dw_nodelist->list[node_index];
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
-  //store the handler index
-  //
-  dw_data.handler_index = POLL_INDEX +1;
-
-  //create the data point
-  //
-  //uint32_t(*fn_ptr)() = dw_tof_table[POLL_INDEX];
-  //fn_ptr(dw_nodelist->list[node_index]);
-
-  //read the rx marker
-  //
-  dw_nodelist->reg_id_index = REG_ID_RX_MARKER;
-  dw_nodelist->sub_addr_index = SUB_ADDR_RX_MARKER_0;
-  dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
-
-  uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
-  dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
-
-  for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
-    dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
+  //first decide if it's for this device
+  for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
+    if((dw_config->unique_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
+      continue;
+    } else {
+      return ERROR;
+    }
   }
 
-
-  //call to tof calculator to calculate response message
+  uint8_t tag_id[EUI_64_LEN];
+  //assign src addr to tag_id
+  for(int i = 0; i < BLINK_SRC_ADDR_LEN; i++){
+    tag_id[i] = dw_nodelist->frame_in[i+frame_index.src_addr_index];
+  }
+ 
+  //search the list for known node
   //
-  void(*poll_to_resp)() = dw_ts_handler_table[RESP_INDEX];
-  poll_to_resp(dw_data, dw_config);
-  return node_index;
-} 
-return ERROR;
+  uint32_t(* node_search)() = node_list_table[DW_NODE_SEARCH];
+  node_index = node_search(dw_nodelist, tag_id);
+
+  if(node_index == ERROR){
+    return ERROR;   
+  } else {
+
+    DW_data* dw_data = &dw_nodelist->list[node_index];
+
+    //store the handler index
+    //
+    dw_data->handler_index = POLL_INDEX +1;
+
+    //create the data point
+    //
+    //uint32_t(*fn_ptr)() = dw_tof_table[POLL_INDEX];
+    //fn_ptr(dw_nodelist->list[node_index]);
+
+    //read the rx marker
+    //
+    dw_config->reg_id_index = REG_ID_RX_MARKER;
+    dw_config->sub_addr_index = SUB_ADDR_RX_MARKER_0;
+    dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
+
+    uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
+    dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
+
+    for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
+      dw_data->tof.poll.rx_marker = (dw_data->tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
+    }
+
+
+    //call to tof calculator to calculate response message
+    //
+    void(*poll_to_resp)() = dw_ts_handler_table[RESP_INDEX];
+    poll_to_resp(host_object, host_usart, ext_dev_object, node_index);
+    
+    return node_index;
+  } 
+  return ERROR;
 }
 
 
 
-uint32_t dw_handlerResp(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config){
-
-//first decide if it's for this device
-//
-for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
-  if((dw_config->device_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
-    continue;
-  } else {
+uint32_t dw_handlerResp(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+ 
+  if(nodelist_index > NODELIST_LEN){
     return ERROR;
   }
-}
-
-uint32_t tag_id[EUI_64_LEN];
-//assign src addr to tag_id
-for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
-  tag_id[i] = dw_nodelist->frame_in[i+frame_index.src_addr_index];
-}
-
-//search the list for known node
- uint32_t(* node_search)() = node_list_table[DW_NODE_SEARCH];
- uint32_t node_index = node_search(dw_nodelist, tag_id);
-
- if(node_index == ERROR){
-  return ERROR;   
-} else {
-
-  DW_data dw_data = dw_nodelist->list[node_index];
-
-  //store the handler index
-  //
-  dw_data.handler_index = RESP_INDEX +1;
-
- //create the data point
- //
- //uint32_t(*fn_ptr)() = dw_tof_table[RESP_INDEX];
- //fn_ptr(dw_nodelist->list[node_index]);
- 
- /*
-  * STORE DATA FROM INCOMING NODE INTO NEW NODE
-  */
-  for(int i = RESP_MSG_WORD_LEN -1; i > 1; i--){
-    dw_data.tof.treplyx._1 = (dw_data.tof.treplyx._1 << SINGLE_BYTE_SHIFT) | (SINGLE_BYTE & dw_nodelist->frame_in[i+RESP_MSG_1_INDEX]); 
-  }
-
-  //read the rx marker
-  //
-  dw_nodelist->reg_id_index = REG_ID_RX_MARKER;
-  dw_nodelist->sub_addr_index = SUB_ADDR_RX_MARKER_0;
-  dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
-
-  uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
-  dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
-
-  for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
-    dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
-  }
 
 
-  //call to tof calculator to calculate response message
-  //
-  void(*resp_to_final)() = dw_ts_handler_table[FINAL_INDEX];
-  resp_to_final(dw_data, dw_config);
-  return node_index;
-} 
-return ERROR;
-}
+  uint32_t node_index = nodelist_index;
+  
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
 
-
-
-uint32_t dw_handlerFinal(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_config* dw_config){
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
   //first decide if it's for this device
   //
   for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
-    if((dw_config->device_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
+    if((dw_config->unique_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
+      continue;
+    } else {
+      return ERROR;
+    }
+  }
+
+  uint32_t tag_id[EUI_64_LEN];
+  //assign src addr to tag_id
+
+  for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
+    tag_id[i] = dw_nodelist->frame_in[i+frame_index.src_addr_index];
+  }
+
+  //search the list for known node
+  uint32_t(* node_search)() = node_list_table[DW_NODE_SEARCH];
+  node_index = node_search(dw_nodelist, tag_id);
+
+  if(node_index == ERROR){
+    return ERROR;   
+  } else {
+
+    DW_data* dw_data = &dw_nodelist->list[node_index];
+
+    //store the handler index
+    //
+    dw_data->handler_index = RESP_INDEX +1;
+
+    //create the data point
+    //
+    //uint32_t(*fn_ptr)() = dw_tof_table[RESP_INDEX];
+    //fn_ptr(dw_nodelist->list[node_index]);
+ 
+    /*
+     * STORE DATA FROM INCOMING NODE INTO NEW NODE
+     */
+    
+    for(int i = RESP_MSG_WORD_LEN -1; i > 1; i--){
+      dw_data->tof.treplyx._1 = (dw_data->tof.treplyx._1 << SINGLE_BYTE_SHIFT) | (SINGLE_BYTE & dw_nodelist->frame_in[i+RESP_MSG_1_INDEX]); 
+    }
+
+    //read the rx marker
+    //
+    dw_config->reg_id_index = REG_ID_RX_MARKER;
+    dw_config->sub_addr_index = SUB_ADDR_RX_MARKER_0;
+    dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
+
+    uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
+    dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
+
+    for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
+      dw_data->tof.poll.rx_marker = (dw_data->tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
+    }
+
+
+    //call to tof calculator to calculate response message
+    //
+    void(*resp_to_final)() = dw_ts_handler_table[FINAL_INDEX];
+    resp_to_final(host_object, host_usart, ext_dev_object, node_index);
+    return node_index;
+  } 
+  return ERROR;
+}
+
+
+
+uint32_t dw_handlerFinal(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+ 
+  if(nodelist_index > NODELIST_LEN){
+    return ERROR;
+  }
+
+
+  uint32_t node_index = nodelist_index;
+  
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
+
+  //first decide if it's for this device
+  //
+  for(int i = 0; i < POLL_RESP_FINAL_ADDR_LEN; i++){
+    if((dw_config->unique_id[i] & dw_nodelist->frame_in[i+frame_index.dest_addr_index]) == 0){
       continue;
     } else {
       return ERROR;
@@ -451,17 +500,17 @@ uint32_t dw_handlerFinal(void* host_object, int(*host_usart)(), DW_nodelist* dw_
 
   //search the list for known node
   uint32_t(* node_search)() = node_list_table[DW_NODE_SEARCH];
-  uint32_t node_index = node_search(dw_nodelist, tag_id);
+  node_index = node_search(dw_nodelist, tag_id);
 
   if(node_index == ERROR){
     return ERROR;   
   } else {
 
-    DW_data dw_data = dw_nodelist->list[node_index];
+    DW_data* dw_data = &dw_nodelist->list[node_index];
 
     //store the handler index
     //
-    dw_data.handler_index = FINAL_INDEX +1;
+    dw_data->handler_index = FINAL_INDEX +1;
 
     //create the data point
     //
@@ -472,27 +521,27 @@ uint32_t dw_handlerFinal(void* host_object, int(*host_usart)(), DW_nodelist* dw_
      * STORE DATA FROM INCOMING NODE INTO NEW NODE
      */
     for(int i = FINAL_MSG_WORD_LEN; i > 0; i--){
-      dw_data.tof.troundx._1 = (dw_data.tof.troundx._1 << SINGLE_BYTE_SHIFT) | (SINGLE_BYTE & dw_nodelist->frame_in[i+FINAL_MSG_1_INDEX]); 
-      dw_data.tof.treplyx._2 = (dw_data.tof.treplyx._2 << SINGLE_BYTE_SHIFT) | (SINGLE_BYTE & dw_nodelist->frame_in[i+FINAL_MSG_2_INDEX]); 
+      dw_data->tof.troundx._1 = (dw_data->tof.troundx._1 << SINGLE_BYTE_SHIFT) | (SINGLE_BYTE & dw_nodelist->frame_in[i+FINAL_MSG_1_INDEX]); 
+      dw_data->tof.treplyx._2 = (dw_data->tof.treplyx._2 << SINGLE_BYTE_SHIFT) | (SINGLE_BYTE & dw_nodelist->frame_in[i+FINAL_MSG_2_INDEX]); 
     }
 
     //read the rx marker
     //
-    dw_nodelist->reg_id_index = REG_ID_RX_MARKER;
-    dw_nodelist->sub_addr_index = SUB_ADDR_RX_MARKER_0;
+    dw_config->reg_id_index = REG_ID_RX_MARKER;
+    dw_config->sub_addr_index = SUB_ADDR_RX_MARKER_0;
     dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
 
     uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
     dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
  
     for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
-      dw_data.tof.poll.rx_marker = (dw_data.tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
+      dw_data->tof.poll.rx_marker = (dw_data->tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
     }
 
     //fire off the final distance measuring function
     //
     void (* final_dist_ptr)() = dw_ts_handler_table[TOF_DIST_INDEX];
-    final_dist_ptr(dw_nodelist->list[node_index], dw_config);
+    final_dist_ptr(host_object, host_usart, ext_dev_object, node_index);
 
     /*
     uint32_t(*device_store)() = device_list_table[DW_DEV_STORE];

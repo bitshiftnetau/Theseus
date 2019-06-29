@@ -57,6 +57,8 @@ uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, 
   /*************************************************************************/
 
 /*
+ * INSERT CONDITIONAL TO CHECK IF AUTOCS IS ENABLED
+ *
   MPI_host* host_object_ptr = (MPI_host*)host_object;
   volatile int(*host_spi_cs)() = host_object_ptr->_periph_periphconf._gpio_data;
   
@@ -71,7 +73,9 @@ uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, 
   //  re-assert CS line here
   /*************************************************************************/
 /*
-  host_spi_cs(host_object, TGL, 0, 5);
+ * INSERT CONDITIONAL TO CHECK IF AUTOCS IS ENABLED
+ 
+ host_spi_cs(host_object, TGL, 0, 5);
 */
 
   return ret;
@@ -88,6 +92,8 @@ uint32_t dw_Rx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, 
   //de-assert CS line here
   /*************************************************************************/
 /*
+ * INSERT CONDITIONAL TO CHECK IF AUTOCS IS ENABLED
+ *
   MPI_host* host_object_ptr = (MPI_host*)host_object;
   volatile int(*host_spi_cs)() = host_object_ptr->_periph_periphconf._gpio_data;
 
@@ -105,6 +111,8 @@ uint32_t dw_Rx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, 
   //re-assert CS line here
   /*************************************************************************/
 /*
+ * INSERT CONDITIONAL TO CHECK IF AUTOCS IS ENABLED
+ *
   host_spi_cs(host_object, TGL, 0, 5);
 */
   return ret;

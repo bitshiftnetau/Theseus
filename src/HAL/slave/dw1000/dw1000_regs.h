@@ -24,8 +24,8 @@
 /****************************************************************************//**
  * @brief Bit definitions for register PANADR
 **/
-#define PANADR_ID               0x03            /* PAN ID (31:16) and Short Address (15:0) */
-#define PANADR_LEN              (4)
+#define PAN_ID_ID               0x03            /* PAN ID (31:16) and Short Address (15:0) */
+#define PAN_ID_LEN              (4)
 /*mask and shift */
 #define PANADR_SHORT_ADDR_MASK  0x0000FFFFUL    /* Short Address */
 #define PANADR_PAN_ID_MASK      0xFFFF00F0UL    /* PAN Identifier */

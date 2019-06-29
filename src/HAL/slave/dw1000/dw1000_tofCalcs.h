@@ -6,6 +6,6 @@
 #include "dw1000_types.h"
 
 extern void (* dw_ts_handler_table[])();
-uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t node_index);
+uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t nodelist_index);
 
 #endif 

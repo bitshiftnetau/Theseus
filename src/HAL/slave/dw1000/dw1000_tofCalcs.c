@@ -51,14 +51,27 @@
 
   /* Speed of light in air, in metres per second. */
 #define SPEED_OF_LIGHT 299702547
+void dw_tx_poll_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+void dw_tx_resp_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+void dw_tx_final_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+void dw_tof_dist(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index);
+uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t node_index);
 
 
-void dw_tx_poll_ts(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, DW_data* dw_data){
+void dw_tx_poll_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+
+  uint32_t node_index = nodelist_index;
+  
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
+  DW_data* dw_data = &dw_nodelist->list[node_index]; 
 
   // get the transmission timestamp after sending Poll frame (from where I don't know)
 
-  dw_nodelist->reg_id_index = REG_ID_TX_MARKER;
-  dw_nodelist->sub_addr_index = 0;
+  dw_config->reg_id_index = REG_ID_TX_MARKER;
+  dw_config->sub_addr_index = 0;
 
   uint8_t tx_marker[TX_MARKER_TOTAL_LEN];
   dw_Rx(host_object, host_usart, dw_nodelist, tx_marker, TX_MARKER_TOTAL_LEN - 1);
@@ -71,39 +84,112 @@ void dw_tx_poll_ts(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodeli
 }
 
 
-void dw_tx_resp_ts(DW_data* dw_data, DW_config* dw_config){
+void dw_tx_resp_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+
+  uint32_t node_index = nodelist_index;
+
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
+  DW_data* dw_data = &dw_nodelist->list[node_index]; 
 
   uint32_t poll_rx_ts = dw_data->tof.poll.rx_marker;
   //uint32_t resp_tx_time = (poll_rx_ts + (T_REPLY_1_DELAY_UUS * UUS_TO_DW_TIME));
-  uint64_t resp_tx_time = (poll_rx_ts + (T_REPLY_1_DELAY_UUS * UUS_TO_DW_TIME)) >> 8;
+  uint64_t resp_tx_delay = (poll_rx_ts + (T_REPLY_1_DELAY_UUS * UUS_TO_DW_TIME)) >> 8;
 
-  uint16_t rf_tx_delay = (SINGLE_BYTE & dw_config->rf_tx_delay[0]);
-  rf_tx_delay |= (SINGLE_BYTE & (dw_config->rf_tx_delay[1] << SINGLE_BYTE_SHIFT));
+  uint16_t tx_ant_delay = dw_config->tx_ant_delay[1];
+  tx_ant_delay = (tx_ant_delay << SINGLE_BYTE_SHIFT) | dw_config->tx_ant_delay[0];
+  
+  //store resp_tx_time in the config struct and then write to device
+  dw_config->rf_tx_delay[0] = (resp_tx_delay & SINGLE_BYTE);
+  for(int i = 1; i < 8; i++){
+    dw_config->rf_tx_delay[i] |= (resp_tx_delay >> SINGLE_BYTE_SHIFT) & SINGLE_BYTE;
+  }
 
-  dw_data->tof.resp.tx_marker = ((resp_tx_time & 0xFFFFFFFEUL) << 8) + rf_tx_delay; // TX_ANT_DLY; (this value could also be the ant_delay member so check on that)
+  DW_reg_id_enum config_member = tx_ant_delay;
+
+  //Build the message header and transmit configuration to device 
+  dw_config->reg_id_index = config_member;
+  dw_config->sub_addr_index = 0;
+
+  //put the data in the config buffer
+  void(*config_member_ptr)() = config_table[config_member]; 
+  config_member_ptr(dw_config, config_member);
+  
+  //build the spi transaction header and frame
+  volatile uint32_t(* build_msg_ptr)() = dw_decode_build_table[WRITE];
+  int ret = build_msg_ptr(host_object, host_usart, ext_dev_object, WRITE, DW_CONFIG);
+  
+  //callback to host usart to send config
+  if(ret == EXIT_SUCCESS){
+    dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+  }
+  
+  dw_data->tof.resp.tx_marker = (resp_tx_delay & 0xFFFFFFFEUL) + tx_ant_delay; // TX_ANT_DLY; (this value could also be the ant_delay member so check on that)
   dw_data->tof.treplyx._1 = dw_data->tof.resp.tx_marker - poll_rx_ts; 
 }
 
 
-void dw_tx_final_ts(DW_data* dw_data, DW_config* dw_config){
+void dw_tx_final_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
+
+  uint32_t node_index = nodelist_index;
+
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX]; 
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
+  DW_data* dw_data = &dw_nodelist->list[node_index]; 
+
 
   uint32_t poll_tx_ts = dw_data->tof.poll.tx_marker; 
   uint32_t resp_rx_ts = dw_data->tof.resp.rx_marker;
   //uint32_t final_tx_time = (resp_rx_ts + (T_REPLY_2_DELAY_UUS * UUS_TO_DW_TIME));
-  uint64_t final_tx_time = (resp_rx_ts + (T_REPLY_2_DELAY_UUS * UUS_TO_DW_TIME)) >> 8;
- 
-  uint16_t rf_tx_delay = (SINGLE_BYTE & dw_config->rf_tx_delay[0]);
-  rf_tx_delay |= (SINGLE_BYTE & (dw_config->rf_tx_delay[1] << SINGLE_BYTE_SHIFT));
- 
-  dw_data->tof.final.tx_marker = ((final_tx_time & 0xFFFFFFFEUL) << 8) + rf_tx_delay;
+  uint64_t final_tx_delay = (resp_rx_ts + (T_REPLY_2_DELAY_UUS * UUS_TO_DW_TIME)) >> 8;
+
+  uint16_t tx_ant_delay = dw_config->tx_ant_delay[1];
+  tx_ant_delay = (tx_ant_delay << SINGLE_BYTE_SHIFT) | dw_config->tx_ant_delay[0];
+
+  //store resp_tx_time in the config struct and then write to device
+  dw_config->rf_tx_delay[0] = (final_tx_delay & SINGLE_BYTE);
+  for(int i = 1; i < 8; i++){
+    dw_config->rf_tx_delay[i] |= (final_tx_delay >> SINGLE_BYTE_SHIFT) & SINGLE_BYTE;
+  }
+
+  DW_reg_id_enum config_member = tx_ant_delay;
+  
+  //Build the message header and transmit configuration to device 
+  dw_config->reg_id_index = config_member;
+  dw_config->sub_addr_index = 0;
+
+  //put the data in the config buffer
+  void(*config_member_ptr)() = config_table[config_member]; 
+  config_member_ptr(dw_config, config_member);
+  
+  //build the spi transaction header and frame
+  volatile uint32_t(* build_msg_ptr)() = dw_decode_build_table[WRITE];
+  int ret = build_msg_ptr(host_object, host_usart, ext_dev_object, WRITE, DW_CONFIG);
+  
+  //callback to host usart and send frame
+  //
+  if(ret == EXIT_SUCCESS){
+    dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+  }
+
+  dw_data->tof.final.tx_marker = (final_tx_delay & 0xFFFFFFFEUL) + tx_ant_delay;
   dw_data->tof.treplyx._2 = dw_data->tof.final.tx_marker - resp_rx_ts;
   dw_data->tof.troundx._1 = resp_rx_ts - poll_tx_ts; 
 }
 
 
-void dw_tof_dist(DW_data* dw_data, DW_config* dw_config){
+void dw_tof_dist(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_t nodelist_index){
 
-  dw_config = NULL;
+  uint32_t node_index = nodelist_index;
+
+  MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
+
+  DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
+  DW_data* dw_data = &dw_nodelist->list[node_index]; 
 
   // printf("Reception # : %d\r\n",rx_count);
 
@@ -119,7 +205,7 @@ void dw_tof_dist(DW_data* dw_data, DW_config* dw_config){
 
   double tof = (((tround_1 * tround_2) - (treply_1 * treply_2)) / (tround_1 + tround_2 + treply_1 + treply_2));
 
-  dw_data->tof.final_distance = tof * SPEED_OF_LIGHT;
+  dw_data->tof.final_distance = (tof * SPEED_OF_LIGHT);
 
   //printf("Distance : %f\r\n",distance);
 }
@@ -129,8 +215,14 @@ void dw_tof_dist(DW_data* dw_data, DW_config* dw_config){
  *          FINAL DISTACE DATA STRUCTURE MGMT
  ******************************************************/
 
-uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t node_index){
+uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t nodelist_index){
   
+  if(nodelist_index > NODELIST_LEN){
+    return ERROR;
+  }
+
+ uint32_t node_index = nodelist_index;
+
  DW_data dw_data = dw_nodelist->list[node_index]; 
  DW_nodelist* node_list = dw_nodelist;
  DW_network_dev* dev_list = &dw_nodelist->devices[0];

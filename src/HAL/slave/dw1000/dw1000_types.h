@@ -36,6 +36,9 @@
  * REG IDs
  */
 
+#define REG_IDS_LEN           40
+#define SUB_EXT_ADDR_LEN      32 
+
 #define REG_ID_
 #define REG_ID_TX_BUFFER      0x09
 #define REG_ID__
@@ -67,8 +70,44 @@
  * REG ID INDEXES FOR JUMP TABLE
  */
 
-  
+//register id addr table
+extern uint8_t dw_reg_id_table[];
+
+//initiate length = 11 starting at 0
+//regdump length = 17 starting at 0
+
 typedef enum {
+  unique_id,
+  pan_id,
+  sys_conf,
+  tx_frame_ctrl,
+  rf_tx_delay,
+  sys_ctrl_reg,
+  sys_event_status,
+  tx_ant_delay,
+  ack_resp_time,
+  preamble_rx_config,
+  tx_power_ctrl,
+  chan_ctrl,
+  device_id,
+  rx_frame_timeout,
+  rx_frame_qual,
+  rx_time_tracking_interval,
+  sys_state_info,
+  sys_time,
+  tx_buffer,
+  rx_frame_info,
+  rx_data,
+  rx_time_tracking_offset,
+  rx_arrival_time
+}DW_reg_id_enum;
+
+
+//Make this a member of the dw_nodelist struct and the conditional 
+//operand as part of building a transaction header
+
+typedef enum {
+ sub_addr_0 = 0x00,
  sub_addr_1 = 0x01,
  sub_addr_2 = 0x02,
  sub_addr_3 = 0x03,
@@ -101,10 +140,11 @@ typedef enum {
  sub_addr_30 = 0x1E,
  sub_addr_31 = 0x1F,
  sub_addr_32 = 0x20
-}sub_addr_table;
+}DW_sub_addr_enum;
 
 
 typedef enum {
+ ext_addr_0 = 0x00,
  ext_addr_1 = 0x01,
  ext_addr_2 = 0x02,
  ext_addr_3 = 0x03,
@@ -137,10 +177,7 @@ typedef enum {
  ext_addr_30 = 0x1E,
  ext_addr_31 = 0x1F,
  ext_addr_32 = 0x20
-}ext_addr_table;
-
-sub_addr_table dw_sub_addr_table;
-ext_addr_table dw_ext_addr_table;
+}DW_ext_addr_enum;
 
 
 /*
@@ -183,6 +220,38 @@ ext_addr_table dw_ext_addr_table;
 #define FINAL_PAYLOAD_LEN                       9
 
 
+
+// CONFIGURATION REGISTER LENS
+//length in octets
+//
+#define DEVICE_ID_LEN                        4 
+#define SYSTEM_TIME_LEN                      5
+#define RX_FRAME_TIMEOUT_LEN              2
+#define RX_FRAME_QUAL_LEN                 4 
+#define RX_TIME_INTERVAL_LEN              4
+#define RX_TS_SUB_ADDR_5_LEN              4 
+#define RX_TS_SUB_ADDR_9_LEN              5    
+#define TX_TS_SUB_ADDR_5_LEN              5
+#define TX_FRAME_CTRL_SUB_ADDR_4_LEN      1
+#define RX_TIME_INTERVAL_OFFSET_LEN       5
+#define RX_FRAME_QUAL_SUB_REG_4_LEN       4
+#define SYS_EVENT_STATUS_SUB_REG_4_LEN    5      
+#define SYS_STATE_INFO_LEN                5
+
+#define SYS_CONFIG_LEN                4
+#define TX_FRAME_CTRL_LEN             4
+#define TX_FRAME_CTRL_SUB_REG_4_LEN   1
+#define RF_TX_DELAY_LEN               5
+#define SYS_CTRL_REG_LEN              4
+#define SYS_EVENT_MASK_LEN            4
+#define SYS_EVENT_STATUS_LEN          5
+#define TX_ANT_DELAY_LEN              2
+#define ACK_RESP_TIME_LEN             4
+#define PREAMBLE_RX_CONFIG_LEN        4
+#define TX_POWER_CTRL_LEN             4
+//#define CHAN_CTRL_LEN                 4
+
+
 // MESSAGE INDEXES + LENGTHS
 
 
@@ -223,7 +292,7 @@ ext_addr_table dw_ext_addr_table;
 
 #define ACTIVE_DEVICES_LEN   32
 
-#define NODELIST_LEN          2048
+#define NODELIST_LEN          1 
 #define NODELIST_LEN_COUNT    (NODELIST_LEN -1)
 
 #define NODELIST_INDEX  0
@@ -274,8 +343,6 @@ ext_addr_table dw_ext_addr_table;
 #define MSG_EXT_ADDR_FALSE  0 << MSG_EXT_ADDR_BOOL_INDEX
 #define MSG_EXT_ADDR_TRUE   1 << MSG_EXT_ADDR_BOOL_INDEX
 
-#define REG_IDS_LEN       39 
-#define SUB_EXT_ADDR_LEN  32 
 
 #define FN_CODE_RANGE 0x20
 #define FN_CODE_POLL  0x61
@@ -460,130 +527,359 @@ typedef struct {
   uint8_t sequence_num;
   uint8_t handler_index;
   uint8_t build_message[4];
+  uint8_t rx_frame_info[4]; 
   uint32_t frame_len;
   uint8_t frame_in[FRAME_BUFFER_SIZE];
   uint8_t frame_out[FRAME_BUFFER_SIZE];
   DW_TOF  tof; 
 }DW_data; 
 
-
-typedef enum {
-  ranging_mode,
-  device_id,
-  part_id,
-  lot_id,
-  pan_id,
-  channel,
-  otp_rev,
-  rx_fctrl,
-  rf_tx_delay,
-  rf_rx_delay,
-  ant_delay,
-  xtrim,
-  dbl_buff_on,
-  sys_config_reg,
-  tx_pow_config,
-  prf_index,
-  ldo_tune_low32,
-  long_frames
-}DW_config_index_table;
-
-typedef struct {
-  DW_config_index_table config_index;
-  DW_config_index_table query_index;
-  bool config_query_bool;
-  bool ranging_mode;            //discovery or twr phase
-  uint8_t query_buffer[16];
-  uint8_t config_buffer[16];
-  uint32_t config_buffer_len;
-  uint32_t query_buffer_len;
-  uint32_t device_id[EUI_64_LEN]; // device id (ieee unique 64-bit identifier)
-  uint32_t part_id;             // part id ???
-  uint32_t lot_id;              // lot id ???
-  uint32_t pan_id[2];
-  uint32_t channel;              // added chan here - used in the reading of acc
-  uint32_t otp_rev;              // otp revision number (read during initialisation)
-  uint32_t tx_fctrl;            // keep tx_fctrl register config
-  uint32_t rf_rx_delay[2];         // rf delay (delay though the rf blocks before the signal comes out of the antenna)
-  uint32_t rf_tx_delay[2];         // rf delay (delay though the rf blocks before the signal comes out of the antenna)
-  uint32_t ant_delay;           // antenna delay read from otp 64 prf value is in high 16 bits and 16m prf in low 16 bits
-  uint32_t xtrim;               // xtrim value read from otp
-  uint32_t dbl_buff_on;          // double rx buffer mode flag
-  uint32_t sys_config_reg;     // local copy of system config register
-  uint32_t tx_pow_config[12];   // stores the tx power configuration read from otp (6 channels consecutively with prf16 then 64, e.g. ch 1 prf16 is index 0 and 64 index 1)
-   int prf_index;               //prf index ???
-  uint32_t ldo_tune_low32;      //low 32 bits of ldo tune value
-  uint32_t long_frames;  // flag in non-standard long frame mode
-}DW_config;
-
-/* 
-typedef struct {
-  bool ranging_mode;            //discovery or twr phase
-  uint8_t device_id[EUI_64_LEN]; // device id (ieee unique 64-bit identifier)
-  uint32_t part_id;             // part id ???
-  uint32_t lot_id;              // lot id ???
-  uint8_t channel;              // added chan here - used in the reading of acc
-  uint8_t otp_rev;              // otp revision number (read during initialisation)
-  uint32_t tx_fctrl;            // keep tx_fctrl register config
-  uint16_t rf_rx_delay[2];         // rf delay (delay though the rf blocks before the signal comes out of the antenna)
-  uint16_t rf_tx_delay[2];         // rf delay (delay though the rf blocks before the signal comes out of the antenna)
-  uint32_t ant_delay;           // antenna delay read from otp 64 prf value is in high 16 bits and 16m prf in low 16 bits
-   uint8_t xtrim;               // xtrim value read from otp
-  uint8_t dbl_buff_on;          // double rx buffer mode flag
-   uint32_t sys_config_reg;     // local copy of system config register
-  uint32_t tx_pow_config[12];   // stores the tx power configuration read from otp (6 channels consecutively with prf16 then 64, e.g. ch 1 prf16 is index 0 and 64 index 1)
-   int prf_index;               //prf index ???
-  uint32_t ldo_tune_low32;      //low 32 bits of ldo tune value
-  uint8_t long_frames;  // flag in non-standard long frame mode
-}DW_config;
-*/
-
 typedef struct{
   uint8_t tag_id[BLINK_SHORT_ADDR_LEN];
   float distance;
 }DW_network_dev;
 
-
 /* list of devices both in the process of ranging and those that are ranged */
-/*
+
 typedef struct{
-  uint32_t reg_id_index;
-  uint32_t sub_addr_index;
-  uint32_t ext_addr_index;
   uint8_t frame_in[FRAME_BUFFER_SIZE];
   uint8_t frame_out[FRAME_BUFFER_SIZE];
   uint32_t frame_in_len;
   uint32_t frame_out_len;
   uint32_t node_index;
   DW_data list[NODELIST_LEN];
-  DW_network_dev devices[ACTIVE_DEVICES_LEN]; 
+  DW_network_dev devices[NODELIST_LEN]; 
 }DW_nodelist;
+
+#define QUERY_BUFFER_LEN    32
+#define CONFIG_BUFFER_LEN   32
+
+/*
+ * NOTE: make sure you start the enums and config tables at 1 NOT zero!!! That way we can assign 0 to the 
+ * sub_addr_index member of dw_config and it will signify that there is no sub address for that regfile
+ *
+ */
+
+#define CONFIG_STRUCT_MEMBERS   13 
+#define QUERY_STRUCT_MEMBERS    24 
+
+/*
+  config_unique_id,
+  config_pan_id,
+  config_sys_conf,
+  config_tx_frame_ctrl,
+  config_tx_frame_ctrl_sub_reg_4,
+  config_rf_tx_delay,
+  config_sys_ctrl_reg,
+  config_sys_event_status,
+  config_tx_ant_delay,
+  config_ack_resp_time,
+  config_preamble_rx_config,
+  config_tx_power_ctrl,
+  config_chan_ctrl
+*/
+/*
+typedef enum {
+  config_unique_id,
+  config_pan_id,
+  config_sys_conf,
+  config_tx_frame_ctrl,
+  config_tx_frame_ctrl_sub_reg_4,
+  config_rf_tx_delay,
+  config_sys_ctrl_reg,
+  config_sys_event_status,
+  config_tx_ant_delay,
+  config_ack_resp_time,
+  config_preamble_rx_config,
+  config_tx_power_ctrl,
+  config_chan_ctrl
+}DW_config_index_enum;
+//regid for registers pertanent to config and query fns  
 */
 
-typedef struct{
-  uint32_t reg_id_index;
-  uint32_t sub_addr_index;
-  uint32_t ext_addr_index;
-  uint8_t frame_in[FRAME_BUFFER_SIZE];
-  uint8_t frame_out[FRAME_BUFFER_SIZE];
-  uint32_t frame_in_len;
-  uint32_t frame_out_len;
-  uint32_t node_index;
-  DW_data list[1];
-  DW_network_dev devices[1]; 
-}DW_nodelist;
+/*
+  query_dev_id,
+  query_sys_time,
+  query_rx_frame_timeout,
+  query_rx_frame_qual,
+  query_rx_time_interval,
+  query_rx_ts_sub_addr_5,
+  query_rx_ts_sub_addr_9,
+  query_tx_ts_sub_addr_5,
+  query_tx_frame_ctrl_sub_addr_4,
+  query_rx_time_interval_offset,
+  query_rx_frame_qual_sub_reg_4,
+  query_sys_status_sub_reg_4,
+  query_sys_state_info
+*/
+/*
+typedef enum {
+  query_unique_id,
+  query_pan_id,
+  query_sys_conf,
+  query_tx_frame_ctrl,
+  query_tx_frame_ctrl_sub_reg_4,
+  query_rf_tx_delay,
+  query_sys_ctrl_reg,
+  query_sys_event_status,
+  query_tx_ant_delay,
+  query_ack_resp_time,
+  query_preamble_rx_config,
+  query_tx_power_ctrl,
+  query_chan_ctrl,
+  query_device_id,
+  query_rx_frame_timeout,
+  query_rx_frame_qual,
+  query_rx_time_interval,
+  query_rx_ts_sub_addr_5,
+  query_rx_ts_sub_addr_9,
+  query_tx_ts_sub_addr_5,
+  query_tx_frame_ctrl_sub_addr_4,
+  query_rx_time_interval_offset,
+  query_rx_frame_qual_sub_reg_4,
+  query_sys_status_sub_reg_4,
+  query_sys_state_info
+}DW_query_index_enum;
+//regid for registers pertanent to config and query fns  
+*/
+
+typedef struct {
+  DW_reg_id_enum reg_id_index;
+  DW_sub_addr_enum sub_addr_index;
+  DW_ext_addr_enum ext_addr_index;
+  bool config_query_bool;
+  bool ranging_mode;            //discovery or twr phase
+  uint8_t query_buffer[32];
+  uint8_t config_buffer[32];
+  uint8_t config_buffer_len;
+  uint8_t query_buffer_len;
+  uint8_t device_id[4]; 
+  uint8_t unique_id[EUI_64_LEN]; // device id (ieee unique 64-bit identifier)
+  uint8_t pan_id[PAN_ID_LEN];
+  uint8_t sys_conf[SYS_CFG_LEN];
+  uint8_t sys_time[SYS_TIME_LEN];
+  uint8_t tx_frame_ctrl[TX_FRAME_CTRL_LEN]; 
+  uint8_t tx_frame_ctrl_sub_reg_4;
+  uint32_t rf_tx_delay[2];         // used to specficy a time in the future to turn on rx or send tx   
+  uint8_t rx_frame_timeout[2];
+  uint8_t sys_ctrl_reg[4];
+  uint8_t sys_event_mask[4];
+  uint8_t sys_event_status[4];
+  uint8_t sys_status_sub_reg_4;
+  uint8_t rx_frame_qual[8]; 
+  uint8_t rx_frame_qual_sub_reg_4[4];
+  uint8_t rx_time_interval[4];
+  uint8_t rx_time_interval_offset[5];
+  uint8_t rx_ts_sub_addr_5[4]; //first path index + first path amplitude point 1
+  uint8_t rx_ts_sub_addr_9[5]; //raw timestamp 
+  uint8_t tx_ts_sub_addr_5[5]; //raw timestamp
+  uint8_t tx_ant_delay[2];
+  uint8_t sys_state_info[5];
+  uint8_t ack_resp_time[4];
+  uint8_t preamble_rx_config[4];
+  uint8_t tx_power_ctrl[4];
+  uint8_t chan_ctrl[4];
+  //user-defined SFD pointer
+  //AGC control pointer
+  //external sync control pointer
+  //Accum CIR status pointer
+  //GPIO ctrl & status pointer
+  //Digital rx config pointer
+  //Analog rf config pointer
+  //transmitter calib block pointer
+  //freq synth ctrl pointer
+  //AON sys ctrl pointer
+  //OTP memory interface pointer
+  //leading edge detectin interface pointer
+  //digital diagnostics pointer
+  //power management and sys ctrl pointer
+}DW_config;
+
+/*
+ ** - regfile 0x01: device id (EUI)        RO (hard-coded to silicon)
+ * - regfile 0x02: reserved               --
+ ** - regfile 0x03: PAN                    RW
+ ** - regfile 0x04: Sys config             RW
+ * - regfile 0x05: reserved               --
+ ** - regfile 0x06: Sys time counter       RO
+ * - regfile 0x07: reserved               --
+ ** - regfile 0x08: transmit frame ctrl    RW
+ **    - regfile 0x08:04: IFSDELAY          
+ MEMBER IS IN DW_DATA - regfile 0x09: tx data buffer         W
+
+ ** - regfile 0x0A: Delayed tx or rx time  RW
+ * - regfile 0x0B: reserved               --
+ ** - regfile 0x0C: Rx frame wait timeout  RW
+ ** - regfile 0x0D: Sys ctrl reg           SRW
+ ** - regfile 0x0E: sys event mask         RW
+ ** - regfile 0x0F: Sys status:    
+ **    - Receiver Reed-solomon correction status: bit 0 reg:0F:04
+ **    - Receiver preamble rejection:             bit 1 reg:0F:04
+ **    - Tranmit power up time error:             bit 2 reg:0F:04 
+ MEMBER IS IN DW_DATA * - regfile 0x10: rx frame info          ROD
+ MEMBER IS IN DW_DATA * - regfile 0x11: rx data buffer         ROD
+ ** - regfile 0x12: Rx frame quality info:
+ **    - first path amplitude point 3:            bits 15-0  reg:12:04
+ **    - channel impulse response power:          bits 31-16 reg:12:04
+ ** - regfile 0x13: rx time interval       ROD
+ ** - regfile 0x14: Receiver time tracking offset bits 6-0   reg:14:04
+ MEMBER IS IN DW_DATA * - regfile 0x15: Receive time stamp:
+ **    - first path index:                        bits 15-0  reg:15:05
+ **    - first path amplitude point 1:            bits 31-16 reg:15:05
+ **    - raw timestamp:                           bits 39-0  reg:15:09 (probably want 15:08 for 32 bit value)
+ * - regfile 0x16: reserved               -- 
+ MEMBER IS IN DW_DATA * - regfile 0x17: tx timestamp
+ **    - tx_stamp:                                bits 39-0  reg:17:00
+ **    - tx_raw:                                  bits 39-0  reg:17:05
+ ** - regfile 0x18: tx antenna delay       RW
+ ** - regfile 0x19: sys state info         RO
+ ** - regfile 0x1A: ack & resp 19:02       RW
+ ** - regfile 0x1B: reserved               --
+ ** - regfile 0x1C: reserved               --
+ ** - regfile 0x1D: preamble rx config     RW
+ ** - regfile 0x1E: tx power ctrl          RW
+ ** - regfile 0x1F: channel ctrl           RW
+ ** - regfile 0x20: reserved               --
+ 
+ -- regfile 0x21 - user defined SFD
+    -- bits 0-40 hex sub-addr range: 0-28 all have sub addressable space
+ * - regfile 0x22: reserved               --
+ -- regfile 0x23: AGC Control
+   -- Disable AGC management                    bit 0      reg:23:02
+   -- AGC_TUNE1                                 bits 0-16  reg:23:04 
+   -- AGC status
+      -- EDG1                                   bits 10-6  reg:23:1E
+      -- EDV2                                   bits 19-11 reg:23:1E
+ -- regfile 0x24 external sync control
+   -- counter config                            reg:24:00 //32-bits
+   -- counter capture on RMARKER                reg:24:04 //32-bits
+   -- clock offset to first path 1GHz counter   reg:24:08 //32-bits
+ -- regfile 0x25: accumulator CIR               octets 4063-0 correspond to sub-addr 4063-0
+ -- regfile 0x26: GPIO ctrl and status:         reg:26:00-28
+   - MODE  00
+   - DIR   08
+   - DOUT  0C
+   - IRQE  10
+   - ISEN  14
+   - IMODE 18
+   - IBES  1C
+   - ICLR  20
+   - IDBE  24
+   - RAW   28 
+ -- regfile 0x27: Digital receiver config
+   - DRX_TUNE0b   02
+   - DRX_TUNE1a   04
+   - DRX_TUNE1b   06
+   - DRX_TUNE2    08
+   - DRX_SFDTOC   20
+   - DRX_PRETOC   24
+   - DRX_TUNE4H   26
+   - RXPACC_NOSAT 2C
+ -- regfile 0x28: Analog RF config 
+   - RF_CONF      00
+   - RF_RES1      04
+   - RF_RXCTRLH   0B
+   - RF_TXCTRL    0C
+   - RF_RES2      10
+   - RF_STATUS    2C
+   - LDOTUNE      30
+ * - regfile 0x29: reserved                 --
+ - regfile 0x2A: transmitter calib block
+   - TC_SARC      00
+   - TC_SARL      03
+   - TC_SARW      06
+   - TC_RES2      08
+   - TC_PGDELAY   0B
+   - TC_PGTEST    0C
+ - regfile 0x2B: freq synth control block
+   - FS_RES1      00
+   - FS_PLLCFG    07
+   - FS_PLLTUNE   0B
+   - FS_RES2      0C
+   - FS_XTALT     0E
+   - FS_RES3      0F
+ - regfile 0x2C: Always-on system control
+   - AON_WCFG     00
+   - AON_CTRL     02
+   - AON_RDAT     03
+   - AON_ADDR     04
+   - AON_CFG0     06
+   - AON_CFG1     0A
+ - regfile 0x2D: OTP memory interface
+   - OTP_WDAT     00
+   - OTP_ADDR     04
+   - OTP_CTRL     06
+   - OTP_STAT     08
+   - OTP_RDAT     0A
+   - OTP_SRDAT    0E
+   - OTP_SF       12
+ - regfile 0x2E: Leading Edge detection interface
+   - LDE_THRESH   0000
+   - LDE_CFG1     0806
+   - LDE_PPINDX   1000
+   - LDE_PPAMPL   1002
+   - LDE_RXANTD   1804
+   - LDE_CFG2     1806
+   - LDE_REPC     2804
+ - regfile 0x2F: digital diagnostics interface
+   - EVC_CTRL     00
+   - EVC_PHE      04
+   - EVC_RSE      06
+   - EVC_FCG      08
+   - EVC_FCE      0A
+   - EVC_FFR      0C
+   - EVC_OVR      0E
+   - EVC_STO      10
+   - EVC_PTO      12
+   - EVC_FWTO     14
+   - EVC_TXFS     16
+   - EVC_HPW      18
+   - EVC_TPW      1A
+   - EVC_RES1     1C
+   - DIAG_TMC     24
+ * - regfile 0x30: reserved               --
+ * - regfile 0x31: reserved               --
+ * - regfile 0x32: reserved               --
+ * - regfile 0x33: reserved               --
+ * - regfile 0x34: reserved               --
+ * - regfile 0x35: reserved               --
+ - regfile 0x36: power management and system control
+   - PMSC_CTRL0   00 
+   - PMSC_CTRL1   04
+   - PMSC_RES1    08
+   - PMSC_SNOZT   0C
+   - PMSC_RES2    10
+   - PMSC_TXFSEQ  26
+   - PMSC_LEDC    28
+ * - regfile 0x37: reserved               --
+ * - regfile 0x38: reserved               --
+ * - regfile 0x39: reserved               --
+ * - regfile 0x3A: reserved               --
+ * - regfile 0x3B: reserved               --
+ * - regfile 0x3C: reserved               --
+ * - regfile 0x3D: reserved               --
+ * - regfile 0x3E: reserved               --
+ * - regfile 0x3F: reserved               --
+ *
+ */
 
 
+/*
+ *  JUMP TABLES
+ *
+ */
+
+extern uint32_t (*dw_decode_build_table[3])(); 
 extern uint8_t dw_frame_ctrl_table[][2]; 
 extern const uint32_t dw_fn_code_table[]; 
 extern void (*config_table[])(); 
 extern void (*query_table[])();
-extern uint32_t config_table_reg_id_table[]; 
-extern uint32_t query_table_reg_id_table[];
 
 
-#define CONFIG_STRUCT_MEMBERS 18 
-#define QUERY_STRUCT_MEMBERS  18
+
+
+
+
 
 
 

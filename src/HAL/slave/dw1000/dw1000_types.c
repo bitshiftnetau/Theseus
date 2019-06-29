@@ -16,7 +16,7 @@
  *
  */
  
-
+#include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
 
@@ -24,12 +24,64 @@
 #include "dw1000_types.h"
 #include "dw1000_regs.h"
 
+
 #include "dw1000_nodeMgmt.h"
-//#include "dw1000_buildMAC.h"
-//#include "dw1000_decodeMAC.h"
+#include "dw1000_buildMAC.h"
+#include "dw1000_decodeMAC.h"
 #include "dw1000_commRxTx.h"
 #include "dw1000_tofCalcs.h"
 
+uint8_t dw_reg_id_table[REG_IDS_LEN] = { 
+  
+  0x01, //eui
+  0x03, //pan addr
+  0x04, //sys cfg
+  0x08, //tx frame ctrl
+  0x0A, //delayed send or receive time
+  0x0D, //sys ctrl reg
+  0x0F, //sys event status
+  0x18, //ant delay
+  0x1A, //ack resp time
+  0x1D, //pulsed preamble rx config
+  0x1E, //tx power ctrl
+  0x1F, //channel ctrl
+  0x00, //device id 
+  0x0C, //rx frame wait timeout
+  0x12, //rx frame quality info
+  0x13, //rx time tracking interval
+  0x19, //sys state
+  
+  0x06, //sys time
+  0x09, //tx buffer,
+  0x10, //rx frame info
+  0x11, //rx data
+  0x14, //rx time tracking offset
+  0x15, //rx msg time of arrival
+  0x17, //tx message time of sending
+  
+  0x21, //user-defined SFD
+  0x23, //auto gain ctrl config
+  0x24, //ext sync
+  0x25, //accum read acces
+  0x26, //gpio ctrl 
+  0x27, //digital rx config
+  0x28, //analog rf config
+  0x2A, //tx calibration
+  0x2B, //freq synth ctrl 
+  0x2C, //AON reg
+  0x2D, //OTP
+  0x2E, //LDE ctrl
+  0x2F, //digital diagnostics
+  0x36, //power mgmt system ctrl 
+};
+
+
+
+uint32_t(* dw_decode_build_table[3])() = {
+  dw_decodeFrameIn,
+  dw_buildMessageOut,
+  NULL
+};
 
 
 uint8_t dw_frame_ctrl_table[3][2] = {
@@ -47,251 +99,177 @@ const uint32_t dw_fn_code_table[DECODE_TABLE_LEN] = {
 };
 
 
-
-#define DW_PART_ID_LEN        1
-#define DW_LOT_ID_LEN         1
-#define DW_PAN_ID_LEN         2
-#define DW_CHAN_LEN           1
-#define DW_OTP_REV_LEN        1
-#define DW_TX_FCTRL_LEN       1
-#define DW_TX_DELAY_LEN       2
-#define DW_RX_DELAY_LEN       2
-#define DW_ANT_DELAY_LEN      1
-#define DW_XTRIM_LEN          1
-#define DW_DBL_BUFF_LEN       1
-#define DW_TX_POW_LEN         12
-#define DW_SYS_CONFIG_LEN     1
-#define DW_PRF_INDEX_LEN      1
-#define DW_LDO_TUNE_LOW32_LEN 1
-#define DW_LONG_FRAMES_LEN    1
-
-
-uint32_t config_table_reg_id_table[CONFIG_STRUCT_MEMBERS] = {
-  //regid for registers pertanent to config and query fns  
-};
-
+//#define EUI_64_LEN                       
+//#define PAN_ID_LEN                 
 
 uint32_t config_table_len[CONFIG_STRUCT_MEMBERS] = {
-  EUI_64_LEN,
-  DW_PART_ID_LEN,
-  DW_LOT_ID_LEN,
-  DW_PAN_ID_LEN,
-  DW_CHAN_LEN,
-  DW_OTP_REV_LEN,
-  DW_TX_FCTRL_LEN,
-  DW_TX_DELAY_LEN,
-  DW_RX_DELAY_LEN,
-  DW_ANT_DELAY_LEN,
-  DW_XTRIM_LEN,
-  DW_DBL_BUFF_LEN,
-  DW_SYS_CONFIG_LEN,
-  DW_TX_POW_LEN,
-  DW_SYS_CONFIG_LEN,     
-  DW_PRF_INDEX_LEN,      
-  DW_LDO_TUNE_LOW32_LEN, 
-  DW_LONG_FRAMES_LEN    
+  EUI_64_LEN,                   // config_unique_id
+  PAN_ID_LEN,                   // config_pan_id
+  SYS_CONFIG_LEN,               // config_sys_conf
+  TX_FRAME_CTRL_LEN,            // config_tx_frame_ctrl
+  TX_FRAME_CTRL_SUB_REG_4_LEN,  // config_tx_frame_ctrl_sub_reg_4
+  RF_TX_DELAY_LEN,              // rf_tx_delay
+  SYS_CTRL_REG_LEN,             // sys_ctrl_reg
+  SYS_EVENT_MASK_LEN,           // sys_event_mask
+  TX_ANT_DELAY_LEN,             // tx_ant_delay
+  ACK_RESP_TIME_LEN,            // ack_resp_time
+  PREAMBLE_RX_CONFIG_LEN,       // preamble_rx_config
+  TX_POWER_CTRL_LEN,            // tx_power_ctrl
+  CHAN_CTRL_LEN                 // chan_ctrl
 };
 
-void config_device_id(DW_config* dw_config){
-  for(int i = 0; i < EUI_64_LEN; i++){ 
-    dw_config->config_buffer[i] = dw_config->device_id[i];
-  }
+void config_unique_id(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+  
+  //dw_config->reg_id_addr =   
+
 }
-void config_part_id(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->part_id;
+void config_pan_id(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
 }
-void config_lot_id(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->lot_id;
+void config_sys_conf(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
 }
-void config_pan_id(DW_config* dw_config){
-  for(int i = 0; i < DW_PAN_ID_LEN; i++){
-    dw_config->config_buffer[i] = dw_config->pan_id[2];
-  }
+void config_tx_frame_ctrl(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
 }
-void config_channel(DW_config* dw_config){
-  //change this to accommodate for eCHAN enum 
-  dw_config->config_buffer[0] = dw_config->channel;
+void config_rf_tx_delay(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+  
 }
-void config_otp_rev(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->otp_rev;
+void config_sys_ctrl_reg(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
 }
-void config_tx_fctrl(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->tx_fctrl;
+void config_sys_event_status(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
+  //write zero so we have no effect on this register
+
 }
-void config_rf_tx_delay(DW_config* dw_config){
-  for(int i = 0; i < DW_RX_DELAY_LEN; i++){
-    dw_config->config_buffer[i] = dw_config->rf_tx_delay[i];
-  }
+void config_tx_ant_delay(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+  
 }
-void config_rf_rx_delay(DW_config* dw_config){
-  for(int i = 0; i < DW_TX_DELAY_LEN; i++){
-    dw_config->config_buffer[i] = dw_config->rf_rx_delay[i];
-  }
+void config_ack_resp_time(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
 }
-void config_ant_delay(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->ant_delay;
+void config_preamble_rx_config(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
 }
-void config_xtrim(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->xtrim;
+void config_tx_power_ctrl(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
 }
-void config_dbl_buff_on(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->dbl_buff_on;
+void config_chan_ctrl(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
 }
-void config_sys_config_reg(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->sys_config_reg;
-}
-void config_tx_pow_config(DW_config* dw_config){
-  for(int i = 0; i < DW_TX_POW_LEN; i++){
-    dw_config->config_buffer[i] = dw_config->tx_pow_config[i];
-  }
-}
-void config_prf_index(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->prf_index;
-}
-void config_ldo_tune_low32(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->ldo_tune_low32;
-}
-void config_long_frames(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->long_frames;
-}
+
 
 void (*config_table[CONFIG_STRUCT_MEMBERS +1])() = {
-  config_device_id,
-  config_part_id,
-  config_lot_id,
-  config_pan_id,
-  config_channel,
-  config_otp_rev,
-  config_tx_fctrl,
-  config_rf_tx_delay,
-  config_rf_rx_delay,
-  config_ant_delay,
-  config_xtrim,
-  config_dbl_buff_on,
-  config_sys_config_reg,
-  config_tx_pow_config,
-  config_prf_index,
-  config_ldo_tune_low32,
-  config_long_frames
+  &config_unique_id,
+  &config_pan_id,
+  &config_sys_conf,
+  &config_tx_frame_ctrl,
+  &config_rf_tx_delay,
+  &config_sys_ctrl_reg,
+  &config_sys_event_status,
+  &config_tx_ant_delay,
+  &config_ack_resp_time,
+  &config_preamble_rx_config,
+  &config_tx_power_ctrl,
+  &config_chan_ctrl,
 };
 
-/*  Place this enum as a member of the dw_config struct.
- *  Use this enum to set a desired register, to be configured, prior calling the interface fn 
- *
- *  example:
- *
- *  - setting the pan_id 
- *
- *    dw_config->config_index = pan_id; // for the interface function
- *    
- *    //CONSIDER MOVING THE FOLLOWING INTO THE RELEVANT STRUCT MEMBER FUNCTIONS
- *    dw_nodelist->reg_id_index = REG_ID_PAN_ID; // for the message header builder
- *    dw_nodelist->sub_addr_index = SUB_ADDR_PAN_ID;
- *    dw_ConfigReg(host_object, WRITE, host_usart, ext_dev_object);
- *    
- */
+/***************************************************************************************/
 
-uint32_t query_table_reg_id_table[QUERY_STRUCT_MEMBERS] = {
-  //regid for registers pertanent to config and query fns  
-};
+
+
 
 
 uint32_t query_table_len[QUERY_STRUCT_MEMBERS] = {
-  EUI_64_LEN,
-  DW_PART_ID_LEN,
-  DW_LOT_ID_LEN,
-  DW_PAN_ID_LEN,
-  DW_CHAN_LEN,
-  DW_OTP_REV_LEN,
-  DW_TX_FCTRL_LEN,
-  DW_TX_DELAY_LEN,
-  DW_RX_DELAY_LEN,
-  DW_ANT_DELAY_LEN,
-  DW_XTRIM_LEN,
-  DW_DBL_BUFF_LEN,
-  DW_SYS_CONFIG_LEN,
-  DW_TX_POW_LEN,
-  DW_SYS_CONFIG_LEN,     
-  DW_PRF_INDEX_LEN,      
-  DW_LDO_TUNE_LOW32_LEN, 
-  DW_LONG_FRAMES_LEN    
+  DEVICE_ID_LEN,
+  SYSTEM_TIME_LEN,
+  RX_FRAME_TIMEOUT_LEN,
+  RX_FRAME_QUAL_LEN,
+  RX_TIME_INTERVAL_LEN,
+  SYS_STATE_INFO_LEN
 };
 
-void query_device_id(DW_config* dw_config){
-  for(int i = 0; i < EUI_64_LEN; i++){ 
-    dw_config->config_buffer[i] = dw_config->device_id[i];
-  }
-  dw_config->config_buffer_len = EUI_64_LEN; 
-}
-void query_part_id(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->part_id;
-}
-void query_lot_id(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->lot_id;
-}
-void query_pan_id(DW_config* dw_config){
-  for(int i = 0; i < DW_PAN_ID_LEN; i++){
-    dw_config->config_buffer[i] = dw_config->pan_id[2];
-  }
-}
-void query_channel(DW_config* dw_config){
-  dw_config->config_buffer[0] = dw_config->channel;
-}
-void query_otp_rev(DW_config* dw_config){
+
+void query_dev_id(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_tx_fctrl(DW_config* dw_config){
+void query_sys_time(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_rf_tx_delay(DW_config* dw_config){
+void query_rx_frame_timeout(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_rf_rx_delay(DW_config* dw_config){
+void query_rx_frame_qual(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_ant_delay(DW_config* dw_config){
+void query_rx_time_interval(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_xtrim(DW_config* dw_config){
+void query_sys_state_info(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_dbl_buff_on(DW_config* dw_config){
+void query_unique_id(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+  
+  //dw_config->reg_id_addr =   
 
 }
-void query_sys_config_reg(DW_config* dw_config){
+void query_pan_id(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_tx_pow_config(DW_config* dw_config){
+void query_sys_conf(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_prf_index(DW_config* dw_config){
+void query_tx_frame_ctrl(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_ldo_tune_low32(DW_config* dw_config){
+void query_rf_tx_delay(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+  
+}
+void query_sys_ctrl_reg(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
-void query_long_frames(DW_config* dw_config){
+void query_sys_event_status(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
+  //write zero so we have no effect on this register
+
+}
+void query_tx_ant_delay(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+  
+}
+void query_ack_resp_time(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
+}
+void query_preamble_rx_config(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
+}
+void query_tx_power_ctrl(DW_config* dw_config, DW_reg_id_enum reg_id_table){
+
+}
+void query_chan_ctrl(DW_config* dw_config, DW_reg_id_enum reg_id_table){
 
 }
 
 void (*query_table[QUERY_STRUCT_MEMBERS +1])() = {
-  query_device_id,
-  query_part_id,
-  query_lot_id,
-  query_pan_id,
-  query_channel,
-  query_otp_rev,
-  query_tx_fctrl,
-  query_rf_tx_delay,
-  query_rf_rx_delay,
-  query_ant_delay,
-  query_xtrim,
-  query_dbl_buff_on,
-  query_sys_config_reg,
-  query_tx_pow_config,
-  query_prf_index,
-  query_ldo_tune_low32,
-  query_long_frames
+  &query_unique_id,
+  &query_pan_id,
+  &query_sys_conf,
+  &query_tx_frame_ctrl,
+  &query_rf_tx_delay,
+  &query_sys_ctrl_reg,
+  &query_sys_event_status,
+  &query_tx_ant_delay,
+  &query_ack_resp_time,
+  &query_preamble_rx_config,
+  &query_tx_power_ctrl,
+  &query_chan_ctrl,
+  
+  &query_dev_id,
+  &query_sys_time,
+  &query_rx_frame_timeout,
+  &query_rx_frame_qual,
+  &query_rx_time_interval,
+  &query_sys_state_info,
 };
 
 
