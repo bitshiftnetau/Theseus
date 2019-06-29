@@ -66,28 +66,6 @@ typedef struct {
 
 // set the frequency of the hfrco and the tuning value as well
 
-/*
-void USART_SetBaud(int rate){
-
-	uint32_t clkmask_19200 = 0b00000010011001UL;
-	uint32_t clkmask_9600 = 0b00000010011001UL;
-
-
-	switch(rate){
-	case(9600):
-	USART1->CLKDIV = (_USART_CLKDIV_MASK & (clkmask_9600 <<6));
-	CMU->HFPERCLKDIV = (CMU_HFPERCLKDIV_HFPERCLKEN | _CMU_HFPERCLKDIV_HFPERCLKDIV_HFCLK4);
-	break;
-
-	case(19200):
-	USART1->CLKDIV = (_USART_CLKDIV_MASK & (clkmask_19200 <<6));
-	CMU->HFPERCLKDIV = (CMU_HFPERCLKDIV_HFPERCLKEN | _CMU_HFPERCLKDIV_HFPERCLKDIV_HFCLK2);
-	break;
-	}
-
-} //end fn
-*/
-
 CMU_periphconf cmu_periphconf = {
 
  .ctrl = (CMU_CTRL_HFXOTIMEOUT_1KCYCLES | CMU_CTRL_HFXOGLITCHDETEN),
@@ -235,7 +213,7 @@ USART_periphconf usart_sync = {
   .ctrl = (USART_CTRL_OVS_X16 | USART_CTRL_TXBIL_EMPTY | USART_CTRL_SYNC | USART_CTRL_MSBF | USART_CTRL_CLKPHA | USART_CTRL_AUTOCS),
   .frame = (USART_FRAME_DATABITS_EIGHT),
   .cmd = (USART_CMD_TXEN | USART_CMD_RXEN | USART_CMD_MASTEREN),
-  .clkdiv = CLKDIV_24MHZ_HFXO_16OVS_DIV0_SYNC_115200,
+  .clkdiv = 0x00UL,
   .route = (USART_ROUTE_LOCATION_LOC3 | USART_ROUTE_TXPEN | USART_ROUTE_RXPEN | USART_ROUTE_CSPEN | USART_ROUTE_CLKPEN),
   .intflag = _USART_IF_RESETVALUE
 };
