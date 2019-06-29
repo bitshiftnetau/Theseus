@@ -178,7 +178,8 @@ int main(void)
 
   /********************* GPIO LEDs ************************************/ 
  
-   
+  mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_init); 
+  mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
 
   /* Infinite loop */
   while (1){
@@ -215,16 +216,17 @@ int main(void)
     /* 
     mpi_usartData(&efm32zg222f32_host, efm32zg_usart_data, &array, test_fn, WRITE);
     */
-    
+   /* 
     for(int i = 0; i < 3; i++){
       mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 100);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 10);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 11);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 5, 4);
     }
+*/
 
     //Uncomment for dw1000 demo
-    mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 50);
+    mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 200);
     mpi_extdevData(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_data, WRITE);
 
    }
