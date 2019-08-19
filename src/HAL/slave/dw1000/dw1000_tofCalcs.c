@@ -69,12 +69,12 @@ void dw_tx_poll_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, 
   DW_data* dw_data = &dw_nodelist->list[node_index]; 
 
   // get the transmission timestamp after sending Poll frame (from where I don't know)
-
-  dw_config->reg_id_index = REG_ID_TX_MARKER;
+  DW_reg_id_enum enum_member = tx_send_time;
+  dw_config->reg_id_index = enum_member;
   dw_config->sub_addr_index = 0;
-
+  
   uint8_t tx_marker[TX_MARKER_TOTAL_LEN];
-  dw_Rx(host_object, host_usart, dw_nodelist, tx_marker, TX_MARKER_TOTAL_LEN - 1);
+  dw_Rx(host_object, host_usart, dw_slave_ptr, tx_marker, TX_MARKER_TOTAL_LEN - 1);
   
   //dw_data->tof.poll.tx_marker = tx_marker[0];
   for(int i = T_REPLY_LEN; i < 0; i--){
@@ -98,8 +98,8 @@ void dw_tx_resp_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, 
   //uint32_t resp_tx_time = (poll_rx_ts + (T_REPLY_1_DELAY_UUS * UUS_TO_DW_TIME));
   uint64_t resp_tx_delay = (poll_rx_ts + (T_REPLY_1_DELAY_UUS * UUS_TO_DW_TIME)) >> 8;
 
-  uint16_t tx_ant_delay = dw_config->tx_ant_delay[1];
-  tx_ant_delay = (tx_ant_delay << SINGLE_BYTE_SHIFT) | dw_config->tx_ant_delay[0];
+  uint16_t tx_antenna_delay = dw_config->tx_ant_delay[1];
+  tx_antenna_delay = (tx_antenna_delay << SINGLE_BYTE_SHIFT) | dw_config->tx_ant_delay[0];
   
   //store resp_tx_time in the config struct and then write to device
   dw_config->rf_tx_delay[0] = (resp_tx_delay & SINGLE_BYTE);
@@ -107,15 +107,15 @@ void dw_tx_resp_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, 
     dw_config->rf_tx_delay[i] |= (resp_tx_delay >> SINGLE_BYTE_SHIFT) & SINGLE_BYTE;
   }
 
-  DW_reg_id_enum config_member = tx_ant_delay;
 
   //Build the message header and transmit configuration to device 
-  dw_config->reg_id_index = config_member;
+  DW_reg_id_enum enum_member = tx_ant_delay;
+  dw_config->reg_id_index = enum_member;
   dw_config->sub_addr_index = 0;
 
   //put the data in the config buffer
-  void(*config_member_ptr)() = config_table[config_member]; 
-  config_member_ptr(dw_config, config_member);
+  void(*config_member_ptr)() = config_table[(int)enum_member]; 
+  config_member_ptr(dw_config, enum_member);
   
   //build the spi transaction header and frame
   volatile uint32_t(* build_msg_ptr)() = dw_decode_build_table[WRITE];
@@ -123,7 +123,7 @@ void dw_tx_resp_ts(void* host_object, int(*host_usart)(), void* ext_dev_object, 
   
   //callback to host usart to send config
   if(ret == EXIT_SUCCESS){
-    dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+    dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
   }
   
   dw_data->tof.resp.tx_marker = (resp_tx_delay & 0xFFFFFFFEUL) + tx_ant_delay; // TX_ANT_DLY; (this value could also be the ant_delay member so check on that)
@@ -147,8 +147,8 @@ void dw_tx_final_ts(void* host_object, int(*host_usart)(), void* ext_dev_object,
   //uint32_t final_tx_time = (resp_rx_ts + (T_REPLY_2_DELAY_UUS * UUS_TO_DW_TIME));
   uint64_t final_tx_delay = (resp_rx_ts + (T_REPLY_2_DELAY_UUS * UUS_TO_DW_TIME)) >> 8;
 
-  uint16_t tx_ant_delay = dw_config->tx_ant_delay[1];
-  tx_ant_delay = (tx_ant_delay << SINGLE_BYTE_SHIFT) | dw_config->tx_ant_delay[0];
+  uint16_t tx_antenna_delay = dw_config->tx_ant_delay[1];
+  tx_antenna_delay = (tx_antenna_delay << SINGLE_BYTE_SHIFT) | dw_config->tx_ant_delay[0];
 
   //store resp_tx_time in the config struct and then write to device
   dw_config->rf_tx_delay[0] = (final_tx_delay & SINGLE_BYTE);
@@ -156,15 +156,14 @@ void dw_tx_final_ts(void* host_object, int(*host_usart)(), void* ext_dev_object,
     dw_config->rf_tx_delay[i] |= (final_tx_delay >> SINGLE_BYTE_SHIFT) & SINGLE_BYTE;
   }
 
-  DW_reg_id_enum config_member = tx_ant_delay;
-  
   //Build the message header and transmit configuration to device 
-  dw_config->reg_id_index = config_member;
+  DW_reg_id_enum enum_member = tx_ant_delay;
+  dw_config->reg_id_index = enum_member;
   dw_config->sub_addr_index = 0;
 
   //put the data in the config buffer
-  void(*config_member_ptr)() = config_table[config_member]; 
-  config_member_ptr(dw_config, config_member);
+  void(*config_member_ptr)() = config_table[(int)enum_member]; 
+  config_member_ptr(dw_config, enum_member);
   
   //build the spi transaction header and frame
   volatile uint32_t(* build_msg_ptr)() = dw_decode_build_table[WRITE];
@@ -173,7 +172,7 @@ void dw_tx_final_ts(void* host_object, int(*host_usart)(), void* ext_dev_object,
   //callback to host usart and send frame
   //
   if(ret == EXIT_SUCCESS){
-    dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+    dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
   }
 
   dw_data->tof.final.tx_marker = (final_tx_delay & 0xFFFFFFFEUL) + tx_ant_delay;
