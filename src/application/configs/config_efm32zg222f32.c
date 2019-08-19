@@ -16,14 +16,16 @@
  *
  */
 
+#include "_app_fns.h"
+
 #include "mpi_port.h"
 #include "mpi_types.h"
+
 #include "config_efm32zg222f32.h"
 
 #include "efm32zg222f32.h"
 #include "efm32zg_types_HAL.h"
 #include "efm32zg222f32_adaptor.h"
-#include "efm32zg_app.h"
 
 /**************
  *    CMU 
@@ -69,7 +71,7 @@ typedef struct {
 CMU_periphconf cmu_periphconf = {
 
  .ctrl = (CMU_CTRL_HFXOTIMEOUT_1KCYCLES | CMU_CTRL_HFXOGLITCHDETEN),
- .hfperclkdiv = CMU_HFPERCLKDIV_HFPERCLKEN, 
+ .hfperclkdiv = CMU_HFPERCLKDIV_HFPERCLKEN, //| CMU_HFPERCLKDIV_HFPERCLKDIV_HFCLK2, 
  .hfrcoctrl = _CMU_HFRCOCTRL_SUDELAY_DEFAULT | CMU_HFRCOCTRL_BAND_14MHZ,
  .oscencmd = CMU_OSCENCMD_HFRCOEN,
  .cmd = CMU_CMD_HFCLKSEL_HFRCO,
@@ -112,25 +114,26 @@ typedef struct {
 }TIMER_periphconf;
 */
 
-#define TIMER_1MS_OF_21MHZ_HFRCO 21277
-#define TIMER_1MS_OF_14MHZ_HFRCO 14308
-#define TIMER_1MS_OF_7MHZ_HFRCO 
-#define TIMER_1MS_OF_4MHZ_HFRCO
-#define TIMER_1MS_OF_1MHZ_HFRCO
+#define TIMER_1MS_21MHZ_HFRCO 21277
+#define TIMER_1MS_14MHZ_HFRCO 14308
+#define TIMER_1MS_7MHZ_HFRCO 
+#define TIMER_1MS_4MHZ_HFRCO
+#define TIMER_1MS_1MHZ_HFRCO
 
-#define TIMER_1MS_OF_LFXO 32
+#define TIMER_1MS_LFXO 32
 
-#define TIMER_1MS_OF_24MHZ_DIV0_HFXO  24272
-#define TIMER_1MS_OF_24MHZ_DIV2_HFXO
-#define TIMER_1MS_OF_24MHZ_DIV4_HFXO
-#define TIMER_1MS_OF_24MHZ_DIV8_HFXO  3121
+#define TIMER_1MS_24MHZ_DIV0_HFXO  24272 
+#define TIMER_1MS_24MHZ_DIV2_HFXO  
+#define TIMER_1MS_24MHZ_DIV4_HFXO
+#define TIMER_1MS_24MHZ_DIV8_HFXO  3121
 
+#define TIMER_100US_24MHZ_DIV0_HFXO  24
 
 TIMER_periphconf timer0_periphconf = {
  .ctrl = TIMER_CTRL_DEBUGRUN,
  .ien = TIMER_IEN_OF, //enable overflow interrupt
- .top = TIMER_1MS_OF_24MHZ_DIV0_HFXO,
- .topb = TIMER_1MS_OF_24MHZ_DIV0_HFXO
+ .top = TIMER_1MS_24MHZ_DIV0_HFXO,
+ .topb = TIMER_1MS_24MHZ_DIV0_HFXO
 };
 
 
@@ -201,24 +204,42 @@ typedef struct {
 #define CLKDIV_24MHZ_HFXO_16OVS_DIV0_ASYNC_9600 (0b1001101101000000UL)
 //#define CLKDIV_24MHZ_HFXO_16OVS_DIV4_ASYNC_9600 (0b10011000010000UL)
 
+#define HFPERCLK_24MHZ  24000000
+#define HFPERCLK_12MHZ  12000000
+
+#define SPICLK_MAX_24MHZ_PERCLK      (HFPERCLK_24MHZ / 2)
+#define SPICLK_11-5_MBPS              11500000
+#define SPICLK_11_MBPS                11000000
+#define SPICLK_10-5_MBPS              10500000
+#define SPICLK_10_MBPS                10000000
+//...
+#define SPICLK_5_MBPS                 5000000
+#define SPICLK_4_MBPS                 4000000
+#define SPICLK_3_MBPS                 3000000
+#define SPICLK_2_MBPS                 2000000
+#define SPICLK_1_MBPS                 1000000
 
 #define CLKDIV_24MHZ_HFXO_16OVS_DIV0_SYNC_115200 (0b110011100UL << 6)
-
+#define CLKDIV_24MHZ_HFXO_16OVS_DIV0_SYNC_1_MBS (256 * (HFPERCLK_24MHZ / (2 * SPICLK_1_MBPS) -1 ))
 
 USART_data usart_data;
 USART_error usart_error;
 USART_status usart_status;
 
+
+/************************** SYNCHRONOUS SPI SETTINGS **************************/
 USART_periphconf usart_sync = {
   .ctrl = (USART_CTRL_OVS_X16 | USART_CTRL_TXBIL_EMPTY | USART_CTRL_SYNC | USART_CTRL_MSBF | USART_CTRL_CLKPHA | USART_CTRL_AUTOCS),
   .frame = (USART_FRAME_DATABITS_EIGHT),
   .cmd = (USART_CMD_TXEN | USART_CMD_RXEN | USART_CMD_MASTEREN),
-  .clkdiv = 0x00UL,
+  .clkdiv = CLKDIV_24MHZ_HFXO_16OVS_DIV0_SYNC_1_MBS,
   .route = (USART_ROUTE_LOCATION_LOC3 | USART_ROUTE_TXPEN | USART_ROUTE_RXPEN | USART_ROUTE_CSPEN | USART_ROUTE_CLKPEN),
   .intflag = _USART_IF_RESETVALUE
 };
+/************************** SYNCHRONOUS SPI SETTINGS **************************/
 
 
+/************************** ASYNCHRONOUS SERIAL SETTINGS **************************/
 USART_periphconf usart_async_8N1 = {
   .ctrl = (USART_CTRL_OVS_X16 | USART_CTRL_TXBIL_EMPTY | USART_CTRL_SYNC_DEFAULT | USART_CTRL_TXDELAY_SINGLE | (!USART_CTRL_CLKPOL_IDLEHIGH)),
   .frame = (USART_FRAME_DATABITS_EIGHT | USART_FRAME_PARITY_NONE | USART_FRAME_STOPBITS_ONE),
@@ -227,7 +248,7 @@ USART_periphconf usart_async_8N1 = {
   .route = (USART_ROUTE_LOCATION_LOC3 | USART_ROUTE_TXPEN | USART_ROUTE_RXPEN),
   .intflag = _USART_IF_RESETVALUE
 };
-
+/************************** ASYNCHRONOUS SERIAL SETTINGS **************************/
 
 USART_frameconf usart_frameconf = {
   .bitwidth = USART_8_N,
@@ -392,6 +413,7 @@ MPI_host efm32zg222f32_host = {
 
     ._usart_data = &usart_Data,
     ._gpio_data = &gpio_Data,
+
     ._timer_delay = &timer_Delay
 
   },
