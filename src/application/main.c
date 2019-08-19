@@ -33,6 +33,7 @@
 #include "mpi_ext_dev.h"
 
 #include "_app_config.h"
+#include "_app_fns.h"
 
 #include "dw1000_adaptor.h"
 
@@ -104,9 +105,10 @@ int main(void)
   //Get the io functions
   // 
   volatile const int(* efm32zg_gpio_data)() = efm32zg222f32_host._periph_periphconf._gpio_data;
-  volatile const int(* efm32zg_timer_delay)() = efm32zg222f32_host._periph_periphconf._timer_delay;
   volatile const int(* efm32zg_usart_data)() = efm32zg222f32_host._periph_periphconf._usart_data;
- 
+  volatile const int(* efm32zg_timer_delay)() = efm32zg222f32_host._periph_periphconf._timer_delay;
+  //volatile const int(* efm32zg_timer_delay)() = &timer_Delay;
+  
   //Run the x_Init fns through the middleware layer
   //
   mpi_cmuInit(&efm32zg222f32_host, efm32zg_cmu_init);
@@ -167,20 +169,20 @@ int main(void)
   //get the data structs
   //
 
-  mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 250);
+  mpi_timerDelay(efm32zg_timer_delay, 1);
   mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE, 2, 10);
     
-  mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 250);
+  mpi_timerDelay(efm32zg_timer_delay, 1);
   mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE, 2, 11);
 
-  mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 250);
+  mpi_timerDelay(efm32zg_timer_delay, 1);
   mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE, 5, 4);
 
   /********************* GPIO LEDs ************************************/ 
  
   mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_init); 
-  mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 1000);
-
+  mpi_timerDelay(efm32zg_timer_delay, 10);
+  
   /* Infinite loop */
   while (1){
 
@@ -226,8 +228,8 @@ int main(void)
 */
 
     //Uncomment for dw1000 demo
-    mpi_timerDelay(&efm32zg222f32_host, efm32zg_timer_delay, 200);
     mpi_extdevData(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_data, WRITE);
+    mpi_timerDelay(efm32zg_timer_delay, 1);
 
    }
 }
