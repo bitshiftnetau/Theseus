@@ -20,12 +20,13 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "_app_fns.h"
+
 #include "mpi_port.h"
 
 #include "dw1000_adaptor.h"
 #include "dw1000_types.h"
 #include "dw1000_regs.h"
-
 
 #include "dw1000_nodeMgmt.h"
 #include "dw1000_buildMAC.h"
@@ -83,16 +84,27 @@ enum _##type type##s[] = { __VA_ARGS__ }
  *
  */
 
-
 int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
 
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
   DW_config* dw_config = (DW_config*)dw_slave_ptr->MPI_conf[DW_CONFIG_INDEX];  
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
 
+  MPI_host* host_ptr = (MPI_host*)host_object;
+  int_callback host_timer_delay = host_ptr->_periph_periphconf._timer_delay;
+  
   //Turn on power? 
+  
+  
+  
   //Gpio lines for alpha/polarity mode
+  
+  
+  
   //Setup IRQ
+  
+  
+  
   //Setup diagnostic LEDs
   //
   //Set the following:
@@ -119,35 +131,30 @@ int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
 
 
 
-
+  //can't remember why this is here
   DW_reg_id_enum config_index = unique_id;
 
   //for loop with call to write into struct members
   //
-  for(int i = 0; i < CONFIG_STRUCT_MEMBERS - 1; i++){
-   
-    dw_config->reg_id_index = config_index;
+  for(int i = 0; i < CONFIG_STRUCT_MEMBERS; i++){
 
+    host_timer_delay(1); 
     void(*config_member_ptr)() = config_table[i]; 
-    config_member_ptr(dw_config, config_index);
-
+    config_member_ptr(dw_config);
     
-    //if tx call to dw_buildMessage()
-    //if rx call to dw_decodeMessage()
+    //if WRITE call to dw_buildMessage()
+    //if READ call to dw_decodeMessage()
     //
     volatile uint32_t(* build_msg_ptr)() = dw_decode_build_table[WRITE];
     int ret = build_msg_ptr(host_object, host_usart, ext_dev_object, WRITE, DW_CONFIG);
     
-    //int ret = dw_buildMessageOut(ext_dev_object, WRITE, 0);
-   
     //callback to host usart
     //
     if(ret == EXIT_SUCCESS){
-      dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+      dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
     } else {
       return ERROR;
     }
-    config_index += 1;
   }
   return EXIT_SUCCESS;
 }
@@ -167,14 +174,13 @@ int dw_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object){
 
     //callback to host usart
     //
-    dw_Rx(host_object, host_usart, dw_nodelist, dw_config->query_buffer, dw_config->query_buffer_len);
+    dw_Rx(host_object, host_usart, dw_slave_ptr, dw_config->query_buffer, dw_config->query_buffer_len);
       
     //Write into struct member
     //
     void(*query_member_ptr)() = query_table[query_index]; 
-    query_member_ptr(dw_config, query_index);
+    query_member_ptr(dw_config);
 
-    query_index += 1;
   } 
   return EXIT_SUCCESS;
 }
@@ -207,7 +213,7 @@ int dw_ConfigReg(void* host_object, int(*host_usart)(), void* ext_dev_object, DW
   //callback to host usart
   //
   if(ret == EXIT_SUCCESS){  
-    dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+    dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
   } 
   return ERROR;
 }
@@ -223,12 +229,12 @@ int dw_QueryReg(void* host_object, int(*host_usart)(), void* ext_dev_object, DW_
 
   //callback to host usart
   //
-  dw_Rx(host_object, host_usart, dw_nodelist, dw_config->query_buffer, dw_config->query_buffer_len);
+  dw_Rx(host_object, host_usart, dw_slave_ptr, dw_config->query_buffer, dw_config->query_buffer_len);
   
   //Write into struct member
   //
   void(*query_member_ptr)() = query_table[query_index]; 
-  query_member_ptr(dw_config, query_index);
+  query_member_ptr(dw_config);
   
   return EXIT_SUCCESS;
 }
@@ -259,12 +265,14 @@ int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
 
   if(read_write == READ){
 
-    dw_config->reg_id_index = REG_ID_RX_BUFFER;
+    dw_config->reg_id_index = rx_buffer;
     dw_config->sub_addr_index = 0;
     dw_config->sub_addr_index = 0;
 
+    //DW_reg_id_enum reg_id = dw_config->reg_id_index;
+    
     // read first two octets of frame
-    dw_Rx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_in, FC_COMMON_LEN);
+    dw_Rx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_in, FC_COMMON_LEN);
 
     // decode whole frame and handle
     //
@@ -289,16 +297,21 @@ int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
      // MAJOR PROBLEM: WE DON'T HAVE THE INDEX OF THE DATA NODE FROM NODELIST IF WE ARE 
      // MAKING AN UNSOLICITED WRITE OPERATION
    
+      dw_config->reg_id_index = tx_buffer;
+      dw_config->sub_addr_index = 0;
+      dw_config->sub_addr_index = 0;
+
+      DW_reg_id_enum reg_id = dw_config->reg_id_index;
 
       //if tx call to dw_buildMessage()
       //
       uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
-      int index = build_msg_ptr(host_object, host_usart, ext_dev_object, WRITE, dw_nodelist->node_index);
+      int node_index = build_msg_ptr(host_object, host_usart, ext_dev_object, WRITE, dw_nodelist->node_index);
 
-      dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+      dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
    
       //If this was a poll message, get the tx timstamp straight after transmission
-      if(dw_nodelist->list[index].handler_index == POLL_INDEX){
+      if(dw_nodelist->list[node_index].handler_index == POLL_INDEX){
         dw_config->reg_id_index = REG_ID_TX_MARKER;      
         void(*poll_tx_ts_fn)() = dw_ts_handler_table[POLL_INDEX];
         poll_tx_ts_fn(host_object, host_usart, ext_dev_object);
@@ -307,7 +320,7 @@ int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
   return EXIT_SUCCESS;
 }
 
-
+/*
 
 int dw_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
@@ -327,7 +340,7 @@ int dw_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //call to adjust struct member value
   //
   void(*config_member_ptr)() = config_table[config_index]; 
-  config_member_ptr(dw_config, config_index);
+  config_member_ptr(dw_config);
  
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
@@ -336,7 +349,7 @@ int dw_Reset(void* host_object, int(*host_usart)(), void* ext_dev_object){
   int ret = build_msg_ptr(host_object, host_usart, ext_dev_object, WRITE, DW_CONFIG);
 
   if(ret == EXIT_SUCCESS){
-    return dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+    return dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
   }
   return ERROR;
 }
@@ -367,7 +380,7 @@ int dw_Off(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //call to adjust struct member value
   //
   void(*config_member_ptr)() = config_table[config_index]; 
-  config_member_ptr(dw_config, config_index);
+  config_member_ptr(dw_config);
  
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
@@ -378,7 +391,7 @@ int dw_Off(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //callback to host usart
   //
   if(ret == EXIT_SUCCESS){
-    return dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+    return dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
   }
   return ERROR;
 }
@@ -409,7 +422,7 @@ int dw_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //call to adjust struct member value
   //
   void(*config_member_ptr)() = config_table[config_index]; 
-  config_member_ptr(dw_config, config_index);
+  config_member_ptr(dw_config);
  
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
@@ -420,7 +433,7 @@ int dw_Sleep(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //callback to host usart
   //
   if(ret == EXIT_SUCCESS){
-    return dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+    return dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
   }
   return ERROR;
 }
@@ -452,7 +465,7 @@ int dw_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //call to adjust struct member value
   //
   void(*config_member_ptr)() = config_table[config_index]; 
-  config_member_ptr(dw_config, config_index);
+  config_member_ptr(dw_config);
  
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
@@ -463,7 +476,7 @@ int dw_Wakeup(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //callback to host usart
   //
   if(ret == EXIT_SUCCESS){
-    return dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+    return dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
   }
   return ERROR;
 }
@@ -493,7 +506,7 @@ int dw_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //call to adjust struct member value
   //
   void(*config_member_ptr)() = config_table[config_index]; 
-  config_member_ptr(dw_config, config_index);
+  config_member_ptr(dw_config);
  
   //if tx call to dw_buildMessage()
   //if rx call to dw_decodeMessage()
@@ -504,8 +517,8 @@ int dw_ModeLevel(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //callback to host usart
   //
   if(ret == EXIT_SUCCESS){
-    return dw_Tx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
+    return dw_Tx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_out, dw_nodelist->frame_out_len);
   }
   return ERROR;
 }
-
+*/
