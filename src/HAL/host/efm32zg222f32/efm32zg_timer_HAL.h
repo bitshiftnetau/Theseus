@@ -13,6 +13,9 @@
 #include "efm32zg222f32.h"
 #include "efm32zg_types_HAL.h"
 
+#define EFM32ZG_TIMER_CMD_START   0x01
+#define EFM32ZG_TIMER_CMD_STOP    0x02
+
 #define TIMER_READ_WRITE_CLEAR 3
 #define TIMER_CHANNEL_0 0
 #define TIMER_CHANNEL_1 0
