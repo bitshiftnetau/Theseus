@@ -18,6 +18,8 @@
 
 #include <stdint.h>
 
+#include "_app_fns.h"
+
 #include "mpi_types.h"
 #include "mpi_port.h"
 
@@ -32,7 +34,6 @@
 #include "efm32zg_timer_HAL.h"
 #include "efm32zg222f32_adaptor.h"
 
-#include "efm32zg_app.h"
 
 /**************** USART *******************/
 
@@ -528,5 +529,6 @@ int timer_QueryReg(void* host_ptr, uint32_t config_register){
 	fn_ptr = timer_config_table[conf_reg][READ];
 	return fn_ptr(timer_periphconf);
 }
+
 
 

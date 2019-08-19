@@ -46,6 +46,15 @@ int gpio_Data(void* host_ptr, uint32_t RW, uint32_t port, uint16_t pin);
  *      TIMER 
  *********************/
 
+#ifndef TIMER_CMD_START
+#define TIMER_CMD_START EFM32ZG_TIMER_CMD_START
+#endif
+
+#ifndef TIMER_CMD_STOP
+#define TIMER_CMD_STOP EFM32ZG_TIMER_CMD_STOP
+#endif
+
+
 int timer_Init(void* host_ptr);
 int timer_ConfigReg(void* host_ptr, uint32_t config_register);
 int timer_QueryReg(void* host_ptr, uint32_t config_register);
