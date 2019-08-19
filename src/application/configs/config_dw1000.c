@@ -38,46 +38,149 @@
 #include "dw1000_types.h"
 #include "dw1000_tofCalcs.h"
 
-
-
+//ALL DW_CONFIG MEMBERS
 /*
-  DW_config_index_table config_index;
-  DW_config_index_table query_index;
   bool config_query_bool;
-  bool ranging_mode;            //discovery or twr phase
-  uint8_t query_buffer[16];
-  uint8_t config_buffer[16];
-  uint32_t config_buffer_len;
-  uint32_t query_buffer_len;
-  uint32_t device_id[EUI_64_LEN]; // device id (ieee unique 64-bit identifier)
-  uint32_t part_id;             // part id ???
-  uint32_t lot_id;              // lot id ???
-  uint32_t pan_id[2];
-  uint32_t channel;              // added chan here - used in the reading of acc
-  uint32_t otp_rev;              // otp revision number (read during initialisation)
-  uint32_t tx_fctrl;            // keep tx_fctrl register config
-  uint32_t rf_rx_delay[2];         // rf delay (delay though the rf blocks before the signal comes out of the antenna)
-  uint32_t rf_tx_delay[2];         // rf delay (delay though the rf blocks before the signal comes out of the antenna)
-  uint32_t ant_delay;           // antenna delay read from otp 64 prf value is in high 16 bits and 16m prf in low 16 bits
-  uint32_t xtrim;               // xtrim value read from otp
-  uint32_t dbl_buff_on;          // double rx buffer mode flag
-  uint32_t sys_config_reg;     // local copy of system config register
-  uint32_t tx_pow_config[12];   // stores the tx power configuration read from otp (6 channels consecutively with prf16 then 64, e.g. ch 1 prf16 is index 0 and 64 index 1)
-   int prf_index;               //prf index ???
-  uint32_t ldo_tune_low32;      //low 32 bits of ldo tune value
-  uint32_t long_frames;  // flag in non-standard long frame mode
+  bool ranging_mode;            //discovery, range init, or ranging
+  uint8_t query_buffer[32];
+  uint8_t config_buffer[32];
+  uint8_t config_buffer_len;
+  uint8_t query_buffer_len;
+
+  uint8_t device_id[4]; 
+  uint8_t unique_id[EUI_64_LEN]; // device id (ieee unique 64-bit identifier)
+  uint8_t pan_id[PAN_ID_LEN];
+  uint8_t sys_conf[SYS_CFG_LEN];
+  uint8_t sys_time[SYS_TIME_LEN];
+  uint8_t tx_frame_ctrl[TX_FRAME_CTRL_LEN]; 
+  uint8_t tx_frame_ctrl_sub_reg_4;
+  uint32_t rf_tx_delay[2];         // used to specficy a time in the future to turn on rx or send tx   
+  uint8_t rx_frame_timeout[2];
+  uint8_t sys_ctrl_reg[4];
+  uint8_t sys_event_mask[4];
+  uint8_t sys_event_status[4];
+  uint8_t sys_status_sub_reg_4;
+  uint8_t rx_frame_qual[8]; 
+  uint8_t rx_frame_qual_sub_reg_4[4];
+  uint8_t rx_time_interval[4];
+  uint8_t rx_time_interval_offset[5];
+  uint8_t rx_ts_sub_addr_5[4]; //first path index + first path amplitude point 1
+  uint8_t rx_ts_sub_addr_9[5]; //raw timestamp 
+  uint8_t tx_ts_sub_addr_5[5]; //raw timestamp
+  uint8_t tx_ant_delay[2];
+  uint8_t sys_state_info[5];
+  uint8_t ack_resp_time[4];
+  uint8_t preamble_rx_config[4];
+  uint8_t tx_power_ctrl[4];
+  uint8_t chan_ctrl[4];
+*/
+
+//CONFIG_TABLE members
+/*
+  uint8_t unique_id[EUI_64_LEN]; // device id (ieee unique 64-bit identifier)
+  uint8_t pan_id[PAN_ID_LEN];
+  uint8_t sys_conf[SYS_CFG_LEN];
+  uint8_t tx_frame_ctrl[TX_FRAME_CTRL_LEN]; 
+  uint8_t sys_ctrl_reg[4];
+  uint8_t sys_event_mask[4];
+  uint8_t sys_event_status[4];
+  uint8_t tx_ant_delay[2];
+  uint8_t sys_state_info[5];
+  uint8_t ack_resp_time[4];
+  uint8_t preamble_rx_config[4];
+  uint8_t tx_power_ctrl[4];
+  uint8_t chan_ctrl[4];
 */
 
 DW_config dw_devconf = {
   .unique_id = {
-    [0] = 0x48,
-    [1] = 0x32,
-    [2] = 0x3E,
-    [3] = 0x8F, 
-    [4] = 0xAC,
-    [5] = 0x3B,
-    [6] = 0xA8,
-    [7] = 0x81
+    [0] = 0x08,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C, 
+    [4] = 0x0D,
+    [5] = 0x0E,
+    [6] = 0x0F,
+    [7] = 0x1A
+  },
+  .pan_id = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C
+  },
+  .sys_conf = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C
+  },
+  .tx_frame_ctrl = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C,
+  },
+  .rf_tx_delay = {
+    [0] = 0x05,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C, 
+    [4] = 0x0D,
+  },
+  .sys_ctrl_reg = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C
+  },
+  .sys_event_mask = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C
+  },
+  .sys_event_status = {
+    [0] = 0x05,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C,
+    [4] = 0x0D
+  },
+  .tx_ant_delay = {
+    [0] = 0x02,
+    [1] = 0x0A
+  },
+  .sys_state_info = {
+    [0] = 0x05,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C,
+    [4] = 0x0D
+  },
+  .ack_resp_time = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C
+  },
+  .preamble_rx_config = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C
+  },
+  .tx_power_ctrl = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C
+  },
+  .chan_ctrl = {
+    [0] = 0x04,
+    [1] = 0x0A,
+    [2] = 0x0B,
+    [3] = 0x0C
   }
 };
 
@@ -109,11 +212,11 @@ MPI_ext_dev dw1000 = {
     ._dev_data = &dw_Data,
     ._dev_config_reg = &dw_ConfigReg,
     ._dev_query_reg = &dw_QueryReg,
-    ._dev_wakeup = &dw_Wakeup,
-    ._dev_sleep = &dw_Sleep,
-    ._dev_mode_level = &dw_ModeLevel,
-    ._dev_reset = &dw_Reset,
-    ._dev_off = &dw_Off
+    //._dev_wakeup = &dw_Wakeup,
+    //._dev_sleep = &dw_Sleep,
+    //._dev_mode_level = &dw_ModeLevel,
+    //._dev_reset = &dw_Reset,
+    //._dev_off = &dw_Off
 
   },
   .MPI_data = {
