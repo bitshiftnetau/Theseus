@@ -178,7 +178,6 @@ typedef struct MPI_PERIPH_PERIPHCONF{
   int_callback _i2c_data;
   int_callback _usart_data;
   int_callback _leuart_data;
-  int_callback _timer_delay;
   int_callback _rtc_data;
   int_callback _pcnt_data;
   int_callback _acmp_data;
@@ -223,6 +222,8 @@ typedef struct MPI_PERIPH_PERIPHCONF{
   int_callback _idac_query_reg;
   int_callback _aes_query_reg;
   int_callback _gpio_query_reg;
+
+  int_callback _timer_delay;
 
 }MPI_periph_periphconf;
 
