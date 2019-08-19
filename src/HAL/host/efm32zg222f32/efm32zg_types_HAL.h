@@ -136,8 +136,6 @@ extern TIMER_TypeDef* timer1;
 
 
 
-
-
 #ifndef EFM32ZG222F32_PERIPHERALS
 #define EFM32ZG222F32_PERIPHERALS 10
 #endif
@@ -377,6 +375,7 @@ typedef struct {
 
 #define TIMERn_TOPms 21277
 //#define TIMERn_TOPus 
+
 
 volatile uint16_t timer0_ms_ticks;
 volatile uint16_t timer0_us_ticks;
