@@ -115,6 +115,57 @@ uint32_t dw_buildMessageHeader(DW_nodelist* dw_nodelist, DW_config* dw_config,  
  *                       Builders
  ***********************************************************/
 
+/*
+ * SPI TRANSACTION HEADER BUILDERS
+ */
+
+uint32_t dw_reg_read_write(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t read_write){
+
+  DW_reg_id_enum reg_id_index = dw_config->reg_id_index;
+
+  dw_nodelist->frame_out[0]  = dw_rw_bool_table[read_write];
+  dw_nodelist->frame_out[0] |= dw_reg_id_table[(int)reg_id_index];
+  
+  if(dw_config->sub_addr_index > sub_addr_0){
+    dw_nodelist->frame_out[0] |= MSG_SUB_ADDR_TRUE;
+  } else {
+    dw_nodelist->frame_out[0] |= MSG_SUB_ADDR_FALSE;
+  }
+  
+  
+  return (MSG_SUB_ADDR_TRUE & dw_nodelist->frame_out[0]);
+}
+
+uint32_t dw_sub_read_write(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t read_write){
+  
+  DW_sub_addr_enum sub_addr_index = dw_config->sub_addr_index;
+   
+  dw_nodelist->frame_out[1] |= sub_addr_index;
+ 
+  if(dw_config->sub_addr_index > (DW_sub_addr_enum)sub_addr_0){
+    dw_nodelist->frame_out[1] |= MSG_EXT_ADDR_TRUE;
+  } else {
+    dw_nodelist->frame_out[1] |= MSG_EXT_ADDR_FALSE;
+  }
+
+  return (MSG_EXT_ADDR_TRUE & dw_nodelist->frame_out[1]);
+  //because other bits will be set in the frame_out member, even if the boolean is set to false: it will return true. Therefore bitwise AND'ing with extract the bit and render true or false
+}
+
+uint32_t dw_ext_read_write(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t read_write){
+  
+  DW_ext_addr_enum ext_addr_index = dw_config->sub_addr_index;
+  dw_nodelist->frame_out[2] = ext_addr_index;
+  
+  return 0;
+  //return 0 so that the return value and the parent loop iterator will be equal and the loop will stop 
+}
+
+
+/*
+ * CONFIG BUILDERS
+ */
+
 uint32_t dw_buildConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_start){
 
   uint32_t frame_index = frame_index_start;
@@ -130,7 +181,7 @@ uint32_t dw_buildConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t
 
 
 
-uint32_t dw_queryConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_start){
+uint32_t dw_buildQuery(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_start){
 
   uint32_t frame_index = frame_index_start;
   uint32_t len = dw_config->query_buffer_len;
@@ -159,6 +210,7 @@ uint32_t dw_buildBlinkFrame(void* host_object, int(* host_usart)(), void* ext_de
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
   DW_data* dw_data = &dw_nodelist->list[node_index]; 
 
+  dw_config->ranging_mode = DWMODE_DISCOVERY;
 
   //send frame to put receiver into blink mode
   //
@@ -197,6 +249,7 @@ uint32_t dw_buildRangeInitFrame(void* host_object, int(* host_usart)(), void* ex
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
   DW_data* dw_data = &dw_nodelist->list[node_index]; 
 
+  dw_config->ranging_mode = DWMODE_RANGEINIT;
 
   //insert the following:
   // bit 0   - function code: 0x20
@@ -231,7 +284,7 @@ uint32_t dw_buildRangeInitFrame(void* host_object, int(* host_usart)(), void* ex
   dw_nodelist->frame_out[++frame_index] = dw_data->resp_delay[1]; //message octet 5
  
   dw_nodelist->frame_out_len = ++frame_index;
-  
+
   return EXIT_SUCCESS;
 }
 
@@ -246,6 +299,8 @@ uint32_t dw_buildPollFrame(void* host_object, int(* host_usart)(), void* ext_dev
   DW_nodelist* dw_nodelist = (DW_nodelist*)dw_slave_ptr->MPI_data[NODE_LIST_INDEX];
   DW_data* dw_data = &dw_nodelist->list[node_index]; 
 
+  dw_config->ranging_mode = DWMODE_RANGING;
+  
   //insert the following:
   // bit 0 - function code: 0x61
   //
@@ -266,7 +321,7 @@ uint32_t dw_buildPollFrame(void* host_object, int(* host_usart)(), void* ext_dev
   dw_nodelist->frame_out[++frame_index] = dw_fn_code_table[POLL_INDEX]; //poll fn code
 
   dw_nodelist->frame_out_len = ++frame_index;
-  
+
   return EXIT_SUCCESS;
 }
 
@@ -363,56 +418,12 @@ uint32_t dw_buildFinalFrame(void* host_object, int(* host_usart)(), void* ext_de
   return EXIT_SUCCESS;
 }
 
-
-
 /*
- * SPI TRANSACTION HEADER BUILDERS
+ * FRAME BUILDER TABLES
  */
 
-uint32_t dw_reg_read_write(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t read_write){
-
-  DW_reg_id_enum reg_id_index = dw_config->reg_id_index;
-
-  dw_nodelist->frame_out[0]  = dw_rw_bool_table[read_write];
-  dw_nodelist->frame_out[0] |= dw_reg_id_table[reg_id_index];
-  
-  if(dw_config->sub_addr_index > sub_addr_0){
-    dw_nodelist->frame_out[0] |= MSG_SUB_ADDR_TRUE;
-  } else {
-    dw_nodelist->frame_out[0] |= MSG_SUB_ADDR_FALSE;
-  }
-  
-  
-  return (MSG_SUB_ADDR_TRUE & dw_nodelist->frame_out[0]);
-}
-
-uint32_t dw_sub_read_write(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t read_write){
-  
-  DW_sub_addr_enum sub_addr_index = dw_config->sub_addr_index;
-   
-  dw_nodelist->frame_out[1] |= sub_addr_index;
- 
-  if(dw_config->sub_addr_index > ext_addr_0){
-    dw_nodelist->frame_out[1] |= MSG_EXT_ADDR_TRUE;
-  } else {
-    dw_nodelist->frame_out[1] |= MSG_EXT_ADDR_FALSE;
-  }
-
-  return (MSG_EXT_ADDR_TRUE & dw_nodelist->frame_out[1]);
-  //because other bits will be set in the frame_out member, even if the boolean is set to false: it will return true. Therefore bitwise AND'ing with extract the bit and render true or false
-}
-
-uint32_t dw_ext_read_write(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t read_write){
-  
-  DW_ext_addr_enum ext_addr_index = dw_config->sub_addr_index;
-  dw_nodelist->frame_out[2] = ext_addr_index;
-  
-  return 0;
-  //return 0 so that the return value and the parent loop iterator will be equal and the loop will stop 
-}
-
 uint32_t(* dw_config_query_table[DW_READ_WRITE +1])() = {
-  dw_queryConfig,
+  dw_buildQuery,
   dw_buildConfig,
   NULL
 };
@@ -428,12 +439,7 @@ uint32_t(*const dw_frame_build_table[BUILD_TABLE_LEN])() = {
 };
 
 
-uint32_t(*const dw_frame_header_read_write_table[REG_SUB_EXT])() = {
-  dw_reg_read_write,
-  dw_sub_read_write,
-  dw_ext_read_write,
-  NULL
-};
+
 
 
 /*
@@ -461,6 +467,13 @@ bool sub_addr_bool_table[REG_IDS_LEN] = {
 bool ext_addr_bool_table[REG_IDS_LEN] = {
   MSG_SUB_ADDR_FALSE,
   MSG_SUB_ADDR_TRUE,
+  NULL
+};
+
+uint32_t(*const dw_frame_header_read_write_table[REG_SUB_EXT])() = {
+  dw_reg_read_write,
+  dw_sub_read_write,
+  dw_ext_read_write,
   NULL
 };
 
