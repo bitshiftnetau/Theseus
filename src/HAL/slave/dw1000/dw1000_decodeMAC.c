@@ -86,7 +86,7 @@ uint32_t dw_decodeFrameIn(void* host_object, int(*host_usart)(), void* ext_dev_o
   //of the data tables to extract the necessary values based on the frame type
   //
   dw_nodelist->frame_in_len = frame_len_table[frame_index.frame_type_index];//call to jump table to get frame length
-  dw_config->reg_id_index = REG_ID_RX_BUFFER;
+  dw_config->reg_id_index = rx_buffer; 
   
   frame_index.pan_id_index = pan_id_index_table[frame_index.frame_type_index];
   frame_index.dest_addr_index = dest_addr_index_table[frame_index.frame_type_index];
@@ -95,7 +95,7 @@ uint32_t dw_decodeFrameIn(void* host_object, int(*host_usart)(), void* ext_dev_o
   frame_index.fn_code_index = fn_code_index_table[frame_index.frame_type_index];
 
   //make rx call to read frame
-  dw_Rx(host_object, host_usart, dw_nodelist, dw_nodelist->frame_in, dw_nodelist->frame_in_len);
+  dw_Rx(host_object, host_usart, dw_slave_ptr, dw_nodelist->frame_in, dw_nodelist->frame_in_len);
 
   //Call to handler jump table (move all code below into the handlers
   //and poll/resp/final into one parent handler
@@ -361,12 +361,12 @@ uint32_t dw_handlerPoll(void* host_object, int(*host_usart)(), void* ext_dev_obj
 
     //read the rx marker
     //
-    dw_config->reg_id_index = REG_ID_RX_MARKER;
-    dw_config->sub_addr_index = SUB_ADDR_RX_MARKER_0;
+    dw_config->reg_id_index = rx_arrival_time;
+    dw_config->sub_addr_index = 0;
     dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
 
     uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
-    dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
+    dw_Rx(host_object, host_usart, dw_slave_ptr, rx_marker, RX_MARKER_TOTAL_LEN - 1);
 
     for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
       dw_data->tof.poll.rx_marker = (dw_data->tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
@@ -445,12 +445,12 @@ uint32_t dw_handlerResp(void* host_object, int(*host_usart)(), void* ext_dev_obj
 
     //read the rx marker
     //
-    dw_config->reg_id_index = REG_ID_RX_MARKER;
-    dw_config->sub_addr_index = SUB_ADDR_RX_MARKER_0;
+    dw_config->reg_id_index = rx_arrival_time;
+    dw_config->sub_addr_index = 0;
     dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
 
     uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
-    dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
+    dw_Rx(host_object, host_usart, dw_slave_ptr, rx_marker, RX_MARKER_TOTAL_LEN - 1);
 
     for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
       dw_data->tof.poll.rx_marker = (dw_data->tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
@@ -527,12 +527,12 @@ uint32_t dw_handlerFinal(void* host_object, int(*host_usart)(), void* ext_dev_ob
 
     //read the rx marker
     //
-    dw_config->reg_id_index = REG_ID_RX_MARKER;
-    dw_config->sub_addr_index = SUB_ADDR_RX_MARKER_0;
+    dw_config->reg_id_index = rx_arrival_time;
+    dw_config->sub_addr_index = 0;
     dw_nodelist->frame_in_len = RX_MARKER_TOTAL_LEN - 1; 
 
     uint8_t rx_marker[RX_MARKER_TOTAL_LEN - 1];
-    dw_Rx(host_object, host_usart, dw_nodelist, rx_marker, RX_MARKER_TOTAL_LEN - 1);
+    dw_Rx(host_object, host_usart, dw_slave_ptr, rx_marker, RX_MARKER_TOTAL_LEN - 1);
  
     for(int i = RX_MARKER_TOTAL_LEN -1; i < 0; i--){
       dw_data->tof.poll.rx_marker = (dw_data->tof.poll.rx_marker << SINGLE_BYTE_SHIFT) | rx_marker[i];
