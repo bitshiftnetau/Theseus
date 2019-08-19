@@ -36,8 +36,8 @@ int mpi_timerQueryReg(void* host_object, int (*host_timer_interface_single_reg_f
 }
 
 
-int mpi_timerDelay(void* host_object, int (*host_timer_interface_delay_fn)(), uint32_t delay_ms){
-  return host_timer_interface_delay_fn(host_object, delay_ms); 
+int mpi_timerDelay(int (*host_timer_interface_delay_fn)(), uint32_t delay_ms){
+  return host_timer_interface_delay_fn(delay_ms); 
 }
 
 
