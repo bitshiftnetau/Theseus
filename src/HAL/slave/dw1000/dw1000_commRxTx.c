@@ -50,7 +50,12 @@
 
 
 
-uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint8_t* buffer_out, uint32_t buffer_len){
+uint32_t dw_Tx(void* host_object, int(*host_usart)(), void* ext_dev_object, uint8_t* buffer_out, uint32_t buffer_len){
+
+  MPI_ext_dev* ext_dev_ptr = (MPI_ext_dev*)ext_dev_object;
+  DW_config* dw_config = (DW_config*)ext_dev_ptr->MPI_conf[DW_CONFIG_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)ext_dev_ptr->MPI_data[NODE_LIST_INDEX];
+  
 
   /*************************************************************************/
   //  de-assert CS line here
@@ -82,11 +87,15 @@ uint32_t dw_Tx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, 
 }
 
 
-uint32_t dw_Rx(void* host_object, int(*host_usart)(), DW_nodelist* dw_nodelist, uint8_t* buffer_in, uint32_t buffer_len){
+uint32_t dw_Rx(void* host_object, int(*host_usart)(), void* ext_dev_object, uint8_t* buffer_in, uint32_t buffer_len){
  
+  MPI_ext_dev* ext_dev_ptr = (MPI_ext_dev*)ext_dev_object;
+  DW_config* dw_config = (DW_config*)ext_dev_ptr->MPI_conf[DW_CONFIG_INDEX];
+  DW_nodelist* dw_nodelist = (DW_nodelist*)ext_dev_ptr->MPI_data[NODE_LIST_INDEX];
+  
   //build message that requests a read from a given register (pre-configured in reg_id_index)
-  //int frame_len = dw_buildMessageHeader(dw_nodelist, DW_READ);
-  int frame_len = 5;
+  int frame_len = dw_buildMessageHeader(dw_nodelist, dw_config, DW_READ);
+  //int frame_len = 5;
     
   /*************************************************************************/
   //de-assert CS line here
