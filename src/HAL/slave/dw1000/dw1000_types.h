@@ -6,65 +6,96 @@
 
 #include "dw1000_regs.h"
 
-#define READ    0
-#define WRITE   1
-#define TGL     2
 
-#define DW_READ_WRITE  2 
-#define DW_DEV_ACTIVE      1
-#define DW_DEV_DISABLED   -1
+#define DWMODE_DISCOVERY        0
+#define DWMODE_RANGEINIT        1
+#define DWMODE_RANGING          2
+
+#define READ                    0
+#define WRITE                   1
+#define TGL                     2
+
+#define DW_READ_WRITE           2 
+#define DW_DEV_ACTIVE           1
+#define DW_DEV_DISABLED         -1
 
 #define DW_CONF_DISCOVERY_MODE  0
 #define DW_CONF_RANGING_MODE    1
 
-#define SINGLE_BYTE 0xFF
-#define SINGLE_BYTE_SHIFT 8
+#define SINGLE_BYTE             0xFF
+#define SINGLE_BYTE_SHIFT       8
 
 
-#define STD_FRAME_LEN 127
-#define EXT_FRAME_LEN 1024
-#define FRAME_BUFFER_SIZE STD_FRAME_LEN 
+#define STD_FRAME_LEN           127
+#define EXT_FRAME_LEN           1024
+#define FRAME_BUFFER_SIZE       STD_FRAME_LEN 
 
 /*
  * NUMBER OF OCTETS REQUIRED TO WRITE FOR EACH REGISTER READ/WRITE OPERATION
  */
-#define MSG_RX_REGISTER_LEN 1
-#define MSG_TX_REGISTER_LEN 1
+#define MSG_RX_REGISTER_LEN     1
+#define MSG_TX_REGISTER_LEN     1
 
 
 /*
  * REG IDs
  */
 
-#define REG_IDS_LEN           40
-#define SUB_EXT_ADDR_LEN      32 
+#define REG_IDS_LEN             40
+#define SUB_EXT_ADDR_LEN        32 
 
 #define REG_ID_
-#define REG_ID_TX_BUFFER      0x09
+#define REG_ID_TX_BUFFER        0x09
 #define REG_ID__
-#define REG_ID_RX_BUFFER      0x11
+#define REG_ID_RX_BUFFER        0x11
 
-#define REG_ID_RX_MARKER      0x15
+#define REG_ID_RX_MARKER        0x15
 
-#define REG_ID_TX_MARKER      0x17
+#define REG_ID_TX_MARKER        0x17
 
-#define REG_ID_RX_BUFFER_LEN  FRAME_BUFFER_SIZE
-#define REG_ID_RX_MARKER_LEN  14
+#define REG_ID_RX_BUFFER_LEN    FRAME_BUFFER_SIZE
+#define REG_ID_RX_MARKER_LEN    14
 
-#define SUB_ADDR_RX_MARKER_0  0x00
-#define SUB_ADDR_RX_MARKER_1  0x01
-#define SUB_ADDR_RX_MARKER_2  0x02
-#define SUB_ADDR_RX_MARKER_3  0x03
-#define SUB_ADDR_RX_MARKER_4  0x04
+#define SUB_ADDR_RX_MARKER_0    0x00
+#define SUB_ADDR_RX_MARKER_1    0x01
+#define SUB_ADDR_RX_MARKER_2    0x02
+#define SUB_ADDR_RX_MARKER_3    0x03
+#define SUB_ADDR_RX_MARKER_4    0x04
 
 // for rx/tx_maker use this len -1 
-#define RX_MARKER_TOTAL_LEN   5     //five octets
-#define TX_MARKER_TOTAL_LEN   5
+#define RX_MARKER_TOTAL_LEN     5     //five octets
+#define TX_MARKER_TOTAL_LEN     5
 
-#define T_ROUND_TOTAL_LEN     4     
-#define T_REPLY_TOTAL_LEN     4
+#define T_ROUND_TOTAL_LEN       4     
+#define T_REPLY_TOTAL_LEN       4
 
-#define TS_HANDLER_TABLE_LEN  7
+#define TS_HANDLER_TABLE_LEN    7
+
+/*
+ * config_table_len[] indexes
+ */ 
+
+
+#define EUI_64_LEN_INDEX                  0                  
+#define PAN_ID_LEN_INDEX                  1
+#define SYS_CONFIG_LEN_INDEX              2   
+#define TX_FRAME_CTRL_LEN_INDEX           3
+#define RF_TX_DELAY_LEN_INDEX             4
+#define SYS_CTRL_REG_LEN_INDEX            5
+#define SYS_EVENT_MASK_LEN_INDEX          6
+#define SYS_EVENT_STATUS_LEN_INDEX        7
+#define TX_ANT_DELAY_LEN_INDEX            8
+#define ACK_RESP_TIME_LEN_INDEX           9
+#define PREAMBLE_RX_CONFIG_LEN_INDEX      10
+#define TX_POWER_CTRL_LEN_INDEX           11
+#define CHAN_CTRL_LEN_INDEX               12
+#define DEVICE_ID_LEN_INDEX               13
+#define SYS_TIME_LEN_INDEX                14
+#define RX_FRAME_TIMEOUT_LEN_INDEX        15
+#define RX_FRAME_QUAL_LEN_INDEX           16
+#define RX_TIME_INTERVAL_LEN_INDEX        17
+#define SYS_STATE_INFO_LEN_INDEX          18
+
 
 /*
  * REG ID INDEXES FOR JUMP TABLE
@@ -76,6 +107,52 @@ extern uint8_t dw_reg_id_table[];
 //initiate length = 11 starting at 0
 //regdump length = 17 starting at 0
 
+/*
+ * register ids as indexed in 'dw_reg_id_table'
+ * 
+  0x01, //eui
+  0x03, //pan addr
+  0x04, //sys cfg
+  0x08, //tx frame ctrl
+  0x0A, //delayed send or receive time
+  0x0D, //sys ctrl reg
+  0x0E, //sys event mask
+  0x0F, //sys event status
+  0x18, //ant delay
+  0x1A, //ack resp time
+  0x1D, //pulsed preamble rx config
+  0x1E, //tx power ctrl
+  0x1F, //channel ctrl
+  0x00, //device id 
+  0x0C, //rx frame wait timeout
+  0x12, //rx frame quality info
+  0x13, //rx time tracking interval
+  0x19, //sys state
+  
+  0x06, //sys time
+  0x09, //tx buffer,
+  0x10, //rx frame info
+  0x11, //rx data
+  0x14, //rx time tracking offset
+  0x15, //rx msg time of arrival
+  0x17, //tx message time of sending
+  
+  0x21, //user-defined SFD
+  0x23, //auto gain ctrl config
+  0x24, //ext sync
+  0x25, //accum read acces
+  0x26, //gpio ctrl 
+  0x27, //digital rx config
+  0x28, //analog rf config
+  0x2A, //tx calibration
+  0x2B, //freq synth ctrl 
+  0x2C, //AON reg
+  0x2D, //OTP
+  0x2E, //LDE ctrl
+  0x2F, //digital diagnostics
+  0x36, //power mgmt system ctrl 
+*/
+
 typedef enum {
   unique_id,
   pan_id,
@@ -83,6 +160,7 @@ typedef enum {
   tx_frame_ctrl,
   rf_tx_delay,
   sys_ctrl_reg,
+  sys_event_mask,
   sys_event_status,
   tx_ant_delay,
   ack_resp_time,
@@ -90,16 +168,32 @@ typedef enum {
   tx_power_ctrl,
   chan_ctrl,
   device_id,
+  sys_time,
   rx_frame_timeout,
   rx_frame_qual,
   rx_time_tracking_interval,
   sys_state_info,
-  sys_time,
+  //end of config/query for loop, the remaining entries are for universal access via a single enum type
   tx_buffer,
   rx_frame_info,
-  rx_data,
+  rx_buffer,
   rx_time_tracking_offset,
-  rx_arrival_time
+  rx_arrival_time,
+  tx_send_time,
+  user_sfd,
+  auto_gain_ctrl_config,
+  ext_clk_sync,
+  accum_read,
+  gpio_ctrl,
+  digi_rx_config,
+  analog_rf_config,
+  tx_calib,
+  freq_synth_ctrl,
+  aon_reg,
+  otp,
+  lde_ctrl,
+  digi_diag,
+  pwr_mgmt_sys_ctrl,
 }DW_reg_id_enum;
 
 
@@ -372,8 +466,8 @@ typedef enum {
 
 /*
  * FIX THESE DEFINES 
- *
  */
+
 #define FRAME_CTRL_INDEX_0  0
 #define FRAME_CTRL_INDEX_1  1
 #define SEQ_NUM_INDEX       2
@@ -384,9 +478,6 @@ typedef enum {
 #define SHORT_ADDR_INDEX_1  16
 #define RESP_DELAY_INDEX_0  17
 #define RESP_DELAY_INDEX_1  18
-/*
- *
- */
 
 
 //OCTET 0 DEFINES
@@ -653,32 +744,32 @@ typedef struct {
   uint8_t config_buffer[32];
   uint8_t config_buffer_len;
   uint8_t query_buffer_len;
-  uint8_t device_id[4]; 
+  uint8_t device_id[DEVICE_ID_LEN]; 
   uint8_t unique_id[EUI_64_LEN]; // device id (ieee unique 64-bit identifier)
   uint8_t pan_id[PAN_ID_LEN];
   uint8_t sys_conf[SYS_CFG_LEN];
   uint8_t sys_time[SYS_TIME_LEN];
   uint8_t tx_frame_ctrl[TX_FRAME_CTRL_LEN]; 
   uint8_t tx_frame_ctrl_sub_reg_4;
-  uint32_t rf_tx_delay[2];         // used to specficy a time in the future to turn on rx or send tx   
-  uint8_t rx_frame_timeout[2];
-  uint8_t sys_ctrl_reg[4];
-  uint8_t sys_event_mask[4];
-  uint8_t sys_event_status[4];
+  uint32_t rf_tx_delay[RF_TX_DELAY_LEN];         // used to specficy a time in the future to turn on rx or send tx   
+  uint8_t rx_frame_timeout[RX_FRAME_TIMEOUT_LEN];
+  uint8_t sys_ctrl_reg[SYS_CTRL_REG_LEN];
+  uint8_t sys_event_mask[SYS_EVENT_MASK_LEN];
+  uint8_t sys_event_status[SYS_EVENT_STATUS_LEN];
   uint8_t sys_status_sub_reg_4;
-  uint8_t rx_frame_qual[8]; 
-  uint8_t rx_frame_qual_sub_reg_4[4];
-  uint8_t rx_time_interval[4];
-  uint8_t rx_time_interval_offset[5];
-  uint8_t rx_ts_sub_addr_5[4]; //first path index + first path amplitude point 1
-  uint8_t rx_ts_sub_addr_9[5]; //raw timestamp 
-  uint8_t tx_ts_sub_addr_5[5]; //raw timestamp
-  uint8_t tx_ant_delay[2];
-  uint8_t sys_state_info[5];
-  uint8_t ack_resp_time[4];
-  uint8_t preamble_rx_config[4];
-  uint8_t tx_power_ctrl[4];
-  uint8_t chan_ctrl[4];
+  uint8_t rx_frame_qual[RX_FRAME_QUAL_LEN]; 
+  uint8_t rx_frame_qual_sub_reg_4[RX_FRAME_QUAL_SUB_REG_4_LEN];
+  uint8_t rx_time_interval[RX_TIME_INTERVAL_LEN];
+  uint8_t rx_time_interval_offset[RX_TIME_INTERVAL_OFFSET_LEN];
+  uint8_t rx_ts_sub_addr_5[RX_TS_SUB_ADDR_5_LEN]; //first path index + first path amplitude point 1
+  uint8_t rx_ts_sub_addr_9[RX_TS_SUB_ADDR_9_LEN]; //raw timestamp 
+  uint8_t tx_ts_sub_addr_5[TX_TS_SUB_ADDR_5_LEN]; //raw timestamp
+  uint8_t tx_ant_delay[TX_ANT_DELAY_LEN];
+  uint8_t sys_state_info[SYS_STATE_INFO_LEN];
+  uint8_t ack_resp_time[ACK_RESP_TIME_LEN];
+  uint8_t preamble_rx_config[PREAMBLE_RX_CONFIG_LEN];
+  uint8_t tx_power_ctrl[TX_POWER_CTRL_LEN];
+  uint8_t chan_ctrl[CHAN_CTRL_LEN];
   //user-defined SFD pointer
   //AGC control pointer
   //external sync control pointer
