@@ -1,6 +1,8 @@
 #ifndef CONFIG_EFM32ZG222F32_H_
 #define CONFIG_EFM32ZG222F32_H_
 
+#include "mpi_port.h"
+
 #include "efm32zg222f32.h"
 #include "efm32zg_types_HAL.h"
 
