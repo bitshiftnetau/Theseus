@@ -57,6 +57,11 @@ typedef enum {
 
 } PIN_ENUM;
 
+int(* rpi_rxtx_array)() = {
+  rpi_RxSpi,
+  rpi_TxSpi,
+  rpi_RxTxSpi
+}
 
 typedef struct {
 
@@ -66,24 +71,24 @@ typedef struct {
   int spi_cs;
   PIN_ENUM pin;
 
-} RPI_data;
+} RPI_spi_conf;
 
 
-RPI_data rpi_data = {
-  bit_order = ;
-  spi_mode = ;
-  spi_clkdiv = ;
-  spi_cs = ;
+RPI_spi_conf rpi_spi_conf = {
+  bit_order = BCM2835_SPI_BIT_ORDER_MSBFIRST;
+  spi_mode = BCM2835_SPI_MODE2;
+  spi_clkdiv = BCM2835_SPI_CLOCK_DIVIDER_64;
+  spi_cs = BCM2835_SPI_CS_NONE;
   pin = pin21;
 }
 
 
-MPI_host raspbi = {
+MPI_host rpi_spi = {
 
-  ._interface = {
-    ._dev_init = raspbi_Init
+  ._periph_periphconf = {
+    ._dev_init = rpi_InitSpi
     ._dev_reg_dump = NULL
-    ._dev_data = raspbi_ReadWrite
+    ._dev_data = rpi_DataSpi
     ._dev_config_reg = NULL
     ._dev_query_reg = NULL
     ._dev_wakeup = NULL
@@ -92,18 +97,25 @@ MPI_host raspbi = {
     ._dev_reset = NULL
     ._dev_off = NULL 
   },
-  MPI_data[0] = &rpi_data;
+  MPI_data[1] = &rpi_spi_conf;
 }
 
-
+/*
+ *  DEFINE ALL PINS
+ *
+ */
 #define PIN_21 RPI_V2_GPIO_P1_21
 
 
+#define RPI_SPI_DATA_INDEX 0
+#define RPI_SPI_CONF_INDEX 1
 
-
-int raspbi_Init()
+int rpi_InitSpi(void* host_ptr)
 {
-    
+   
+  MPI_host* rpi_spi = (MPI_host*)host_ptr;
+  RPI_spi_conf* rpi_spi_conf = rpi_spi->MPI_data[RPI_SPI_CONF_INDEX];
+
   // If you call this, it will not actually access the GPIO
   // Use for testing
   // bcm2835_set_debug(1);
@@ -118,7 +130,7 @@ int raspbi_Init()
       return 1;
   }
 
-  bcm2835_spi_setBitOrder(BCM2835_SPI_BIT_ORDER_MSBFIRST);      // The default
+  bcm2835_spi_setBitOrder(rpi_spi_conf->bit_order);      // The default
 
 	//Set SPI data mode
 	//	BCM2835_SPI_MODE0 = 0,  // CPOL = 0, CPHA = 0
@@ -127,7 +139,7 @@ int raspbi_Init()
 	//	BCM2835_SPI_MODE3 = 3,  // CPOL = 1, CPHA = 1
   //(SPI_MODE_# | SPI_CS_HIGH)=Chip Select active high, (SPI_MODE_# | SPI_NO_CS)=1 device per bus no Chip Select
   //
-  bcm2835_spi_setDataMode(BCM2835_SPI_MODE2); // The default is mode0
+  bcm2835_spi_setDataMode(rpi_spi_conf->spi_mode); // The default is mode0
 
 	//Set SPI clock speed
   //
@@ -149,54 +161,65 @@ int raspbi_Init()
 	//	BCM2835_SPI_CLOCK_DIVIDER_2     = 2,       ///< 2 = 8ns = 125MHz, fastest you can get
 	//	BCM2835_SPI_CLOCK_DIVIDER_1     = 1,       ///< 1 = 262.144us = 3.814697260kHz, same as 0/65536
   //
-  bcm2835_spi_setClockDivider(BCM2835_SPI_CLOCK_DIVIDER_64); 
+  bcm2835_spi_setClockDivider(rpi_spi_conf->spi_clkdiv); 
   //bcm2835_spi_chipSelect(BCM2835_SPI_CS0); // The default is CS0
-  bcm2835_spi_chipSelect(BCM2835_SPI_CS_NONE);
+  bcm2835_spi_chipSelect(rpi_spi_conf->spi_cs);
  
  	//Set CS pins polarity to low
 	//bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, 0);
 	//bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS1, 0);
   //
   //bcm2835_spi_setChipSelectPolarity(BCM2835_SPI_CS0, 1);  // the default
-
-  printf("Transferring 10 bytes... ");
-  //Transfer n many bytes
-	char data_buffer[10];
-	int Count;
-	for (Count = 0; Count < 10; Count++){
-    data_buffer[Count] = 0x80 + Count;
-  }
-
   
   // Set the pin to be an output
-  bcm2835_gpio_fsel(PIN_21, BCM2835_GPIO_FSEL_OUTP);
+  bcm2835_gpio_fsel(rpi_spi_conf->pin, BCM2835_GPIO_FSEL_OUTP);
 
 	// Turn it on
-	bcm2835_gpio_write(PIN_21, HIGH);
+	bcm2835_gpio_write(rpi_spi_conf->pin, HIGH);
 
-
- 
   return EXIT_SUCCESS;
 }
 
+int rpi_DataSpi(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
 
-int raspbi_Write(char* data_buffer, int size){
+  MPI_host* rpi = (MPI_host*)host_ptr;
+  RPI_spi_conf* rpi_spi_conf = rpi->MPI_data[RPI_SPI_CONF_INDEX];
+  
+  char* array = (char*)ext_dev_array;
+
+  int(* rpi_rxtx)() = rpi_rxtx_array[RW];
+  int len = array_len;
+
+  bcm2835_gpio_write(rpi_spi_conf->pin, LOW);
+  for(int i = 0; i < len; i++){
+    array[0] = rpi_rxtx(array[0]); //transmit byte at index 0 and replace with returned byte
+  }
+  bcm2835_gpio_write(rpi_spi_conf->pin, HIGH);
+
+  
+}
+
+
+
+
+
+
+
+
+
+int rpi_TxSpi(char* data_buffer, int size){
 
   // turn it off
-  bcm2835_gpio_write(PIN_21, LOW);
   bcm2835_spi_transfern(&data_buffer[0], size);			//data_buffer used for tx and rx
-  bcm2835_gpio_write(PIN_21, HIGH);
 
 }
 
 
-int raspbi_ReadWrite(char* data_byte){
+int rpi_RxTxSpi(char* data_byte){
 
   // OR Send a byte to the slave and simultaneously read a byte back from the slave
   
-  bcm2835_gpio_write(PIN_21, LOW);
   data_byte = bcm2835_spi_transfer(data_byte);
-  bcm2835_gpio_write(PIN_21, HIGH);
   
   //check data if doing loopback test
   //if (send_data != read_data){
@@ -206,13 +229,13 @@ int raspbi_ReadWrite(char* data_byte){
 }
 
 
-int raspbi_Read(){
+int rpi_RxSpi(){
 
 
 
 }
 
-int raspbi_Off(){
+int rpi_Off(){
 
   printf("Closing spi... ");
 
