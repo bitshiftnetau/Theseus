@@ -23,10 +23,11 @@ typedef char (*char_callback_setter)(char_callback);
 typedef float (*float_callback)();
 typedef float (*float_callback_setter)(float_callback);
 
-#define READ	  0
-#define WRITE	  1
-#define CLEAR	  2
-#define TOGGLE  2
+#define READ	    0
+#define WRITE	    1
+#define CLEAR	    2
+#define TOGGLE    2
+#define READWRITE 3
 
 #ifdef _MPI_TYPES_H_
 #endif
