@@ -57,10 +57,10 @@ typedef enum {
 
 } PIN_ENUM;
 
-int(* rpi_rxtx_array)() = {
-  rpi_RxSpi,
-  rpi_TxSpi,
-  rpi_RxTxSpi
+int(* spi_rxtx_array)() = {
+  spi_Rx,
+  spi_Tx,
+  spi_RxTx
 }
 
 typedef struct {
@@ -86,9 +86,9 @@ RPI_spi_conf rpi_spi_conf = {
 MPI_host rpi_spi = {
 
   ._periph_periphconf = {
-    ._dev_init = rpi_InitSpi
+    ._dev_init = spi_Init
     ._dev_reg_dump = NULL
-    ._dev_data = rpi_DataSpi
+    ._dev_data = spi_Data
     ._dev_config_reg = NULL
     ._dev_query_reg = NULL
     ._dev_wakeup = NULL
@@ -110,7 +110,7 @@ MPI_host rpi_spi = {
 #define RPI_SPI_DATA_INDEX 0
 #define RPI_SPI_CONF_INDEX 1
 
-int rpi_InitSpi(void* host_ptr)
+int spi_Init(void* host_ptr)
 {
    
   MPI_host* rpi_spi = (MPI_host*)host_ptr;
@@ -180,34 +180,29 @@ int rpi_InitSpi(void* host_ptr)
   return EXIT_SUCCESS;
 }
 
-int rpi_DataSpi(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
+
+int spi_Data(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
 
   MPI_host* rpi = (MPI_host*)host_ptr;
   RPI_spi_conf* rpi_spi_conf = rpi->MPI_data[RPI_SPI_CONF_INDEX];
   
   char* array = (char*)ext_dev_array;
 
-  int(* rpi_rxtx)() = rpi_rxtx_array[RW];
+  int(* spi_rxtx)() = spi_rxtx_array[RW];
   int len = array_len;
 
-  bcm2835_gpio_write(rpi_spi_conf->pin, LOW);
+  bcm2835_gpio_write(spi_spi_conf->pin, LOW);
   for(int i = 0; i < len; i++){
     array[0] = rpi_rxtx(array[0]); //transmit byte at index 0 and replace with returned byte
   }
   bcm2835_gpio_write(rpi_spi_conf->pin, HIGH);
 
   
+
 }
 
 
-
-
-
-
-
-
-
-int rpi_TxSpi(char* data_buffer, int size){
+int spi_Tx(char* data_buffer, int size){
 
   // turn it off
   bcm2835_spi_transfern(&data_buffer[0], size);			//data_buffer used for tx and rx
@@ -215,7 +210,7 @@ int rpi_TxSpi(char* data_buffer, int size){
 }
 
 
-int rpi_RxTxSpi(char* data_byte){
+int spi_RxTx(char* data_byte){
 
   // OR Send a byte to the slave and simultaneously read a byte back from the slave
   
@@ -229,13 +224,14 @@ int rpi_RxTxSpi(char* data_byte){
 }
 
 
-int rpi_RxSpi(){
+int spi_Rx(){
 
 
 
 }
 
-int rpi_Off(){
+
+int spi_Off(){
 
   printf("Closing spi... ");
 
