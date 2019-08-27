@@ -52,9 +52,9 @@
 
 uint32_t dw_Tx(void* host_object, int(*host_usart)(), void* ext_dev_object, uint8_t* buffer_out, uint32_t buffer_len){
 
-  MPI_ext_dev* ext_dev_ptr = (MPI_ext_dev*)ext_dev_object;
-  DW_config* dw_config = (DW_config*)ext_dev_ptr->MPI_conf[DW_CONFIG_INDEX];
-  DW_nodelist* dw_nodelist = (DW_nodelist*)ext_dev_ptr->MPI_data[NODE_LIST_INDEX];
+  //MPI_ext_dev* ext_dev_ptr = (MPI_ext_dev*)ext_dev_object;
+  //DW_config* dw_config = (DW_config*)ext_dev_ptr->MPI_conf[DW_CONFIG_INDEX];
+  //DW_nodelist* dw_nodelist = (DW_nodelist*)ext_dev_ptr->MPI_data[NODE_LIST_INDEX];
   
 
   /*************************************************************************/
