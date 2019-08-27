@@ -1,114 +1,12 @@
-// spi.c
-//
-// Example program for bcm2835 library
-// Shows how to interface with SPI to transfer a byte to and from an SPI device
-//
-// After installing bcm2835, you can build this
-// with something like:
-// gcc -o spi spi.c -l bcm2835
-// sudo ./spi
-//
-// Or you can test it before installing with:
-// gcc -o spi -I ../../src ../../src/bcm2835.c spi.c
-// sudo ./spi
-//
-// Author: Mike McCauley
-// Copyright (C) 2012 Mike McCauley
-// $Id: RF22.h,v 1.21 2012/05/30 01:51:25 mikem Exp $
-
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
+
 #include <bcm2835.h>
 
 #include "mpi_port.h"
-
-typedef enum {
-
-  pin1 = PIN_1;
-  pin2 = PIN_2;
-  pin3 = PIN_3;
-  pin4 = PIN_4;
-  pin5 = PIN_5;
-  pin6 = PIN_6;
-  pin7 = PIN_7;
-  pin8 = PIN_8;
-  pin9 = PIN_9;
-  pin10 = PIN_10;
-  pin11 = PIN_11;
-  pin12 = PIN_12;
-  pin13 = PIN_13;
-  pin14 = PIN_14;
-  pin15 = PIN_15;
-  pin16 = PIN_16;
-  pin17 = PIN_17;
-  pin18 = PIN_18;
-  pin19 = PIN_19;
-  pin20 = PIN_20;
-  pin21 = PIN_21;
-  pin22 = PIN_22;
-  pin23 = PIN_23;
-  pin24 = PIN_24;
-  pin25 = PIN_25;
-  pin26 = PIN_26;
-  pin27 = PIN_27;
-  pin28 = PIN_28;
-  pin29 = PIN_29;
-  pin30 = PIN_30;
-
-} PIN_ENUM;
-
-int(* spi_rxtx_array)() = {
-  spi_Rx,
-  spi_Tx,
-  spi_RxTx
-}
-
-typedef struct {
-
-  int bit_order;
-  int spi_mode;
-  int spi_clkdiv;
-  int spi_cs;
-  PIN_ENUM pin;
-
-} RPI_spi_conf;
-
-
-RPI_spi_conf rpi_spi_conf = {
-  bit_order = BCM2835_SPI_BIT_ORDER_MSBFIRST;
-  spi_mode = BCM2835_SPI_MODE2;
-  spi_clkdiv = BCM2835_SPI_CLOCK_DIVIDER_64;
-  spi_cs = BCM2835_SPI_CS_NONE;
-  pin = pin21;
-}
-
-
-MPI_host rpi_spi = {
-
-  ._periph_periphconf = {
-    ._dev_init = spi_Init
-    ._dev_reg_dump = NULL
-    ._dev_data = spi_Data
-    ._dev_config_reg = NULL
-    ._dev_query_reg = NULL
-    ._dev_wakeup = NULL
-    ._dev_sleep = NULL
-    ._dev_mode_level = NULL
-    ._dev_reset = NULL
-    ._dev_off = NULL 
-  },
-  MPI_data[1] = &rpi_spi_conf;
-}
-
-/*
- *  DEFINE ALL PINS
- *
- */
-#define PIN_21 RPI_V2_GPIO_P1_21
-
-
-#define RPI_SPI_DATA_INDEX 0
-#define RPI_SPI_CONF_INDEX 1
+#include "rpi2_adaptor.h"
+#include "spi.h"
+#include "gpio.h"
 
 int spi_Init(void* host_ptr)
 {
@@ -180,7 +78,6 @@ int spi_Init(void* host_ptr)
   return EXIT_SUCCESS;
 }
 
-
 int spi_Data(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len){
 
   MPI_host* rpi = (MPI_host*)host_ptr;
@@ -188,48 +85,18 @@ int spi_Data(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_le
   
   char* array = (char*)ext_dev_array;
 
-  int(* spi_rxtx)() = spi_rxtx_array[RW];
+  int(* spi_rxtx)() = spi_rxtx_array[spi_conf->duplex][RW];
   int len = array_len;
+  int ret;
 
-  bcm2835_gpio_write(spi_spi_conf->pin, LOW);
+  bcm2835_gpio_write(rpi_spi_conf->pin, LOW);
   for(int i = 0; i < len; i++){
-    array[0] = rpi_rxtx(array[0]); //transmit byte at index 0 and replace with returned byte
+    ret = spi_rxtx(array[0]); //transmit byte at index 0 and replace with returned byte
   }
   bcm2835_gpio_write(rpi_spi_conf->pin, HIGH);
 
-  
-
+  return ret;  
 }
-
-
-int spi_Tx(char* data_buffer, int size){
-
-  // turn it off
-  bcm2835_spi_transfern(&data_buffer[0], size);			//data_buffer used for tx and rx
-
-}
-
-
-int spi_RxTx(char* data_byte){
-
-  // OR Send a byte to the slave and simultaneously read a byte back from the slave
-  
-  data_byte = bcm2835_spi_transfer(data_byte);
-  
-  //check data if doing loopback test
-  //if (send_data != read_data){
-  //    printf("Do you have the loopback from MOSI to MISO connected?\n");
-  //}
-
-}
-
-
-int spi_Rx(){
-
-
-
-}
-
 
 int spi_Off(){
 
@@ -240,3 +107,11 @@ int spi_Off(){
 
   return 0;
 }
+
+//FILL THESE OUT
+int gpio_Init(void* host_ptr);
+int gpio_Data(void* host_ptr, uint32_t read_write_tgl, uint32_t port, uint32_t pin);
+
+//FILL THESE OUT
+int timer_Init(void* host_ptr);
+int timer_Delay(uint32_t delay_ms);

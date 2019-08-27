@@ -16,10 +16,12 @@
  *
  */
    
-
+#ifdef EFM32ZG222F32
 #include "em_device.h"
 #include "em_chip.h"
+#endif
 
+#include <stdio.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -33,9 +35,7 @@
 #include "mpi_ext_dev.h"
 
 #include "_app_config.h"
-#include "_app_fns.h"
 
-#include "dw1000_adaptor.h"
 
 //The following main file contains a number of demos for gpio, cmu, usart and timer peripherals
 //as well as dummy objects for fns that require external device interaction, in order to be 
@@ -85,15 +85,17 @@ int test_fn(void* host_object,  uint32_t read_write, int(* host_usart_fn)(), voi
 int main(void)
 {
   /* Chip errata */
+  /*
   CHIP_Init();
-
+  */
   
   //Uncomment the following for basic setup demo with cmu, usart, timer and gpio
   //including LED initialization demo
 
   //Get the x_Init fns for the respective devices and peripherals
   //
-  
+ 
+ /* 
   volatile const int(* efm32zg_cmu_init)() = efm32zg222f32_host._periph_periphconf._cmu_init;
   volatile const int(* efm32zg_usart_init)() = efm32zg222f32_host._periph_periphconf._usart_init;
   volatile const int(* efm32zg_gpio_init)() = efm32zg222f32_host._periph_periphconf._gpio_init;
@@ -101,28 +103,33 @@ int main(void)
   
   volatile const int(* efm32zg_cmu_query_reg)() = efm32zg222f32_host._periph_periphconf._cmu_query_reg;
   volatile const int(* efm32zg_cmu_config_reg)() = efm32zg222f32_host._periph_periphconf._cmu_config_reg;
-  
+ */
+
   //Get the io functions
   // 
+ /*
   volatile const int(* efm32zg_gpio_data)() = efm32zg222f32_host._periph_periphconf._gpio_data;
   volatile const int(* efm32zg_usart_data)() = efm32zg222f32_host._periph_periphconf._usart_data;
   volatile const int(* efm32zg_timer_delay)() = efm32zg222f32_host._periph_periphconf._timer_delay;
   //volatile const int(* efm32zg_timer_delay)() = &timer_Delay;
-  
+ */
+
   //Run the x_Init fns through the middleware layer
   //
+ /*
   mpi_cmuInit(&efm32zg222f32_host, efm32zg_cmu_init);
 
   CMU_periphconf* cmu_conf = efm32zg222f32_host.MPI_data[CMU_PERIPHCONF_INDEX];
   cmu_conf->oscencmd = CMU_OSCENCMD_HFXOEN;
   mpi_cmuConfigReg(&efm32zg222f32_host, efm32zg_cmu_config_reg, CMU_OSCENCMD);
-
+ */
   //check the status of the HFXO
   //
+ /*
   do{
     mpi_cmuQueryReg(&efm32zg222f32_host, efm32zg_cmu_query_reg, CMU_STATUS);
   }while(!(cmu_conf->status & CMU_STATUS_HFXORDY));
-
+ 
   //alter the struct member from hfrco to hfxo 
   //
   cmu_conf->cmd = CMU_CMD_HFCLKSEL_HFXO;
@@ -139,7 +146,7 @@ int main(void)
   mpi_timerInit(&efm32zg222f32_host, efm32zg_timer_init);
   mpi_gpioInit(&efm32zg222f32_host, efm32zg_gpio_init); 
   mpi_usartInit(&efm32zg222f32_host, efm32zg_usart_init);
-  
+ */
   
   /********************* External Device ******************************/ 
   
@@ -159,16 +166,17 @@ int main(void)
   
 
   //Uncomment the following for dw1000 demo
+ /*/
   volatile const int(* dw1000_init)() = dw1000._interface._dev_init;
   volatile const int(* dw1000_data)() = dw1000._interface._dev_data;
-
+ */
   //mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_init, &dw1000, dw_Init);
   
   /********************* GPIO LEDs ************************************/ 
  
   //get the data structs
   //
-
+ /*
   mpi_timerDelay(efm32zg_timer_delay, 1);
   mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE, 2, 10);
     
@@ -177,12 +185,17 @@ int main(void)
 
   mpi_timerDelay(efm32zg_timer_delay, 1);
   mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE, 5, 4);
-
+ */
   /********************* GPIO LEDs ************************************/ 
- 
+ /*
   mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_init); 
   mpi_timerDelay(efm32zg_timer_delay, 10);
-  
+ */ 
+
+  //Uncomment for Raspberry Pi demo
+  printf("Activating program... \nCount to follow\n");
+  int i = 0;
+
   /* Infinite loop */
   while (1){
 
@@ -225,12 +238,19 @@ int main(void)
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 2, 11);
       mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, TGL, 5, 4);
     }
-*/
+   */
 
-    //Uncomment for dw1000 demo
+    //Uncomment for Raspberry Pi 2 demo
+    printf("Delay... ");
+    bcm2835_delay(1000);
+    printf("%d\n", i);
+    i++;
+
+    //Uncomment for dw1000 demo on efm32zg222f32 host
+   /*
     mpi_extdevData(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_data, WRITE);
     mpi_timerDelay(efm32zg_timer_delay, 1);
-
+   */
    }
 }
 
