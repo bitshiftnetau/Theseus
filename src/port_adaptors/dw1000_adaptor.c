@@ -98,7 +98,8 @@ int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
   
   
   //Gpio lines for alpha/polarity mode
-  
+ 
+  //INSERT CALLBACK TO HOST GPIO INTERFACE FN 
   
   
   //Setup IRQ
