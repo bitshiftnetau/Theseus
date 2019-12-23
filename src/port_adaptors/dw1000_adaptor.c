@@ -20,8 +20,6 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-#include "_app_fns.h"
-
 #include "mpi_port.h"
 
 #include "dw1000_adaptor.h"

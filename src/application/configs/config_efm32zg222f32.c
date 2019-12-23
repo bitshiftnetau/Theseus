@@ -16,8 +16,6 @@
  *
  */
 
-#include "_app_fns.h"
-
 #include "mpi_port.h"
 #include "mpi_types.h"
 

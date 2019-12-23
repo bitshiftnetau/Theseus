@@ -33,7 +33,6 @@
 #include "mpi_ext_dev.h"
 
 #include "_app_config.h"
-#include "_app_fns.h"
 
 #include "dw1000_adaptor.h"
 
