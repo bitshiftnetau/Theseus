@@ -1,4 +1,4 @@
- /* # SpongeCake, an embedded software design philosophy for bare-metal systems
+ /* # Theseus, an embedded software design pattern for bare-metal & RTOS applications
  * Copyright (C) 2018 Aidan Millar-Powell
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -16,35 +16,36 @@
  *
  */
    
-I humbly and respectfully present this design as my first major project. I call this design ‘SpongeCake’, because it’s all about a complete separation of concerns and because I’m being ironic.
+I humbly and respectfully present this design pattern as my first major project. I call this design pattern ‘Theseus’ because each section of the code could change and other sections should be able to operate the same regardless.
 
 This design is by no means perfect, there are more than a few kinks that need working out. That is partly why I am putting this out into the world. Not only to receive feedback on my approach, but also potentially spark an open conversation about better design principles in embedded software engineering. 
 
 I will be sure to comment where there are obvious holes in the given examples, accompanied by ideas about refactors and improvements. Things like the XX_adaptor and mpi_XX files and other parts are incomplete, as are the various README files in the repo. However, the general idea of the design is present and should hopefully be obvious to those whom take an interest. 
 
-The core tenets of this design are: 
-
-Build the smaller pieces properly, and within a repeatable pattern, so things are much easier when it comes time to ‘glue it all together’, with jump tables and fn ptrs.
-Abstracted connection between layers through the use of callback functions
-Something I like to call ‘boomerang’ functions
-Common device interfaces (optional)
-Jump tables (so many jump tables...)
-A config layer with compiler flags for different devices and buffer widths
-Data structure prototypes at the device layer and instance declarations at config layer
-The use of pseudo-universal objects
-A tendency towards coding general functionality of a device at the hardware layer, rather than application-centric coding (this will hopefully make sense later)
-Moving all runtime configuration changes into a GUI or application layer, prior to write calls
-
-Some negatives:
-
-Casting is required at the interface level
-Jump tables generally need to be mirrored, so great care must be taken during definition
-Currently it is written in C, which is not a bad thing but it’s worth a mention before people ask me why it wasn’t written in C++. I am reviewing the possibilities of re-writing parts of the code in C++.
-
+One major thing that I have not implemented yet is typedefs for parameters. However given the inherent modularity of the design, this should be trivial and merely a matter of include statements and changing the data types on parameters themselves. If it weren't that easy, then I would have failed in one of my original design goals: to factor in expansion over time, then make it seamless and logical.
 
 The aim of this project arose out of the need to plan for future device upgrades. Not only in major versions of microcontroller, but also across variable Cortex series MCUs.
 
 I also wished to account for changing requirements with external devices, imagine a product that has seven or eight different radio variants i.e. one has GPS, Wifi, and LTE and another product has the same wifi requirements but for a country that allocates a separate frequency band. Swapping out an external device should be as easy as writing the library (in accordance with the design), and adjusting application level calls (if necessary). When looking at an application level code block, it should reflect a high-level pattern of behaviour intrinsic to an application, rather than having device and core logic mixed in at this level.
+
+The core tenets of this design are: 
+
+- As just mentioned: seamless and logical expansion/contraction over time, leading to enhanced maintainability
+- Build the smaller pieces properly, and within a repeatable pattern, so things are much easier when it comes time to ‘glue it all together’, with jump tables and fn ptrs.
+- Abstracted connection between layers through the use of callback functions
+- Common device interfaces (optional)
+- Jump tables (so many jump tables...)
+- A config layer with compiler flags for different devices and buffer widths
+- Data structure prototypes at the device layer and instance declarations at config layer
+The use of pseudo-universal objects
+- A tendency towards coding general functionality of a device at the hardware layer, rather than application-centric coding (this will hopefully make sense later)
+- Moving all runtime configuration changes into a GUI or application layer, prior to write calls
+
+Some negatives:
+
+- Casting is required at the interface level
+- Jump tables generally need to be mirrored, so great care must be taken during definition
+- Currently it is written in C, which is not a bad thing in and of itself but it’s worth a mention before people ask me why it wasn’t written in C++. I am reviewing the possibilities of re-writing parts of the code in C++, particularly middleware and interface layers where method overloading is currently not possible. Variadic functions in C are still being considered as an alternative to mixing C & C++
 
 This project is not just about a design pattern, but a proposal toward a sensible approach to programming embedded systems. 
 
@@ -56,12 +57,12 @@ The best way to explain this design is that each section is theoretically decoup
 There is one data layer, with all instances of said layer declared at the configuration level as needed. There is no place for static structs declarations at the HAL in this design (please bear with me on this). There are some exceptions to this but they should be a last resort, not a core design feature. Error data is to be considered akin to any other data category. 
 
 
-HALs: The HAL layers are simply sets of read, write and clear functions arranged into a series of sensible jump tables. The device-native data / config struct prototypes are defined in a shared header at this level. 
-External devices: The external device layers are merely glorified message builders and decoders, with configuration included, that simply make callbacks to host hardware for communication. 
-Port adaptors / interface layer: this layer is where the public interface functions reside for each device and peripheral. This enables different layer configurations i.e. middlewares and HALs, simply by changing the interface (or adaptor). 
-Middleware: The middleware layer houses a series of functions that merely perform callbacks to host hardware via any external device layer. The MPI_host and MPI_slave object prototypes are defined at this level. Any state machines and error checks should also be contained at this level. 
-Config layer: The configuration layer houses compiler flags for any desired devices. Within these include flags are also the data / config struct declarations and assignments to relevant object members. 
-RTOS/Application layer: This layer houses main() and any arrangement of RTOS API calls.
+- HALs: The HAL layers are simply sets of read, write and clear functions arranged into a series of sensible jump tables. The device-native data / config struct prototypes are defined in a shared header at this level. 
+- External devices: The external device layers are merely glorified message builders and decoders, with configuration included, that simply make callbacks to host hardware for communication. 
+- Port adaptors / interface layer: this layer is where the public interface functions reside for each device and peripheral. This enables different layer configurations i.e. middlewares and HALs, simply by changing the interface (or adaptor). 
+- Middleware: The middleware layer houses a series of functions that merely perform callbacks to host hardware via any external device layer. The MPI_host and MPI_slave object prototypes are defined at this level. Any state machines and error checks should also be contained at this level. 
+- Config layer: The configuration layer houses compiler flags for any desired devices. Within these include flags are also the data / config struct declarations and assignments to relevant object members. 
+- RTOS/Application layer: This layer houses main() and any arrangement of RTOS API calls.
 
 In this way a clear separation of concerns is achieved between the respective HALs, RTOS’, middleware, and external devices. 
 
@@ -70,33 +71,33 @@ Across the public interface (port adaptor) and middleware layers, there are a sm
 
 Functions:
 
-Init: initialize device or register 
-RegDump: get all the info for the whole device and place them in a middleware data struct
-ConfigReg: alter the values for a single register
-QueryReg: query the values for a single register
-Data: data I/O functions for host and external devices
-Reset: reset the device (with options for settings flush i.e. back to initial user-defined config, soft reset i.e. power cycle, and factory reset i.e. back to factory settings)
-OFF: turn the device off
-Sleep: put the device to sleep
-Wakeup: wake-up the device from sleep
-ModeLevel: think of mode level as a universal power or user level function. Some devices contain the ability to have multiple active levels i.e. various sleep modes or default active/deactive peripherals. Some have one or two, others have four or even five. 
+- Init: initialize device or register 
+- RegDump: get all the info for the whole device and place them in a middleware data struct
+- ConfigReg: alter the values for a single register
+- QueryReg: query the values for a single register
+- Data: data I/O functions for host and external devices
+- Reset: reset the device (with options for settings flush i.e. back to initial user-defined config, soft reset i.e. power cycle, and factory reset i.e. back to factory settings)
+- Off: turn the device off
+- Sleep: put the device to sleep
+- Wakeup: wake-up the device from sleep
+- ModeLevel: think of mode level as a universal power or user level function. Some devices contain the ability to have multiple active levels i.e. various sleep modes or default active/deactive peripherals. Some have one or two, others have four or even five. 
 
 Parameters (IN THIS ORDER):
 
-void* host_object
-Int read_write_clear (optional)
-int(*host_communication)()
-void* ext_dev_object
-int(*ext_dev_communication)()
+- void* host_object
+- Int read_write_clear (optional)
+- int(*host_communication)()
+- void* ext_dev_object
+- int(*ext_dev_communication)()
 
 If you decide to expand or alter these guidelines, then changes should be reflected across the middleware and interface layers in order to retain a standard of uniformity. 
 
 For example, you may have one set of parameters (A) for host controllers (at middleware and public interface), but another set of parameters (B) for the external devices (at middleware and public interface). However, you may NOT have one set (B) for one external device and another set (C) for another device. The idea is that the middleware layer enables generic connection between layers to ease maintenance and updates for device versioning. Further, you may NOT have one set (A) for the public interface and another set (B) for the middleware. It simply will not compile. 
 
 
-‘Boomerang’ V ‘All roads lead to Rome’ fns
+‘Callback’ V ‘All roads lead to Rome’ fns
 
-This is an interesting concept. Something I came across when comparing libraries I built for two different devices. A boomerang style is where you have a device that needs a spi transaction header or a message frame builder, instead of the interface fn calling that builder and then having that child function call through to the spi interface, you return and the interface calls back to the spi. 
+This is an interesting concept. Something I came across when comparing libraries I built for two different devices. Using a callback style you have a device that needs a spi transaction header or a message frame builder, instead of the interface fn calling that builder and then having that child function call through to the spi interface, you return and the interface calls back to the spi. 
 
 Look at this basic flow:
 

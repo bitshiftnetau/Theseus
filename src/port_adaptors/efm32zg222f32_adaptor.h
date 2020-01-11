@@ -58,7 +58,6 @@ int gpio_Data(void* host_ptr, uint32_t RW, uint32_t port, uint16_t pin);
 int timer_Init(void* host_ptr);
 int timer_ConfigReg(void* host_ptr, uint32_t config_register);
 int timer_QueryReg(void* host_ptr, uint32_t config_register);
-
 int timer_Delay(uint32_t dlyTicks);
 
 #endif /* EFM32ZG_GLOBAL_HAL_H_ */
