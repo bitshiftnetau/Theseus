@@ -1,9 +1,0 @@
-
-README FOR RPI HAL LAYER
-
-The raspi layer is utilising the bcm2835 library written by Mike McCauley
-found at the following link: https://www.airspayce.com/mikem/bcm2835
-
-Please direct all questions, related to this library, in the provided google group.
-
-The purpose of this layer is to organize any defines and data structures, required to interact with the library in a sane manner. 

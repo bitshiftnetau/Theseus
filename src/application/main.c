@@ -192,10 +192,6 @@ int main(void)
   mpi_timerDelay(efm32zg_timer_delay, 10);
  */ 
 
-  //Uncomment for Raspberry Pi demo
-  printf("Activating program... \nCount to follow\n");
-  int i = 0;
-
   /* Infinite loop */
   while (1){
 
@@ -240,12 +236,7 @@ int main(void)
     }
    */
 
-    //Uncomment for Raspberry Pi 2 demo
-    printf("Delay... ");
-    bcm2835_delay(1000);
-    printf("%d\n", i);
-    i++;
-
+  
     //Uncomment for dw1000 demo on efm32zg222f32 host
    /*
     mpi_extdevData(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_data, WRITE);
