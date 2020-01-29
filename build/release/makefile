@@ -41,7 +41,7 @@ EM_LIB=$(GECKO_SDK_DIR)/platform/emlib/inc
 STK3200_DIR=$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200
 BSP_DIR=$(GECKO_SDK_DIR)/hardware/kit/common/bsp
 
-PROJECT_NAME=spongecake
+PROJECT_NAME=theseus
 TARGET=$(PROJECT_NAME).axf 
 
 
