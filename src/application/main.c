@@ -177,7 +177,7 @@ int main(void)
 
   mpi_timerDelay(efm32zg_timer_delay, 1);
   mpi_gpioData(&efm32zg222f32_host, efm32zg_gpio_data, WRITE, 5, 4);
- */
+  */
   /********************* GPIO LEDs ************************************/ 
  /*
   mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_init); 

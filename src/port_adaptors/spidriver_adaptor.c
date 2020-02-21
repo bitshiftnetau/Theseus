@@ -36,7 +36,7 @@ int sd_RegDump(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_host* host_ptr = (MPI_host*)host_object;
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
-  SPIDriver* sd_config = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
+  SPIDriver* sd_conf = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
 
   //spi_getstatus
  
@@ -47,7 +47,7 @@ int sd_QueryReg(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_host* host_ptr = (MPI_host*)host_object;
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
-  SPIDriver* sd_config = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
+  SPIDriver* sd_conf = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
 
   //spi_getstatus
  
@@ -57,7 +57,7 @@ int sd_ConfigReg(void* host_object, int(*host_usart)(), void* ext_dev_object){
  
   MPI_host* host_ptr = (MPI_host*)host_object;
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
-  SPIDriver* sd_config = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
+  SPIDriver* sd_conf = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
 
   //spi_getstatus
  
@@ -69,9 +69,10 @@ int sd_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
 
   MPI_host* host_ptr = (MPI_host*)host_object;
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
-  SPIDriver* sd_config = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
+  SPIDriver* sd_conf = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
 
   //spi_connect
+  spi_connect(sd_conf, "/dev/ttyUSB0");
 
   //spi_commands
 
@@ -83,7 +84,7 @@ int sd_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
 
   MPI_host* host_ptr = (MPI_host*)host_object;
   MPI_ext_dev* dw_slave_ptr = (MPI_ext_dev*)ext_dev_object;
-  SPIDriver* sd_config = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
+  SPIDriver* sd_conf = (SPIDriver*)dw_slave_ptr->MPI_conf[SD_CONFIG_INDEX];  
 
   //spi_sel
 

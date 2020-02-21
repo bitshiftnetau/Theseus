@@ -34,7 +34,6 @@ SD_CONF sd_conf = {
     .port = {"ttyUSB0"}
 };
 
-
 SD_DATA sd_data = {
     .tx = {'0'},
     .rx = {'0'}
