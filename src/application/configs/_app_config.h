@@ -25,10 +25,10 @@
   #include "venus638_adaptor.h"
 #endif
 
-#ifdef RPI2
-  #include "config_rpi2.h"
-  #include "rpi2_adaptor.h"
-  #include "spi.h"
+#ifdef SPIDRIVER 
+  #include "config_spidriver.h"
+  #include "spidriver_adaptor.h"
+  #include "spidriver.h"
 #endif
 
 /******************************************************************

@@ -42,7 +42,7 @@ STK3200_DIR=$(GECKO_SDK_DIR)/hardware/kit/EFM32ZG_STK3200
 BSP_DIR=$(GECKO_SDK_DIR)/hardware/kit/common/bsp
 
 PROJECT_NAME=theseus
-EMB_TARGET=$(PROJECT_NAME).axf 
+TARGET=$(PROJECT_NAME).axf 
 
 
 #################################
@@ -135,7 +135,6 @@ SRC_DIR = \
 $(PROJECT_SOURCES)
 
 
-
 #################################
 # 		    BUILD FLAGS 				  	
 #################################
@@ -156,15 +155,15 @@ LDFLAGS= \
 BUILD_DIR=.
 
 #################################
-# 		 BUILD EMB_TARGET 				  
+# 		   BUILD TARGETS 				  
 #################################
 
-emb_target: $(EMB_TARGET)
+all: $(TARGET)
 	$(GCC_BIN_ARM)/arm-none-eabi-objcopy -O ihex "$(PROJECT_NAME).axf" "$(PROJECT_NAME).hex"
 	$(GCC_BIN_ARM)/arm-none-eabi-objcopy -O binary "$(PROJECT_NAME).axf" "$(PROJECT_NAME).bin"
 	$(GCC_BIN_ARM)/arm-none-eabi-size "$(PROJECT_NAME).axf"
 
-$(EMB_TARGET): startup_efm32zg.o system_efm32zg.o obj
+$(TARGET): startup_efm32zg.o system_efm32zg.o obj
 	$(LD) -o $@ $(wildcard $(BUILD_DIR)/*.o) $(LDFLAGS)
 
 obj: $(SRC_DIR)
@@ -201,12 +200,13 @@ system_efm32zg.o: $(DEVICE_DIR)/Source/system_efm32zg.c
 	@echo 'Finished building: $<'
 	@echo ' '
 
+
 #clean:
-#	rm $(EMB_TARGET) $(OBJECTS)
+#	rm $(TARGET) $(OBJECTS)
 
 clean:
-	rm $(EMB_TARGET) $(BUILD_DIR)/*.o $(PROJECT_NAME).hex $(PROJECT_NAME).bin CMSIS/efm32zg/system_efm32zg.d
-.PHONY: pc_target emb_target all clean assembly
+	rm $(TARGET) $(BUILD_DIR)/*.o $(PROJECT_NAME).hex $(PROJECT_NAME).bin CMSIS/efm32zg/system_efm32zg.d
+.PHONY: all clean assembly
 
 
 #

@@ -316,6 +316,7 @@ typedef struct MPI_EXT_DEV{
   char revision[8];
   MPI_ext_dev_interface _interface;
   void* MPI_data[12];
+  void* MPI_status[12];
   void* MPI_conf[12];
   
 }MPI_ext_dev;

@@ -15,16 +15,17 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  */
-   
-#ifdef EFM32ZG222F32
-#include "em_device.h"
-#include "em_chip.h"
-#endif
-
 #include <stdio.h>
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <unistd.h>
+
+  
+#ifdef EFM32ZG222F32
+#include "em_device.h"
+#include "em_chip.h"
+#endif
 
 #include "mpi_cmu.h"
 #include "mpi_gpio.h"
@@ -85,9 +86,8 @@ int test_fn(void* host_object,  uint32_t read_write, int(* host_usart_fn)(), voi
 int main(void)
 {
   /* Chip errata */
-  /*
+/*
   CHIP_Init();
-  */
   
   //Uncomment the following for basic setup demo with cmu, usart, timer and gpio
   //including LED initialization demo
@@ -95,7 +95,7 @@ int main(void)
   //Get the x_Init fns for the respective devices and peripherals
   //
  
- /* 
+  
   volatile const int(* efm32zg_cmu_init)() = efm32zg222f32_host._periph_periphconf._cmu_init;
   volatile const int(* efm32zg_usart_init)() = efm32zg222f32_host._periph_periphconf._usart_init;
   volatile const int(* efm32zg_gpio_init)() = efm32zg222f32_host._periph_periphconf._gpio_init;
@@ -103,29 +103,25 @@ int main(void)
   
   volatile const int(* efm32zg_cmu_query_reg)() = efm32zg222f32_host._periph_periphconf._cmu_query_reg;
   volatile const int(* efm32zg_cmu_config_reg)() = efm32zg222f32_host._periph_periphconf._cmu_config_reg;
- */
+ 
 
   //Get the io functions
   // 
- /*
+ 
   volatile const int(* efm32zg_gpio_data)() = efm32zg222f32_host._periph_periphconf._gpio_data;
   volatile const int(* efm32zg_usart_data)() = efm32zg222f32_host._periph_periphconf._usart_data;
   volatile const int(* efm32zg_timer_delay)() = efm32zg222f32_host._periph_periphconf._timer_delay;
-  //volatile const int(* efm32zg_timer_delay)() = &timer_Delay;
- */
+ 
 
   //Run the x_Init fns through the middleware layer
   //
- /*
   mpi_cmuInit(&efm32zg222f32_host, efm32zg_cmu_init);
 
   CMU_periphconf* cmu_conf = efm32zg222f32_host.MPI_data[CMU_PERIPHCONF_INDEX];
   cmu_conf->oscencmd = CMU_OSCENCMD_HFXOEN;
   mpi_cmuConfigReg(&efm32zg222f32_host, efm32zg_cmu_config_reg, CMU_OSCENCMD);
- */
   //check the status of the HFXO
   //
- /*
   do{
     mpi_cmuQueryReg(&efm32zg222f32_host, efm32zg_cmu_query_reg, CMU_STATUS);
   }while(!(cmu_conf->status & CMU_STATUS_HFXORDY));
@@ -146,8 +142,7 @@ int main(void)
   mpi_timerInit(&efm32zg222f32_host, efm32zg_timer_init);
   mpi_gpioInit(&efm32zg222f32_host, efm32zg_gpio_init); 
   mpi_usartInit(&efm32zg222f32_host, efm32zg_usart_init);
- */
-  
+*/  
   /********************* External Device ******************************/ 
   
   //Uncomment the following to use the Venus638 demo
@@ -166,14 +161,11 @@ int main(void)
   
 
   //Uncomment the following for dw1000 demo
- /*/
   volatile const int(* dw1000_init)() = dw1000._interface._dev_init;
   volatile const int(* dw1000_data)() = dw1000._interface._dev_data;
- */
   //mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_init, &dw1000, dw_Init);
   
   /********************* GPIO LEDs ************************************/ 
- 
   //get the data structs
   //
  /*
@@ -236,12 +228,19 @@ int main(void)
     }
    */
 
-  
+    //Uncomment the following for test output on Linux
+    /*
+    printf("The programm is running. This message will output every second\n");
+    sleep(1);
+    */
+
     //Uncomment for dw1000 demo on efm32zg222f32 host
+     
    /*
     mpi_extdevData(&efm32zg222f32_host, efm32zg_usart_data, &dw1000, dw1000_data, WRITE);
     mpi_timerDelay(efm32zg_timer_delay, 1);
    */
+
    }
 }
 

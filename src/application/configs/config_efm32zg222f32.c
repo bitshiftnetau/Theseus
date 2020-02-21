@@ -206,9 +206,9 @@ typedef struct {
 #define HFPERCLK_12MHZ  12000000
 
 #define SPICLK_MAX_24MHZ_PERCLK      (HFPERCLK_24MHZ / 2)
-#define SPICLK_11-5_MBPS              11500000
+#define SPICLK_11_5_MBPS              11500000
 #define SPICLK_11_MBPS                11000000
-#define SPICLK_10-5_MBPS              10500000
+#define SPICLK_10_5_MBPS              10500000
 #define SPICLK_10_MBPS                10000000
 //...
 #define SPICLK_5_MBPS                 5000000
