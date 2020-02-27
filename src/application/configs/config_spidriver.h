@@ -7,15 +7,7 @@
 #include "spidriver.h"
 
 extern SPIDriver sd_status;
-extern MPI_ext_dev sd_intf;
+extern MPI_host sd_host;
 
-typedef struct {
-    char tx[8];
-    char rx[8];
-}SD_DATA;
-
-typedef struct {
-    const char port[8];
-}SD_CONF;
 
 #endif

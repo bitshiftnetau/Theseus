@@ -85,6 +85,14 @@ int test_fn(void* host_object,  uint32_t read_write, int(* host_usart_fn)(), voi
 
 int main(void)
 {
+
+
+//FIXME: change to MPI_host 
+  volatile const int (* spidriver_init)() = sd_host._periph_periphconf._usart_init;
+  volatile const int (* spidriver_data)() = sd_host._periph_periphconf._usart_data;
+
+
+
   /* Chip errata */
 /*
   CHIP_Init();
@@ -164,7 +172,9 @@ int main(void)
   volatile const int(* dw1000_init)() = dw1000._interface._dev_init;
   volatile const int(* dw1000_data)() = dw1000._interface._dev_data;
   //mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_init, &dw1000, dw_Init);
-  
+
+  mpi_extdevInit(&sd_host, spidriver_init, &dw1000, dw_Init);  
+
   /********************* GPIO LEDs ************************************/ 
   //get the data structs
   //
@@ -233,6 +243,7 @@ int main(void)
     printf("The programm is running. This message will output every second\n");
     sleep(1);
     */
+    
 
     //Uncomment for dw1000 demo on efm32zg222f32 host
      

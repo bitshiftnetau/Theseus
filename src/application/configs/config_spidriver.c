@@ -35,10 +35,10 @@ SD_CONF sd_conf = {
 };
 
 SD_DATA sd_data = {
-    .tx = {'0'},
-    .rx = {'0'}
+    .rxtx = {'0'},
 };
 
+/*
 MPI_ext_dev sd_intf = {
     
     .model = {"spidriver"},
@@ -46,12 +46,38 @@ MPI_ext_dev sd_intf = {
     ._interface = {
         ._dev_init = &sd_Init,
         ._dev_reg_dump = &sd_RegDump,
-        ._dev_data = &sd_Data,
-        ._dev_config_reg = &sd_ConfigReg,
-        ._dev_query_reg = &sd_QueryReg,
+        ._dev_data = &sd_Data
     },
     .MPI_status[0] = &sd_status,
     .MPI_conf[0] = &sd_conf,
     .MPI_data[0] = &sd_data 
-};
+};*/
 
+/*
+typedef struct MPI_HOST{
+
+  char model[16];
+  char revision[8];
+  //int_callback mmap;
+  int_callback interrupt_handlers;
+  MPI_core_mcuconf _core_mcuconf;
+  MPI_core_periphconf _core_periphconf;
+  MPI_periph_periphconf _periph_periphconf;
+  void* MPI_data[12]; // middleware layer data struct as defined as standard
+
+}MPI_host;
+*/
+
+MPI_host sd_host = {
+    
+    .model = {"spidriver"},
+    .revision = {1.0},
+    ._periph_periphconf = {
+        ._usart_init = &sd_Init,
+        ._usart_query_reg = &sd_RegDump,
+        ._usart_data = &sd_Data
+    },
+    .MPI_status[0] = &sd_status,
+    .MPI_conf[0] = &sd_conf,
+    .MPI_data[0] = &sd_data
+};

@@ -281,7 +281,7 @@ typedef struct {
  *
  *****************************************/
 
-#define PERIPH_TABLE_LEN  32
+#define PERIPH_TABLE_LEN 8 
 
 typedef struct MPI_HOST{
 
@@ -292,7 +292,9 @@ typedef struct MPI_HOST{
   MPI_core_mcuconf _core_mcuconf;
   MPI_core_periphconf _core_periphconf;
   MPI_periph_periphconf _periph_periphconf;
-  void* MPI_data[12]; // middleware layer data struct as defined as standard
+  void* MPI_status[PERIPH_TABLE_LEN];
+  void* MPI_conf[PERIPH_TABLE_LEN];
+  void* MPI_data[PERIPH_TABLE_LEN]; // middleware layer data struct as defined as standard
 
 }MPI_host;
 
