@@ -243,6 +243,7 @@ int main(void)
     
     printf("The programm is running. This message will output every second\n");
     sleep(1);
+    mpi_usartData(&sd_host, sd_Data, &dw1000, dw_Data, WRITE);
     
     
 

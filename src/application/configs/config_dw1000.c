@@ -198,6 +198,8 @@ DW_nodelist dw_list = {
   .list[0 ... NODELIST_LEN -1].frame_len = 0,
   .list[0 ... NODELIST_LEN -1].frame_in = {0},
   .list[0 ... NODELIST_LEN -1].frame_out = {0},
+  .frame_in = {0},
+  .frame_out = {0},
   .frame_out_len = 3,
   .node_index = 0
 };
