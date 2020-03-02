@@ -1,8 +1,10 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "mpi_port.h"
 #include "spidriver.h"
@@ -99,7 +101,7 @@ int sd_Init(void* host_object){
   printf("output b: %d\n", sd_status->b);
   printf("output cs: %d\n", sd_status->cs);
   bool crc = (sd_status->ccitt_crc & sd_status->e_ccitt_crc) ? true: false;
-  printf("%s", (crc ? "CRC CHECK: TRUE" : "CRC CHECK: FALSE"));
+  printf("%s", (crc ? "CRC CHECK: TRUE\n" : "CRC CHECK: FALSE\n"));
  
   return 0;
 
@@ -117,9 +119,17 @@ int sd_Data(void* host_ptr, uint32_t RW, void* ext_dev_array, uint32_t array_len
   // store read_write_readwrite
   void(*rw)() = read_write_readwrite[SD_READ_WRITE];
 
+  char * array = (char*)ext_dev_array;
+
+  printf("output: ");
+  for(int i = 0; i < array_len; i++){
+    printf("%02hhX ", array[i]);
+  }
+  printf("\n");
+  
   // call rw
   rw(sd_status, (char*)ext_dev_array, array_len);
-  
+
   //spi_unsel
   spi_unsel(sd_status);
 

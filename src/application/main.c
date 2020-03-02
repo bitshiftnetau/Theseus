@@ -173,7 +173,8 @@ int main(void)
   volatile const int(* dw1000_data)() = dw1000._interface._dev_data;
   //mpi_extdevInit(&efm32zg222f32_host, efm32zg_usart_init, &dw1000, dw_Init);
 
-  mpi_extdevInit(&sd_host, spidriver_init, &dw1000, dw_Init);  
+  mpi_usartInit(&sd_host, sd_Init);
+  mpi_extdevInit(&sd_host, spidriver_data, &dw1000, dw_Init);  
 
   /********************* GPIO LEDs ************************************/ 
   //get the data structs
@@ -239,10 +240,10 @@ int main(void)
    */
 
     //Uncomment the following for test output on Linux
-    /*
+    
     printf("The programm is running. This message will output every second\n");
     sleep(1);
-    */
+    
     
 
     //Uncomment for dw1000 demo on efm32zg222f32 host

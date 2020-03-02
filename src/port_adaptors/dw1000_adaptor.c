@@ -137,7 +137,10 @@ int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //
   for(int i = 0; i < CONFIG_STRUCT_MEMBERS; i++){
 
-    host_timer_delay(1); 
+    if(host_timer_delay = NULL){
+      host_timer_delay(1); 
+    }
+
     void(*config_member_ptr)() = config_table[i]; 
     config_member_ptr(dw_config);
     
