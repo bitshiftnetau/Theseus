@@ -132,5 +132,5 @@ obj: $(SRC_DIR)
 #	rm $(TARGET) $(OBJECTS)
 
 clean:
-	rm $(TARGET) $(BUILD_DIR)/*.o $(PROJECT_NAME).hex $(PROJECT_NAME).bin CMSIS/efm32zg/system_efm32zg.d
+	rm $(TARGET) $(BUILD_DIR)/*.o
 .PHONY: target all clean assembly
