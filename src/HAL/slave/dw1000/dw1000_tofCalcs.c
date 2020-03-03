@@ -222,17 +222,25 @@ uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t nodelist_index){
 
  uint32_t node_index = nodelist_index;
 
- DW_data dw_data = dw_nodelist->list[node_index]; 
- DW_nodelist* node_list = dw_nodelist;
- DW_network_dev* dev_list = &dw_nodelist->devices[0];
-  
- DW_network_dev tmp_1;
- DW_network_dev tmp_2;
- 
- float new_distance = dw_data.tof.final_distance;
- float active_distance = dev_list[0].distance;
- int i = 0; 
+//UNCOMMENT ALL CODE FOR STORING AND AGGREGATING DEVICES IN NEW DEVICE LIST
 
+// DW_data dw_data;
+// memcpy(&dw_data, &dw_nodelist->list[node_index], sizeof(DW_data))
+
+ DW_nodelist* node_list = dw_nodelist;
+// DW_network_dev* dev_list = &dw_nodelist->devices[0];
+  
+// DW_network_dev tmp_1;
+// DW_network_dev tmp_2;
+ 
+//double new_distance = dw_data.tof.final_distance;
+// float active_distance = dev_list[0].distance;
+
+dw_nodelist->list[node_index].distance = dw_nodelist->list[node_index].tof.final_distance;
+
+/*
+ int i = 0; 
+ 
  while(active_distance <= new_distance){
    i++;
    active_distance = dev_list[i].distance;
@@ -240,18 +248,24 @@ uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t nodelist_index){
  
  //memcpy(&tmp_1, &dev_list[i], sizeof(DW_network_dev));
  tmp_1 = dev_list[i];
+*/
 
+/*
  for(int j = 0; j < BLINK_SHORT_ADDR_LEN; j++){
   node_list->devices[i].tag_id[j] = dw_data.tag_id[j];
  }
  node_list->devices[i].distance = new_distance;
+*/
 
+/*
  if(i+1 != ACTIVE_DEVICES_LEN){
   active_distance = dev_list[i+1].distance;
  } else {
   return EXIT_SUCCESS;
  }
+*/
 
+/*
  while(active_distance >= tmp_1.distance){
    //memcpy(&tmp_2, &dev_list[i], sizeof(DW_network_dev));
    //memcpy(&dev_list[i], &tmp_1, sizeof(DW_network_dev));
@@ -270,6 +284,8 @@ uint32_t dw_deviceStore(DW_nodelist* dw_nodelist, uint32_t nodelist_index){
  }
  
  return ERROR;
+ */
+ return EXIT_SUCCESS;
 }
 
 void (* dw_ts_handler_table[TS_HANDLER_TABLE_LEN])() = {

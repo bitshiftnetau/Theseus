@@ -611,6 +611,7 @@ typedef struct{
 typedef struct {
   int dev_status;
   int dev_index;
+  float distance;
   uint8_t pan_id[2];
   uint8_t tag_id[8]; // <--- store the tag ID from the initial blink message, in here and re-transmit
   uint8_t short_addr[2]; //store from range init and use in ranging phase
@@ -639,7 +640,7 @@ typedef struct{
   uint32_t frame_out_len;
   uint32_t node_index;
   DW_data list[NODELIST_LEN];
-  DW_network_dev devices[NODELIST_LEN]; 
+  //DW_network_dev devices[NODELIST_LEN]; 
 }DW_nodelist;
 
 #define QUERY_BUFFER_LEN    32

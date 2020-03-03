@@ -62,7 +62,7 @@ int mpi_usartQueryReg(void* host_object, int(*host_usart_interface_single_reg_fn
  * We always read from an external device layer, rather than directly from the host usart
  */
 int mpi_usartData(void* host_object, int(*host_usart_interface_fn)(), void* ext_dev_object, int(*ext_dev_interface_fn)(), uint32_t read_write){
-	return ext_dev_interface_fn(host_object, read_write, host_usart_interface_fn, ext_dev_object);
+	return ext_dev_interface_fn(host_object, host_usart_interface_fn, ext_dev_object, read_write);
 }
 
 

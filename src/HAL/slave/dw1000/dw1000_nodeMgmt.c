@@ -18,7 +18,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
-//#include <string.h>
+#include <string.h>
 
 #include "mpi_port.h"
 #include "dw1000_types.h"
@@ -106,8 +106,8 @@ uint32_t dw_nodeSort(DW_nodelist* dw_nodelist, uint32_t node_index){
   uint32_t i = 0; //node_index;
 
   while((dw_nodelist->list[i].dev_status == DW_DEV_ACTIVE) && (i < NODELIST_LEN)){
-    //memcpy(&dw_nodelist->list[i], &dw_nodelist->list[i+1], sizeof(DW_data));
-    dw_nodelist->list[i] = dw_nodelist->list[i+1];
+    memcpy(&dw_nodelist->list[i], &dw_nodelist->list[i+1], sizeof(DW_data));
+    //dw_nodelist->list[i] = dw_nodelist->list[i+1];
     ++i;
   }
   return i;

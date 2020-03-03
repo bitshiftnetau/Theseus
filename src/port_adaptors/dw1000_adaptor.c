@@ -298,6 +298,7 @@ int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
    
      // MAJOR PROBLEM: WE DON'T HAVE THE INDEX OF THE DATA NODE FROM NODELIST IF WE ARE 
      // MAKING AN UNSOLICITED WRITE OPERATION
+     // IF WE ARE EVER MAKING AN UNSOLICITED WRITE OP, WE ARE STARTING FROM INDEX ZERO
    
       dw_config->reg_id_index = tx_buffer;
       dw_config->sub_addr_index = 0;
@@ -305,7 +306,7 @@ int dw_Data(void* host_object, int(*host_usart)(), void* ext_dev_object, uint32_
 
       DW_reg_id_enum reg_id = dw_config->reg_id_index;
 
-      //if tx call to dw_buildMessage()
+      //if tx, call to dw_buildMessage()
       //
       uint32_t(*build_msg_ptr)() = dw_decode_build_table[read_write];
       int node_index = build_msg_ptr(host_object, host_usart, ext_dev_object, WRITE, dw_nodelist->node_index);
