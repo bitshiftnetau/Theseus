@@ -184,6 +184,11 @@ DW_config dw_devconf = {
   }
 };
 
+//The entire state of the node is controlled by the above and below objects 
+//Config sets bootup state (and can be changed at runtime from a higher layer)
+//Dw_nodelist is runtime state, DW_DEV_DISABLED needs to be set in order for 
+//that node to be found and used as a store. This is a static memory replacement
+//for NULL checking a pointer list. 
 
 DW_nodelist dw_list = {
   .list[0 ... NODELIST_LEN -1].dev_status = DW_DEV_DISABLED,
@@ -202,7 +207,7 @@ DW_nodelist dw_list = {
   .frame_out = {0},
   .frame_out_len = 3,
   .node_index = 0
-};
+};,
 
 
 MPI_ext_dev dw1000 = {
