@@ -137,7 +137,7 @@ int dw_Init(void* host_object, int(*host_usart)(), void* ext_dev_object){
   //
   for(int i = 0; i < CONFIG_STRUCT_MEMBERS; i++){
 
-    if(host_timer_delay = NULL){
+    if(host_timer_delay != NULL){
       host_timer_delay(1); 
     }
 
