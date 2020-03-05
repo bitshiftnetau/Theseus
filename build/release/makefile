@@ -159,7 +159,7 @@ BUILD_DIR=.
 # 		 BUILD EMB_TARGET 				  
 #################################
 
-emb_target: $(EMB_TARGET)
+target: $(EMB_TARGET)
 	$(GCC_BIN_ARM)/arm-none-eabi-objcopy -O ihex "$(PROJECT_NAME).axf" "$(PROJECT_NAME).hex"
 	$(GCC_BIN_ARM)/arm-none-eabi-objcopy -O binary "$(PROJECT_NAME).axf" "$(PROJECT_NAME).bin"
 	$(GCC_BIN_ARM)/arm-none-eabi-size "$(PROJECT_NAME).axf"
@@ -206,7 +206,7 @@ system_efm32zg.o: $(DEVICE_DIR)/Source/system_efm32zg.c
 
 clean:
 	rm $(EMB_TARGET) $(BUILD_DIR)/*.o $(PROJECT_NAME).hex $(PROJECT_NAME).bin CMSIS/efm32zg/system_efm32zg.d
-.PHONY: pc_target emb_target all clean assembly
+.PHONY: target all clean assembly
 
 
 #

@@ -207,7 +207,7 @@ DW_nodelist dw_list = {
   .frame_out = {0},
   .frame_out_len = 3,
   .node_index = 0
-};,
+};
 
 
 MPI_ext_dev dw1000 = {
