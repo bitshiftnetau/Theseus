@@ -168,11 +168,11 @@ uint32_t dw_ext_read_write(DW_nodelist* dw_nodelist, DW_config* dw_config, uint3
 
 uint32_t dw_buildConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_start){
 
-  uint32_t frame_index = ++frame_index_start;
+  uint32_t frame_index = frame_index_start;
   uint32_t len = dw_config->config_buffer_len;
 
   for(int i = 0; i < len; i++){
-    dw_nodelist->frame_out[frame_index++] = dw_config->config_buffer[i];
+    dw_nodelist->frame_out[++frame_index] = dw_config->config_buffer[i];
   }
   dw_nodelist->frame_out_len = ++frame_index;  
   
@@ -183,11 +183,11 @@ uint32_t dw_buildConfig(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t
 
 uint32_t dw_buildQuery(DW_nodelist* dw_nodelist, DW_config* dw_config, uint32_t frame_index_start){
 
-  uint32_t frame_index = ++frame_index_start;
+  uint32_t frame_index = frame_index_start;
   uint32_t len = dw_config->query_buffer_len;
 
   for(int i = 0; i < len; i++){
-    dw_nodelist->frame_out[frame_index++] = dw_config->config_buffer[i];
+    dw_nodelist->frame_out[++frame_index] = dw_config->config_buffer[i];
   }
   dw_nodelist->frame_out_len = ++frame_index;
   
